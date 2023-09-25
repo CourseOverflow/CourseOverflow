@@ -1,10 +1,14 @@
-import "./App.css";
+import Header from "./Components/Header/Header";
+import Sidebar from "./Components/Sidebar/Sidebar";
 
 function App() {
   return (
-    <div className="App">
-      <h1> slimyApp </h1>
-    </div>
+    <>
+      <Header />
+      <div className="sidebar-content">
+        <Sidebar />
+      </div>
+    </>
   );
 }
 

@@ -1,0 +1,35 @@
+/* SearchBar.css */
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  width: 24rem; /* You can adjust the width as needed */
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 999px; /* Rounded full */
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  border-color: #2196f3; /* Blue border on focus */
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2); /* Blue ring on focus */
+}
+
+.search-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  padding: 0.5rem 1rem;
+  background-color: #878787; /* Gray background color */
+  color: white;
+  border-radius: 999px; /* Rounded full */
+  outline: none;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #2196f3; /* Blue background on hover */
+}
