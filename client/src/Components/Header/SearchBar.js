@@ -8,7 +8,7 @@ const SearchBar = () => {
       <input
         type="text"
         placeholder="Search"
-        className={styles["search-input"]}
+        className={`${styles["search-input"]} h-9`}
       />
       <button className={styles["search-button"]}>
         <FaSearch />

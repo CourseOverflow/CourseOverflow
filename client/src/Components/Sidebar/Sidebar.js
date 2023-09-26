@@ -18,7 +18,7 @@ const Sidebar = (props, { children }) => {
       icon: <FaPlus />,
     },
     {
-      name: "My List",
+      name: "MyList",
       to: "/list",
       icon: <FaListUl />,
     },
