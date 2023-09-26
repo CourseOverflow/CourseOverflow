@@ -7,6 +7,7 @@ import CreatePlaylist from "./Pages/CreatePlaylist/CreatePlaylist";
 import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Footer from "./Components/Footer/Footer";
+import styles from "./App.module.css";
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -17,7 +18,13 @@ const App = () => {
       <Header toggleSidebar={toggleSidebar} />
       <div className="flex mr-0">
         <Sidebar isOpen={sidebarOpen} />
-        <div className="w-full">
+        <div
+          className={
+            sidebarOpen
+              ? styles["margin-correction-open"]
+              : styles["margin-correction-closed"]
+          }
+        >
           <Routes>
             <Route path="/" element={<Auth />} />
             <Route path="/home" element={<Home />} />

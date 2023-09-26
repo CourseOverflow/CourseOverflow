@@ -1,0 +1,13 @@
+.margin-correction-open {
+  margin-top: 61px;
+  margin-left: 216px;
+  width: 100%;
+  transition: all 0.5s;
+}
+
+.margin-correction-closed {
+  margin-top: 61px;
+  margin-left: 67px;
+  width: 100%;
+  transition: all 0.5s;
+}

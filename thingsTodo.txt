@@ -1,0 +1,5 @@
+1 FaBar size increse
+2 SlimeMaster right algin
+3 active class
+4 round divs
+5 responsive search bar

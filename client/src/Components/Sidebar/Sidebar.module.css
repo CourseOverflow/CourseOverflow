@@ -1,7 +1,11 @@
 .sidebar {
+  margin-left: 1rem;
+  margin-top: 61px;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
   background: var(--base);
   color: #fff;
-  height: 100vh;
   width: 200px;
   transition: all 0.5s;
 }
@@ -43,10 +47,14 @@
   background: var(--hover);
   color: white;
   transition: all 0.5s;
+  margin: 5px;
+  border-radius: 20px;
 }
 
 .active {
-  background: var(--box);
+  display: flex;
+  border-radius: 20px;
+  background: var(--hover);
   color: #ffffff;
 }
 

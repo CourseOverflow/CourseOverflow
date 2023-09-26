@@ -1,9 +1,11 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { FaHome, FaPlus, FaListUl, FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = (props, { children }) => {
+  const location = useLocation();
   const menuItem = [
     {
       name: "Home",
@@ -16,7 +18,7 @@ const Sidebar = (props, { children }) => {
       icon: <FaPlus />,
     },
     {
-      name: "My List",
+      name: "MyList",
       to: "/list",
       icon: <FaListUl />,
     },
@@ -36,8 +38,11 @@ const Sidebar = (props, { children }) => {
         <NavLink
           to={item.to}
           key={index}
-          className={styles.link}
-          activeClassName={styles.active}
+          className={
+            location.pathname === item.to
+              ? `${styles.active} ${styles.link}`
+              : styles.link
+          }
         >
           <div className={styles.icon}>{item.icon}</div>
           <div
