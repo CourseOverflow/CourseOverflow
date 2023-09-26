@@ -27,29 +27,26 @@ const Sidebar = (props, { children }) => {
     },
   ];
   return (
-    <div className={styles.container}>
-      <div
-        style={{ width: props.isOpen ? "200px" : "50px" }}
-        className={styles.sidebar}
-      >
-        {menuItem.map((item, index) => (
-          <NavLink
-            to={item.to}
-            key={index}
-            className={styles.link}
-            activeClassName={styles.active}
+    <div
+      style={{ width: props.isOpen ? "200px" : "50px" }}
+      className={styles.sidebar}
+    >
+      {menuItem.map((item, index) => (
+        <NavLink
+          to={item.to}
+          key={index}
+          className={styles.link}
+          activeClassName={styles.active}
+        >
+          <div className={styles.icon}>{item.icon}</div>
+          <div
+            style={{ display: props.isOpen ? "block" : "none" }}
+            className={styles["link-text"]}
           >
-            <div className={styles.icon}>{item.icon}</div>
-            <div
-              style={{ display: props.isOpen ? "block" : "none" }}
-              className={styles["link-text"]}
-            >
-              {item.name}
-            </div>
-          </NavLink>
-        ))}
-      </div>
-      <main>{children}</main>
+            {item.name}
+          </div>
+        </NavLink>
+      ))}
     </div>
   );
 };

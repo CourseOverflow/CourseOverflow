@@ -1,12 +1,3 @@
-.container {
-  display: flex;
-}
-
-main {
-  width: 100%;
-  padding: 20px;
-}
-
 .sidebar {
   background: var(--base);
   color: #fff;
