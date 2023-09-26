@@ -1,14 +1,15 @@
 import React from "react";
+import styles from "./User.module.css";
 
 const User = (props) => {
   return (
-    <div className="flex items-center space-x-2">
+    <div className={styles.container}>
       <img
         src="https://via.placeholder.com/50"
         alt="User Profile"
-        className="h-8 w-8 rounded-full"
+        className={styles["profile-image"]}
       />
-      <span className="text-gray-800 dark:text-white">{props.username}</span>
+      <span className={styles.username}>{props.username}</span>
     </div>
   );
 };

@@ -1,17 +1,16 @@
 import React from "react";
+import styles from "./CourseOverflow.module.css";
 
 const CourseOverflow = () => {
   return (
-    <div className="flex items-center">
-      <a href="https://flowbite.com/" className="flex items-center">
+    <div className={styles.container}>
+      <a href="/" className={styles.link}>
         <img
           src="https://flowbite.com/docs/images/logo.svg"
           alt="Flowbite Logo"
-          className="h-8 mr-2"
+          className={styles.logo}
         />
-        <span className="text-xl font-semibold text-gray-800 dark:text-white">
-          CourseOverflow
-        </span>
+        <span className={styles.text}>CourseOverflow</span>
       </a>
     </div>
   );

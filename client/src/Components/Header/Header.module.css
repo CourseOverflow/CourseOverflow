@@ -1,0 +1,18 @@
+/* Header.module.css */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark-container {
+  background-color: var(--base);
+}
+
+.container img {
+  height: 2rem;
+  margin-right: 0.5rem;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./SearchBar.module.css";
+import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {
   return (
@@ -9,7 +10,9 @@ const SearchBar = () => {
         placeholder="Search"
         className={styles["search-input"]}
       />
-      <button className={styles["search-button"]}>Search</button>
+      <button className={styles["search-button"]}>
+        <FaSearch />
+      </button>
     </div>
   );
 };

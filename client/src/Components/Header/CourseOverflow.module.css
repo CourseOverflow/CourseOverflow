@@ -1,0 +1,21 @@
+/* CourseOverflow.module.css */
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+.text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--theme);
+}

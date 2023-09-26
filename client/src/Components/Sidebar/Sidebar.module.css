@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+}
+
+main {
+  width: 100%;
+  padding: 20px;
+}
+
+.sidebar {
+  background: var(--base);
+  color: #fff;
+  height: 100vh;
+  width: 200px;
+  transition: all 0.5s;
+}
+
+.top-section {
+  display: flex;
+  align-items: center;
+  padding: 20px 15px;
+}
+
+.logo {
+  font-size: 30px;
+}
+
+.bars {
+  display: flex;
+  font-size: 25px;
+  margin-left: 50px;
+}
+
+.link {
+  background-color: var(--base);
+  display: flex;
+  color: #fff;
+  padding: 10px 15px;
+  gap: 15px;
+  transition: all 0.5s;
+}
+
+.link > div {
+  background-color: transparent;
+}
+
+.icon > svg {
+  background-color: transparent;
+}
+
+.link:hover {
+  background: var(--hover);
+  color: white;
+  transition: all 0.5s;
+}
+
+.active {
+  background: var(--box);
+  color: #ffffff;
+}
+
+.icon,
+.link-text {
+  font-size: 20px;
+}

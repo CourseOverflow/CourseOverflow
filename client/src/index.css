@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --theme: #c26c7a;
+  --box: #1f1f1f;
+  --base: #121212;
+  --text: #878787;
+  --hover: #3f3f3f;
+}
+* {
+  background-color: var(--base);
+  color: white;
+}

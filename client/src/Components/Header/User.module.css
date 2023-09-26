@@ -1,0 +1,16 @@
+/* User.module.css */
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-image {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
+
+.username {
+  color: white;
+}
