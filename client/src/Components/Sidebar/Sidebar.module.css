@@ -1,4 +1,8 @@
 .sidebar {
+  margin-top: 70px;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
   background: var(--base);
   color: #fff;
   width: 200px;
