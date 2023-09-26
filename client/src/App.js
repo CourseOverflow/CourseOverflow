@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from "./Pages/Auth";
 import Home from "./Pages/Home";
@@ -8,10 +8,12 @@ import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 
 const App = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   return (
     <BrowserRouter>
-      <Header />
-      <Sidebar>
+      <Header toggleSidebar={toggleSidebar}/>
+      <Sidebar isOpen={sidebarOpen}>
         <Routes>
           <Route path="/" element={<Auth />} />
           <Route path="/home" element={<Home />} />

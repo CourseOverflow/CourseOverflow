@@ -4,11 +4,11 @@ import SearchBar from "./SearchBar";
 import User from "./User";
 import styles from "./Header.module.css";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <nav className={`${styles.container} ${styles["dark-container"]}`}>
-      <div className="container mx-auto px-1 py-3 flex justify-between items-center">
-        <CourseOverflow />
+      <div className="container px-1 py-3 flex justify-between items-center">
+        <CourseOverflow toggleSidebar={props.toggleSidebar} />
         <SearchBar />
         <User username={"SlimeMaster"} />
       </div>
