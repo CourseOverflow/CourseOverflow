@@ -26,6 +26,7 @@ const Sidebar = (props, { children }) => {
       icon: <FaSignInAlt />,
     },
   ];
+
   return (
     <div
       style={{ width: props.isOpen ? "200px" : "50px" }}

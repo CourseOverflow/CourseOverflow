@@ -3,23 +3,20 @@
 }
 
 .search-input {
-  width: 24rem;
+  width: 30rem;
   padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--hover);
   border-radius: 999px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
+
 .search-input:hover {
-  border-color: white;
-}
-.search-input:focus {
-  border-color: white;
-  box-shadow: 0 0 0 0.5px white;
+  border-color: rgb(134, 134, 134);
 }
 
 .search-button {
-  border: 1px solid #ccc;
+  border: 1px solid var(--hover);
   position: absolute;
   top: 0;
   right: 0;
