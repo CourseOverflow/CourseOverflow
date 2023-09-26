@@ -6,7 +6,7 @@ const CourseOverflow = (props) => {
   return (
     <>
       <div className={styles.container}>
-        <FaBars onClick={props.toggleSidebar} />
+        <FaBars onClick={props.toggleSidebar} className={styles.FaBars} />
         <a href="/" className={styles.link}>
           <img
             src="https://flowbite.com/docs/images/logo.svg"

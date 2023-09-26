@@ -1,9 +1,11 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { FaHome, FaPlus, FaListUl, FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = (props, { children }) => {
+  const location = useLocation();
   const menuItem = [
     {
       name: "Home",
@@ -26,30 +28,31 @@ const Sidebar = (props, { children }) => {
       icon: <FaSignInAlt />,
     },
   ];
+
   return (
-    <div className={styles.container}>
-      <div
-        style={{ width: props.isOpen ? "200px" : "50px" }}
-        className={styles.sidebar}
-      >
-        {menuItem.map((item, index) => (
-          <NavLink
-            to={item.to}
-            key={index}
-            className={styles.link}
-            activeClassName={styles.active}
+    <div
+      style={{ width: props.isOpen ? "200px" : "50px" }}
+      className={styles.sidebar}
+    >
+      {menuItem.map((item, index) => (
+        <NavLink
+          to={item.to}
+          key={index}
+          className={
+            location.pathname === item.to
+              ? `${styles.active} ${styles.link}`
+              : styles.link
+          }
+        >
+          <div className={styles.icon}>{item.icon}</div>
+          <div
+            style={{ display: props.isOpen ? "block" : "none" }}
+            className={styles["link-text"]}
           >
-            <div className={styles.icon}>{item.icon}</div>
-            <div
-              style={{ display: props.isOpen ? "block" : "none" }}
-              className={styles["link-text"]}
-            >
-              {item.name}
-            </div>
-          </NavLink>
-        ))}
-      </div>
-      <main>{children}</main>
+            {item.name}
+          </div>
+        </NavLink>
+      ))}
     </div>
   );
 };
