@@ -1,0 +1,41 @@
+.feed {
+  max-width: 102rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.feed > h1 {
+  margin: 1rem 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.feed-container {
+  gap: 1rem;
+  overflow-x: scroll;
+  height: fit-content;
+  margin: 0 2rem;
+  white-space: nowrap;
+  display: flex;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: fit-content;
+}
+
+.feed-container::-webkit-scrollbar {
+  width: 0.1rem;
+}
+
+.feed-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.feed-container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.feed-container li:not(.card) {
+  flex: 0 0 auto;
+  min-width: 300px;
+}

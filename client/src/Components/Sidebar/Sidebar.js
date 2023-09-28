@@ -4,7 +4,7 @@ import styles from "./Sidebar.module.css";
 import { FaHome, FaPlus, FaListUl, FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
-const Sidebar = (props, { children }) => {
+const Sidebar = (props) => {
   const location = useLocation();
   const menuItem = [
     {

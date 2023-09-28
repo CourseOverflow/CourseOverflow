@@ -9,6 +9,7 @@
 }
 
 .logo {
+  border-radius: 50%;
   height: 2rem;
   margin-right: 0.5rem;
 }

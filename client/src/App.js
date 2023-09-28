@@ -10,31 +10,33 @@ import Footer from "./Components/Footer/Footer";
 import styles from "./App.module.css";
 
 const App = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
-    <BrowserRouter>
-      <Header toggleSidebar={toggleSidebar} />
-      <div className="flex mr-0">
-        <Sidebar isOpen={sidebarOpen} />
-        <div
-          className={
-            sidebarOpen
-              ? styles["margin-correction-open"]
-              : styles["margin-correction-closed"]
-          }
-        >
-          <Routes>
-            <Route path="/" element={<Auth />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/create" element={<CreatePlaylist />} />
-            <Route path="/list" element={<MyList />} />
-          </Routes>
-          <Footer />
+    <div className="overflow-hidden">
+      <BrowserRouter>
+        <Header toggleSidebar={toggleSidebar} />
+        <div className="flex mr-0">
+          <Sidebar isOpen={sidebarOpen} />
+          <div
+            className={
+              sidebarOpen
+                ? styles["margin-correction-open"]
+                : styles["margin-correction-closed"]
+            }
+          >
+            <Routes>
+              <Route path="/" element={<Auth />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/create" element={<CreatePlaylist />} />
+              <Route path="/list" element={<MyList />} />
+            </Routes>
+            <Footer />
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 };
 
