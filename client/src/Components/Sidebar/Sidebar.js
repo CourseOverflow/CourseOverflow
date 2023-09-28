@@ -31,8 +31,9 @@ const Sidebar = (props, { children }) => {
 
   return (
     <div
-      style={{ width: props.isOpen ? "200px" : "50px" }}
-      className={styles.sidebar}
+      className={`${styles.sidebar} ${
+        props.isOpen ? styles["sidebar-open"] : styles["sidebar-close"]
+      }`}
     >
       {menuItem.map((item, index) => (
         <NavLink

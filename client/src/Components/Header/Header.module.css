@@ -6,7 +6,7 @@
   border-bottom: var(--box) 1px solid;
   position: fixed;
   z-index: 2;
-  padding: 0 1rem;
+  padding: 0;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -19,4 +19,17 @@
 .container img {
   height: 2rem;
   margin-right: 0.5rem;
+}
+.px-1 {
+  padding-left: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  /* body {
+    -webkit-filter: blur(8px);
+  } */
+  .container {
+    padding: 0px;
+    transition: all 0.5s;
+  }
 }

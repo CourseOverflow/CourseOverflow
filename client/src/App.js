@@ -8,7 +8,9 @@ import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Footer from "./Components/Footer/Footer";
 import styles from "./App.module.css";
-
+const Blocker = () => {
+  return <div className={styles.blocked}></div>;
+};
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
@@ -18,6 +20,7 @@ const App = () => {
       <Header toggleSidebar={toggleSidebar} />
       <div className="flex mr-0">
         <Sidebar isOpen={sidebarOpen} />
+        <div className={styles.blocked}></div>
         <div
           className={
             sidebarOpen
@@ -26,10 +29,42 @@ const App = () => {
           }
         >
           <Routes>
-            <Route path="/" element={<Auth />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/create" element={<CreatePlaylist />} />
-            <Route path="/list" element={<MyList />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Blocker />
+                  <Auth />
+                </>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <>
+                  <Blocker />
+                  <Home />
+                </>
+              }
+            />
+            <Route
+              path="/create"
+              element={
+                <>
+                  <Blocker />
+                  <CreatePlaylist />
+                </>
+              }
+            />
+            <Route
+              path="/list"
+              element={
+                <>
+                  <Blocker />
+                  <MyList />
+                </>
+              }
+            />
           </Routes>
           <Footer />
         </div>
