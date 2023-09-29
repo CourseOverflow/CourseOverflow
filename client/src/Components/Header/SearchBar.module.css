@@ -35,3 +35,17 @@
 .search-button:hover {
   background-color: var(--hover);
 }
+
+@media only screen and (max-width: 720px) {
+  /* body {
+    -webkit-filter: blur(8px);
+  } */
+  .search-input {
+    width: 20rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--hover);
+    border-radius: 999px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+}

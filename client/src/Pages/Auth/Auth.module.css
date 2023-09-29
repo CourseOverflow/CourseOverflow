@@ -1,0 +1,132 @@
+/* Auth.module.css */
+.form-container {
+  border-radius: 20px;
+  padding: 30px;
+  width: 500px;
+  border: 1px solid var(--hover);
+  margin: auto;
+  margin-top: 3rem;
+}
+.authForm {
+  border: 1px solid var(--box);
+}
+.authHeader {
+  font-size: 35px;
+}
+.authLoader {
+  border: 0.5px dashed var(--hover);
+  margin: 1rem 0;
+}
+
+.authInput[type="text"],
+.authInput[type="password"] {
+  border-radius: 10px;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid var(--box);
+  box-sizing: border-box;
+}
+.authInput[type="text"]:hover,
+.authInput[type="password"]:hover {
+  border: 1px solid var(--hover);
+}
+
+.rememberBtn {
+  color: var(--hover);
+}
+/* .rememberBtn > input:checked ~ {
+  background-color: red;
+} */
+
+.authButton {
+  border-radius: 10px;
+  background-color: var(--theme);
+  color: white;
+  padding: 14px 20px;
+  margin: 5% 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.authButton:hover {
+  background-color: var(--themeHover);
+  opacity: 0.8;
+}
+
+.googleButton {
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid var(--hover);
+  background-color: transparent;
+  color: white;
+  padding: 14px 20px;
+  margin: 5% 0;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+}
+.googleLogo {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+.googleButton:hover {
+  border: 1px solid var(--themeHover);
+}
+
+.authImgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+.authPsw {
+  color: var(--hover);
+  float: right;
+  padding-top: 0;
+}
+.authPsw > a {
+  color: var(--theme);
+}
+.authPsw > a:hover {
+  color: var(--themeHover);
+}
+.formLine {
+  border: 1px solid var(--hover);
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 40%;
+}
+.orBlock {
+  color: var(--hover);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5%;
+}
+.showPasswordButton {
+  color: var(--hover);
+  float: right;
+  display: flex;
+  justify-content: space-between;
+}
+.showPasswordButton > svg {
+  margin-right: 2px;
+  width: 20px;
+  height: 25px;
+}
+.showPasswordButton > svg > path,
+circle,
+line {
+  color: var(--hover);
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  .authPsw {
+    display: block;
+    float: none;
+  }
+}

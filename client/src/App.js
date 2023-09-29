@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import Home from "./Pages/Home/Home";
@@ -8,17 +8,22 @@ import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Footer from "./Components/Footer/Footer";
 import styles from "./App.module.css";
+import { useGlobalState } from "./GlobalStateContext";
+
+const Blocker = () => {
+  return <div className={styles.blocked}></div>;
+};
 
 const App = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const { sidebarOpen, setSidebarOpen } = useGlobalState();
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-x-hidden">
       <BrowserRouter>
-        <Header toggleSidebar={toggleSidebar} />
+        <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         <div className="flex mr-0">
           <Sidebar isOpen={sidebarOpen} />
+          <div className={styles.blocked}></div>
           <div
             className={
               sidebarOpen
@@ -27,10 +32,42 @@ const App = () => {
             }
           >
             <Routes>
-              <Route path="/" element={<Auth />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/create" element={<CreatePlaylist />} />
-              <Route path="/list" element={<MyList />} />
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Blocker />
+                    <Auth />
+                  </>
+                }
+              />
+              <Route
+                path="/home"
+                element={
+                  <>
+                    <Blocker />
+                    <Home sidebarOpen={sidebarOpen} />
+                  </>
+                }
+              />
+              <Route
+                path="/create"
+                element={
+                  <>
+                    <Blocker />
+                    <CreatePlaylist />
+                  </>
+                }
+              />
+              <Route
+                path="/list"
+                element={
+                  <>
+                    <Blocker />
+                    <MyList />
+                  </>
+                }
+              />
             </Routes>
             <Footer />
           </div>

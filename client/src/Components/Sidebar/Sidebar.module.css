@@ -1,5 +1,4 @@
 .sidebar {
-  margin-left: 1rem;
   margin-top: 61px;
   height: 100vh;
   position: fixed;
@@ -7,7 +6,18 @@
   background: var(--base);
   color: #fff;
   width: 200px;
+  padding-left: 0.5rem;
   transition: all 0.5s;
+}
+
+.sidebar-open {
+  width: 200px;
+}
+
+.sidebar-close {
+  width: 50px;
+  .icon > svg {
+  }
 }
 
 .top-section {
@@ -61,4 +71,21 @@
 .icon,
 .link-text {
   font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  /* body {
+    -webkit-filter: blur(8px);
+  } */
+  .sidebar {
+    margin-left: 0px;
+    transition: all 0.5s;
+  }
+  .sidebar-close {
+    display: none;
+  }
+
+  /* .icon > svg {
+    font-size: 22px;
+  } */
 }

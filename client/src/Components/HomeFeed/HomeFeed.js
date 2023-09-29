@@ -5,12 +5,25 @@ import styles from "./HomeFeed.module.css";
 const HomeFeed = (props) => {
   return (
     <div className={styles.homeFeedContainer}>
-      <Feed category="Popular" data={props.data} />
+      <Feed
+        category="Popular"
+        data={props.data}
+        sidebarOpen={props.sidebarOpen}
+      />
       <hr className={styles.hrLine} />
-      <Feed category="Popular" data={props.data} />
-      <hr className={`${styles.hrLine}`} />
-      <Feed category="Popular" data={props.data} isDark={props.isDark} />
-      <hr className={`${styles.hrLine}`} />
+      <Feed
+        category="Popular"
+        data={props.data}
+        sidebarOpen={props.sidebarOpen}
+      />
+      <hr className={styles.hrLine} />
+      <Feed
+        category="Popular"
+        data={props.data}
+        sidebarOpen={props.sidebarOpen}
+      />
+      <hr className={styles.hrLine} />
+
     </div>
   );
 };

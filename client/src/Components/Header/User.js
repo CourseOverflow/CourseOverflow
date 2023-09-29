@@ -5,7 +5,7 @@ const User = (props) => {
   return (
     <div className={styles.container}>
       <img
-        src="images/rat.png"
+        src="images/logo.png"
         alt="User Profile"
         className={styles["profile-image"]}
       />

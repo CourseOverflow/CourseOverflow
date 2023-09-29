@@ -9,7 +9,6 @@
 }
 
 .logo {
-  border-radius: 50%;
   height: 2rem;
   margin-right: 0.5rem;
 }
@@ -23,4 +22,14 @@
 .FaBars {
   height: 24px;
   width: 50px;
+}
+
+@media only screen and (max-width: 980px) {
+  /* body {
+    -webkit-filter: blur(8px);
+  } */
+  .link {
+    display: none;
+    transition: all 0.5s;
+  }
 }
