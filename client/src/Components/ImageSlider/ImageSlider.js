@@ -63,12 +63,12 @@ const ImageSlider = ({ images }) => {
           {slideIndex + 1} / {images.length}
         </div>
       </div>
-
       <div className={styles["dots"]}>
+        {/* increment index to fix pain */}
         {images.map((image, index) => (
           <span
-            key={index}
-            className={index === slideIndex ? styles.dotActive : styles.dot}
+            key={index + 3}
+            className={index + 3 === slideIndex ? styles.dotActive : styles.dot}
             onClick={() => goToSlide(index)}
           />
         ))}
