@@ -1,2 +1,2 @@
-1 responsive search bar
-2 responsive sidebar blur
+1 create playlist page
+2 
