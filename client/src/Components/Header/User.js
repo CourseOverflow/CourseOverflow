@@ -5,7 +5,7 @@ const User = (props) => {
   return (
     <div className={styles.container}>
       <img
-        src="images/rat.png"
+        src="https://via.placeholder.com/50"
         alt="User Profile"
         className={styles["profile-image"]}
       />

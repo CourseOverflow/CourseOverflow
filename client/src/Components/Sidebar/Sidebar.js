@@ -4,7 +4,7 @@ import styles from "./Sidebar.module.css";
 import { FaHome, FaPlus, FaListUl, FaSignInAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
-const Sidebar = (props) => {
+const Sidebar = (props, { children }) => {
   const location = useLocation();
   const menuItem = [
     {
@@ -31,8 +31,9 @@ const Sidebar = (props) => {
 
   return (
     <div
-      style={{ width: props.isOpen ? "200px" : "50px" }}
-      className={styles.sidebar}
+      className={`${styles.sidebar} ${
+        props.isOpen ? styles["sidebar-open"] : styles["sidebar-close"]
+      }`}
     >
       {menuItem.map((item, index) => (
         <NavLink

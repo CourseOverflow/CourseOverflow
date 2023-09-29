@@ -23,6 +23,51 @@
   max-width: fit-content;
 }
 
+.feed-btn-left {
+  position: absolute;
+  left: 85px;
+  height: 176px;
+  z-index: 3;
+  transition: all 0.5s;
+}
+.feed-btn-left-shift {
+  left: 175px;
+  transition: all 0.5s;
+}
+
+.feed-btn-right {
+  height: 176px;
+  position: absolute;
+  right: 55px;
+  z-index: 3;
+}
+
+.feed-btn-left > svg {
+  font-size: 50px;
+  background-color: transparent;
+}
+
+.feed-btn-right > svg {
+  font-size: 50px;
+  background-color: transparent;
+}
+.feed-btn-right > svg > path {
+  color: rgba(255, 255, 255, 0.5);
+}
+.feed-btn-left > svg > path {
+  color: rgba(255, 255, 255, 0.5);
+}
+.feed-btn-left:hover > svg > path {
+  color: rgba(255, 255, 255, 0.85);
+}
+.feed-btn-right:hover > svg > path {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.feed-main {
+  display: flex;
+}
+
 .feed-container::-webkit-scrollbar {
   width: 0.1rem;
 }
@@ -38,4 +83,18 @@
 .feed-container li:not(.card) {
   flex: 0 0 auto;
   min-width: 300px;
+}
+
+@media only screen and (max-width: 600px) {
+  /* body {
+    -webkit-filter: blur(8px);
+  } */
+
+  .feed-btn-right {
+    right: 35px;
+  }
+
+  .feed-btn-left {
+    left: 35px;
+  }
 }

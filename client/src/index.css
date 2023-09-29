@@ -4,6 +4,7 @@
 
 :root {
   --theme: #c26c7a;
+  --themeHover: rgb(249, 103, 103);
   --box: #1f1f1f;
   --base: #121212;
   --text: #878787;
