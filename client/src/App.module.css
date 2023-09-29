@@ -29,6 +29,7 @@
     margin-left: 200px;
     width: 100%;
     -webkit-filter: blur(8px);
+    filter: blur(8px);
     transition: all 0.5s;
     .blocked {
       content: "";

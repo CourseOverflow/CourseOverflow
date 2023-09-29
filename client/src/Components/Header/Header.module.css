@@ -25,9 +25,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-  /* body {
-    -webkit-filter: blur(8px);
-  } */
   .container {
     padding: 0px;
     transition: all 0.5s;

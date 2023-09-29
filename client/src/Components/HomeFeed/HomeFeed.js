@@ -11,19 +11,6 @@ const HomeFeed = (props) => {
         sidebarOpen={props.sidebarOpen}
       />
       <hr className={styles.hrLine} />
-      <Feed
-        category="Popular"
-        data={props.data}
-        sidebarOpen={props.sidebarOpen}
-      />
-      <hr className={styles.hrLine} />
-      <Feed
-        category="Popular"
-        data={props.data}
-        sidebarOpen={props.sidebarOpen}
-      />
-      <hr className={styles.hrLine} />
-
     </div>
   );
 };
