@@ -1,7 +1,8 @@
-.cardContainer {
+.card {
   width: 18rem;
   height: 10rem;
   position: relative;
+  cursor: pointer;
   overflow: hidden;
 }
 
@@ -11,36 +12,64 @@
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  opacity: 1;
   transition: opacity 0.3s;
   border-radius: 5px;
 }
 
-.cardImage:hover {
+.card:hover .cardImage {
   opacity: 0.2;
   transition: 0.4s;
 }
 
 .cardContent {
-  margin-top: 1rem;
-  margin-left: 1rem;
   background-color: transparent;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.4s;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.cardImage:hover .cardContent {
+.card:hover .cardContent {
   opacity: 1;
 }
 
 .title {
-  background-color: transparent;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.description {
+  margin-top: 10px;
   background-color: transparent;
   font-size: 1rem;
+  max-width: 18rem;
+  overflow: hidden;
+  white-space: nowrap;
+  background-image: linear-gradient(to left, transparent, #fff 15%);
+  background-clip: text;
+  color: transparent;
+}
+
+.author {
+  background-color: transparent;
+  font-size: 0.8rem;
   color: #777;
+  text-wrap: wrap;
+  max-width: 18rem;
+  overflow: hidden;
+  white-space: nowrap;
+  background-image: linear-gradient(to left, transparent, #777 15%);
+  background-clip: text;
+  color: transparent;
+}
+
+.cardHr {
+  height: 1px;
+  background-color: red;
+  border: none;
+  margin: 0 3px;
+  max-width: 282px;
+  position: absolute;
+  bottom: 0;
 }

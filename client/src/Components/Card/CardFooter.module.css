@@ -1,0 +1,25 @@
+.cardFooter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.likesDislikes {
+  background-color: transparent;
+  display: flex;
+  align-items: space-between;
+  color: white;
+  font-size: 14px;
+}
+
+.bookmarks {
+  background-color: transparent;
+  display: flex;
+  margin-left: auto;
+}

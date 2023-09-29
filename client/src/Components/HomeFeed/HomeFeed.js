@@ -1,16 +1,16 @@
 import React from "react";
-import styles from "./HomeFeed.module.css";
 import Feed from "../Feed/Feed";
+import styles from "./HomeFeed.module.css";
 
 const HomeFeed = (props) => {
   return (
-    <div className="pt-10">
+    <div className={styles.homeFeedContainer}>
+      <Feed category="Popular" data={props.data} />
+      <hr className={styles.hrLine} />
+      <Feed category="Popular" data={props.data} />
+      <hr className={`${styles.hrLine}`} />
       <Feed category="Popular" data={props.data} isDark={props.isDark} />
-      <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-      <Feed category="Popular" data={props.data} isDark={props.isDark} />
-      <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-      <Feed category="Popular" data={props.data} isDark={props.isDark} />
-      <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+      <hr className={`${styles.hrLine}`} />
     </div>
   );
 };

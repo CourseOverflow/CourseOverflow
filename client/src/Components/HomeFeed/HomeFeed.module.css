@@ -1,0 +1,10 @@
+.homeFeedContainer {
+  padding-top: 2.5rem;
+}
+
+.hrLine {
+  height: 1px;
+  margin: 2rem 0;
+  background-color: #374151;
+  border: none;
+}

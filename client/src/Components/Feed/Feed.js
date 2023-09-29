@@ -12,10 +12,7 @@ const Feed = (props) => {
             <li>
               <Card
                 isDark={props.isDark}
-                title={item.title}
-                description={item.description}
-                path={"/"}
-                image={item.image}
+                data={item}
               />
             </li>
           );
