@@ -1,62 +1,20 @@
 import React from "react";
 import styles from "./Home.module.css";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
+import ImageSlider from "../../Components/ImageSlider/ImageSlider";
+import data from "./dummydata";
+
+const images = [
+  "https://www.telegraph.co.uk/content/dam/films/2020/02/07/TELEMMGLPICT000224006835_trans_NvBQzQNjv4BqVnGZDHLVbaDWtLqzwQh5-XkyztDRjf0dUW_myY0VgWI.jpeg",
+  "https://i.redd.it/4r2dkf1bwtm41.jpg",
+  "https://images.wallpaperscraft.com/image/single/cat_rat_soft_65475_2560x1080.jpg",
+];
 
 const Home = (props) => {
-  const imageSource =
-    "https://images.wallpaperscraft.com/image/single/cat_rat_soft_65475_2560x1080.jpg";
-  const data = [
-    {
-      id: 1,
-      title: "Slimy",
-      author: "Ansh Rattata",
-      image: "images/rat.jpg",
-    },
-    {
-      id: 2,
-      title: "Slimy",
-      author: "Ansh Rattata",
-      image: "images/rat.jpg",
-    },
-    {
-      id: 3,
-      title: "Slimy",
-      author: "Ansh Rattata",
-      image: "images/rat.jpg",
-    },
-    {
-      id: 4,
-      title: "Slimy",
-      author: "Ansh Rattata",
-      image: "images/rat.jpg",
-    },
-    {
-      id: 5,
-      title: "Slimy",
-      author: "Ansh Rattata",
-      image: "images/rat.jpg",
-    },
-    {
-      id: 6,
-      title: "Slimy",
-      author: "Ansh Rattata",
-      image: "images/rat.jpg",
-    },
-    {
-      id: 7,
-      title: "Slimy",
-      author: "Ansh Rattata",
-      image: "images/rat.png",
-    },
-  ];
   return (
     <>
       <div className={styles.container}>
-        <img
-          srcSet={`${imageSource} 1x, ${imageSource} 2x`}
-          className={styles.image}
-          alt="Slimy Home Page"
-        />
+        <ImageSlider images={images} />
       </div>
       <HomeFeed data={data} sidebarOpen={props.sidebarOpen} />
     </>

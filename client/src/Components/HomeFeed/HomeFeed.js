@@ -23,7 +23,6 @@ const HomeFeed = (props) => {
         sidebarOpen={props.sidebarOpen}
       />
       <hr className={styles.hrLine} />
-
     </div>
   );
 };

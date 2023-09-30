@@ -44,15 +44,3 @@
   flex: 0 0 auto;
   min-width: 300px;
 }
-
-.dummy-padding {
-  margin-left: 5rem;
-  max-width: 1px;
-  max-height: 10rem;
-  background-color: white;
-  background: linear-gradient(
-    to left,
-    rgb(255, 255, 255),
-    rgba(255, 255, 255, 0.75)
-  );
-}

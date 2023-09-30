@@ -63,14 +63,12 @@ const Feed = (props) => {
           setleftScrollPosition={setleftScrollPosition}
           feedContainerRef={feedContainerRef}
         />
-        <div className={`${styles["dummy-padding"]}`}></div>
         {props.data.map((item) => (
           <div key={item.id}>
             {" "}
             <Card data={item} />
           </div>
         ))}
-        <div className={`${styles["dummy-padding"]}`}></div>
         <FeedRightBtn
           rightScrollPosition={rightScrollPosition}
           setrightScrollPosition={setrightScrollPosition}

@@ -4,6 +4,7 @@
 }
 
 .link {
+  padding: 0 10px;
   display: flex;
   align-items: center;
 }
@@ -25,10 +26,12 @@
 }
 
 @media only screen and (max-width: 980px) {
-  /* body {
-    -webkit-filter: blur(8px);
-  } */
-  .link {
+  .container {
+    justify-content: space-between;
+    padding: 0 10px;
+    transition: all 0.5s;
+  }
+  .link span {
     display: none;
     transition: all 0.5s;
   }

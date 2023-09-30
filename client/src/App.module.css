@@ -1,13 +1,13 @@
 .margin-correction-open {
   margin-top: 61px;
-  margin-left: 200px;
+  margin-left: 205px;
   width: 100%;
   transition: all 0.5s;
 }
 
 .margin-correction-closed {
   margin-top: 61px;
-  margin-left: 50px;
+  margin-left: 55px;
   width: 100%;
   transition: all 0.5s;
 }
@@ -26,9 +26,10 @@
 
   .margin-correction-open {
     margin-top: 61px;
-    margin-left: 200px;
+    margin-left: 205px;
     width: 100%;
     -webkit-filter: blur(8px);
+    filter: blur(8px);
     transition: all 0.5s;
     .blocked {
       content: "";
@@ -44,7 +45,7 @@
   }
   .margin-correction-closed {
     margin-top: 61px;
-    margin-left: 50px;
+    margin-left: 55px;
     width: 100%;
 
     transition: all 0.5s;
