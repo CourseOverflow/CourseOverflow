@@ -1,0 +1,84 @@
+/* Step1.module.css */
+:root {
+  --divFocus: rgb(138, 137, 137);
+  --divHover: rgb(138, 137, 137);
+}
+
+/* Define the flex container */
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Define the columns */
+.column50 {
+  flex: 1; /* Each column takes 50% of the available space */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.col2 {
+  padding: 10px;
+  flex: 1;
+}
+
+.titleDiv,
+.descDiv,
+.pdfDiv {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--hover);
+  display: flex;
+  flex-direction: column;
+}
+
+.titleDiv:hover,
+.descDiv:hover,
+.pdfDiv:hover {
+  border: 1px solid var(--divHover);
+}
+
+.titleDivFocused,
+.descDivFocused,
+.pdfDivFocused {
+  border: 1px solid var(--divFocus);
+}
+
+.count {
+  align-self: flex-end;
+}
+
+.titleInput,
+.descInput {
+  border-radius: 5px;
+  padding: 5px;
+  outline: none; /* Remove focus outline */
+}
+
+.titleLabel,
+.descLabel,
+.pdfLabel {
+  align-self: flex-start;
+}
+
+.dashContainer {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  height: 75px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px dashed var(--hover);
+}
+
+.pdfLabel {
+  margin: auto;
+  padding: 5%;
+  border-radius: 5px;
+  border: 1px dashed var(--hover);
+}
+.uploadIcon {
+  font-size: 50px;
+}
