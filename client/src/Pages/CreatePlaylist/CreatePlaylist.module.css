@@ -1,0 +1,51 @@
+.container {
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  max-width: 100%; /* Set a maximum width */
+}
+.createDivider {
+  width: 100%;
+  border: none;
+  height: 1px;
+  background-color: var(--hover);
+}
+
+.createPlaylist-container {
+  padding: 5px;
+  margin: 50px;
+  margin-top: 0;
+  max-width: 100%; /* Set a maximum width */
+  border-radius: 20px;
+  border: 1px solid var(--hover);
+  box-sizing: border-box; /* Include padding and border in width */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-center;
+  justify-content: flex-center;
+}
+
+/* Add media query for smaller screens */
+@media (max-width: 768px) {
+  .createPlaylist-container {
+    margin: 20px;
+    padding: 10px;
+  }
+}
+
+.createDivider {
+  height: 1px;
+  background-color: red;
+  border: none;
+  background-color: var(--hover);
+  margin: auto;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+.FotterCreatePlaylist {
+  text-align: left;
+
+  justify-content: left;
+}

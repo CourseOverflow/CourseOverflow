@@ -1,0 +1,69 @@
+.top-list {
+  margin-top: 30px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.createDivider {
+  border: none;
+  height: 1px;
+  background-color: var(--hover);
+}
+
+.createHeader {
+  font-size: larger;
+  color: var(--theme);
+  padding: 10px;
+}
+
+.step {
+  margin-top: 20px;
+  display: flex;
+}
+
+.connector {
+  width: 200px;
+  margin: 7px 12px;
+  height: 1px;
+  border: none;
+  background-color: var(--hover);
+}
+.step-icon path {
+  color: var(--hover);
+}
+.themeIcon > svg > path {
+  color: var(--theme);
+}
+.stepCleared > svg > path {
+  color: var(--theme);
+}
+
+@media (max-width: 720px) {
+  .connector {
+    width: 100px;
+  }
+}
+
+@media (max-width: 440px) {
+  .connector {
+    width: 70px;
+  }
+}
+
+@media (max-width: 350px) {
+  .connector {
+    width: 50px;
+  }
+}
+
+@media (max-width: 320px) {
+  .connector {
+    width: 20px;
+  }
+}
+
+@media (max-width: 250px) {
+  .connector {
+    width: 0px;
+  }
+}
