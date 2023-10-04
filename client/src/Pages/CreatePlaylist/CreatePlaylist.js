@@ -4,21 +4,11 @@ import CreateHeader from "../../Components/StepForm/FormHeader/CreateHeader";
 import Step1 from "../../Components/StepForm/StepPages/Step1";
 import Step2 from "../../Components/StepForm/StepPages/Step2";
 import Step3 from "../../Components/StepForm/StepPages/Step3";
-
+import FooterBar from "../../Components/StepForm/StepFooter/FooterBar";
 const CreatePlaylist = () => {
   // Define and initialize the stepNumber state variable
   // 1 2 3 4
   const [stepNumber, setStepNumber] = useState(1);
-  const handelNextClick = () => {
-    if (stepNumber < 3) {
-      setStepNumber(stepNumber + 1);
-    }
-  };
-  const handelBackClick = () => {
-    if (stepNumber > 1) {
-      setStepNumber(stepNumber - 1);
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -29,14 +19,7 @@ const CreatePlaylist = () => {
         {stepNumber === 2 && <Step2 />}
         {stepNumber === 3 && <Step3 />}
         <hr className={styles["createDivider"]} />
-        <div className="FotterCreatePlaylist">
-          <button onClick={handelBackClick} className={styles["BackBtn"]}>
-            BACK
-          </button>
-          <button onClick={handelNextClick} className={styles["NextBtn"]}>
-            NEXT
-          </button>
-        </div>
+        <FooterBar stepNumber={stepNumber} setStepNumber={setStepNumber} />
       </div>
     </div>
   );

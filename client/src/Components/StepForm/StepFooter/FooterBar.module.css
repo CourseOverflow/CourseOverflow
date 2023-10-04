@@ -1,0 +1,36 @@
+.FotterCreatePlaylist {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top vertically */
+}
+.NextBtn {
+  margin: 10px;
+  align-self: flex-end;
+  background-color: var(--theme);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+.BackBtn {
+  margin: 10px;
+  align-self: flex-start;
+  background-color: var(--theme);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.NextBtn:hover,
+.BackBtn:hover {
+  border: 1px solid var(--themeHover);
+  background-color: transparent;
+  color: var(--baseText);
+}

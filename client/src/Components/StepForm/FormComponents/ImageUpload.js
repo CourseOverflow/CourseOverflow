@@ -30,7 +30,7 @@ const ImageUpload = () => {
     <>
       <div className={styles["card"]}>
         {selectedFile ? (
-          <>
+          <div className={styles["headTitle"]}>
             <span className={styles["selectedFileName"]}>
               {selectedFile.name}
             </span>
@@ -42,21 +42,20 @@ const ImageUpload = () => {
                 <IoMdClose />
               </div>
             </button>
-            {/* Display the uploaded image */}
-          </>
+          </div>
         ) : (
           <h3 className={styles["headTitle"]}>Upload Image</h3>
         )}
         <div className={styles["drop_box"]}>
           {selectedFile ? (
-            <>
+            <div className={styles["img_box"]}>
               {" "}
               <img
                 className={styles["Uplodedimg"]}
                 src={URL.createObjectURL(selectedFile)}
                 alt={selectedFile.name}
               />
-            </>
+            </div>
           ) : (
             <>
               <header>

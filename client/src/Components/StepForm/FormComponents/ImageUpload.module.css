@@ -4,7 +4,12 @@
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
 }
 .headTitle {
+  height: 55px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
   border: 1px solid var(--hover);
   border-bottom: none;
 }
@@ -16,9 +21,9 @@
 }
 
 .drop_box {
+  height: 185px;
   margin-bottom: 10px;
-
-  padding: 30px;
+  padding: 33px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,6 +44,9 @@
   margin-top: 10px;
   margin-bottom: 20px;
   font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--baseText);
 }
 
@@ -71,17 +79,33 @@
   padding: 12px 20px;
   border-radius: 4px;
 }
-.removeFileBtn {
-  margin: 5px;
-  padding: 5px;
+.removeFileBtn svg {
+  margin: 0 10px;
+  font-size: 20px;
+  padding: 1px;
   border-radius: 10px;
   border: 1px solid var(--error);
 }
-/* .removeFileBtn:hover {
-  background-color: var(--error);
-  color: var(--baseText);
-} */
-.removeIcon:hover path {
+
+.removeIcon:hover svg {
   background-color: var(--error);
   color: var(--error);
+}
+.img_box {
+  height: 180px;
+}
+.Uplodedimg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+  box-sizing: border-box;
+  object-fit: contain;
+}
+@media only screen and (max-width: 680px) {
+  .drop_box p {
+    white-space: initial;
+    overflow: initial;
+    text-overflow: initial;
+  }
 }
