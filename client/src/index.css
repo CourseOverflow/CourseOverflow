@@ -3,14 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --theme: #5DB867;
+  --theme: #5db867;
   --themeHover: #3e9048;
   --box: #1f1f1f;
   --base: #121212;
   --text: #878787;
   --hover: #3f3f3f;
+  --baseText: #ffffff;
+  --error: tomato;
 }
+/* light theme colors */
+/* :root {
+  --theme: #5db867;
+  --themeHover: #3e9048;
+  --box: #ffffff;
+  --base: #f5f5f5;
+  --text: #333333;
+  --hover: #e0e0e0;
+  --baseText: black;
+} */
+
 * {
   background-color: var(--base);
-  color: white;
+  color: var(--baseText);
 }

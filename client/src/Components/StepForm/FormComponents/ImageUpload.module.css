@@ -1,0 +1,111 @@
+.card {
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+}
+.headTitle {
+  height: 55px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  border: 1px solid var(--hover);
+  border-bottom: none;
+}
+
+.card h3 {
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.drop_box {
+  height: 185px;
+  margin-bottom: 10px;
+  padding: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 3px dotted var(--hover);
+
+  border-top: 1px solid var(--hover);
+  border-radius: 5px;
+}
+
+.drop_box h4 {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.drop_box p {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--baseText);
+}
+
+.btn {
+  text-decoration: none;
+  background-color: var(--theme);
+  color: var(--baseText);
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid var(--themeHover);
+  color: var(--theme);
+  padding: 10px 20px;
+
+  outline: 1px solid #010101;
+}
+.form input {
+  margin: 10px 0;
+  width: 100%;
+  background-color: #e2e2e2;
+  border: none;
+  outline: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+}
+.removeFileBtn svg {
+  margin: 0 10px;
+  font-size: 20px;
+  padding: 1px;
+  border-radius: 10px;
+  border: 1px solid var(--error);
+}
+
+.removeIcon:hover svg {
+  background-color: var(--error);
+  color: var(--error);
+}
+.img_box {
+  height: 180px;
+}
+.Uplodedimg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+  box-sizing: border-box;
+  object-fit: contain;
+}
+@media only screen and (max-width: 680px) {
+  .drop_box p {
+    white-space: initial;
+    overflow: initial;
+    text-overflow: initial;
+  }
+}

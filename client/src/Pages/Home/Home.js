@@ -5,9 +5,9 @@ import ImageSlider from "../../Components/ImageSlider/ImageSlider";
 import data from "./dummydata";
 
 const images = [
-  "https://www.telegraph.co.uk/content/dam/films/2020/02/07/TELEMMGLPICT000224006835_trans_NvBQzQNjv4BqVnGZDHLVbaDWtLqzwQh5-XkyztDRjf0dUW_myY0VgWI.jpeg",
-  "https://i.redd.it/4r2dkf1bwtm41.jpg",
-  "https://images.wallpaperscraft.com/image/single/cat_rat_soft_65475_2560x1080.jpg",
+  "https://fastly.picsum.photos/id/237/1500/500.jpg?hmac=YSNsAqQlVK1TJQ7NVet19Or2zyl4dJ73jGGu1KXMDYI",
+  "https://fastly.picsum.photos/id/40/1500/500.jpg?hmac=vQ4kO2atpF-JLrcq6YOyAU7JafWjkVpqVpq5IPhmp7A",
+  "https://fastly.picsum.photos/id/783/1500/500.jpg?hmac=QgVTCmaavk0WRvGo_n4tLlTyAOZrNZ6Mop1eAdkU5wk",
 ];
 
 const Home = (props) => {
