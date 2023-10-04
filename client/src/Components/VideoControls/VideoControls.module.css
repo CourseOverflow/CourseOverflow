@@ -1,0 +1,40 @@
+.video-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
+  background-color: var(--box);
+}
+
+.likesDislikes,
+.bookmarks {
+  background-color: transparent;
+  display: flex;
+  font-size: 25px;
+  padding: 0 20px;
+}
+
+.icon {
+  margin-top: 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.likesDislikes > svg > path,
+.bookmarks > svg > path {
+  fill: var(--text);
+}
+
+.likesDislikes > p,
+.bookmarks > p {
+  padding: 0 5px;
+  font-weight: 500;
+  color: var(--base-text);
+  background-color: transparent;
+  margin-top: 2px;
+  font-size: 20px;
+}
+
+.likesDislikes > p {
+  margin-right: 10px;
+}

@@ -38,7 +38,19 @@
 
 @media only screen and (max-width: 720px) {
   .search-input {
-    width: 18rem;
+    width: 16rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--hover);
+    border-radius: 999px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.5s;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .search-input {
+    width: 10rem;
     padding: 0.5rem 1rem;
     border: 1px solid var(--hover);
     border-radius: 999px;

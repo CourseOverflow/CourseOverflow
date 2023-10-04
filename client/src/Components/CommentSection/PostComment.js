@@ -1,0 +1,47 @@
+import React, { useState, useEffect } from "react";
+import styles from "./PostComment.module.css";
+
+const PostComment = (props) => {
+  const [comment, setComment] = useState("");
+  const [charCount, setCharCount] = useState(0);
+
+  useEffect(() => {
+    setCharCount(comment.length);
+  }, [comment]);
+
+  const handleInput = (e) => {
+    if (e.target.value.length <= 500) {
+      setComment(e.target.value);
+    }
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    props.addComment(e);
+    setComment("");
+  };
+
+  return (
+    <div className={styles["post-comment"]}>
+      <img
+        src="images/logo.png"
+        alt="User"
+        className={`${styles["user-image"]} ${props.reply && styles.reply}`}
+      />
+      <form className={styles["user-input"]} onSubmit={submitHandler}>
+        <div className={styles["input-area"]}>
+          <textarea
+            placeholder={`Add a comment`}
+            className={styles["comment-input"]}
+            value={comment}
+            onChange={handleInput}
+          />
+          <div className={styles["char-count"]}>{charCount}/500</div>
+        </div>
+        <button className={styles["post-button"]}>Post</button>
+      </form>
+    </div>
+  );
+};
+
+export default PostComment;

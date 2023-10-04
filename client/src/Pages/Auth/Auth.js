@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi"; // Import the eye icons from react-icons
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
 
 const Auth = () => {
@@ -39,7 +39,7 @@ const Auth = () => {
             className={styles.showPasswordButton}
           >
             {showPassword ? <FiEyeOff /> : <FiEye />}{" "}
-            {showPassword ? "Hide" : "Show"} {/* Use the eye icons */}
+            {showPassword ? "Hide" : "Show"}
           </button>
           <div className={styles.passwordContainer}>
             <input
@@ -55,7 +55,7 @@ const Auth = () => {
             me
           </label>
           <span className={styles.authPsw}>
-            <a href="#">Forgot password?</a>
+            <a href="/">Forgot password?</a>
           </span>
           <button type="submit" className={styles.authButton}>
             Sign up for free

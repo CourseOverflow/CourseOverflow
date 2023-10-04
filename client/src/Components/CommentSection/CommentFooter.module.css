@@ -1,0 +1,38 @@
+.comment-footer {
+  background-color: transparent;
+  display: flex;
+  font-size: 14px;
+}
+
+.comment-footer > svg > path {
+  fill: var(--text);
+}
+
+.comment-footer > p {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  margin-right: 10px;
+}
+
+.comment-footer > button {
+  background-color: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: 10px;
+}
+
+.icon {
+  background-color: transparent;
+  margin: 3px;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.comment-footer > button:hover {
+  color: var(--theme-hover);
+}

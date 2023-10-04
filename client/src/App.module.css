@@ -1,3 +1,22 @@
+.app {
+  overflow-x: hidden;
+}
+
+.app::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10px;
+}
+
+.app::-webkit-scrollbar-track {
+  background-color: var(--box);
+  border-radius: 10px;
+}
+
+.app::-webkit-scrollbar-thumb {
+  background-color: var(--hover);
+  border-radius: 10px;
+}
+
 .margin-correction-open {
   margin-top: 61px;
   margin-left: 205px;

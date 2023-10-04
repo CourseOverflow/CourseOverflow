@@ -9,6 +9,7 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import Footer from "./Components/Footer/Footer";
 import styles from "./App.module.css";
 import { useGlobalState } from "./GlobalStateContext";
+import Play from "./Pages/Play/Play";
 
 const Blocker = () => {
   return <div className={styles.blocked}></div>;
@@ -18,7 +19,7 @@ const App = () => {
   const { sidebarOpen, setSidebarOpen } = useGlobalState();
 
   return (
-    <div className="overflow-x-hidden">
+    <div className={styles.app}>
       <BrowserRouter>
         <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         <div className="flex mr-0">
@@ -65,6 +66,15 @@ const App = () => {
                   <>
                     <Blocker />
                     <MyList />
+                  </>
+                }
+              />
+              <Route
+                path="/play"
+                element={
+                  <>
+                    <Blocker />
+                    <Play />
                   </>
                 }
               />

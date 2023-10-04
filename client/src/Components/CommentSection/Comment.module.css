@@ -1,0 +1,46 @@
+.comment {
+  margin: 10px;
+  margin-bottom: 30px;
+  background-color: transparent;
+  display: flex;
+}
+
+.user-image {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.comment-details {
+  background-color: transparent;
+  width: 100%;
+}
+
+.comment-details > h1 {
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.comment-details > p {
+  margin-top: 5px;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.reply-button {
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 5px;
+  color: var(--theme);
+  cursor: pointer;
+}
+
+.reply-button:hover {
+  color: var(--theme-hover);
+}

@@ -3,14 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --theme: #5DB867;
-  --themeHover: #3e9048;
+  --theme: #5db867;
+  --theme-hover: #3e9048;
   --box: #1f1f1f;
   --base: #121212;
+  --base-text: #ffffff;
   --text: #878787;
   --hover: #3f3f3f;
 }
+
 * {
   background-color: var(--base);
   color: white;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--base);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--hover);
+  border-radius: 10px;
 }
