@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { FaHome, FaPlus, FaBookmark } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import Dropdown from "../Dropdown/Dropdown";
 
 const Sidebar = (props, { children }) => {
   const location = useLocation();
