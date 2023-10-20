@@ -1,4 +1,5 @@
 .TodoList {
+  margin: 10px;
   border-radius: 10px;
   border: 2px dashed var(--hover);
   padding: 10px;

@@ -1,8 +1,10 @@
 .magicBox {
   border: 1px solid var(--hover);
   margin: 10px;
-  padding: 20px 0px;
-
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 45px;
+  padding-right: 10px;
   border-radius: 10px;
   margin-top: 20px;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Home.module.css";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import ImageSlider from "../../Components/ImageSlider/ImageSlider";
-import data from "./dummydata";
+import data from "../../Data/CourseData.js";
 
 const images = [
   "https://fastly.picsum.photos/id/237/1500/500.jpg?hmac=YSNsAqQlVK1TJQ7NVet19Or2zyl4dJ73jGGu1KXMDYI",

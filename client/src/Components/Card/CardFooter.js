@@ -22,19 +22,19 @@ const CardFooter = (props) => {
   return (
     <div className={styles.cardFooter}>
       <div className={styles.likesDislikes}>
-        {props.liked ? (
-          <FaRegThumbsUp
-            className="m-1 bg-transparent"
-            onClick={likeClickHandler}
-          />
-        ) : (
+        {props.isLiked ? (
           <FaThumbsUp
             className="m-1 bg-transparent"
             onClick={likeClickHandler}
           />
+        ) : (
+          <FaRegThumbsUp
+            className="m-1 bg-transparent"
+            onClick={likeClickHandler}
+          />
         )}
-        420
-        {props.disliked ? (
+        {props.likesCount}
+        {props.isDisliked ? (
           <FaThumbsDown
             className="m-1 ml-3 bg-transparent"
             onClick={dislikeClickHandler}
@@ -45,10 +45,10 @@ const CardFooter = (props) => {
             onClick={dislikeClickHandler}
           />
         )}
-        69
+        {props.dislikesCount}
       </div>
       <button className={styles.bookmarks}>
-        {props.bookmarked ? (
+        {props.isBookmarked ? (
           <FaBookmark
             className="mt-1 bg-transparent"
             onClick={bookmarkClickHandler}
