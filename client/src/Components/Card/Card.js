@@ -1,29 +1,22 @@
+// Card.js
 import React from "react";
-import styles from "./Card.module.css";
-import CardFooter from "./CardFooter";
-import { FaPlay } from "react-icons/fa";
+import CardImage from "./CardImage";
+import CardInfo from "./CardInfo";
+
 const Card = (props) => {
-  const cardStyle = {
-    backgroundImage: `url(${props.data.image}})`,
-  };
-  const clickHandler = () => {
-    console.log("Card clicked, Play!");
-  };
-  const percentageWatched = props.data.watchPercentage;
-  const hrWidth = `${percentageWatched}%`;
   return (
-    <>
-      <div className={styles.card}>
-        <div className={styles.cardImage} style={cardStyle}></div>
-        <div className={styles.cardContent} onClick={clickHandler}>
-          <FaPlay className="text-3xl bg-transparent" />
-        </div>
-        <CardFooter likes={true} disliked={false} bookmarked={true} />
-        <hr className={styles.cardHr} style={{ width: hrWidth }} />
-      </div>
-      <h1 className={styles.title}>{props.data.title}</h1>
-      <p className={styles.author}>{props.data.author}</p>
-    </>
+    <div>
+      <CardImage
+        image={props.data.image}
+        likes={props.data.likes}
+        dislikes={props.data.dislikes}
+        isLiked={props.data.isLiked}
+        isDisliked={props.data.isDisliked}
+        isBookmarked={props.data.isBookmarked}
+        watchPercentage={props.data.watchPercentage}
+      />
+      <CardInfo title={props.data.title} author={props.data.author} />
+    </div>
   );
 };
 

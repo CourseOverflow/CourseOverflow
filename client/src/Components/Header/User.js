@@ -3,14 +3,14 @@ import styles from "./User.module.css";
 
 const User = (props) => {
   return (
-    <div className={styles.container}>
+    <button className={styles.container}>
       <img
         src="images/logo.png"
         alt="User Profile"
         className={styles["profile-image"]}
       />
       <span className={styles.username}>{props.username}</span>
-    </div>
+    </button>
   );
 };
 

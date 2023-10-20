@@ -7,7 +7,7 @@ const CourseOverflow = (props) => {
     <>
       <div className={styles.container}>
         <FaBars onClick={props.toggleSidebar} className={styles.FaBars} />
-        <a href="/" className={styles.link}>
+        <a href="/home" className={styles.link}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Stack_Overflow_icon.svg/768px-Stack_Overflow_icon.svg.png"
             alt="Course Overflow Logo"

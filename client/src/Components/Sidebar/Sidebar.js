@@ -1,11 +1,29 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { FaHome, FaPlus, FaListUl, FaSignInAlt } from "react-icons/fa";
+import { FaHome, FaPlus, FaBookmark } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import Dropdown from "../Dropdown/Dropdown";
 
 const Sidebar = (props, { children }) => {
   const location = useLocation();
+  const userBookmarks = [
+    {
+      name: "Playlist 1",
+      to: "/playlist1",
+      icon: <FaBookmark />,
+    },
+    {
+      name: "Playlist 2",
+      to: "/playlist2",
+      icon: <FaBookmark />,
+    },
+    {
+      name: "Playlist 3",
+      to: "/playlist3",
+      icon: <FaBookmark />,
+    },
+  ];
   const menuItem = [
     {
       name: "Home",
@@ -17,17 +35,13 @@ const Sidebar = (props, { children }) => {
       to: "/create",
       icon: <FaPlus />,
     },
-    {
-      name: "MyList",
-      to: "/list",
-      icon: <FaListUl />,
-    },
-    {
-      name: "Auth",
-      to: "/",
-      icon: <FaSignInAlt />,
-    },
   ];
+
+  const bookMark = {
+    name: "Bookmark",
+    icon: <FaBookmark />,
+    ...userBookmarks,
+  };
 
   return (
     <div
@@ -54,6 +68,22 @@ const Sidebar = (props, { children }) => {
           </div>
         </NavLink>
       ))}
+      {/* <Dropdown /> */}
+      <div
+        className={
+          location.pathname === bookMark.to
+            ? `${styles.active} ${styles.link}`
+            : styles.link
+        }
+      >
+        <div className={styles.icon}>{bookMark.icon}</div>
+        <div
+          style={{ display: props.isOpen ? "block" : "none" }}
+          className={styles["link-text"]}
+        >
+          {bookMark.name}
+        </div>
+      </div>
     </div>
   );
 };
