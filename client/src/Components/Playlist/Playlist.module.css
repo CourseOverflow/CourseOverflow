@@ -1,40 +1,23 @@
 .playlist {
   margin-left: 10px;
   justify-content: center;
-  padding: 10px;
   border-radius: 10px;
-  background-color: var(--box);
-  overflow: auto;
+  background-color: var(--base);
   width: 30%;
+  border-width: 0.5px;
+  border-color: var(--border);
+  overflow: hidden;
+}
+
+.playlist-items {
+  border-radius: 10px;
+  background-color: var(--base);
+  overflow: auto;
+  width: 100%;
 }
 
 .overflow {
   margin-left: 0;
   width: 100%;
   height: fit-content;
-}
-
-.playlist-item {
-  margin-top: 5px;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.playlist h1 {
-  background-color: transparent;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.playlist p {
-  background-color: transparent;
-  font-size: 1rem;
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-
-.playlist-item:hover {
-  background-color: var(--hover);
 }

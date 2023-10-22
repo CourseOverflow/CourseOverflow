@@ -7,8 +7,8 @@ const Replies = (props) => {
     <div className={styles.replies} key={props.replies.id}>
       <img src="images/logo.png" alt="User" className={styles["user-image"]} />
       <div className={styles["reply-details"]}>
-        <h1 className={styles["reply-name"]}>{props.replies.name}sdfgsdfg</h1>
-        <p className={styles["reply-text"]}>{props.replies.text}sdfgsdf</p>
+        <h1 className={styles["reply-name"]}>{reply.name}</h1>
+        <p className={styles["reply-text"]}>{reply.text}</p>
         <CommentFooter mainComment={false} />
       </div>
     </div>

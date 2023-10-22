@@ -1,0 +1,22 @@
+.playlistHeader {
+  display: flex;
+  padding: 10px 20px;
+  height: fit-content;
+  background-color: #282828;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+}
+
+.playlistHeader > h1 {
+  background-color: transparent;
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.playlistHeader > p {
+  background-color: transparent;
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+}

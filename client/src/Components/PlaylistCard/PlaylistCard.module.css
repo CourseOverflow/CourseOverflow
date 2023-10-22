@@ -1,0 +1,24 @@
+.playlist-item {
+  margin-top: 1px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.playlist-item h1 {
+  background-color: transparent;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.playlist-item p {
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.playlist-item:hover {
+  background-color: var(--hover);
+}
