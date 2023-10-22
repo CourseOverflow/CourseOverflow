@@ -52,7 +52,7 @@ const User = (props) => {
         >
           <div onClick={() => setOpen(false)} className=" absolute top-0   flex flex-col">
             <span
-              className="text-sm truncate pb-4 text-center ml-14 mt-2"
+              className="text-sm truncate pb-4 text-center ml-16 mt-2"
               title="name@flowbite.com"
             >
               name@flowbite.com
@@ -65,10 +65,10 @@ const User = (props) => {
               onClick={() => setOpen(false)}
               title="ansh"
               alt="User Profile"
-              className={`h-8 w-8 rounded-full ml-24 ${styles["journey"]}}`}
+              className={`h-8 w-8 rounded-full ml-[110px] ${styles["journey"]}}`}
             />
             
-              <span  title="ansh" className="ml-12 text-lg" onClick={()=>setOpen(false)}> Hi!! Ansh</span>
+              <span  title="ansh" className="ml-16 text-lg" onClick={()=>setOpen(false)}> Hi!! Ansh</span>
           
           </div>
         
