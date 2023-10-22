@@ -3,15 +3,60 @@
   align-items: center;
   gap: 0.2rem;
   margin: 0 3rem;
+
+  
 }
 
+.new{
+  border: var(--box) 3px solid;
+  border-radius: 30px;
+  background-color: var(--base);
+
+  /* font-weight: 6; */
+  font-size: 1rem;
+  cursor: pointer;
+  
+}
+/* .slow{
+  background-color: var(--base);
+} */
 .profile-image {
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
+
+  
   /* object-fit: cover; */
   /* margin-left: 5px; */
 }
+ 
+.course{
+  border: var(--box) 1px solid;
+  /* background-color: var(--box); */
+ 
+ border-width: 100%;
+ border-radius: 2px;
+ 
+}
+.divider {
+  border-left: 1px solid var(--box); /* Replace #yourColorHere with your desired color */
+  height: 40px; /* Adjust the height as needed */
+  margin: 0 8px; /* Adjust the margin as needed for spacing */
+}
+.journey{
+  
+  border-radius: 100%;
+  width: 50%;
+  height: 50%;
+}
+
+.profile-image-open:hover {
+  /* Add your hover effect with white shadow */
+  /* filter: drop-shadow(0 0 5px white); Adjust the shadow size as needed */
+}
+
+
+
 
 .username {
   color: white;
