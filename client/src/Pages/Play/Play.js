@@ -4,7 +4,6 @@ import Playlist from "../../Components/Playlist/Playlist";
 import Comments from "../../Components/CommentSection/CommentSection";
 import VideoControls from "../../Components/VideoControls/VideoControls";
 import CommentData from "../../Data/CommentData";
-import dummyComments from "./dummyComments";
 import CourseData from "../../Data/CourseData";
 import PlayListData from "../../Data/PlayListData";
 
