@@ -3,22 +3,28 @@ import styles from "./VideoControls.module.css";
 import { FaThumbsUp, FaThumbsDown, FaArrowRight } from "react-icons/fa";
 import Description from "./Description";
 
-const VideoControls = () => {
+const VideoControls = (props) => {
+  const handleNextClick = () => {
+    const nextIndex = props.currentlyPlayingVideoIndex + 1;
+    if (nextIndex < props.playlistSize) {
+      props.setVideoIndex(nextIndex);
+    }
+  };
   return (
     <>
       <div className={styles["video-controls"]}>
         <div className={styles.likesDislikes}>
           <FaThumbsUp className={styles.icon} />
-          <p>1.2K</p>
+          <p>{props.likes}</p>
           <FaThumbsDown className={styles.icon} />
-          <p>42</p>
+          <p>{props.dislikes}</p>
         </div>
-        <div className={styles.next}>
+        <div className={styles.next} onClick={handleNextClick}>
           <p>Next</p>
           <FaArrowRight className={styles.icon} />
         </div>
       </div>
-      <Description />
+      <Description desc={props.desc} />
     </>
   );
 };

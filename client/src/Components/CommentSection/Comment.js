@@ -3,6 +3,7 @@ import styles from "./Comment.module.css";
 import Replies from "./Replies";
 import CommentFooter from "./CommentFooter";
 import PostComment from "./PostComment";
+import UserData from "../../Data/UserData";
 
 const Comment = (props) => {
   const [openReplies, setOpenReplies] = useState(false);
@@ -21,9 +22,16 @@ const Comment = (props) => {
     <div className={styles.comment} key={props.comment.id}>
       <img src="images/logo.png" alt="User" className={styles["user-image"]} />
       <div className={styles["comment-details"]}>
-        <h1 className={styles["user-name"]}>{props.comment.name}</h1>
+        <h1 className={styles["user-name"]}>{UserData[0].name}</h1>
         <p className={styles["comment-text"]}>{props.comment.text}</p>
-        <CommentFooter mainComment={true} toggleReply={toggleReply} />
+        <CommentFooter
+          isLiked={props.comment.isLiked}
+          isDisliked={props.comment.isDisliked}
+          likes={props.comment.likes}
+          dislikes={props.comment.dislikes}
+          mainComment={true}
+          toggleReply={toggleReply}
+        />
         {openReply && <PostComment reply={true} addComment={replyHandler} />}
 
         {props.comment.thread && props.comment.thread.length > 0 && (
