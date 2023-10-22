@@ -4,13 +4,15 @@ import FileUpload from "../FormComponents/FileUpload";
 import TodoList from "../TodoList/TodoList.js";
 import NewTodoForm from "../TodoList/NewTodoForm.js";
 import { v4 as uuidv4 } from "uuid";
-
+import PlayListData from "../../../Data/PlayListData";
 const Step2 = () => {
   // Define state variables and functions
-  const [todos, setTodos] = useState([
-    { id: uuidv4(), task: "task 1", completed: false },
-    { id: uuidv4(), task: "task 2", completed: false },
-  ]);
+  // const [todos, setTodos] = useState([
+  //   { id: uuidv4(), topic: "topic 1", completed: false },
+  //   { id: uuidv4(), topic: "topic 2", completed: false },
+  // ]);
+
+  const [todos, setTodos] = useState(PlayListData[0].bundle);
 
   const create = (newTodo) => {
     console.log(newTodo);
@@ -24,7 +26,7 @@ const Step2 = () => {
   const update = (id, updatedTask) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, task: updatedTask };
+        return { ...todo, topic: updatedTask };
       }
       return todo;
     });

@@ -1,0 +1,29 @@
+.flexContainer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.column50 {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 60vh;
+}
+
+.Dragable > ul {
+  padding: 10px;
+  border: 1px solid var(--box);
+  overflow-y: scroll;
+  max-height: 450px;
+}
+
+@media only screen and (max-width: 980px) {
+  /* body {
+    -webkit-filter: blur(8px);
+  } */
+
+  .flexContainer {
+    display: flex;
+    flex-direction: column;
+  }
+}

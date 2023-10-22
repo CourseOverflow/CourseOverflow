@@ -7,7 +7,7 @@ function NewTodoForm({ createTodo }) {
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      task: "",
+      topic: "",
     }
   );
 
@@ -17,22 +17,22 @@ function NewTodoForm({ createTodo }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const newTodo = { id: uuidv4(), task: userInput.task, completed: false };
+    const newTodo = { id: uuidv4(), topic: userInput.topic, completed: false };
     createTodo(newTodo);
-    setUserInput({ task: "" });
+    setUserInput({ topic: "" });
   };
 
   return (
     <div className={styles.magicBox}>
       <form className={styles.NewTodoForm} onSubmit={handleSubmit}>
-        <label htmlFor="task">Manually Enter Topics</label>
+        <label htmlFor="topic">Manually Enter Topics</label>
         {/* <div className={style.searchBar}>
           <input
-            value={userInput.task}
+            value={userInput.topic}
             onChange={handleChange}
-            id="task"
+            id="topic"
             type="text"
-            name="task"
+            name="topic"
             placeholder="Enter Topics"
             className={style.titleInput}
           />
@@ -43,11 +43,11 @@ function NewTodoForm({ createTodo }) {
 
         <div className={styles["search-container"]}>
           <input
-            value={userInput.task}
+            value={userInput.topic}
             onChange={handleChange}
-            id="task"
+            id="topic"
             type="text"
-            name="task"
+            name="topic"
             placeholder="Enter Topics"
             className={`${styles["search-input"]} h-9`}
           />

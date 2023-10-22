@@ -5,10 +5,18 @@ import App from "./App";
 import { GlobalStateProvider } from "./GlobalStateContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
 root.render(
-  <React.StrictMode>
-    <GlobalStateProvider>
-      <App />
-    </GlobalStateProvider>
-  </React.StrictMode>
+  <GlobalStateProvider>
+    <App />
+  </GlobalStateProvider>
 );
+
+// root.render(
+//   <React.StrictMode>
+//     <GlobalStateProvider>
+//       <App />
+//     </GlobalStateProvider>
+//   </React.StrictMode>
+// );

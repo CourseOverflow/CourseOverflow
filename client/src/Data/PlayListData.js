@@ -8,7 +8,8 @@ const PlayListData = [
     bundle: [
       {
         id: 1,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Supervised Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -19,7 +20,8 @@ const PlayListData = [
       },
       {
         id: 2,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Unsupervised Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -30,7 +32,8 @@ const PlayListData = [
       },
       {
         id: 3,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Reinforcement Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -41,7 +44,8 @@ const PlayListData = [
       },
       {
         id: 4,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Deep Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -52,7 +56,8 @@ const PlayListData = [
       },
       {
         id: 5,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Natural Language Processing",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -63,7 +68,8 @@ const PlayListData = [
       },
       {
         id: 6,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Computer Vision",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -74,7 +80,8 @@ const PlayListData = [
       },
       {
         id: 7,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Natural Language Processing",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -90,7 +97,8 @@ const PlayListData = [
     bundle: [
       {
         id: 1,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Supervised Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -101,7 +109,8 @@ const PlayListData = [
       },
       {
         id: 2,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Unsupervised Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -112,7 +121,8 @@ const PlayListData = [
       },
       {
         id: 3,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Reinforcement Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -123,7 +133,8 @@ const PlayListData = [
       },
       {
         id: 4,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Deep Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -134,7 +145,8 @@ const PlayListData = [
       },
       {
         id: 5,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Natural Language Processing",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -145,7 +157,8 @@ const PlayListData = [
       },
       {
         id: 6,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Computer Vision",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -156,7 +169,8 @@ const PlayListData = [
       },
       {
         id: 7,
-        topic: "Introduction to Machine Learning",
+        topic: "Introduction to Natural Language Processing",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -173,6 +187,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -184,6 +199,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -195,6 +211,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -206,6 +223,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -217,6 +235,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -228,6 +247,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -239,6 +259,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -255,6 +276,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -266,6 +288,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -277,6 +300,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -288,6 +312,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -299,6 +324,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -310,6 +336,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -321,6 +348,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -337,6 +365,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -348,6 +377,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -359,6 +389,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -370,6 +401,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -381,6 +413,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -392,6 +425,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -403,6 +437,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -419,6 +454,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -430,6 +466,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -441,6 +478,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -452,6 +490,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -463,6 +502,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -474,6 +514,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -485,6 +526,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -501,6 +543,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -512,6 +555,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -523,6 +567,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -534,6 +579,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -545,6 +591,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -556,6 +603,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -567,6 +615,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -583,6 +632,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -594,6 +644,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -605,6 +656,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -616,6 +668,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -627,6 +680,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -638,6 +692,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -649,6 +704,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -665,6 +721,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -676,6 +733,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -687,6 +745,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -698,6 +757,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -709,6 +769,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -720,6 +781,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -731,6 +793,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
@@ -747,6 +810,7 @@ const PlayListData = [
       {
         id: 1,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -758,6 +822,7 @@ const PlayListData = [
       {
         id: 2,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 102,
@@ -769,6 +834,7 @@ const PlayListData = [
       {
         id: 3,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 101,
@@ -780,6 +846,7 @@ const PlayListData = [
       {
         id: 4,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 104,
@@ -791,6 +858,7 @@ const PlayListData = [
       {
         id: 5,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 105,
@@ -802,6 +870,7 @@ const PlayListData = [
       {
         id: 6,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 106,
@@ -813,6 +882,7 @@ const PlayListData = [
       {
         id: 7,
         topic: "Introduction to Machine Learning",
+        thumbnail: "https://i.ytimg.com/vi/dA1yY59MNUY/hq720.jpg",
         duration: "10:00",
         videoId: "ukzFI9rgwfU",
         commentId: 107,
