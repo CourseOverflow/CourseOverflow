@@ -1,10 +1,17 @@
 .playlist {
-  min-width: 300px;
+  margin-left: 10px;
   justify-content: center;
   padding: 10px;
   border-radius: 10px;
   background-color: var(--box);
   overflow: auto;
+  width: 30%;
+}
+
+.overflow {
+  margin-left: 0;
+  width: 100%;
+  height: fit-content;
 }
 
 .playlist-item {

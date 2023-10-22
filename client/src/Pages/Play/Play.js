@@ -10,7 +10,9 @@ const VideoPlayer = () => {
   const youtubeVideoId = "dA1yY59MNUY";
   const [showPlaylist, setShowPlaylist] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [videoDescriptionHeight, setVideoDescriptionHeight] = useState(0);
   const minWidth = 1000;
+  const videoDescriptionRef = useRef(null);
 
   const toggleDisplay = () => {
     setShowPlaylist(!showPlaylist);
@@ -19,8 +21,12 @@ const VideoPlayer = () => {
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
+      if (videoDescriptionRef.current) {
+        setVideoDescriptionHeight(videoDescriptionRef.current.offsetHeight);
+      }
     };
     window.addEventListener("resize", handleResize);
+    handleResize();
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -28,8 +34,8 @@ const VideoPlayer = () => {
 
   return (
     <>
-      <div className={styles["video-player"]}>
-        <div className="flex-1">
+      <div className={styles["player"]}>
+        <div ref={videoDescriptionRef} className={styles["video-description"]}>
           <div className={styles["video-container"]}>
             <iframe
               title="YouTube Video"
@@ -44,7 +50,11 @@ const VideoPlayer = () => {
                 {showPlaylist ? "Show Comments" : "Show Playlist"}
               </button>
               {showPlaylist ? (
-                <Playlist data={dummyData} overflow={true} />
+                <Playlist
+                  data={dummyData}
+                  overflow={true}
+                  height={videoDescriptionHeight}
+                />
               ) : (
                 <Comments comments={dummyComments} overflow={true} />
               )}
@@ -52,7 +62,11 @@ const VideoPlayer = () => {
           )}
         </div>
         {windowWidth > minWidth && (
-          <Playlist data={dummyData} overflow={false} />
+          <Playlist
+            data={dummyData}
+            overflow={false}
+            height={videoDescriptionHeight}
+          />
         )}
       </div>
       {windowWidth > minWidth && (

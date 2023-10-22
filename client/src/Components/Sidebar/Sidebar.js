@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { FaHome, FaPlus, FaBookmark } from "react-icons/fa";
+import { FaHome, FaPlus, FaBookmark, FaPlay } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = (props, { children }) => {
@@ -33,6 +33,11 @@ const Sidebar = (props, { children }) => {
       name: "Create",
       to: "/create",
       icon: <FaPlus />,
+    },
+    {
+      name: "Play",
+      to: "/play",
+      icon: <FaPlay />,
     },
   ];
 

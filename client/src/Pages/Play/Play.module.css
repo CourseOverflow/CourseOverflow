@@ -1,18 +1,19 @@
-.video-player {
+.player {
   display: flex;
   padding: 20px;
-  max-height: 790px;
+  height: fit-content;
+}
+
+.video-description {
+  max-height: fit-content;
+  height: min-content;
+  flex: 1;
 }
 
 .video-container {
-  flex: 1;
   position: relative;
   padding-bottom: 56.25%;
 }
-
-/* .ytp-timed-markers-container {
-  background-color: var(--theme);
-} */
 
 .video-container iframe {
   border-radius: 10px 10px 0 0;

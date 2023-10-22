@@ -12,7 +12,7 @@ export const useGlobalState = () => {
 };
 
 export const GlobalStateProvider = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <GlobalStateContext.Provider value={{ sidebarOpen, setSidebarOpen }}>

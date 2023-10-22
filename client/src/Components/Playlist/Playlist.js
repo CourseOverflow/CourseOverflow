@@ -2,11 +2,11 @@ import React from "react";
 import styles from "./Playlist.module.css";
 
 const Playlist = (props) => {
+  console.log(props.height);
   return (
     <div
-      className={`${styles.playlist} ${
-        props.overflow ? "min-h-screen" : "ml-3"
-      }`}
+      style={!props.overflow ? { height: `${props.height}px` } : {}}
+      className={`${styles.playlist} ${props.overflow && `${styles.overflow}`}`}
     >
       {props.data.map((item) => {
         return (
