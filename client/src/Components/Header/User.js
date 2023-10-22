@@ -32,22 +32,22 @@ const User = (props) => {
       onClick={() => setOpen((prevState) => !prevState)}
     >
       {/* prevstate means -> always opposite to the current state when  we will hit the button */}
-      <div className="flex items-center gap-x-1">
+      <div className={`flex items-center gap-x-2 ${open ? styles["profile-image-open"] : ''}`}>
         <img
         title="ansh"
           src="images/logo.png"
           alt="User Profile"
-          className={`${styles["profile-image"]} ${open ? styles["profile-image-open"] : ''}`}
+          className={`${styles["profile-image"]}`}
 
         />
 
-        <span title="ansh" className={`${styles["username"]} ${open ? styles["profile-image-open"] : ''}`}>{props.username}</span>
+        <span title="ansh" className={`${styles["username"]} `}>{props.username}</span>
         {/* <AiOutlineCaretDown className="text-sm text-richblack-100" /> */}
       </div>
       {open && (
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`absolute ${styles["new"]}  top-[125%] -right-4 z-[1000] overflow-hidden rounded-lg border-[1px] bg-richblack-800 flex flex-col gap-y-1 p-16 `}
+          className={`absolute ${styles["new"]}  top-[136%] -right-4 z-[1000] overflow-hidden rounded-lg border-[1px] bg-richblack-800 flex flex-col gap-y-1 p-16 `}
           // ref={ref}
         >
           <div onClick={() => setOpen(false)} className=" absolute top-0   flex flex-col">
