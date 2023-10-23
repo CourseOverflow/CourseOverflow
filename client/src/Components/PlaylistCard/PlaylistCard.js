@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./PlayListCard.module.css";
+import styles from "./PlaylistCard.module.css";
 const PlayListCard = (props) => {
   return (
     <div className={styles.container}>
