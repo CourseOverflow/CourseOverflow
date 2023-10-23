@@ -1,0 +1,97 @@
+.container {
+  transition: background-color 0.2s;
+  display: flex;
+  margin-right: 5px;
+}
+
+.container:hover {
+  background-color: var(--hover);
+}
+
+.playlistCard {
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  cursor: pointer;
+  padding: 10px 5px;
+  width: 100%;
+}
+
+.playlistCard:hover,
+.container:hover .playlistCard {
+  background-color: var(--hover);
+}
+
+.played {
+  background-color: var(--selected);
+}
+
+.imageContainer {
+  position: relative;
+  min-width: fit-content;
+}
+
+.thumbnail {
+  object-fit: cover;
+  height: 65px;
+  border-radius: 5px;
+}
+
+.duration {
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1px;
+  border-radius: 3px;
+}
+
+.details {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+  overflow: hidden;
+}
+
+.topic {
+  margin-top: 5px;
+  background-color: transparent;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--base-text);
+  max-height: 2.4rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.author {
+  background-color: transparent;
+  font-size: 0.8rem;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.videoIdx {
+  margin-left: 5px;
+  background-color: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+}
+.videoIdx > svg {
+  background-color: transparent;
+  width: 0.6rem;
+  fill: var(--text);
+}
