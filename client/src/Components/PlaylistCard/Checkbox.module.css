@@ -1,0 +1,17 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  margin: 0 5px;
+}
+
+.checkbox > span {
+  cursor: pointer;
+  background-color: transparent;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.checkbox > span > svg {
+  background-color: transparent;
+}
