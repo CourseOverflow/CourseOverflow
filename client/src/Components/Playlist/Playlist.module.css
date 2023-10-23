@@ -10,8 +10,7 @@
 }
 
 .playlist-items {
-  border-radius: 10px;
-  background-color: var(--base);
+  background-color: transparent;
   overflow: auto;
   width: 100%;
 }

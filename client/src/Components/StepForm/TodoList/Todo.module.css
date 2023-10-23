@@ -6,13 +6,16 @@
   align-items: center;
   background: var(--box);
 }
+.Todo > li {
+  background-color: var(--box);
+}
 
-.Todo-task {
+.Todo-topic {
   position: relative;
   transition: opacity 0.4s linear;
 }
 
-.Todo-task.completed {
+.Todo-topic.completed {
   opacity: 0.6;
 }
 
@@ -25,6 +28,9 @@
 .Todo-buttons {
   flex-shrink: 0;
   padding-left: 0.7em;
+}
+.Todo-buttons > button > svg {
+  background-color: transparent;
 }
 
 .Todo-buttons button {
@@ -96,7 +102,7 @@
   margin-left: 5px;
 }
 
-.Todo-task {
+.Todo-topic {
   background-color: var(--box);
   position: relative;
 }

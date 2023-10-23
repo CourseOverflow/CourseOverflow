@@ -3,16 +3,44 @@ import styles from "./Play.module.css";
 import Playlist from "../../Components/Playlist/Playlist";
 import Comments from "../../Components/CommentSection/CommentSection";
 import VideoControls from "../../Components/VideoControls/VideoControls";
-import dummyData from "./dummyData";
-import dummyComments from "./dummyComments";
+import CommentData from "../../Data/CommentData";
+import CourseData from "../../Data/CourseData";
+import PlayListData from "../../Data/PlayListData";
 
 const VideoPlayer = () => {
-  const youtubeVideoId = "dA1yY59MNUY";
+  // data of the playlist currently playing
+  const playlistHeaderData = CourseData[0];
+  //data of the playlist currently playing
+  const currentlyPlayingPlaylist = CourseData[0].PlayListId;
+  //index of the video currently playing
+  const currentlyPlayingVideo = PlayListData[currentlyPlayingPlaylist];
+  //Bundle => data of the playlist currently playing
+  const [currentlyPlayingVideoIndex, setCurrentlyPlayingVideoIndex] =
+    useState(0);
+  //id of the video currently playing
+  const currPlaylistData = currentlyPlayingVideo.bundle;
+  const [youtubeVideoId, setYoutubeVideoId] = useState(
+    currPlaylistData[currentlyPlayingVideoIndex].videoId
+  );
+
+  // Function to set the currentlyPlayingVideoIndex state
+  const setVideoIndex = (index) => {
+    setCurrentlyPlayingVideoIndex(index);
+  };
+
+  // Listen for changes in currPlaylistData and update currentlyPlayingVideoIndex
+  useEffect(() => {
+    setYoutubeVideoId(currPlaylistData[currentlyPlayingVideoIndex].videoId);
+  }, [currentlyPlayingVideoIndex]);
+
   const [showPlaylist, setShowPlaylist] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [videoDescriptionHeight, setVideoDescriptionHeight] = useState(0);
   const minWidth = 1000;
+
   const videoDescriptionRef = useRef(null);
+
+  // before predy work/bp
 
   const toggleDisplay = () => {
     setShowPlaylist(!showPlaylist);
@@ -43,7 +71,14 @@ const VideoPlayer = () => {
               allowFullScreen
             ></iframe>
           </div>
-          <VideoControls />
+          <VideoControls
+            likes={currPlaylistData[currentlyPlayingVideoIndex].likes}
+            dislikes={currPlaylistData[currentlyPlayingVideoIndex].dislikes}
+            playlistSize={currPlaylistData.length}
+            setVideoIndex={setVideoIndex}
+            currentlyPlayingVideoIndex={currentlyPlayingVideoIndex}
+            desc={currPlaylistData[currentlyPlayingVideoIndex].desc}
+          />
           {windowWidth <= minWidth && (
             <>
               <button className={styles["tab-switch"]} onClick={toggleDisplay}>
@@ -51,26 +86,31 @@ const VideoPlayer = () => {
               </button>
               {showPlaylist ? (
                 <Playlist
-                  data={dummyData}
+                  currVideoIdx={currentlyPlayingVideoIndex}
+                  setVideoIndex={setVideoIndex}
+                  data={currPlaylistData}
+                  playlistHeaderData={playlistHeaderData}
                   overflow={true}
                   height={videoDescriptionHeight}
                 />
               ) : (
-                <Comments comments={dummyComments} overflow={true} />
+                <Comments comments={CommentData[1].comments} overflow={true} />
               )}
             </>
           )}
         </div>
         {windowWidth > minWidth && (
           <Playlist
-            data={dummyData}
+            setVideoIndex={setVideoIndex}
+            data={currPlaylistData}
+            playlistHeaderData={playlistHeaderData}
             overflow={false}
             height={videoDescriptionHeight}
           />
         )}
       </div>
       {windowWidth > minWidth && (
-        <Comments comments={dummyComments} overflow={false} />
+        <Comments comments={CommentData[1].comments} overflow={false} />
       )}
     </>
   );

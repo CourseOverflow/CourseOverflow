@@ -14,7 +14,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 47,
     PlayListId: 1,
   },
   {
@@ -32,7 +33,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 3,
     PlayListId: 2,
   },
   {
@@ -50,7 +52,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 3,
     PlayListId: 3,
   },
   {
@@ -68,7 +71,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 3,
     PlayListId: 4,
   },
   {
@@ -86,7 +90,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 3,
     PlayListId: 5,
   },
   {
@@ -104,7 +109,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 3,
     PlayListId: 6,
   },
   {
@@ -140,7 +146,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 3,
     PlayListId: 8,
   },
   {
@@ -176,7 +183,8 @@ const SearchData = [
       Math.random() * 60
     )}min`,
     views: Math.floor(Math.random() * 10000),
-    watchPercentage: Math.floor(Math.random() * 100) + 1,
+    videoCount: 75,
+    watchedCount: 3,
     PlayListId: 10,
   },
 ];

@@ -4,24 +4,49 @@ import PlaylistCard from "../PlaylistCard/PlaylistCard";
 import styles from "./Playlist.module.css";
 
 const Playlist = (props) => {
+  const checkboxHandler = () => {
+    console.log("not yet integrated: checkboxHandler");
+  };
+
+  const handleNextClick = (id) => {
+    props.setVideoIndex(id);
+  };
+  console.log(props.id);
   return (
     <div
       style={!props.overflow ? { height: `${props.height}px` } : {}}
-      className={styles.playlist}
+      className={`${styles.playlist} ${props.overflow && styles.overflow}`}
     >
       <PlaylistHeader
-        title={props.title}
-        author={props.author}
-        duration={props.duration}
+        title={props.playlistHeaderData.title}
+        author={props.playlistHeaderData.author}
+        duration={props.playlistHeaderData.duration}
+        videoCount={props.playlistHeaderData.videoCount}
+        watchedCount={props.playlistHeaderData.watchedCount}
       />
       <div
-        style={!props.overflow ? { height: `${props.height}px` } : {}}
+        style={!props.overflow ? { height: `${props.height - 94}px` } : {}}
         className={`${styles["playlist-items"]} ${
           props.overflow && `${styles.overflow}`
         }`}
       >
-        {props.data.map((item) => {
-          return <PlaylistCard key={item.id} data={item} />;
+        {props.data.map((item, index) => {
+          return (
+            <PlaylistCard
+              clickHandler={() => handleNextClick(item.index)}
+              currVideo={props.currVideoIdx === item.index || 3 === item.index}
+              rank={index + 1}
+              author={item.author}
+              key={item.id}
+              topic={item.topic}
+              thumbnail={item.thumbnail}
+              duration={item.duration}
+              desc={item.desc}
+              isWatched={item.isWatched}
+              checkboxHandler={checkboxHandler}
+              playlistItem={true}
+            />
+          );
         })}
       </div>
     </div>

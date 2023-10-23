@@ -1,22 +1,38 @@
 .playlistHeader {
-  display: flex;
   padding: 10px 20px;
-  height: fit-content;
-  background-color: #282828;
+  background-color: var(--box);
   color: #fff;
   border-radius: 10px 10px 0 0;
 }
 
-.playlistHeader > h1 {
+.title {
   background-color: transparent;
-  font-size: 1.2rem;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: var(--base-text);
   margin: 0;
-  padding: 0;
 }
 
-.playlistHeader > p {
+.author {
+  color: var(--text);
   background-color: transparent;
   font-size: 0.8rem;
   margin: 0;
-  padding: 0;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+}
+
+.duration {
+  color: var(--theme);
+  background-color: transparent;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.statusLine {
+  border-top: 1px solid var(--theme);
 }

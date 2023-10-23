@@ -1,0 +1,15 @@
+.Card {
+  border-radius: 8px;
+  display: flex;
+  padding: 10px;
+  border: 1px solid var(--hover);
+}
+.Image {
+  width: 150px;
+}
+.Topic {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
+  margin-left: 10px;
+}

@@ -13,9 +13,6 @@ const CardImage = (props) => {
     console.log("Card clicked, Play!");
   };
 
-  const percentageWatched = props.watchPercentage;
-  const hrWidth = `${percentageWatched}%`;
-
   return (
     <div className={styles.card}>
       <div className={styles.cardImage} style={cardStyle}></div>
@@ -29,7 +26,10 @@ const CardImage = (props) => {
         likesCount={props.likes}
         dislikesCount={props.dislikes} // Fixed the prop name
       />
-      <hr className={styles.cardHr} style={{ width: hrWidth }} />
+      <hr
+        className={styles.cardHr}
+        style={{ width: `${props.watchPercentage}%` }}
+      />
     </div>
   );
 };

@@ -4,6 +4,9 @@ import CardImage from "./CardImage";
 import CardInfo from "./CardInfo";
 
 const Card = (props) => {
+  const watchPercentage = Math.floor(
+    (props.data.watchedCount / props.data.videoCount) * 100
+  );
   return (
     <div>
       <CardImage
@@ -13,7 +16,7 @@ const Card = (props) => {
         isLiked={props.data.isLiked}
         isDisliked={props.data.isDisliked}
         isBookmarked={props.data.isBookmarked}
-        watchPercentage={props.data.watchPercentage}
+        watchPercentage={watchPercentage}
       />
       <CardInfo title={props.data.title} author={props.data.author} />
     </div>
