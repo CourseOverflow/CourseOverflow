@@ -1,0 +1,33 @@
+>> Install Django in your system
+pip3 install Django
+
+>> open .zshrc and paste this export command 
+export PATH="/Users/pradyumnasingh/Library/Python/3.9/bin:$PATH"
+
+>> source your .zshrc file
+source ~/.zshrc
+
+>> check version
+django-admin --version 
+
+>> if backend already exist don't recreate
+django-admin startproject backend
+
+cd backend
+
+>> used to apply database migrations (database schema synchronized with your Django project's models.)
+python3 manage.py migrate
+
+>>  To create a new superuser account for the Django admin interface (access to the Django admin site so it allows them to manage and manipulate data in the database and perform various administrative tasks.)
+python3 manage.py createsuperuser
+
+>> This command runs the backend server
+python3 manage.py runserver
+
+>> This command is used to create a new Django app within your project
+python3 manage.py startapp server
+
+>> server live location => http://127.0.0.1:8000/
+
+>> changing port command?
+python3 manage.py runserver 8080

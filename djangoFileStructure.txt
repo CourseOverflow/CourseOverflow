@@ -1,0 +1,26 @@
+----------------------------------------------------------------------------------------------------------------
+django official docs (https://docs.djangoproject.com/en/4.2/)
+----------------------------------------------------------------------------------------------------------------
+Structure
+----------------------------------------------------------------------------------------------------------------
+
+backend (This is the root directory of your Django project.)
+    db.sqlite3 (Default SQLite database)
+    manage.py (Project management script)
+    /backend (This inner "backend" directory is a Python package, part of your Django project.)
+        __init__.py (Empty file to make it a Python package)
+        asgi.py (ASGI configuration for asynchronous servers)
+        settings.py (Project settings and configuration)
+        urls.py (URL routing configuration)
+        wsgi.py (WSGI configuration for traditional web servers)
+    /server (After you create this app >> all of our backend stuff will do in this.)
+        --init__.py (Empty file to make it a Python package)
+        admin.py (Admin interface configuration)
+        apps.py (App configuration)
+        models.py (Database models)
+        tests.py (Tests for the app)
+        views.py (Views handling HTTP requests)
+        /migrations (This directory contains migration files for managing database schema changes in your app.)
+            --init__.py (An empty file to make it a Python package)
+
+----------------------------------------------------------------------------------------------------------------
