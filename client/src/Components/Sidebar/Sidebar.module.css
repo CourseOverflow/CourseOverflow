@@ -46,6 +46,7 @@
   transition: all 0.5s;
 }
 
+
 .link > div {
   background-color: transparent;
 }
@@ -61,6 +62,22 @@
   transition: all 0.5s;
   border-radius: 10px;
 }
+.change{
+
+  background-color: var(--base);
+  display: flex;
+  color: #fff;
+  transition: all 0.5s;
+  outline: none;
+}
+.change:hover{
+  background-color: var(--hover);
+  /* color: white; */
+  opacity: transparent;
+  color: #fff;
+  transition: all 0.5s;
+  border-radius: 10px;
+}
 
 .active {
   display: flex;
@@ -72,6 +89,7 @@
 .icon,
 .link-text {
   font-size: 20px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {

@@ -51,10 +51,7 @@
   height: 50px;
 }
 
-.profile-image-open:hover {
 
-  
-}
 
 
 
@@ -72,6 +69,8 @@
   .username {
     display: none;
   }
- 
+  .mainphoto{
+    display: none;
+  }
  
 }

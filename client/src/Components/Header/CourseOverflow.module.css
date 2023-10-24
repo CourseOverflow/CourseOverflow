@@ -23,7 +23,9 @@
 .FaBars {
   height: 24px;
   width: 50px;
+  cursor: pointer;
 }
+
 
 @media only screen and (max-width: 980px) {
   .container {

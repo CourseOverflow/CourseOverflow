@@ -35,6 +35,10 @@ const VideoPlayer = () => {
 
   const [showPlaylist, setShowPlaylist] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // const[pausing,setpausing]= useState(0);
+
+
+
   const [videoDescriptionHeight, setVideoDescriptionHeight] = useState(0);
   const minWidth = 1000;
 

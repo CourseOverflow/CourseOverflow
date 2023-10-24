@@ -37,8 +37,8 @@ const User = (props) => {
         title="ansh"
           src="images/logo.png"
           alt="User Profile"
-          className={`${styles["profile-image"]}`}
-
+          className={`${styles["profile-image"]} `}
+          
         />
 
         <span title="ansh" className={`${styles["username"]} `}>{props.username}</span>
