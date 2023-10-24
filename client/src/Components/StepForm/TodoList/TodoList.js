@@ -1,15 +1,15 @@
 import React from "react";
 import Todo from "./Todo";
+import style from "./TodoList.module.css";
 import NewTodoForm from "./NewTodoForm";
-import style from "./TodoList.module.css"; // Import the CSS module
 
-function TodoList({
+const TodoList = ({
   todos,
   createTodo,
   removeTodo,
   updateTodo,
   toggleCompleteTodo,
-}) {
+}) => {
   const todosList = todos.map((todo) => (
     <Todo
       key={todo.id}
@@ -22,10 +22,14 @@ function TodoList({
 
   return (
     <div className={style.TodoList}>
-      {" "}
-      <ul>{todosList}</ul>
+      <ul>
+        {todosList}
+        <li>
+          <NewTodoForm createTodo={createTodo} />
+        </li>
+      </ul>
     </div>
   );
-}
+};
 
 export default TodoList;

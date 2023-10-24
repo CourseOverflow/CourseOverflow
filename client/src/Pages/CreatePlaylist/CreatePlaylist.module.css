@@ -4,7 +4,9 @@
   text-align: center;
   padding: 30px;
   max-width: 100%; /* Set a maximum width */
+  min-height: fit-content;
 }
+
 .createDivider {
   width: 100%;
   border: none;
@@ -13,18 +15,15 @@
 }
 
 .createPlaylist-container {
-  padding: 5px;
+  padding: 0;
   margin: 50px;
   margin-top: 0;
   max-width: 100%; /* Set a maximum width */
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid var(--hover);
   box-sizing: border-box; /* Include padding and border in width */
-
   display: flex;
   flex-direction: column;
-  align-items: flex-center;
-  justify-content: flex-center;
 }
 
 /* Add media query for smaller screens */

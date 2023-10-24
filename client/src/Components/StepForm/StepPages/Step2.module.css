@@ -5,14 +5,13 @@
 
 .uploadContainer {
   flex: 1;
-  box-sizing: border-box;
-  height: 100%;
   margin: 20px;
+  box-sizing: border-box;
   max-width: 40%;
   height: 400px;
 }
 
-.detailsContainer {
+.listContainer {
   flex: 1;
   box-sizing: border-box;
   height: 100%;
@@ -23,8 +22,10 @@
 @media only screen and (max-width: 720px) {
   .flexContainer {
     flex-direction: column;
-
     transition: all 0.5s;
+  }
+  .uploadContainer {
+    max-width: 100%;
   }
 }
 

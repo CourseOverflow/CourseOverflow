@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { FaPen, FaTrash } from "react-icons/fa";
+import { FaCheck, FaPen, FaTrash } from "react-icons/fa";
 import style from "./Todo.module.css";
 
-function Todo({ todo, remove, update, toggleComplete }) {
+const Todo = ({ todo, remove, update, toggleComplete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [topic, setTask] = useState(todo.topic);
 
@@ -24,7 +24,9 @@ function Todo({ todo, remove, update, toggleComplete }) {
       <div className={style.Todo}>
         <form className={style["Todo-edit-form"]} onSubmit={handleUpdate}>
           <input onChange={handleChange} value={topic} type="text" />
-          <button>Save</button>
+          <button>
+            <FaCheck />
+          </button>
         </form>
       </div>
     );
@@ -49,6 +51,6 @@ function Todo({ todo, remove, update, toggleComplete }) {
     );
   }
   return result;
-}
+};
 
 export default Todo;

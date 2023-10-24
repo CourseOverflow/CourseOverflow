@@ -25,7 +25,7 @@ const Playlist = (props) => {
         watchedCount={props.playlistHeaderData.watchedCount}
       />
       <div
-        style={!props.overflow ? { height: `${props.height - 94}px` } : {}}
+        style={!props.overflow ? { height: `${props.height - 130}px` } : {}}
         className={`${styles["playlist-items"]} ${
           props.overflow && `${styles.overflow}`
         }`}

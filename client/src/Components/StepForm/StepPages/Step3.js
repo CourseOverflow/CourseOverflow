@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import PlayListData from "../../../Data/PlayListData";
+import PreviewCard from "../../PreviewCard/PreviewCard";
 import PlaylistCard from "../../PlaylistCard/PlaylistCard";
-import DurationCard from "../../DurationCard/DurationCard";
 import CourseData from "../../../Data/CourseData";
 import styles from "./Step3.module.css";
 DragDropContext.unstable_disableReactStrictModeWarnings = true;
@@ -27,15 +27,15 @@ const Step3 = () => {
 
   return (
     <div className={styles.flexContainer}>
-      <div className={`${styles["column50"]}`}>
-        <PlaylistCard
+      <div className={styles.PreviewCard}>
+        <PreviewCard
           title={CourseData[generatedCourseId].title}
           thumbnail={CourseData[generatedCourseId].image}
           duration={CourseData[generatedCourseId].duration}
           desc={CourseData[generatedCourseId].desc}
         />
       </div>
-      <div className={`${styles["column50"]} ${styles["Dragable"]}`}>
+      <div className={`${styles.list} ${styles["Dragable"]}`}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {(provided) => (
@@ -52,11 +52,13 @@ const Step3 = () => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <DurationCard
+                        <PlaylistCard
                           key={item.id}
                           topic={item.topic}
+                          author={item.author}
                           thumbnail={item.thumbnail}
                           duration={item.duration}
+                          isDraggable={true}
                         />
                       </li>
                     )}

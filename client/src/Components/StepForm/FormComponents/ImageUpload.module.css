@@ -1,21 +1,23 @@
 .card {
-  margin: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+  height: 345px;
 }
+
 .headTitle {
   height: 55px;
-  border-radius: 10px;
   display: flex;
   flex-direction: row;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--hover);
+  border-radius: 5px 5px 0 0;
   border-bottom: none;
+  background-color: var(--box);
+  color: var(--baseText);
 }
 
 .card h3 {
-  padding: 10px;
   font-size: 22px;
   font-weight: 600;
 }
@@ -28,10 +30,9 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border: 3px dotted var(--hover);
-
-  border-top: 1px solid var(--hover);
-  border-radius: 5px;
+  border: 1px solid var(--hover);
+  border-radius: 0 0 5px 5px;
+  min-height: 100%;
 }
 
 .drop_box h4 {

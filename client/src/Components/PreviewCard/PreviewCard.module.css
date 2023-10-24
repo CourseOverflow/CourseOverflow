@@ -1,0 +1,45 @@
+.container {
+  width: 100%;
+  border: 1px solid var(--box);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 400px;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text);
+  margin: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.description {
+  margin: 10px;
+  font-size: 0.8rem;
+  color: var(--hover);
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.imageContainer {
+  position: relative;
+  min-width: fit-content;
+}
+
+.thumbnail {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+
+.duration {
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--base-text);
+  padding: 3px;
+  border-radius: 5px 3px 0 3px;
+}

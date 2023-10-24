@@ -13,7 +13,7 @@ const FooterBar = (props) => {
     }
   };
   return (
-    <div className="FotterCreatePlaylist">
+    <div className={styles.createFooter}>
       <button onClick={handelBackClick} className={styles["BackBtn"]}>
         BACK
       </button>

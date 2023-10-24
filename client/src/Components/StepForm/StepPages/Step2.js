@@ -1,17 +1,10 @@
 import React, { useState, useRef } from "react";
-import styles from "./Step1.module.css"; // You may need to adjust the styles import
+import styles from "./Step2.module.css";
 import FileUpload from "../FormComponents/FileUpload";
 import TodoList from "../TodoList/TodoList.js";
-import NewTodoForm from "../TodoList/NewTodoForm.js";
-import { v4 as uuidv4 } from "uuid";
 import PlayListData from "../../../Data/PlayListData";
-const Step2 = () => {
-  // Define state variables and functions
-  // const [todos, setTodos] = useState([
-  //   { id: uuidv4(), topic: "topic 1", completed: false },
-  //   { id: uuidv4(), topic: "topic 2", completed: false },
-  // ]);
 
+const Step2 = () => {
   const [todos, setTodos] = useState(PlayListData[0].bundle);
 
   const create = (newTodo) => {
@@ -45,8 +38,10 @@ const Step2 = () => {
 
   return (
     <div className={styles.flexContainer}>
-      <div className={styles["column50"]}>
-        {/* Pass state variables and functions to TodoList */}
+      <div className={styles.uploadContainer}>
+        <FileUpload />
+      </div>
+      <div className={styles.listContainer}>
         <TodoList
           todos={todos}
           createTodo={create}
@@ -54,11 +49,6 @@ const Step2 = () => {
           updateTodo={update}
           toggleCompleteTodo={toggleComplete}
         />
-      </div>
-      <div className={styles["column50"]}>
-        <FileUpload />
-        <NewTodoForm createTodo={create} />
-        {/* <NewTodoForm createTodo={props.create} /> */}
       </div>
     </div>
   );

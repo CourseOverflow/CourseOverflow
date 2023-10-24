@@ -1,39 +1,28 @@
 .Todo {
   display: flex;
-  margin: 0 -3rem 4px;
-  padding: 1.1rem 3rem;
+  margin: 10px;
+  padding: 10px;
   justify-content: space-between;
   align-items: center;
   background: var(--box);
+  text-align: left;
 }
+
 .Todo > li {
   background-color: var(--box);
 }
 
-.Todo-topic {
-  position: relative;
-  transition: opacity 0.4s linear;
-}
-
-.Todo-topic.completed {
-  opacity: 0.6;
-}
-
-@keyframes strikeitem {
-  to {
-    width: calc(100% + 1rem);
-  }
-}
-
 .Todo-buttons {
+  display: flex;
   flex-shrink: 0;
-  padding-left: 0.7em;
+  background-color: transparent;
 }
+
 .Todo-buttons > button > svg {
   background-color: transparent;
 }
 
-.Todo-buttons button {
+.Todo-buttons > button {
   border: none;
   font-size: 1em;
   margin: 0.4em;
@@ -42,71 +31,40 @@
 
 .Todo-edit-form {
   display: flex;
-  flex-wrap: wrap;
-}
-
-.Todo-edit-form label {
-  min-width: 100%;
-  margin-bottom: 0.5rem;
-  font-size: 1.3rem;
-}
-
-.Todo-edit-form input {
+  background-color: transparent;
   flex-grow: 1;
+  justify-content: space-between;
+}
+
+.Todo-edit-form > input {
   border: none;
   background: var(--box);
-  padding: 0 1.5em;
   font-size: initial;
-}
-
-.Todo-edit-form button {
-  padding: 0 1.3rem;
-  border-radius: 10px;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-left: 5px;
-  cursor: pointer;
-}
-
-.Todo-edit-form button:hover {
-  border: 1px solid var(--themeHover);
-}
-
-.Todo-edit-form input,
-.Todo-edit-form button {
   font-family: "Quicksand", sans-serif;
+  margin-right: 10px;
+  width: 100%;
 }
 
-.Todo {
-  display: flex;
-  margin: 10px;
-  padding: 10px;
-  background-color: var(--box);
-}
-
-.Todo-edit-form {
-  background-color: var(--box);
-}
-.Todo-edit-form > input {
-  background-color: var(--box);
-  border: 1px solid var(--hover);
-  border-radius: 10px;
-  padding: 5px;
+.Todo-edit-form > input:focus {
+  border: none;
+  background: var(--box);
+  font-size: initial;
+  outline: none;
 }
 
 .Todo-edit-form > button {
-  background-color: var(--hover);
-  border-radius: 10px;
-  padding: 5px 10px;
-  flex-direction: flex-end;
-  margin-left: 5px;
+  border: none;
+  font-size: 1em;
+  margin: 0.4em;
+  cursor: pointer;
 }
 
-.Todo-topic {
-  background-color: var(--box);
-  position: relative;
+.Todo-edit-form > button > svg {
+  background-color: transparent;
 }
 
-.Todo-buttons {
-  background-color: var(--box);
+@keyframes strikeitem {
+  to {
+    width: calc(100% + 1rem);
+  }
 }
