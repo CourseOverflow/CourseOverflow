@@ -10,6 +10,7 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import Footer from "./Components/Footer/Footer";
 import styles from "./App.module.css"; // Your main CSS file
 import { useGlobalState } from "./GlobalStateContext";
+import Bookmark from "./Pages/Bookmark/Bookmark";
 import Play from "./Pages/Play/Play";
 
 const Blocker = () => {
@@ -86,6 +87,15 @@ const App = () => {
                     <>
                       <Blocker />
                       <Search />
+                    </>
+                  }
+                />
+                <Route 
+                  path="/bookmark"
+                  element={
+                    <>
+                      <Blocker />
+                      <Bookmark/>
                     </>
                   }
                 />
