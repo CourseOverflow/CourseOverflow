@@ -14,7 +14,7 @@ const Footer = () => {
         </span>
         <ul className={styles["footer-links"]}>
           <li>
-            <a href="/" className={`${styles["footer-link"]}`}>
+            <a href="/about" className={`${styles["footer-link"]}`}>
               About
             </a>
           </li>

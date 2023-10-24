@@ -12,6 +12,7 @@ import styles from "./App.module.css"; // Your main CSS file
 import { useGlobalState } from "./GlobalStateContext";
 import Bookmark from "./Pages/Bookmark/Bookmark";
 import Play from "./Pages/Play/Play";
+import About from "./Pages/About/About";
 
 const Blocker = () => {
   return <div className={styles.blocked}></div>;
@@ -90,12 +91,21 @@ const App = () => {
                     </>
                   }
                 />
-                <Route 
+                <Route
                   path="/bookmark"
                   element={
                     <>
                       <Blocker />
-                      <Bookmark/>
+                      <Bookmark />
+                    </>
+                  }
+                />
+                <Route
+                  path="/about"
+                  element={
+                    <>
+                      <Blocker />
+                      <About />
                     </>
                   }
                 />
