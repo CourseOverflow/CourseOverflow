@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./InputForm.module.css";
+
 const InputForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -17,7 +18,7 @@ const InputForm = () => {
   };
 
   const handleDescriptionChange = (e) => {
-    const inputValue = e.target.value;
+    const inputValue = e.target.textContent; // Get the text content
     if (inputValue.length <= 5000) {
       setDescription(inputValue);
     }
@@ -64,18 +65,21 @@ const InputForm = () => {
         }`}
         onClick={focusTitleInput}
       >
-        <label htmlFor="title" className={styles["titleLabel"]}>
-          Title (required) :
-        </label>
+        <div className={styles["inputHeader"]}>
+          <label htmlFor="title" className={styles["titleLabel"]}>
+            Title <span className={styles["required"]}>*</span>
+          </label>
+          <p className={styles["count"]}>{title.length}/100</p>
+        </div>
         <input
           type="text"
           id="title"
           value={title}
+          placeholder="Enter a title for your Playlist"
           onChange={handleTitleChange}
           className={styles["titleInput"]}
           ref={titleInputRef}
         />
-        <p className={styles["count"]}>{title.length}/100</p>
       </div>
       <div
         className={`${styles["descDiv"]} ${
@@ -83,17 +87,20 @@ const InputForm = () => {
         }`}
         onClick={focusDescInput}
       >
-        <label htmlFor="description" className={styles["descLabel"]}>
-          Description:
-        </label>
-        <textarea
+        <div className={styles["inputHeader"]}>
+          <label htmlFor="description" className={styles["descLabel"]}>
+            Description
+          </label>
+          <p className={styles["count"]}>{description.length}/5000</p>
+        </div>
+        <div
           id="description"
-          value={description}
-          onChange={handleDescriptionChange}
+          onInput={handleDescriptionChange} // Use onInput event
           className={styles["descInput"]}
           ref={descInputRef}
-        ></textarea>
-        <p className={styles["count"]}>{description.length}/5000</p>
+          contentEditable={true}
+          data-placeholder="Enter a description for your Playlist..."
+        ></div>
       </div>
     </form>
   );

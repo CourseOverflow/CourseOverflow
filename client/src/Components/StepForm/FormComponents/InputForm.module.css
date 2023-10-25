@@ -3,44 +3,83 @@
   --divHover: rgb(138, 137, 137);
 }
 
+/* Div Styling */
 .titleDiv,
 .descDiv {
-  margin: 10px;
-  padding: 10px;
   border-radius: 10px;
-  border: 1px solid var(--hover);
   display: flex;
   flex-direction: column;
 }
+.descDiv {
+  margin-top: 10px;
+}
+/* Required Elements */
+.required {
+  color: var(--error);
+}
 
-.titleDiv:hover,
-.descDiv:hover,
+/* Header Styles */
+.inputHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Placeholders */
+.descInput:empty:before {
+  content: attr(data-placeholder);
+  color: var(--text);
+}
+
+/* Input Fields */
+.titleDiv > .titleInput,
+.descDiv > .descInput {
+  border-radius: 8px;
+  padding: 5px;
+  outline: none; /* Remove focus outline */
+  font-size: larger;
+  border: 1px solid var(--hover);
+}
+.titleInput::placeholder {
+  color: var(--text);
+}
+/* Text Alignment */
+.descInput {
+  height: 300px;
+  text-align: left;
+  max-height: 300px;
+}
+
+/* Scrollable Content */
+.descInput {
+  overflow-y: auto;
+}
+
+/* Hover Styles */
+.titleDiv > .titleInput:hover,
+.descDiv > .descInput:hover,
 .pdfDiv:hover {
   border: 1px solid var(--divHover);
 }
 
-.titleDivFocused,
-.descDivFocused,
+/* Focus Styles */
+.titleDivFocused > .titleInput,
+.descDivFocused > .descInput,
 .pdfDivFocused {
   border: 1px solid var(--divFocus);
 }
 
+/* Character Count */
 .count {
   align-self: flex-end;
 }
 
-.titleInput,
-.descInput {
-  border-radius: 5px;
-  padding: 5px;
-  outline: none; /* Remove focus outline */
-}
-
+/* Labels */
 .titleLabel,
 .descLabel {
   align-self: flex-start;
 }
 
+/* Dashed Container */
 .dashContainer {
   align-self: center;
   display: flex;
@@ -52,11 +91,10 @@
   border: 1px dashed var(--hover);
 }
 
+/* Media Queries */
 @media only screen and (max-width: 680px) {
-  /* body {
-    -webkit-filter: blur(8px);
-  } */
-
+  /* Your media query styles here */
+  /* body { -webkit-filter: blur(8px); } */
   .column50 {
     flex-direction: row;
     flex-grow: 1;

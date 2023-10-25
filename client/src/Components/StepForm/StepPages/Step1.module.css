@@ -34,4 +34,12 @@
 
     transition: all 0.5s;
   }
+  .detailsContainer {
+    margin-top: 0;
+    margin-left: 20px;
+  }
+  .uploadContainer {
+    height: 100%;
+    max-width: 100%;
+  }
 }

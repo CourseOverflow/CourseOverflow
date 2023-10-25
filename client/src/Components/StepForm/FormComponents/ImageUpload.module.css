@@ -24,7 +24,7 @@
 
 .drop_box {
   height: 185px;
-  margin-bottom: 10px;
+
   padding: 33px;
   display: flex;
   align-items: center;
@@ -108,5 +108,11 @@
     white-space: initial;
     overflow: initial;
     text-overflow: initial;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .card {
+    height: 100%;
   }
 }

@@ -19,20 +19,18 @@
   margin-left: 0;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 980px) {
   .flexContainer {
     flex-direction: column;
+
     transition: all 0.5s;
+  }
+  .listContainer {
+    margin-top: 0;
+    margin-left: 20px;
   }
   .uploadContainer {
+    height: 100%;
     max-width: 100%;
-  }
-}
-
-@media only screen and (max-width: 1200px) {
-  .flexContainer {
-    flex-direction: column;
-
-    transition: all 0.5s;
   }
 }
