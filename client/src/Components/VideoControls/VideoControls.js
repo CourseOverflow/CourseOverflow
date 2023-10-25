@@ -1,6 +1,12 @@
 import React from "react";
 import styles from "./VideoControls.module.css";
-import { FaThumbsUp, FaThumbsDown, FaArrowRight } from "react-icons/fa";
+// import UserData from ""
+import {
+  FaThumbsUp,
+  FaThumbsDown,
+  FaAngleRight,
+  FaAngleLeft,
+} from "react-icons/fa";
 import Description from "./Description";
 
 const VideoControls = (props) => {
@@ -10,18 +16,47 @@ const VideoControls = (props) => {
       props.setVideoIndex(nextIndex);
     }
   };
+  console.log(props.currPlaylistData);
   return (
     <>
+      <div className={styles["videoHeader"]}>
+        <div className={styles["videoTopic"]}>
+          <h1>{props.currPlaylistData.topic}</h1>
+        </div>
+      </div>
+
       <div className={styles["video-controls"]}>
         <div className={styles.likesDislikes}>
-          <FaThumbsUp className={styles.icon} />
-          <p>{props.likes}</p>
-          <FaThumbsDown className={styles.icon} />
-          <p>{props.dislikes}</p>
+          <div className={`${styles["like"]} ${styles["flex"]}`}>
+            <FaThumbsUp className={styles.icon} />
+            <p>{props.currPlaylistData.likes}</p>
+          </div>
+          <div className={`${styles["dislike"]} ${styles["flex"]}`}>
+            <FaThumbsDown className={styles.icon} />
+            <p>{props.currPlaylistData.dislikes}</p>
+          </div>
         </div>
-        <div className={styles.next} onClick={handleNextClick}>
-          <p>Next</p>
-          <FaArrowRight className={styles.icon} />
+
+        <div className={styles.flex}>
+          <div className={styles.buttons}>
+            <button
+              className={`${styles["btn-hover"]} ${styles["color-5-back"]} ${styles["btn-hover-back"]}`}
+            >
+              <div className={styles.nextFlex} onClick={handleNextClick}>
+                <FaAngleLeft className={styles.icon} />
+                Back
+              </div>
+            </button>
+          </div>
+
+          <div className={styles.buttons}>
+            <button className={`${styles["btn-hover"]} ${styles["color-5"]}`}>
+              <div className={styles.nextFlex} onClick={handleNextClick}>
+                Next
+                <FaAngleRight className={styles.icon} />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
       <Description desc={props.desc} />
