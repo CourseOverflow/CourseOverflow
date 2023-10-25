@@ -16,7 +16,13 @@ const VideoControls = (props) => {
       props.setVideoIndex(nextIndex);
     }
   };
-  console.log(props.currPlaylistData);
+  const handleBackClick = () => {
+    const nextIndex = props.currentlyPlayingVideoIndex - 1;
+    if (nextIndex >= 0) {
+      props.setVideoIndex(nextIndex);
+    }
+  };
+
   return (
     <>
       <div className={styles["videoHeader"]}>
@@ -42,7 +48,7 @@ const VideoControls = (props) => {
             <button
               className={`${styles["btn-hover"]} ${styles["color-5-back"]} ${styles["btn-hover-back"]}`}
             >
-              <div className={styles.nextFlex} onClick={handleNextClick}>
+              <div className={styles.nextFlex} onClick={handleBackClick}>
                 <FaAngleLeft className={styles.icon} />
                 Back
               </div>
