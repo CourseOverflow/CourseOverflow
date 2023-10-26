@@ -16,6 +16,9 @@
   background-color: var(--box);
   color: var(--baseText);
 }
+.headTitle > span {
+  background-color: transparent;
+}
 
 .card h3 {
   font-size: 22px;
@@ -92,6 +95,9 @@
   background-color: var(--error);
   color: var(--error);
 }
+.removeIcon {
+  background-color: transparent;
+}
 .img_box {
   height: 180px;
 }
@@ -114,5 +120,10 @@
 @media only screen and (max-width: 1200px) {
   .card {
     height: 100%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .previewFrame {
+    height: 100px;
   }
 }

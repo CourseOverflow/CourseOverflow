@@ -21,13 +21,39 @@ const FileUpload = () => {
     }
   };
 
+  const renderFilePreview = () => {
+    if (selectedFile) {
+      if (selectedFile.type.includes("image")) {
+        // Display image preview
+        return (
+          <img src={URL.createObjectURL(selectedFile)} alt="File Preview" />
+        );
+      } else if (selectedFile.type === "application/pdf") {
+        // Display PDF preview using an iframe
+        return (
+          <iframe
+            src={URL.createObjectURL(selectedFile)}
+            title="File Preview"
+            width="100%"
+            height="300px"
+            className="previewFrame"
+          />
+        );
+      } else {
+        // Display a message for unsupported file types
+        return <p>Unsupported File Format: {selectedFile.name}</p>;
+      }
+    }
+    return null;
+  };
+
   return (
     <div className={styles["card"]}>
-      {selectedFile ? (
-        <div className={styles["headTitle"]}>
-          <span className={styles["selectedFileName"]}>
-            {selectedFile.name}
-          </span>
+      <div className={styles["headTitle"]}>
+        <span className={styles["selectedFileName"]}>
+          {selectedFile ? selectedFile.name : "No file selected"}
+        </span>
+        {selectedFile && (
           <button
             className={styles["removeFileBtn"]}
             onClick={handleRemoveFile}
@@ -36,45 +62,36 @@ const FileUpload = () => {
               <IoMdClose />
             </div>
           </button>
-        </div>
-      ) : (
-        <h3 className={styles["headTitle"]}>Upload File</h3>
-      )}
-      <div className={styles["drop_box"]}>
-        {selectedFile ? (
-          <div className={styles["file_box"]}>
-            {" "}
-            {/* Update the class name as needed */}
-            <p>File Preview:</p>
-            <span>{selectedFile.name}</span>
-          </div>
-        ) : (
-          <>
-            <header>
-              <h4>Select File here</h4>
-            </header>
-            <p>Supported File Formats: PDF, DOC, TXT</p>{" "}
-            {/* Update the formats */}
-            <button
-              className={styles["btn"]}
-              onClick={() => {
-                if (fileInputRef.current) {
-                  fileInputRef.current.click();
-                }
-              }}
-            >
-              Choose File
-            </button>
-          </>
         )}
-        <input
-          type="file"
-          hidden
-          accept=".pdf,.doc,.txt"
-          id={styles["fileID"]}
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
+      </div>
+      <div className={styles["drop_box"]}>
+        <div className={styles["filePreview"]}>{renderFilePreview()}</div>
+        <div className={styles["fileActions"]}>
+          {!selectedFile && (
+            <>
+              <h4>Select File here</h4>
+              <p>Supported File Formats: PDF, DOC, TXT</p>
+              <button
+                className={styles["btn"]}
+                onClick={() => {
+                  if (fileInputRef.current) {
+                    fileInputRef.current.click();
+                  }
+                }}
+              >
+                Choose File
+              </button>
+            </>
+          )}
+          <input
+            type="file"
+            hidden
+            accept=".pdf,.doc,.txt,image/*" // Add supported image formats here
+            id={styles["fileID"]}
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
+        </div>
       </div>
     </div>
   );
