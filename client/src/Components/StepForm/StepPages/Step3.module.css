@@ -5,7 +5,8 @@
 .PreviewCard {
   flex: 1;
   box-sizing: border-box;
-  max-width: 30%;
+  max-width: 400px;
+
   max-height: 400px;
   margin: 20px;
 }
@@ -14,7 +15,6 @@
   flex: 1;
   box-sizing: border-box;
   height: 400px;
-  /* width: 100%; */
   margin: 20px;
   margin-left: 0;
 }
@@ -37,18 +37,6 @@
     max-width: 100%;
   }
   .PreviewCard {
-    height: 100%;
     max-width: 100%;
   }
 }
-
-/* @media only screen and (max-width: 1200px) {
-  .list {
-    margin-top: 0;
-    margin-left: 20px;
-  }
-  .PreviewCard {
-    height: 100%;
-    max-width: 100%;
-  }
-} */

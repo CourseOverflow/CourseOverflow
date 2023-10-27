@@ -30,18 +30,18 @@
 }
 
 .app::-webkit-scrollbar {
-  width: 10px;
-  border-radius: 10px;
+  width: 5px;
+  border-radius: 5px;
 }
 
 .app::-webkit-scrollbar-track {
   background-color: var(--box);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .app::-webkit-scrollbar-thumb {
   background-color: var(--hover);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .margin-correction-open {

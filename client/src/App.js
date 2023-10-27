@@ -23,98 +23,96 @@ const App = () => {
 
   return (
     <div className={`${styles.app}`}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <BrowserRouter>
-          <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-          <div className="flex mr-0">
-            <Sidebar isOpen={sidebarOpen} />
-            <div className={styles.blocked}></div>
-            <div
-              className={
-                sidebarOpen
-                  ? styles["margin-correction-open"]
-                  : styles["margin-correction-closed"]
-              }
-            >
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <>
-                      <Blocker />
-                      <Auth />
-                    </>
-                  }
-                />
-                <Route
-                  path="/home"
-                  element={
-                    <>
-                      <Blocker />
-                      <Home sidebarOpen={sidebarOpen} />
-                    </>
-                  }
-                />
-                <Route
-                  path="/create"
-                  element={
-                    <>
-                      <Blocker />
-                      <CreatePlaylist />
-                    </>
-                  }
-                />
-                <Route
-                  path="/list"
-                  element={
-                    <>
-                      <Blocker />
-                      <MyList />
-                    </>
-                  }
-                />
-                <Route
-                  path="/play"
-                  element={
-                    <>
-                      <Blocker />
-                      <Play />
-                    </>
-                  }
-                />
-                <Route
-                  path="/search"
-                  element={
-                    <>
-                      <Blocker />
-                      <Search />
-                    </>
-                  }
-                />
-                <Route
-                  path="/bookmark"
-                  element={
-                    <>
-                      <Blocker />
-                      <Bookmark />
-                    </>
-                  }
-                />
-                <Route
-                  path="/about"
-                  element={
-                    <>
-                      <Blocker />
-                      <About />
-                    </>
-                  }
-                />
-              </Routes>
-              <Footer />
-            </div>
+      <BrowserRouter>
+        <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        <div className="flex mr-0">
+          <Sidebar isOpen={sidebarOpen} />
+          <div className={styles.blocked}></div>
+          <div
+            className={
+              sidebarOpen
+                ? styles["margin-correction-open"]
+                : styles["margin-correction-closed"]
+            }
+          >
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Blocker />
+                    <Auth />
+                  </>
+                }
+              />
+              <Route
+                path="/home"
+                element={
+                  <>
+                    <Blocker />
+                    <Home sidebarOpen={sidebarOpen} />
+                  </>
+                }
+              />
+              <Route
+                path="/create"
+                element={
+                  <>
+                    <Blocker />
+                    <CreatePlaylist />
+                  </>
+                }
+              />
+              <Route
+                path="/list"
+                element={
+                  <>
+                    <Blocker />
+                    <MyList />
+                  </>
+                }
+              />
+              <Route
+                path="/play"
+                element={
+                  <>
+                    <Blocker />
+                    <Play />
+                  </>
+                }
+              />
+              <Route
+                path="/search"
+                element={
+                  <>
+                    <Blocker />
+                    <Search />
+                  </>
+                }
+              />
+              <Route
+                path="/bookmark"
+                element={
+                  <>
+                    <Blocker />
+                    <Bookmark />
+                  </>
+                }
+              />
+              <Route
+                path="/about"
+                element={
+                  <>
+                    <Blocker />
+                    <About />
+                  </>
+                }
+              />
+            </Routes>
+            <Footer />
           </div>
-        </BrowserRouter>
-      </Suspense>
+        </div>
+      </BrowserRouter>
     </div>
   );
 };

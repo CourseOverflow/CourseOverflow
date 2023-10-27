@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import styles from "./ImageUpload.module.css"; // Update the CSS module path as needed
+import styles from "./ImageUpload.module.css";
 import { IoMdClose } from "react-icons/io";
 
 const FileUpload = () => {
@@ -15,7 +15,6 @@ const FileUpload = () => {
 
   const handleRemoveFile = () => {
     setSelectedFile(null);
-    // Reset the value of the file input
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }
@@ -43,8 +42,6 @@ const FileUpload = () => {
       <div className={styles["drop_box"]}>
         {selectedFile ? (
           <div className={styles["file_box"]}>
-            {" "}
-            {/* Update the class name as needed */}
             <p>File Preview:</p>
             <span>{selectedFile.name}</span>
           </div>
@@ -53,8 +50,7 @@ const FileUpload = () => {
             <header>
               <h4>Select File here</h4>
             </header>
-            <p>Supported File Formats: PDF, DOC, TXT</p>{" "}
-            {/* Update the formats */}
+            <p>Supported File Formats: PDF, DOC, TXT</p>
             <button
               className={styles["btn"]}
               onClick={() => {
