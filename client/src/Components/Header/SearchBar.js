@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const SearchBar = () => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log(searchValue);
+    setSearchValue("");
+  };
+
   return (
-    <div className={styles["search-container"]}>
+    <form onSubmit={handleSearch} className={styles["search-container"]}>
       <input
         type="text"
         placeholder="Search"
-        className={`${styles["search-input"]} h-9`}
+        className={`${styles["search-input"]}`}
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
       />
-      <button>
-        <Link to="/search" className={styles["search-button"]}>
-          <FaSearch />
+      <button type="submit" className={styles["search-button"]}>
+        <Link to="/search">
+          <FaSearch className="bg-transparent" />
         </Link>
       </button>
-    </div>
+    </form>
   );
 };
 

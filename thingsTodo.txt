@@ -1,4 +1,5 @@
-1 create playlist page
-2 correct the loging hover thing
-
-pain
+1 user log in responsiveness
+2 top right username UI
+3 previw card read more
+4 play page description UI
+5 about page

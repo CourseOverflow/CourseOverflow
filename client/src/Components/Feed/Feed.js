@@ -65,7 +65,6 @@ const Feed = (props) => {
         />
         {props.data.map((item) => (
           <div key={item.id}>
-            {" "}
             <Card data={item} />
           </div>
         ))}

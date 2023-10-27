@@ -1,11 +1,11 @@
 .homeFeedContainer {
-  padding-top: 2.5rem;
-  margin-left: 20px;
+  margin-left: 50px;
 }
 
 .hrLine {
   height: 1px;
-  margin: 2rem 0;
+  margin: 20px;
+  margin-left: 0;
   background-color: #374151;
   border: none;
 }

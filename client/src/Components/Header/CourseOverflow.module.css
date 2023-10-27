@@ -1,4 +1,5 @@
 .container {
+  min-height: 35px;
   display: flex;
   align-items: center;
 }
@@ -10,8 +11,9 @@
 }
 
 .logo {
-  height: 2rem;
-  margin-right: 0.5rem;
+  height: 35px;
+  min-width: fit-content;
+  padding: 0 10px;
 }
 
 .text {
@@ -26,11 +28,14 @@
   cursor: pointer;
 }
 
-
-@media only screen and (max-width: 980px) {
+@media only screen and (max-width: 1000px) {
   .container {
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0;
+    transition: all 0.5s;
+  }
+  .logo {
+    padding: 0;
     transition: all 0.5s;
   }
   .link span {
