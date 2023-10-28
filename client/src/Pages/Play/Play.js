@@ -37,8 +37,6 @@ const VideoPlayer = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   // const[pausing,setpausing]= useState(0);
 
-
-
   const [videoDescriptionHeight, setVideoDescriptionHeight] = useState(0);
   const minWidth = 1000;
 
@@ -76,6 +74,7 @@ const VideoPlayer = () => {
             ></iframe>
           </div>
           <VideoControls
+            currPlaylistData={currPlaylistData[currentlyPlayingVideoIndex]}
             likes={currPlaylistData[currentlyPlayingVideoIndex].likes}
             dislikes={currPlaylistData[currentlyPlayingVideoIndex].dislikes}
             playlistSize={currPlaylistData.length}

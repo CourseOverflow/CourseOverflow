@@ -1,5 +1,5 @@
 .feed {
-  max-width: 102rem;
+  /* max-width: 102rem; */
   display: flex;
   flex-direction: column;
 }

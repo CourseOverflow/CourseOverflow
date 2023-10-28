@@ -1,41 +1,129 @@
 .video-controls {
+  margin: 10px 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   border-radius: 0 0 10px 10px;
-  background-color: var(--box);
+  background-color: var(--base);
+}
+.videoTopic {
+  margin-top: 10px;
+}
+.videoTopic > h1 {
+  font-size: x-large;
 }
 
-.likesDislikes,
-.next {
-  background-color: transparent;
+.flex {
   display: flex;
-  font-size: 20px;
-  padding: 0 20px;
 }
 
-.icon {
-  margin-top: 5px;
-  background-color: transparent;
-  cursor: pointer;
+/* likes & dislike css \/ */
+
+.likesDislikes {
+  display: flex;
+  margin: 0 5px;
 }
 
-.likesDislikes > svg > path,
-.next > svg > path {
-  fill: var(--text);
+.like > svg,
+.dislike > svg {
+  margin: auto 5px;
+}
+.likesDislikes > div {
+  display: flex;
+}
+.likesDislikes > .like {
+  background-color: var(--hover);
+  border-radius: 15px 0 0 15px;
+  /* box-shadow: 0 4px 15px 0 rgba(143, 142, 142, 0.75); */
+  border: 0.1px solid transparent;
+}
+.likesDislikes > .like:hover {
+  border: 0.1px solid var(--base-text);
+}
+.likesDislikes > .dislike {
+  background-color: var(--hover);
+  border-radius: 0 15px 15px 0;
+  /* box-shadow: 0 4px 15px 0 rgba(143, 142, 142, 0.75); */
+  border: 0.1px solid var(--text);
+  border: 0.1px solid transparent;
+}
+.likesDislikes > .dislike:hover {
+  border: 0.1px solid var(--base-text);
 }
 
-.likesDislikes > p,
-.next > p {
+.likesDislikes > div > p {
   padding: 0 5px;
   font-weight: 500;
   color: var(--base-text);
+  cursor: pointer;
   background-color: transparent;
   margin-top: 2px;
-  font-size: 20px;
+}
+
+.icon {
+  background-color: transparent;
   cursor: pointer;
 }
 
-.likesDislikes > p {
-  margin-right: 10px;
+/* back & next css \/ */
+
+.buttons {
+  text-align: center;
+}
+
+.btn-hover {
+  width: 65px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 0 50px 50px 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-hover-back {
+  border-radius: 50px 0 0 50px;
+}
+
+.btn-hover:hover {
+  background-position: 100% 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-hover:focus {
+  outline: none;
+}
+
+.btn-hover.color-5 {
+  background-image: linear-gradient(
+    to right,
+    var(--hover),
+    var(--box),
+    var(--hover),
+    var(--box)
+  );
+  /* box-shadow: 0 4px 15px 0 rgba(143, 142, 142, 0.75); */
+}
+
+.btn-hover.color-5-back {
+  background-image: linear-gradient(
+    to left,
+    var(--hover),
+    var(--box),
+    var(--hover),
+    var(--box)
+  );
+  /* box-shadow: 0 4px 15px 0 rgba(143, 142, 142, 0.75); */
+}
+
+.nextFlex {
+  display: flex;
+  background-color: transparent;
+}
+
+.nextFlex > svg {
+  margin: auto 0;
 }
