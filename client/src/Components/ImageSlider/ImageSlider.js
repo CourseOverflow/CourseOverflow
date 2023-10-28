@@ -65,7 +65,6 @@ const ImageSlider = ({ images }) => {
       </div>
       <div className={styles["dots"]}>
         {images.map((image, index) => {
-          console.log(index);
           return (
             <span
               key={index}

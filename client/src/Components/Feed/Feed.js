@@ -56,7 +56,6 @@ const Feed = (props) => {
   return (
     <div className={styles.feed}>
       <h1>{props.category}</h1>
-
       <div className={styles["feed-container"]} ref={feedContainerRef}>
         <FeedLeftBtn
           leftScrollPosition={leftScrollPosition}
@@ -64,9 +63,7 @@ const Feed = (props) => {
           feedContainerRef={feedContainerRef}
         />
         {props.data.map((item) => (
-          <div key={item.id}>
-            <Card data={item} />
-          </div>
+          <Card key={item.id} data={item} />
         ))}
         <FeedRightBtn
           rightScrollPosition={rightScrollPosition}

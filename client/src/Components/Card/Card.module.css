@@ -46,7 +46,7 @@
   max-width: 18rem;
   overflow: hidden;
   white-space: nowrap;
-  background-image: linear-gradient(to left, transparent, #fff 15%);
+  background-image: linear-gradient(to left, transparent, var(--base-text) 15%);
   background-clip: text;
   color: transparent;
 }
@@ -54,7 +54,7 @@
 .author {
   background-color: transparent;
   font-size: 0.8rem;
-  color: #777;
+  color: var(--text);
   text-wrap: wrap;
   max-width: 18rem;
   overflow: hidden;

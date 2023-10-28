@@ -21,11 +21,11 @@ const SearchBar = () => {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      <button type="submit" className={styles["search-button"]}>
-        <Link to="/search">
+      <Link to="/search">
+        <button type="submit" className={styles["search-button"]}>
           <FaSearch className="bg-transparent" />
-        </Link>
-      </button>
+        </button>
+      </Link>
     </form>
   );
 };

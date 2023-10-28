@@ -4,8 +4,8 @@
 .feed-btn-left {
   display: absolute;
   position: absolute;
-  left: 105px;
-  height: 176px;
+  left: 76px;
+  height: 160px;
   z-index: 3;
   transition: all 0.5s;
   background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
@@ -17,9 +17,9 @@
 }
 
 .feed-btn-right {
-  height: 176px;
+  height: 160px;
   position: absolute;
-  right: 35px;
+  right: 64px;
   z-index: 3;
   transition: all 0.5s;
   background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75));
@@ -50,10 +50,10 @@
 
 @media only screen and (max-width: 600px) {
   .feed-btn-right {
-    right: 30px;
+    right: 19px;
   }
 
   .feed-btn-left {
-    left: 50px;
+    left: 20px;
   }
 }
