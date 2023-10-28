@@ -7,7 +7,7 @@ const CourseOverflow = (props) => {
   return (
     <div className={styles.container}>
       <FaBars onClick={props.toggleSidebar} className={styles.FaBars} />
-      <Link className={styles.link} to={"/home"}>
+      <Link className={styles.link} to={"/CourseOverflow"}>
         <img
           src={process.env.PUBLIC_URL + "/slimyLogo.png"}
           alt="Course Overflow Logo"

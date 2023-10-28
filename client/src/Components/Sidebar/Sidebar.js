@@ -30,7 +30,7 @@ const Sidebar = (props, { children }) => {
   const menuItem = [
     {
       name: "Home",
-      to: "/home",
+      to: "/CourseOverflow",
       icon: <FaHome />,
     },
     {
