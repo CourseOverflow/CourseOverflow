@@ -34,7 +34,7 @@ const Playlist = (props) => {
           return (
             <PlaylistCard
               clickHandler={() => handleNextClick(item.index)}
-              currVideo={props.currVideoIdx === item.index || 3 === item.index}
+              currVideo={props.currVideoIdx === item.index}
               rank={index + 1}
               author={item.author}
               key={item.id}

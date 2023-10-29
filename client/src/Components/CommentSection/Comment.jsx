@@ -20,7 +20,7 @@ const Comment = (props) => {
 
   return (
     <div className={styles.comment} key={props.comment.id}>
-      <img src="images/logo.png" alt="User" className={styles["user-image"]} />
+      <img src={process.env.PUBLIC_URL + "/logo.png"} alt="User" className={styles["user-image"]} />
       <div className={styles["comment-details"]}>
         <h1 className={styles["user-name"]}>{UserData[0].name}</h1>
         <p className={styles["comment-text"]}>{props.comment.text}</p>
