@@ -14,7 +14,7 @@ const Dropdown = (props) => {
     <>
       <div className={styles.dropdown}>
         <div className={styles.profile}>
-          <img src="images/logo.png" alt="SlimeMaster" />
+          <img src={process.env.PUBLIC_URL + "/logo.png"} alt="SlimeMaster" />
           <h1>SlimeMaster</h1>
           <p>slimemaster@gmail.com</p>
         </div>

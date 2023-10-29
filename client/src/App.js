@@ -37,20 +37,20 @@ const App = () => {
           >
             <Routes>
               <Route
-                path="/"
-                element={
-                  <>
-                    <Blocker />
-                    <Auth />
-                  </>
-                }
-              />
-              <Route
-                path="/home"
+                path="/CourseOverflow"
                 element={
                   <>
                     <Blocker />
                     <Home sidebarOpen={sidebarOpen} />
+                  </>
+                }
+              />
+              <Route
+                path="/auth"
+                element={
+                  <>
+                    <Blocker />
+                    <Auth />
                   </>
                 }
               />

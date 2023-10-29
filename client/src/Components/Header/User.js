@@ -15,7 +15,7 @@ const User = (props) => {
       <button onClick={toggleDropdown} className={`${styles.container}`}>
         <img
           title="SlimeMaster"
-          src="images/logo.png"
+          src={process.env.PUBLIC_URL + "/logo.png"}
           alt="User Profile"
           className={`${styles["profile-image"]} `}
         />
