@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./Step2.module.css";
 import FileUpload from "../FormComponents/FileUpload";
-import TodoList from "../TodoList/TodoList.js";
+import TodoList from "../TodoList/TodoList";
 import PlayListData from "../../../Data/PlayListData";
 
 const Step2 = () => {

@@ -2,15 +2,13 @@ import React, { Suspense, lazy, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from "./Pages/Auth/Auth";
 import Home from "./Pages/Home/Home";
-import MyList from "./Pages/MyList/MyList";
 import Search from "./Pages/Search/Search";
 import CreatePlaylist from "./Pages/CreatePlaylist/CreatePlaylist";
 import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Footer from "./Components/Footer/Footer";
-import styles from "./App.module.css"; // Your main CSS file
+import styles from "./App.module.css";
 import { useGlobalState } from "./GlobalStateContext";
-import Bookmark from "./Pages/Bookmark/Bookmark";
 import Play from "./Pages/Play/Play";
 import About from "./Pages/About/About";
 
@@ -64,15 +62,6 @@ const App = () => {
                 }
               />
               <Route
-                path="/list"
-                element={
-                  <>
-                    <Blocker />
-                    <MyList />
-                  </>
-                }
-              />
-              <Route
                 path="/play"
                 element={
                   <>
@@ -87,15 +76,6 @@ const App = () => {
                   <>
                     <Blocker />
                     <Search />
-                  </>
-                }
-              />
-              <Route
-                path="/bookmark"
-                element={
-                  <>
-                    <Blocker />
-                    <Bookmark />
                   </>
                 }
               />
