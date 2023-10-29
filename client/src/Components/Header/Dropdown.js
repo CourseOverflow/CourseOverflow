@@ -4,12 +4,6 @@ import { Link } from "react-router-dom";
 import { FaUser, FaSignOutAlt, FaMoon, FaSun } from "react-icons/fa";
 
 const Dropdown = (props) => {
-  const clickHandler = () => {
-    props.toggleDropdown();
-    console.log("Dropdown.js clickHandler");
-    <Link to={"/login"} />;
-  };
-
   const [isDark, setIsDark] = React.useState(false);
   const toggleDarkMode = () => {
     console.log("toggle dark mode");
@@ -25,26 +19,14 @@ const Dropdown = (props) => {
           <p>slimemaster@gmail.com</p>
         </div>
         <div className={styles.links}>
-          <button onClick={clickHandler} className={styles.button}>
+          <Link to={"/dashboard"} className={styles.button}>
             <FaUser />
-            <p>Profile</p>
-          </button>
-
-          <button onClick={clickHandler} className={styles.button}>
+          </Link>
+          <Link to={"/login"} className={styles.button}>
             <FaSignOutAlt />
-            <p>Log Out</p>
-          </button>
-
+          </Link>
           <button onClick={toggleDarkMode} className={styles.button}>
-            {isDark ? (
-              <>
-                <FaMoon /> <p>Dark</p>
-              </>
-            ) : (
-              <>
-                <FaSun /> <p>Light</p>
-              </>
-            )}
+            {isDark ? <FaMoon /> : <FaSun />}
           </button>
         </div>
       </div>
