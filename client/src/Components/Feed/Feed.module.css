@@ -1,27 +1,25 @@
 .feed {
-  /* max-width: 102rem; */
   display: flex;
   flex-direction: column;
 }
 
 .feed > h1 {
-  margin: 1rem 2rem;
+  margin: 20px;
+  margin-left: 0;
   font-size: 2rem;
   font-weight: bold;
-  color: white;
+  color: var(--base-text);
 }
 
 .feed-container {
   gap: 1rem;
   overflow-x: scroll;
   height: fit-content;
-  margin: 0 2rem;
   white-space: nowrap;
   display: flex;
   scrollbar-width: none;
   -ms-overflow-style: none;
   max-width: fit-content;
-  transition: all 0.5s;
 }
 
 .feed-main {

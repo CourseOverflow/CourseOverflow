@@ -12,7 +12,7 @@ const PreviewCard = (props) => {
         />
         <p className={`${styles.duration}`}>{props.duration}</p>
       </div>
-      <div className={styles.description}>
+      <div className={styles.contents}>
         <h1 className={styles.title}>{props.title}</h1>
         <p className={styles.description}>{props.desc}</p>
       </div>

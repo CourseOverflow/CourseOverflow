@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import styles from "./ImageUpload.module.css"; // Update the CSS module path as needed
+import styles from "./ImageUpload.module.css";
 import { IoMdClose } from "react-icons/io";
 
 const FileUpload = () => {
@@ -15,7 +15,6 @@ const FileUpload = () => {
 
   const handleRemoveFile = () => {
     setSelectedFile(null);
-    // Reset the value of the file input
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }

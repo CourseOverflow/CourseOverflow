@@ -9,15 +9,15 @@
 
 *::-webkit-scrollbar {
   width: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 *::-webkit-scrollbar-track {
-  background-color: var(--base);
-  border-radius: 0 10px 10px 0;
+  background-color: var(--box);
+  border-radius: 5px;
 }
 
 *::-webkit-scrollbar-thumb {
   background-color: var(--hover);
-  border-radius: 10px;
+  border-radius: 5px;
 }

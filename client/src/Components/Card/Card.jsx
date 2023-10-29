@@ -8,7 +8,7 @@ const Card = (props) => {
     (props.data.watchedCount / props.data.videoCount) * 100
   );
   return (
-    <div>
+    <div key={props.data.id}>
       <CardImage
         image={props.data.image}
         likes={props.data.likes}

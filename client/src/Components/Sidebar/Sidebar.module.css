@@ -5,8 +5,9 @@
   position: fixed;
   z-index: 1;
   background: var(--base);
-  color: #fff;
+  color: var(--base-text);
   width: 200px;
+  border-right: 1px solid var(--box);
   transition: all 0.5s;
 }
 
@@ -40,12 +41,11 @@
   margin: 5px 0px;
   background-color: var(--base);
   display: flex;
-  color: #fff;
+  color: var(--base-text);
   padding: 10px 15px;
   gap: 15px;
   transition: all 0.5s;
 }
-
 
 .link > div {
   background-color: transparent;
@@ -58,23 +58,22 @@
 
 .link:hover {
   background: var(--hover);
-  color: white;
+  color: var(--base-text);
   transition: all 0.5s;
   border-radius: 10px;
 }
-.change{
-
+.change {
   background-color: var(--base);
   display: flex;
-  color: #fff;
+  color: var(--base-text);
   transition: all 0.5s;
   outline: none;
 }
-.change:hover{
+.change:hover {
   background-color: var(--hover);
   /* color: white; */
   opacity: transparent;
-  color: #fff;
+  color: var(--base-text);
   transition: all 0.5s;
   border-radius: 10px;
 }
@@ -83,7 +82,7 @@
   display: flex;
   border-radius: 5px;
   background: var(--hover);
-  color: #ffffff;
+  color: var(--base-text);
 }
 
 .icon,

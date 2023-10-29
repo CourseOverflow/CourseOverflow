@@ -1,0 +1,83 @@
+.overlay {
+  background-color: transparent;
+  position: absolute;
+  height: 1000vh;
+  width: 1000vw;
+}
+
+.dropdown {
+  z-index: 1;
+  position: absolute;
+  right: 30px;
+  top: 50px;
+  height: 300px;
+  width: 250px;
+  border-radius: 5px;
+  background-color: var(--box);
+  border: 1px solid var(--base);
+}
+
+.profile {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+  background-color: transparent;
+}
+
+.profile > img {
+  border-radius: 50%;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.profile > h1,
+.profile > p {
+  background-color: transparent;
+  columns: var(--base-text);
+}
+
+.profile > p {
+  font-size: small;
+  color: var(--text);
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  background-color: transparent;
+}
+
+.button {
+  width: 35px;
+  height: 35px;
+  margin: 0 5px;
+  padding: 5px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid var(--hover);
+  border-radius: 50%;
+}
+
+.button > svg {
+  fill: var(--theme);
+  background-color: transparent;
+}
+
+.button > p {
+  font-size: small;
+  color: var(--text);
+  background-color: transparent;
+}
+
+.button:hover {
+  background-color: var(--hover);
+  border: 1px solid var(--base-text);
+}

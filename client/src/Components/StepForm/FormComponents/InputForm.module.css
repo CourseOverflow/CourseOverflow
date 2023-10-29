@@ -6,13 +6,15 @@
 /* Div Styling */
 .titleDiv,
 .descDiv {
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
 }
+
 .descDiv {
   margin-top: 10px;
 }
+
 /* Required Elements */
 .required {
   color: var(--error);
@@ -33,25 +35,25 @@
 /* Input Fields */
 .titleDiv > .titleInput,
 .descDiv > .descInput {
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 5px;
   outline: none; /* Remove focus outline */
   font-size: larger;
   border: 1px solid var(--hover);
+  color: var(--text);
 }
 .titleInput::placeholder {
   color: var(--text);
 }
 /* Text Alignment */
 .descInput {
-  height: 300px;
+  height: 301px;
   text-align: left;
-  max-height: 300px;
-}
-
-/* Scrollable Content */
-.descInput {
+  max-height: 301px;
   overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Hover Styles */
@@ -71,12 +73,16 @@
 /* Character Count */
 .count {
   align-self: flex-end;
+  color: var(--text);
+  font-size: smaller;
+  margin-right: 5px;
 }
 
 /* Labels */
 .titleLabel,
 .descLabel {
   align-self: flex-start;
+  margin-left: 5px;
 }
 
 /* Dashed Container */

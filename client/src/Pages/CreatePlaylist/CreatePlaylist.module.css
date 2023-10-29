@@ -2,7 +2,6 @@
   margin: auto;
   justify-content: center;
   text-align: center;
-  padding: 30px;
   max-width: 100%; /* Set a maximum width */
   min-height: fit-content;
 }
@@ -15,23 +14,13 @@
 }
 
 .createPlaylist-container {
-  padding: 0;
-  margin: 50px;
-  margin-top: 0;
+  margin: 20px;
   max-width: 100%; /* Set a maximum width */
   border-radius: 10px;
   border: 1px solid var(--hover);
   box-sizing: border-box; /* Include padding and border in width */
   display: flex;
   flex-direction: column;
-}
-
-/* Add media query for smaller screens */
-@media (max-width: 768px) {
-  .createPlaylist-container {
-    margin: 20px;
-    padding: 10px;
-  }
 }
 
 .createDivider {
