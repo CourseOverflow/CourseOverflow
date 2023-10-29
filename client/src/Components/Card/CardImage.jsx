@@ -6,7 +6,7 @@ import { FaPlay } from "react-icons/fa";
 
 const CardImage = (props) => {
   const cardStyle = {
-    backgroundImage: `url(${props.image})`, // Fixed the image prop
+    backgroundImage: `url(${props.image})`,
   };
 
   const clickHandler = () => {
@@ -22,9 +22,9 @@ const CardImage = (props) => {
       <CardFooter
         isLiked={props.isLiked}
         isDisliked={props.isDisliked}
-        isBookmarked={props.isBookmarked} // Fixed the prop name
+        isBookmarked={props.isBookmarked}
         likesCount={props.likes}
-        dislikesCount={props.dislikes} // Fixed the prop name
+        dislikesCount={props.dislikes}
       />
       <hr
         className={styles.cardHr}

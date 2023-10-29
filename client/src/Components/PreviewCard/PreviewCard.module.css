@@ -14,7 +14,7 @@
 .title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: var(--text);
+  color: var(--base-text);
   margin: 10px;
   text-decoration: none;
 }
@@ -22,7 +22,7 @@
 .description {
   margin: 10px;
   font-size: 0.8rem;
-  color: var(--hover);
+  color: var(--text);
 }
 
 .imageContainer {

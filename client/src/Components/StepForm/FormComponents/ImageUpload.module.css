@@ -16,6 +16,7 @@
   background-color: var(--box);
   color: var(--baseText);
 }
+
 .headTitle > span {
   background-color: transparent;
 }
@@ -27,7 +28,6 @@
 
 .drop_box {
   height: 185px;
-
   padding: 33px;
   display: flex;
   align-items: center;
@@ -74,6 +74,7 @@
 
   outline: 1px solid #010101;
 }
+
 .form input {
   margin: 10px 0;
   width: 100%;
@@ -83,6 +84,7 @@
   padding: 12px 20px;
   border-radius: 4px;
 }
+
 .removeFileBtn svg {
   margin: 0 10px;
   font-size: 20px;
@@ -95,12 +97,15 @@
   background-color: var(--error);
   color: var(--error);
 }
+
 .removeIcon {
   background-color: transparent;
 }
+
 .img_box {
   height: 180px;
 }
+
 .Uplodedimg {
   width: 100%;
   height: 100%;
@@ -109,6 +114,7 @@
   box-sizing: border-box;
   object-fit: contain;
 }
+
 @media only screen and (max-width: 680px) {
   .drop_box p {
     white-space: initial;

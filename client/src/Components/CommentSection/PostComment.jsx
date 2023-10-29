@@ -24,7 +24,7 @@ const PostComment = (props) => {
   return (
     <div className={styles["post-comment"]}>
       <img
-        src="images/logo.png"
+        src={process.env.PUBLIC_URL + "/logo.png"}
         alt="User"
         className={`${styles["user-image"]} ${props.reply && styles.reply}`}
       />

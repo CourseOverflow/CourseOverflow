@@ -104,6 +104,7 @@ const VideoPlayer = () => {
         </div>
         {windowWidth > minWidth && (
           <Playlist
+          currVideoIdx={currentlyPlayingVideoIndex}
             setVideoIndex={setVideoIndex}
             data={currPlaylistData}
             playlistHeaderData={playlistHeaderData}
