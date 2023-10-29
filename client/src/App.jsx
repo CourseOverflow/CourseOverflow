@@ -22,16 +22,16 @@ const App = () => {
   return (
     <div className={`${styles.app}`}>
       <BrowserRouter>
-        <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        {/* <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} /> */}
         <div className="flex mr-0">
-          <Sidebar isOpen={sidebarOpen} />
-          <div className={styles.blocked}></div>
+          {/* <Sidebar isOpen={sidebarOpen} /> */}
+          {/* <div className={styles.blocked}></div> */}
           <div
-            className={
-              sidebarOpen
-                ? styles["margin-correction-open"]
-                : styles["margin-correction-closed"]
-            }
+          // className={
+          //   sidebarOpen
+          //     ? styles["margin-correction-open"]
+          //     : styles["margin-correction-closed"]
+          // }
           >
             <Routes>
               <Route
@@ -89,7 +89,7 @@ const App = () => {
                 }
               />
             </Routes>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </BrowserRouter>

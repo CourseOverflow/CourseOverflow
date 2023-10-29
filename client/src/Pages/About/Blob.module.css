@@ -1,0 +1,56 @@
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+
+  50% {
+    scale: 1 1.5;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+.blob {
+  z-index: 2;
+  background-color: white;
+  height: 34vmax;
+  aspect-ratio: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: linear-gradient(to right, aquamarine, mediumpurple);
+  animation: rotate 20s infinite;
+  opacity: 0.8;
+}
+
+.blur {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background-color: transparent;
+  backdrop-filter: blur(12vmax);
+}
+
+.AboutTitle {
+  position: absolute;
+  font-family: "Space Mono", monospace;
+  font-size: clamp(3rem, 10vw, 10rem);
+  color: white;
+  white-space: nowrap;
+  padding: 0rem clamp(1rem, 2vw, 3rem);
+  border-radius: clamp(0.4rem, 0.75vw, 1rem);
+  margin: 0rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-color: transparent;
+  translate: -50% -50%;
+  z-index: 1002;
+}
