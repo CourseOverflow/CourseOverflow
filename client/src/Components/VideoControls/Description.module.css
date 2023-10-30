@@ -20,7 +20,6 @@
   color: var(--text);
   font-size: 0.9rem;
   font-weight: 300;
-  margin-bottom: 5px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -30,6 +29,7 @@
 }
 
 .description > button {
+  font-size: 0.9rem;
   color: var(--theme);
   border-radius: 5px;
   cursor: pointer;
