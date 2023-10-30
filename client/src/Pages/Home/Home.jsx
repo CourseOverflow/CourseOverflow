@@ -12,12 +12,10 @@ const images = [
 
 const Home = (props) => {
   return (
-    <>
-      <div className={styles.container}>
-        <ImageSlider images={images} />
-      </div>
+    <div className={styles.container}>
+      <ImageSlider images={images} />
       <HomeFeed data={data} sidebarOpen={props.sidebarOpen} />
-    </>
+    </div>
   );
 };
 

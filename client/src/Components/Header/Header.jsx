@@ -7,7 +7,7 @@ import styles from "./Header.module.css";
 const Header = (props) => {
   return (
     <nav className={`${styles.container}`}>
-      <CourseOverflow toggleSidebar={props.toggleSidebar} />
+      <CourseOverflow toggleSidebar={props.toggleSidebar} closeSidebar={props.closeSidebar}/>
       <SearchBar />
       <User username={"SlimeMaster"} />
     </nav>

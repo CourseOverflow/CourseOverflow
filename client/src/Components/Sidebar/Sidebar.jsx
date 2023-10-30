@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { FaHome, FaPlus, FaBookmark, FaPlay } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { MdOutlinePlaylistPlay } from "react-icons/md";
 
-const Sidebar = (props, { children }) => {
+const Sidebar = (props) => {
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
   const userBookmarks = [
     {
       name: "Playlist 1",
@@ -56,26 +55,30 @@ const Sidebar = (props, { children }) => {
         props.isOpen ? styles["sidebar-open"] : styles["sidebar-close"]
       }`}
     >
-      {menuItem.map((item, index) => (
-        <NavLink
-          to={item.to}
-          key={index}
-          className={
-            location.pathname === item.to
-              ? `${styles.active} ${styles.link}`
-              : styles.link
-          }
-        >
-          <div className={styles.icon}>{item.icon}</div>
-          <div
-            style={{ display: props.isOpen ? "block" : "none" }}
-            className={styles["link-text"]}
+      <div className={styles["sidebar-item-container"]}>
+        {menuItem.map((item, index) => (
+          <NavLink
+            onClick={() => {
+              props.setIsOpen(false);
+            }}
+            to={item.to}
+            key={index}
+            className={
+              location.pathname === item.to
+                ? `${styles.active} ${styles.link}`
+                : styles.link
+            }
           >
-            {item.name}
-          </div>
-        </NavLink>
-      ))}
-
+            <div className={styles.icon}>{item.icon}</div>
+            <div
+              style={{ display: props.isOpen ? "block" : "none" }}
+              className={styles["link-text"]}
+            >
+              {item.name}
+            </div>
+          </NavLink>
+        ))}
+      </div>
     </div>
   );
 };

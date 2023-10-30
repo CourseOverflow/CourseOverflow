@@ -1,6 +1,5 @@
 import React from "react";
-import { AiFillRightCircle } from "react-icons/ai"; // Import the right arrow icon
-import { useGlobalState } from "../../GlobalStateContext";
+import { AiFillRightCircle } from "react-icons/ai";
 import styles from "./FeedBtn.module.css";
 
 const FeedRightBtn = ({
@@ -8,7 +7,7 @@ const FeedRightBtn = ({
   setrightScrollPosition,
   feedContainerRef,
 }) => {
-  const { sidebarOpen } = useGlobalState();
+  const sidebarOpen = false;
 
   const feedRightBtnClass =
     rightScrollPosition >= 100 ? styles["feed-btn-right"] : styles["d-none"];

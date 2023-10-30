@@ -1,6 +1,5 @@
 import React from "react";
 import { AiFillLeftCircle } from "react-icons/ai";
-import { useGlobalState } from "../../GlobalStateContext";
 import styles from "./FeedBtn.module.css";
 
 const FeedLeftBtn = ({
@@ -8,8 +7,7 @@ const FeedLeftBtn = ({
   setleftScrollPosition,
   feedContainerRef,
 }) => {
-  const { sidebarOpen } = useGlobalState();
-
+  const sidebarOpen = false;
   const feedLeftBtnClass =
     leftScrollPosition >= 100 ? styles["feed-btn-left"] : styles["d-none"];
 

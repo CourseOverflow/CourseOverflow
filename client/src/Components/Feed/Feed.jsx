@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import Card from "../Card/Card";
 import styles from "./Feed.module.css";
-import { useGlobalState } from "../../GlobalStateContext";
 import FeedLeftBtn from "./FeedLeftBtn";
 import FeedRightBtn from "./FeedRightBtn";
 
 const Feed = (props) => {
-  const { sidebarOpen } = useGlobalState();
+  const sidebarOpen = false;
   const [leftScrollPosition, setleftScrollPosition] = useState(0);
   const [rightScrollPosition, setrightScrollPosition] = useState(0);
   const feedContainerRef = useRef(null);
