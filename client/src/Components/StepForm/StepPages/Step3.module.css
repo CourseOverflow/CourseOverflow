@@ -6,7 +6,6 @@
   flex: 1;
   box-sizing: border-box;
   max-width: 400px;
-
   max-height: 400px;
   margin: 20px;
 }
@@ -20,7 +19,7 @@
 }
 
 .Dragable > ul {
-  border: 1px solid var(--box);
+  border: 1px solid var(--hover);
   border-radius: 5px;
   overflow-y: scroll;
   max-height: 100%;
@@ -38,5 +37,6 @@
   }
   .PreviewCard {
     max-width: 100%;
+    max-height: 500px;
   }
 }

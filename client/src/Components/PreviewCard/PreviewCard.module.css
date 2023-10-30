@@ -1,14 +1,15 @@
 .container {
   width: 100%;
-  border: 1px solid var(--box);
+  border: 1px solid var(--hover);
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 400px;
 }
 
 .contents {
-  margin: 10px;
+  margin: 0 10px;
   text-align: left;
+  height: fit-content;
 }
 
 .title {
@@ -16,13 +17,39 @@
   font-weight: bold;
   color: var(--base-text);
   margin: 10px;
+  margin-bottom: 5px;
   text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
 }
 
 .description {
-  margin: 10px;
+  margin: 0 10px;
   font-size: 0.8rem;
   color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.button {
+  margin-left: 10px;
+  color: var(--theme);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.button:hover {
+  color: var(--theme-hover);
 }
 
 .imageContainer {
@@ -61,15 +88,21 @@
   }
 
   .contents {
-    min-height: 150px;
-    max-height: 150px;
     overflow-y: hidden;
     width: 100%;
     margin: 0 10px;
   }
+
+  .title {
+    margin-top: 0;
+  }
+
+  .description {
+    -webkit-line-clamp: 3;
+  }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 560px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -77,8 +110,8 @@
     border: 1px solid var(--box);
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 400px;
     overflow: hidden;
+    height: fit-content;
   }
 
   .contents {
@@ -94,5 +127,9 @@
 
   .imageContainer {
     width: 100%;
+  }
+
+  .description {
+    -webkit-line-clamp: 2;
   }
 }

@@ -2,7 +2,7 @@
   margin: auto;
   justify-content: center;
   text-align: center;
-  max-width: 100%; /* Set a maximum width */
+  width: 100%;
   min-height: fit-content;
 }
 
@@ -15,17 +15,16 @@
 
 .createPlaylist-container {
   margin: 20px;
-  max-width: 100%; /* Set a maximum width */
+  max-width: 100%;
   border-radius: 10px;
   border: 1px solid var(--hover);
-  box-sizing: border-box; /* Include padding and border in width */
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
 .createDivider {
   height: 1px;
-  background-color: red;
   border: none;
   background-color: var(--hover);
   margin: auto;
