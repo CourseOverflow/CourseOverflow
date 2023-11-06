@@ -3,3 +3,4 @@
 3 previw card read more
 4 play page description UI
 5 about page
+6 django setup
