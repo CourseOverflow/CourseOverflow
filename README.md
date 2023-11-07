@@ -1,4 +1,4 @@
-# CourseOverflow - About Us
+# CourseOverflow - About us
 
 ## Company's Journey
 
