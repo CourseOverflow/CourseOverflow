@@ -1,0 +1,38 @@
+.markdown-body {
+  padding: 30px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.markdown-h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+.markdown-h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.markdown-p {
+  /* background-color: red; */
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding: 10px;
+}
+.markdown-ul {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.markdown-li {
+  background-color: var(--box);
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-left: 20px;
+}
+
+.markdown-body > * {
+  padding-left: 10px;
+  background-color: var(--box);
+  border: 1px solid var(--hover);
+}

@@ -1,0 +1,18 @@
+.container {
+  /* add 10px to remove the scrollbar color from bg */
+  width: 100vw+10px;
+  height: 100vh;
+  background-color: transparent;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.section {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  scroll-snap-align: start;
+  background-color: transparent;
+  z-index: 2;
+}
