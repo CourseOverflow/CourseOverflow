@@ -1,7 +1,7 @@
 .playlistHeader {
   padding: 10px 20px;
   background-color: var(--box);
-  color: #fff;
+  color: var(--base-text);
   border-radius: 10px 10px 0 0;
 }
 
