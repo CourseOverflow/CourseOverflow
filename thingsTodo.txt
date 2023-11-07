@@ -4,3 +4,4 @@
 4 play page description UI
 5 about page
 6 django setup
+7 write database model
