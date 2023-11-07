@@ -1,0 +1,10 @@
+git status : check branch
+git add . : stage all files
+git commit -m "message"  : commit files
+git merge <branch name> : merge code 
+git checkout <branchName> : switch branch
+git pull : pull remote repo code
+git log : to check previous commit
+git branch : to check branch 
+git branch <newBranchName> : create new branch
+git branch -d <BranchName> : delete branch
