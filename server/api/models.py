@@ -17,7 +17,6 @@ class User(models.Model):
         return self.username
 
 
-
 class Playlist(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField(blank=True, null=True)
@@ -59,22 +58,8 @@ class PlaylistInteraction(models.Model):
 
         return reaction
 
-    @classmethod
-    def create_or_update_interaction(cls, user, playlist, **kwargs):
-        try:
-            interaction = cls.objects.get(userId=user, playlistId=playlist)
-            for key, value in kwargs.items():
-                setattr(interaction, key, value)
-            interaction.save()
-        except cls.DoesNotExist:
-            interaction = cls.objects.create(userId=user, playlistId=playlist, **kwargs)
-        return interaction
-
     class Meta:
         unique_together = ('userId', 'playlistId')
-
-
-        
 
 
 class Video(models.Model):
@@ -92,9 +77,12 @@ class Video(models.Model):
 
 
 class VideoOrder(models.Model):
-    index = models.IntegerField()
+    index = models.IntegerField(default=0)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     videoId = models.ForeignKey(Video, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.playlistId.title}: {self.index}"
 
 
 class Comment(models.Model):
@@ -103,7 +91,8 @@ class Comment(models.Model):
     dislikes = models.IntegerField(default=0)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
-    commentId = models.ForeignKey('self', on_delete=models.CASCADE, null=True,blank=True)
+    commentId = models.ForeignKey(
+        'self', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.text[:100]
