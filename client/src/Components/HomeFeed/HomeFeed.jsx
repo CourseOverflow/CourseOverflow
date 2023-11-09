@@ -12,13 +12,13 @@ const HomeFeed = (props) => {
       />
       <hr className={styles.hrLine} />
       <Feed
-        category="Popular"
+        category="Recently Uploaded"
         data={props.data}
         sidebarOpen={props.sidebarOpen}
       />
       <hr className={styles.hrLine} />
       <Feed
-        category="Popular"
+        category="Recommended for you"
         data={props.data}
         sidebarOpen={props.sidebarOpen}
       />
