@@ -50,9 +50,7 @@ class PlaylistInteraction(models.Model):
     watchCount = models.IntegerField(default=0)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
-    #created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now(), null=True, blank=True)
-
+    
 
     def __str__(self):
         reaction = ""
@@ -79,9 +77,7 @@ class Video(models.Model):
     likes = models.IntegerField()
     dislikes = models.IntegerField()
     description = models.TextField(blank=True, null=True)
-    #created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now(), null=True, blank=True)
-
+   
     def __str__(self):
         return self.title
 
@@ -90,8 +86,7 @@ class VideoOrder(models.Model):
     index = models.IntegerField(default=0)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     videoId = models.ForeignKey(Video, on_delete=models.CASCADE)
-    #created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now(), null=True, blank=True)
+   
 
     def __str__(self):
         return f"{self.playlistId.title}: {self.index}"
@@ -105,7 +100,6 @@ class Comment(models.Model):
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     commentId = models.ForeignKey(
         'self', on_delete=models.CASCADE, null=True, blank=True)
-    #created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now(), null=True, blank=True)
 
     def __str__(self):
@@ -117,8 +111,6 @@ class CommentInteraction(models.Model):
     isDisliked = models.BooleanField(default=False)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     commentId = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    #created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now(), null=True, blank=True)
 
     def __str__(self):
         if self.isLiked:

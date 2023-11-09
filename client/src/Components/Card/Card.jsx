@@ -10,7 +10,7 @@ const Card = (props) => {
   return (
     <div key={props.data.id}>
       <CardImage
-        image={props.data.image}
+        image={props.data.thumbnail}
         likes={props.data.likes}
         dislikes={props.data.dislikes}
         isLiked={props.data.isLiked}

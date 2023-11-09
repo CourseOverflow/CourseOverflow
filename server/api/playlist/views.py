@@ -6,6 +6,6 @@ from api.serializers import PlaylistSerializer
 
 @api_view(['GET'])
 def playlist(request):
-    playlists = Playlist.objects.all()[:5]
+    playlists = Playlist.objects.all()[:10]
     serializer = PlaylistSerializer(playlists, many=True)
     return Response(serializer.data)
