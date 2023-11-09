@@ -1,5 +1,11 @@
-from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from api.models import VideoOrder
+from api.serializers import VideoOrderSerializer
 
 
+@api_view(['GET'])
 def videoOrder(request):
-    return HttpResponse("<h1>Video Order API</h1>")
+    orders = VideoOrder.objects.all()[:5]
+    serializer = VideoOrderSerializer(orders, many=True)
+    return Response(serializer.data)

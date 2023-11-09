@@ -1,5 +1,11 @@
-from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from api.models import Playlist
+from api.serializers import PlaylistSerializer
 
 
+@api_view(['GET'])
 def playlist(request):
-    return HttpResponse("<h1>Playlist API</h1>")
+    playlists = Playlist.objects.all()[:5]
+    serializer = PlaylistSerializer(playlists, many=True)
+    return Response(serializer.data)
