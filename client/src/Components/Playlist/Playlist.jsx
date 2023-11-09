@@ -11,7 +11,7 @@ const Playlist = (props) => {
   const handleNextClick = (id) => {
     props.setVideoIndex(id);
   };
-  console.log(props.id);
+
   return (
     <div
       style={!props.overflow ? { height: `${props.height}px` } : {}}

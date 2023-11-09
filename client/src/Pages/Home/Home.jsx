@@ -27,7 +27,6 @@ const Home = (props) => {
 
     fetchPlaylistData();
   }, []);
-  console.log(playlistData);
 
   return (
     <div className={styles.container}>
