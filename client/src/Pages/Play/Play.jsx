@@ -31,7 +31,7 @@ const Play = () => {
 
     const fetchCommentData = async () => {
       try {
-        const commentResponse = await axios.get(`${baseURL}/api/comment/`);
+        const commentResponse = await axios.get(`${baseURL}/api/comment/4`);
         setCommentData(commentResponse.data);
       } catch (error) {
         console.error("Error fetching comment data: ", error);

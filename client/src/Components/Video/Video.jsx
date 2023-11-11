@@ -14,7 +14,8 @@ const Video = ({ playlistData, currVideo, currVideoIdx, setVideoIndex }) => {
       </div>
       <VideoControls
         title={currVideo.title}
-        author={playlistData.authorId}
+        authorName={playlistData.authorName}
+        authorProfile={playlistData.authorProfile}
         likes={playlistData.likes}
         dislikes={playlistData.dislikes}
         bundleSize={playlistData.bundleSize}

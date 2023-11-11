@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from api.models import Playlist
-from api.serializers import PlaylistSerializer
+from api.models import Playlist, User
+from api.serializers import PlaylistSerializer, UserSerializer
 
 
 @api_view(['GET'])
@@ -15,4 +15,9 @@ def playlist(request):
 def playlist_detail(request, pk):
     playlist = Playlist.objects.get(id=pk)
     serializer = PlaylistSerializer(playlist, many=False)
-    return Response(serializer.data)
+    author = User.objects.get(id=playlist.authorId.id)
+    author_data = UserSerializer(author).data
+    playlist_data = serializer.data
+    playlist_data['authorName'] = author_data['username']
+    playlist_data['authorProfile'] = author_data['profilePicture']
+    return Response(playlist_data)

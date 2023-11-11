@@ -19,7 +19,7 @@ const CommentSection = (props) => {
       {props.comments.map((comment) => (
         <>
           <hr />
-          <Comment key={comment.id} comment={comment} replyHandler={addReply} />
+          <Comment comment={comment} replyHandler={addReply} />
         </>
       ))}
     </div>
