@@ -38,14 +38,6 @@ const App = () => {
           }
         />
         <Route
-          path="/playlist/:slug"
-          element={
-            <MainLayout overlay={true}>
-              <Play />
-            </MainLayout>
-          }
-        />
-        <Route
           path="/search"
           element={
             <MainLayout overlay={false}>

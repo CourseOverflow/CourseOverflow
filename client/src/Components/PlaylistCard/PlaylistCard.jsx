@@ -5,7 +5,10 @@ import Checkbox from "./Checkbox";
 
 const PlaylistCard = (props) => {
   return (
-    <div className={`${styles.container} ${props.isWatched && styles.played}`}>
+    <div
+      onClick={props.playlistItem ? () => props.setVideoIdx(props.index) : null}
+      className={`${styles.container} ${props.isWatched && styles.played}`}
+    >
       <div
         onClick={props.clickHandler}
         className={`${styles.playlistCard} ${props.isWatched && styles.played}`}

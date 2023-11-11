@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.video, name='video'),
+    path('<int:pk>/', views.video_detail, name='video_detail')
 ]

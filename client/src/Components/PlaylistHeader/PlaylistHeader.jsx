@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./PlaylistHeader.module.css";
 
 const PlaylistHeader = (props) => {
-  const watchedPercentage = Math.floor(
-    (props.watchedCount / props.videoCount) * 100
+  const watchPercentage = Math.floor(
+    (props.watchCount / props.bundleSize) * 100
   );
   return (
     <>
@@ -12,14 +12,14 @@ const PlaylistHeader = (props) => {
         <p className={styles.author}>{props.author}</p>
         <div className={styles.status}>
           <p className={styles.duration}>
-            {props.watchedCount} / {props.videoCount}
+            {props.watchCount} / {props.bundleSize}
           </p>
           <p className={styles.duration}>{props.duration}</p>
         </div>
       </div>
       <hr
         className={styles.statusLine}
-        style={{ width: `${watchedPercentage}%` }}
+        style={{ width: `${watchPercentage}%` }}
       />
     </>
   );

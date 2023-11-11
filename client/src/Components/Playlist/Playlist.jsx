@@ -3,45 +3,33 @@ import PlaylistHeader from "../PlaylistHeader/PlaylistHeader";
 import PlaylistCard from "../PlaylistCard/PlaylistCard";
 import styles from "./Playlist.module.css";
 
-const Playlist = (props) => {
+const Playlist = ({ playlistData, videoList, currVideoIdx, setVideoIndex }) => {
   const checkboxHandler = () => {
     console.log("not yet integrated: checkboxHandler");
   };
 
-  const handleNextClick = (id) => {
-    props.setVideoIndex(id);
-  };
-
   return (
-    <div
-      style={!props.overflow ? { height: `${props.height}px` } : {}}
-      className={`${styles.playlist} ${props.overflow && styles.overflow}`}
-    >
+    <div className={styles.playlist}>
       <PlaylistHeader
-        title={props.playlistHeaderData.title}
-        author={props.playlistHeaderData.author}
-        duration={props.playlistHeaderData.duration}
-        videoCount={props.playlistHeaderData.videoCount}
-        watchedCount={props.playlistHeaderData.watchedCount}
+        title={playlistData.title}
+        author={playlistData.authorName}
+        duration={playlistData.duration}
+        bundleSize={playlistData.bundleSize}
+        watchCount={playlistData.watchCount}
       />
-      <div
-        style={!props.overflow ? { height: `${props.height - 96}px` } : {}}
-        className={`${styles["playlist-items"]} ${
-          props.overflow && `${styles.overflow}`
-        }`}
-      >
-        {props.data.map((item, index) => {
+      <div className={styles["playlist-items"]}>
+        {videoList.map((item, index) => {
           return (
             <PlaylistCard
-              clickHandler={() => handleNextClick(item.index)}
-              currVideo={props.currVideoIdx === item.index}
-              rank={index + 1}
+              setVideoIdx={setVideoIndex}
+              currVideo={currVideoIdx === item.index}
+              index={index}
               author={item.author}
               key={item.id}
-              topic={item.topic}
-              thumbnail={item.thumbnail}
+              topic={item.title}
+              thumbnail="https://picsum.photos/seed/picsum/300/200"
               duration={item.duration}
-              desc={item.desc}
+              desc={item.description}
               isWatched={item.isWatched}
               checkboxHandler={checkboxHandler}
               playlistItem={true}
