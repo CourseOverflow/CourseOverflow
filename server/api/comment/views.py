@@ -6,6 +6,6 @@ from api.serializers import CommentSerializer
 
 @api_view(['GET'])
 def comment(request):
-    comment = Comment.objects.all()[:5]
+    comment = Comment.objects.filter(commentId__isnull=True)[:5]
     serializer = CommentSerializer(comment, many=True)
     return Response(serializer.data)

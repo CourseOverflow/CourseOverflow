@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: fit-content;
+}
+
+.top {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  max-height: min-content;
+  height: min-content;
+  margin-bottom: 20px;
+}
+
+.videoContainer {
+  width: 70%;
+  margin-right: 10px;
+}
+
+.playlistContainer {
+  max-height: min-content;
+  width: 30%;
+}
+
+@media screen and (max-width: 980px) {
+  .top {
+    flex-direction: column;
+  }
+
+  .videoContainer {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .playlistContainer {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
