@@ -1,25 +1,28 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 import { IoMdClose } from "react-icons/io";
 
 const Modal = ({ onClose, descriptionText }) => {
   const handleOverlayClick = (event) => {
-    const classNames = event.target.className || "";
-    if (typeof classNames === "string" && classNames.includes("modal")) {
-      onClose();
-    }
+    event.stopPropagation();
+    onClose();
   };
 
-  return (
-    <div className={styles.modal} onClick={handleOverlayClick}>
-      <div className={styles.modalContent}>
+  return ReactDOM.createPortal(
+    <>
+      <div className={styles.overlay} onClick={handleOverlayClick} />
+      <div className={styles.modal}>
         <header className={styles.header}>
           <h1>Description</h1>
           <IoMdClose className={styles.close} onClick={onClose} />
         </header>
-        <p>{descriptionText}</p>
+        <div className={styles.modalContent}>
+          <p>{descriptionText}</p>
+        </div>
       </div>
-    </div>
+    </>,
+    document.getElementById("modal-root")
   );
 };
 

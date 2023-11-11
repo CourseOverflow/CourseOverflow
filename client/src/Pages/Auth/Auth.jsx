@@ -75,7 +75,7 @@ const Auth = () => {
 
           <div className={styles.googleButton}>
             <img
-              src="/images/google-logo.png"
+              src={process.env.PUBLIC_URL + "/images/google-logo.png"}
               alt="Google Logo"
               className={styles.googleLogo}
             />

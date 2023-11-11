@@ -10,11 +10,7 @@ const Description = (props) => {
   return (
     <div className={styles.description}>
       <h1>Description</h1>
-      <p>
-        {descriptionText.length < 250
-          ? descriptionText
-          : `${descriptionText.slice(0, 250)}...`}
-      </p>
+      <p>{descriptionText}</p>
       <button onClick={() => setShowFullDescription(true)}>Read More</button>
 
       {showFullDescription && (

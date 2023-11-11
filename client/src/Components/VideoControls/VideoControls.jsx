@@ -16,6 +16,7 @@ const VideoControls = (props) => {
       props.setVideoIndex(nextIndex);
     }
   };
+
   const handleBackClick = () => {
     const nextIndex = props.currentlyPlayingVideoIndex - 1;
     if (nextIndex >= 0) {
@@ -32,6 +33,18 @@ const VideoControls = (props) => {
       </div>
 
       <div className={styles["video-controls"]}>
+        <div className="flex">
+        <div className={styles.author}>
+          <img
+            title="SlimeMaster"
+            src={process.env.PUBLIC_URL + "/logo.png"}
+            alt="Author Profile"
+          />
+          <span>
+            <h1>SlimeMaster</h1>
+            <p>450K Subscribers</p>
+          </span>
+        </div>
         <div className={styles.likesDislikes}>
           <div className={`${styles["like"]} ${styles["flex"]}`}>
             <FaThumbsUp className={styles.icon} />
@@ -42,7 +55,7 @@ const VideoControls = (props) => {
             <p>{props.currPlaylistData.dislikes}</p>
           </div>
         </div>
-
+</div>
         <div className={styles.flex}>
           <div className={styles.buttons}>
             <button

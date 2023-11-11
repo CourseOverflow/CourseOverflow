@@ -1,99 +1,62 @@
-import React, { Suspense, lazy, useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Auth from "./Pages/Auth/Auth";
+import MainLayout from "./Layouts/MainLayout";
 import Home from "./Pages/Home/Home";
-import Search from "./Pages/Search/Search";
 import CreatePlaylist from "./Pages/CreatePlaylist/CreatePlaylist";
-import Header from "./Components/Header/Header";
-import Sidebar from "./Components/Sidebar/Sidebar";
-import Footer from "./Components/Footer/Footer";
-import styles from "./App.module.css";
-import { useGlobalState } from "./GlobalStateContext";
 import Play from "./Pages/Play/Play";
+import Search from "./Pages/Search/Search";
 import About from "./Pages/About/About";
-
-const Blocker = () => {
-  return <div className={styles.blocked}></div>;
-};
+import Auth from "./Pages/Auth/Auth";
+import styles from "./App.module.css";
 
 const App = () => {
-  const { sidebarOpen, setSidebarOpen } = useGlobalState();
-
   return (
-    <div className={`${styles.app}`}>
-      <BrowserRouter>
-        {/* <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} /> */}
-        <div className="flex mr-0">
-          {/* <Sidebar isOpen={sidebarOpen} /> */}
-          {/* <div className={styles.blocked}></div> */}
-          <div
-          // className={
-          //   sidebarOpen
-          //     ? styles["margin-correction-open"]
-          //     : styles["margin-correction-closed"]
-          // }
-          >
-            <Routes>
-              <Route
-                path="/CourseOverflow"
-                element={
-                  <>
-                    <Blocker />
-                    <Home sidebarOpen={sidebarOpen} />
-                  </>
-                }
-              />
-              <Route
-                path="/auth"
-                element={
-                  <>
-                    <Blocker />
-                    <Auth />
-                  </>
-                }
-              />
-              <Route
-                path="/create"
-                element={
-                  <>
-                    <Blocker />
-                    <CreatePlaylist />
-                  </>
-                }
-              />
-              <Route
-                path="/play"
-                element={
-                  <>
-                    <Blocker />
-                    <Play />
-                  </>
-                }
-              />
-              <Route
-                path="/search"
-                element={
-                  <>
-                    <Blocker />
-                    <Search />
-                  </>
-                }
-              />
-              <Route
-                path="/about"
-                element={
-                  <>
-                    <Blocker />
-                    <About />
-                  </>
-                }
-              />
-            </Routes>
-            {/* <Footer /> */}
-          </div>
-        </div>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter className={styles.app}>
+      <Routes>
+        <Route
+          path="/CourseOverflow"
+          element={
+            <MainLayout overlay={false}>
+              <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <MainLayout overlay={false}>
+              <CreatePlaylist />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/play"
+          element={
+            <MainLayout overlay={true}>
+              <Play />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/playlist/:slug"
+          element={
+            <MainLayout overlay={true}>
+              <Play />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <MainLayout overlay={false}>
+              <Search />
+            </MainLayout>
+          }
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="/auth" element={<Auth />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

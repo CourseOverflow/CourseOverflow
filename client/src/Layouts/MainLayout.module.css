@@ -1,0 +1,46 @@
+.children {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  margin-left: 60px;
+  width: 100%;
+  height: 100%;
+  transition: margin-left 0.3s;
+}
+
+.shiftedContent {
+  margin-left: 200px;
+  transition: margin-left 0.3s;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.overlay,
+.shiftPageOverlay {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.shiftPageOverlay {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .children {
+    margin-top: 50px;
+    margin-left: 0;
+  }
+
+  .shiftedContent {
+    margin-left: 0;
+  }
+
+  .shiftPageOverlay {
+    display: block;
+  }
+}

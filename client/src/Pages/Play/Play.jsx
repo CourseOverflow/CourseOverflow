@@ -6,8 +6,13 @@ import VideoControls from "../../Components/VideoControls/VideoControls";
 import CommentData from "../../Data/CommentData";
 import CourseData from "../../Data/CourseData";
 import PlayListData from "../../Data/PlayListData";
+import { useParams } from "react-router-dom";
 
 const VideoPlayer = () => {
+  let { slug } = useParams();
+  const lastHyphenIndex = slug.lastIndexOf("-");
+  const urlPlayListId = slug.substring(lastHyphenIndex + 1);
+
   // data of the playlist currently playing
   const playlistHeaderData = CourseData[0];
   //data of the playlist currently playing
@@ -104,7 +109,7 @@ const VideoPlayer = () => {
         </div>
         {windowWidth > minWidth && (
           <Playlist
-          currVideoIdx={currentlyPlayingVideoIndex}
+            currVideoIdx={currentlyPlayingVideoIndex}
             setVideoIndex={setVideoIndex}
             data={currPlaylistData}
             playlistHeaderData={playlistHeaderData}

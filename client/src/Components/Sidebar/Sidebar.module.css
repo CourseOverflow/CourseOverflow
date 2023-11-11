@@ -1,6 +1,5 @@
 .sidebar {
-  margin-left: 5px;
-  margin-top: 61px;
+  margin-top: 55px;
   height: 100vh;
   position: fixed;
   z-index: 1;
@@ -8,7 +7,7 @@
   color: var(--base-text);
   width: 200px;
   border-right: 1px solid var(--box);
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 .sidebar-open {
@@ -16,66 +15,11 @@
 }
 
 .sidebar-close {
-  width: 50px;
-  .icon > svg {
-  }
+  width: 60px;
 }
 
-.top-section {
-  display: flex;
-  align-items: center;
-  padding: 20px 15px;
-}
-
-.logo {
-  font-size: 30px;
-}
-
-.bars {
-  display: flex;
-  font-size: 25px;
-  margin-left: 50px;
-}
-
-.link {
-  margin: 5px 0px;
-  background-color: var(--base);
-  display: flex;
-  color: var(--base-text);
-  padding: 10px 15px;
-  gap: 15px;
-  transition: all 0.5s;
-}
-
-.link > div {
-  background-color: transparent;
-}
-
-.icon > svg {
-  margin-top: 5px;
-  background-color: transparent;
-}
-
-.link:hover {
-  background: var(--hover);
-  color: var(--base-text);
-  transition: all 0.5s;
-  border-radius: 10px;
-}
-.change {
-  background-color: var(--base);
-  display: flex;
-  color: var(--base-text);
-  transition: all 0.5s;
-  outline: none;
-}
-.change:hover {
-  background-color: var(--hover);
-  /* color: white; */
-  opacity: transparent;
-  color: var(--base-text);
-  transition: all 0.5s;
-  border-radius: 10px;
+.sidebar-item-container {
+  padding: 5px;
 }
 
 .active {
@@ -85,25 +29,43 @@
   color: var(--base-text);
 }
 
+.link {
+  margin: 5px 0px;
+  background-color: var(--base);
+  display: flex;
+  color: var(--base-text);
+  padding: 10px 15px;
+  gap: 15px;
+  transition: all 0.3s;
+}
+
+.link > div {
+  background-color: transparent;
+}
+
+.link:hover {
+  background: var(--hover);
+  color: var(--base-text);
+  transition: all 0.3s;
+  border-radius: 10px;
+}
+
 .icon,
 .link-text {
   font-size: 20px;
   cursor: pointer;
 }
 
+.icon > svg {
+  margin-top: 5px;
+  background-color: transparent;
+}
+
 @media only screen and (max-width: 600px) {
-  /* body {
-    -webkit-filter: blur(8px);
-  } */
   .sidebar {
-    margin-left: 0px;
-    transition: all 0.5s;
+    transition: all 0.3s;
   }
   .sidebar-close {
     display: none;
   }
-
-  /* .icon > svg {
-    font-size: 22px;
-  } */
 }

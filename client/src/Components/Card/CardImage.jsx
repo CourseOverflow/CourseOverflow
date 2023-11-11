@@ -9,14 +9,10 @@ const CardImage = (props) => {
     backgroundImage: `url(${props.image})`,
   };
 
-  const clickHandler = () => {
-    console.log("Card clicked, Play!");
-  };
-
   return (
     <div className={styles.card}>
       <div className={styles.cardImage} style={cardStyle}></div>
-      <div className={styles.cardContent} onClick={clickHandler}>
+      <div className={styles.cardContent}>
         <FaPlay className="text-3xl bg-transparent" />
       </div>
       <CardFooter
