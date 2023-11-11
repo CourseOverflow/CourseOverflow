@@ -13,11 +13,11 @@
 }
 
 .blob {
-  z-index: 2;
+  z-index: 0;
   background-color: white;
   height: 34vmax;
   aspect-ratio: 1;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   translate: -50% -50%;
@@ -28,12 +28,12 @@
 }
 
 .blur {
-  height: 100%;
-  width: 100%;
-  position: absolute;
+  height: 100vh;
+  width: 100vw+10px;
+  position: fixed;
   left: 0;
   right: 0;
-  z-index: 1001;
+  z-index: 1;
   background-color: transparent;
   backdrop-filter: blur(12vmax);
 }

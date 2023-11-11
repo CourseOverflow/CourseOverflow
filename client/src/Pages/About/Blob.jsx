@@ -61,7 +61,12 @@ const Blob = () => {
     <div>
       <div className={styles.blugout}>
         <div className={styles.blur}></div>
-        <div ref={blobRef} id="blob" className={styles.blob}></div>
+        <div
+          ref={blobRef}
+          id="blob"
+          className={styles.blob}
+          style={1 ? { display: "block" } : { display: "none" }}
+        ></div>
 
         <h1
           ref={h1Ref}
