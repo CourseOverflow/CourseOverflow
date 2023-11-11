@@ -34,10 +34,7 @@ const VideoControls = (props) => {
       <div className={styles["video-controls"]}>
         <div className="flex">
           <div className={styles.author}>
-            <img
-              src={props.authorProfile}
-              alt="Author Profile"
-            />
+            <img src={props.authorProfile} alt="Author Profile" />
             <span>
               <h1>{props.authorName}</h1>
               <p>450K Subscribers</p>
