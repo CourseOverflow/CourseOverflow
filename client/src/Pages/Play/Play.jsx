@@ -29,7 +29,7 @@ const Play = () => {
 
     const fetchVideoList = async () => {
       try {
-        const videoResponse = await axios.get(`${baseURL}/api/video/`);
+        const videoResponse = await axios.get(`${baseURL}/api/video/${urlPlayListId}/`);
         setVideoList(videoResponse.data);
       } catch (error) {
         console.error("Error fetching video list: ", error);
@@ -38,7 +38,8 @@ const Play = () => {
 
     const fetchCommentData = async () => {
       try {
-        const commentResponse = await axios.get(`${baseURL}/api/comment/4`);
+        console.log(`${baseURL}/api/comment/${urlPlayListId}/`);
+        const commentResponse = await axios.get(`${baseURL}/api/comment/${urlPlayListId}/`);
         setCommentData(commentResponse.data);
       } catch (error) {
         console.error("Error fetching comment data: ", error);
@@ -48,7 +49,7 @@ const Play = () => {
     Promise.all([fetchPlaylistData(), fetchVideoList(), fetchCommentData()])
       .then(() => setLoading(false))
       .catch(() => setLoading(false));
-  }, []);
+  }, [urlPlayListId]);
 
   if (loading) {
     return <PlaySkeleton />;

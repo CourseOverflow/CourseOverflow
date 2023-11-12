@@ -1,4 +1,3 @@
-// Card.js
 import React from "react";
 import CardImage from "./CardImage";
 import CardInfo from "./CardInfo";
@@ -8,7 +7,7 @@ const Card = (props) => {
   const navigate = useNavigate();
 
   const handleFeedClick = (id) => {
-    const playlistId = String(id); // Convert id to string format if in other format
+    const playlistId = String(id);
     navigate(`/playlist/${playlistId}`);
   };
 
