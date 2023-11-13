@@ -8,9 +8,13 @@
 }
 
 .videoTopic {
-  font-size: x-large;
-  font-weight: 700;
   margin: 10px;
+  background-color: transparent;
+  font-size: 1.4rem;
+  color: var(--base-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .flex {
@@ -32,7 +36,8 @@
 }
 
 .author > h1 {
-  font-size: 1.2rem;
+  color: var(--base-text);
+  font-size: 1rem;
   line-height: 0.8;
   overflow: hidden;
   text-overflow: ellipsis;

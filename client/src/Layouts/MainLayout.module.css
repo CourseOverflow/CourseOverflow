@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   transition: margin-left 0.3s;
+  overflow-x: hidden;
 }
 
 .shiftedContent {

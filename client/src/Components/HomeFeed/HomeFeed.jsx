@@ -10,23 +10,11 @@ const HomeFeed = ({
 }) => {
   return (
     <div className={styles.homeFeedContainer}>
-      <Feed
-        category="Recommended for you"
-        data={recommendedPlaylistData}
-        sidebarOpen={sidebarOpen}
-      />
+      <Feed category="Recommended" data={recommendedPlaylistData} />
       <hr className={styles.hrLine} />
-      <Feed
-        category="Popular"
-        data={popularPlaylistData}
-        sidebarOpen={sidebarOpen}
-      />
+      <Feed category="Popular" data={popularPlaylistData} />
       <hr className={styles.hrLine} />
-      <Feed
-        category="Recently Uploaded"
-        data={recentUploadsPlaylistData}
-        sidebarOpen={sidebarOpen}
-      />
+      <Feed category="Recently Uploaded" data={recentUploadsPlaylistData} />
       <hr className={styles.hrLine} />
     </div>
   );
