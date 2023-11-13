@@ -6,14 +6,13 @@ from rest_framework import status
 
 @api_view(['GET'])
 def playlist(request):
-    playlists = Playlist.objects.all()[:10]
+    playlists = Playlist.objects.filter(isDraft=False)[:10]
     serializer = PlaylistSerializer(playlists, many=True)
     return Response(serializer.data)
 
-
 @api_view(['GET'])
 def playlist_detail(request, pk):
-    playlist = Playlist.objects.get(id=pk)
+    playlist = Playlist.objects.get(id=pk, isDraft=False)
     serializer = PlaylistSerializer(playlist, many=False)
     author = User.objects.get(id=playlist.authorId.id)
     author_data = UserSerializer(author).data
@@ -24,13 +23,13 @@ def playlist_detail(request, pk):
 
 @api_view(['GET'])
 def recent_uploads(request):
-    playlists = Playlist.objects.order_by('-created_at')[:10]  # Sort by createdAt in descending order and get top 10
+    playlists = Playlist.objects.filter(isDraft=False).order_by('-created_at')[:10]
     serializer = PlaylistSerializer(playlists, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def recommended(request):
-    playlists = Playlist.objects.order_by('created_at')[:10]  # Sort by createdAt in descending order and get top 10
+    playlists = Playlist.objects.filter(isDraft=False).order_by('created_at')[:10]
     serializer = PlaylistSerializer(playlists, many=True)
     return Response(serializer.data)
 
@@ -52,7 +51,7 @@ def create_playlist(request):
             'dislikes': 0,  # Default value
             'duration': 0,  # Default value
             'views': 0,  # Default value
-            'bundleSize': 0,  # Default value
+            'isDraft': True,  # Default value
             'coursePDF': '',  # Default value (null string)
             'authorId': author_id,
         }

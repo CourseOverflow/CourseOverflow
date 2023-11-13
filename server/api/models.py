@@ -30,7 +30,7 @@ class Playlist(models.Model):
     dislikes = models.IntegerField(default=0)
     duration = models.DurationField(default=0)
     views = models.IntegerField(default=0)
-    bundleSize = models.IntegerField(default=0)
+    isDraft = models.BooleanField(default=True)
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(

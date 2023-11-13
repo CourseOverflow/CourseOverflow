@@ -75,6 +75,7 @@ const CreatePlaylist = () => {
             setPlaylistDesc={setPlaylistDesc}
             playlistThumbnail={playlistThumbnail}
             setPlaylistThumbnail={setPlaylistThumbnail}
+            cloudinaryPublicId={cloudinaryPublicId}
             setCloudinaryPublicId={setCloudinaryPublicId}
             nextStatus={nextStatus}
             setNextStatus={setNextStatus}

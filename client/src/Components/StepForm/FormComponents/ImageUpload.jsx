@@ -26,22 +26,23 @@ const LoadingImg = () => {
 
 const ImageUpload = (props) => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [formKey, setFormKey] = useState(0); // New state for the form key
+  const [formKey, setFormKey] = useState(0);
   const [uploading, setUploading] = useState(false);
-
   const fileInputRef = useRef(null);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setFormKey(formKey + 1); // Increment the form key to force a re-render
+      setFormKey(formKey + 1);
       setUploading(true);
       props.setNextStatus(false);
-      // Upload the image to Cloudinary
+
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "neetqub9");
       formData.append("folder", "playlistThumbnail");
+
       fetch("https://api.cloudinary.com/v1_1/dsum3x8ok/image/upload", {
         method: "POST",
         body: formData,
@@ -56,19 +57,42 @@ const ImageUpload = (props) => {
         })
         .finally(() => {
           setUploading(false);
-          if (!uploading) {
-            if (props.playlistTitle.length > 0) props.setNextStatus(true);
+          if (!uploading && props.playlistTitle.length > 0) {
+            props.setNextStatus(true);
           }
         });
     }
-    // Reset the value of the file input
     e.target.value = null;
   };
 
   const handleRemoveFile = () => {
+    // not working
+    // if (props.cloudinaryPublicId) {
+    //   const cloudinaryUrl = `https://cors-anywhere.herokuapp.com/https://api.cloudinary.com/v1_1/dsum3x8ok/image/destroy/${props.cloudinaryPublicId}`;
+
+    //   fetch(cloudinaryUrl, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "9b-6oMTY3rl_EPWHye4LReyt6MQ",
+    //     },
+    //     body: JSON.stringify({
+    //       upload_preset: "neetqub9",
+    //     }),
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       console.log("File deleted from Cloudinary:", data);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error deleting file from Cloudinary:", error);
+    //     });
+    // }
+
     setSelectedFile(null);
-    setFormKey(formKey + 1); // Increment the form key to force a re-render
-    // Reset the value of the file input
+    props.setPlaylistThumbnail(null);
+    setFormKey(formKey + 1);
+
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }
@@ -77,11 +101,13 @@ const ImageUpload = (props) => {
   return (
     <>
       <div className={styles["card"]}>
-        {selectedFile ? (
+        {uploading ? (
           <div className={styles["headTitle"]}>
-            {uploading ? (
-              <span className={styles["selectedFileName"]}>Uploading...</span>
-            ) : (
+            <span className={styles["selectedFileName"]}>Uploading...</span>
+          </div>
+        ) : (
+          <div className={styles["headTitle"]}>
+            {selectedFile ? (
               <>
                 <span className={styles["selectedFileName"]}>
                   {selectedFile.name}
@@ -95,41 +121,58 @@ const ImageUpload = (props) => {
                   </div>
                 </button>
               </>
+            ) : props.playlistThumbnail ? (
+              <>
+                <span className={styles["selectedFileName"]}>
+                  {props.cloudinaryPublicId}
+                </span>
+                <button
+                  className={styles["removeFileBtn"]}
+                  onClick={handleRemoveFile}
+                >
+                  <div className={styles["removeIcon"]}>
+                    <IoMdClose />
+                  </div>
+                </button>
+              </>
+            ) : (
+              <span className={styles["selectedFileName"]}>
+                No file selected
+              </span>
             )}
           </div>
-        ) : (
-          <h3 className={styles["headTitle"]}>Upload Image</h3>
         )}
         <div className={styles["drop_box"]}>
-          {selectedFile ? (
-            <div className={styles["img_box"]}>
-              {" "}
-              {uploading ? (
-                <LoadingImg />
-              ) : (
-                <img
-                  className={styles["Uplodedimg"]}
-                  src={URL.createObjectURL(selectedFile)}
-                  alt={selectedFile.name}
-                />
-              )}
-            </div>
+          {uploading ? (
+            <LoadingImg />
           ) : (
             <>
-              <header>
-                <h4>Drop Image here</h4>
-              </header>
-              <p>Supported Image Formats: JPG, PNG, JPEG</p>
-              <button
-                className={styles["btn"]}
-                onClick={() => {
-                  if (fileInputRef.current) {
-                    fileInputRef.current.click();
-                  }
-                }}
-              >
-                Choose Image
-              </button>
+              {props.playlistThumbnail ? (
+                <div className={styles["img_box"]}>
+                  <img
+                    className={styles["Uplodedimg"]}
+                    src={props.playlistThumbnail}
+                    alt="playlist thumbnail"
+                  />
+                </div>
+              ) : (
+                <>
+                  <header>
+                    <h4>Drop Image here</h4>
+                  </header>
+                  <p>Supported Image Formats: JPG, PNG, JPEG</p>
+                  <button
+                    className={styles["btn"]}
+                    onClick={() => {
+                      if (fileInputRef.current) {
+                        fileInputRef.current.click();
+                      }
+                    }}
+                  >
+                    Choose Image
+                  </button>
+                </>
+              )}
             </>
           )}
           <input

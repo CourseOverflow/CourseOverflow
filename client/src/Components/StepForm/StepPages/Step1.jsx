@@ -13,6 +13,7 @@ const Step1 = (props) => {
           setNextStatus={props.setNextStatus}
           playlistThumbnail={props.playlistThumbnail}
           setPlaylistThumbnail={props.setPlaylistThumbnail}
+          cloudinaryPublicId={props.cloudinaryPublicId}
           setCloudinaryPublicId={props.setCloudinaryPublicId}
           selectedImage={props.selectedImage}
           setSelectedImage={props.setSelectedImage}
