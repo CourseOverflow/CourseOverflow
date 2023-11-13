@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from urllib.parse import quote
 
 class User(models.Model):
     googleId = models.CharField(max_length=255, blank=True, null=True)
@@ -36,7 +36,8 @@ class Playlist(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.thumbnail and self.title:
-            self.thumbnail = f"https://via.placeholder.com/150?text={self.title}"
+            encoded_title = quote(self.title)
+            self.thumbnail = f"https://via.placeholder.com/150?text={encoded_title}"
         super().save(*args, **kwargs)
 
     def __str__(self):

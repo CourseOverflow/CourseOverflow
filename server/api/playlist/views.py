@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from api.models import Playlist, User
 from api.serializers import PlaylistSerializer, UserSerializer
-
+from rest_framework import status
 
 @api_view(['GET'])
 def playlist(request):
@@ -33,3 +33,36 @@ def recommended(request):
     playlists = Playlist.objects.order_by('created_at')[:10]  # Sort by createdAt in descending order and get top 10
     serializer = PlaylistSerializer(playlists, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def create_playlist(request):
+    if request.method == 'POST':
+        # Extracting required fields from the request data
+        title = request.data.get('title')
+        author_id = request.data.get('authorId')
+
+        # Creating a dictionary with the required and default values
+        playlist_data = {
+            'title': title,
+            'desc': request.data.get('desc', None),  # Optional, default is None
+            'thumbnail': request.data.get('thumbnail', None),  # Optional, default is None
+            'likes': 0,  # Default value
+            'dislikes': 0,  # Default value
+            'duration': 0,  # Default value
+            'views': 0,  # Default value
+            'bundleSize': 0,  # Default value
+            'coursePDF': '',  # Default value (null string)
+            'authorId': author_id,
+        }
+
+        serializer = PlaylistSerializer(data=playlist_data)
+
+        if serializer.is_valid():
+            # Save the playlist with the provided and default values
+            playlist = serializer.save()
+
+            # Return the serialized data of the created playlist
+            response_data = PlaylistSerializer(playlist).data
+            return Response(response_data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
