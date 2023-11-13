@@ -3,7 +3,7 @@ import styles from "./Home.module.css";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import ImageSlider from "../../Components/ImageSlider/ImageSlider";
 import axios from "axios";
-import baseURL from "../../ApiConfig/apiConfig.js";
+import baseURL from "../../Config/apiConfig.js";
 import HomeSkeleton from "../../Components/Skeleton/HomeSkeleton";
 
 const Home = (props) => {

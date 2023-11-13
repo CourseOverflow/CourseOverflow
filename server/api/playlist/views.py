@@ -40,12 +40,14 @@ def create_playlist(request):
         # Extracting required fields from the request data
         title = request.data.get('title')
         author_id = request.data.get('authorId')
-
+        playlistThumbnail = request.data.get('playlistThumbnail')
+        print(playlistThumbnail)
         # Creating a dictionary with the required and default values
         playlist_data = {
             'title': title,
             'desc': request.data.get('desc', None),  # Optional, default is None
-            'thumbnail': request.data.get('thumbnail', None),  # Optional, default is None
+            'thumbnail': request.data.get('playlistThumbnail', "https://picsum.photos/300/200"),  # Optional, default is None
+            'cloudinaryPublicId': request.data.get('cloudinaryPublicId', None),
             'likes': 0,  # Default value
             'dislikes': 0,  # Default value
             'duration': 0,  # Default value

@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./InputForm.module.css";
 
-const InputForm = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+const InputForm = (props) => {
   const [isTitleDivFocused, setIsTitleDivFocused] = useState(false);
   const [isDescDivFocused, setIsDescDivFocused] = useState(false);
 
@@ -13,18 +11,19 @@ const InputForm = () => {
   const handleTitleChange = (e) => {
     const inputValue = e.target.value;
     if (inputValue.length <= 100) {
-      setTitle(inputValue);
+      props.setPlaylistTitle(inputValue);
     }
   };
 
   const handleDescriptionChange = (e) => {
-    const inputValue = e.target.textContent; // Get the text content
+    let inputValue = e.target.value; // Use innerText instead of textContent
     if (inputValue.length <= 5000) {
-      setDescription(inputValue);
+      inputValue = inputValue.split("").reverse().join(""); // Reverse the string
+      props.setPlaylistDesc(inputValue);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
   };
 
@@ -69,12 +68,12 @@ const InputForm = () => {
           <label htmlFor="title" className={styles["titleLabel"]}>
             Title <span className={styles["required"]}>*</span>
           </label>
-          <p className={styles["count"]}>{title.length}/100</p>
+          <p className={styles["count"]}>{props.playlistTitle.length}/100</p>
         </div>
         <input
           type="text"
           id="title"
-          value={title}
+          value={props.playlistTitle}
           placeholder="Enter a title for your Playlist"
           onChange={handleTitleChange}
           className={styles["titleInput"]}
@@ -91,16 +90,17 @@ const InputForm = () => {
           <label htmlFor="description" className={styles["descLabel"]}>
             Description
           </label>
-          <p className={styles["count"]}>{description.length}/5000</p>
+          <p className={styles["count"]}>{props.playlistDesc.length}/5000</p>
         </div>
-        <div
+        <textarea
           id="description"
           onInput={handleDescriptionChange} // Use onInput event
           className={styles["descInput"]}
           ref={descInputRef}
-          contentEditable={true}
-          data-placeholder="Enter a description for your Playlist..."
-        ></div>
+          placeholder="Enter a description for your Playlist..."
+        >
+          {props.playlistDesc}
+        </textarea>
       </div>
     </form>
   );

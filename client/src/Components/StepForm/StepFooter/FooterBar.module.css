@@ -28,3 +28,13 @@
   background-color: transparent;
   color: var(--baseText);
 }
+
+.disabledBtn {
+  color: var(--baseText);
+  background-color: transparent;
+  border: 1px solid var(--hover);
+}
+.disabledBtn:hover {
+  color: var(--baseText);
+  border: 1px solid var(--hover);
+}

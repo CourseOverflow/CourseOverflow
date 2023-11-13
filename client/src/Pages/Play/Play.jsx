@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import baseURL from "../../ApiConfig/apiConfig.js";
+import baseURL from "../../Config/apiConfig.js";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.jsx";
 import PlaySkeleton from "../../Components/Skeleton/PlaySkeleton.jsx";
 import { useParams } from "react-router-dom";
@@ -29,7 +29,9 @@ const Play = () => {
 
     const fetchVideoList = async () => {
       try {
-        const videoResponse = await axios.get(`${baseURL}/api/video/${urlPlayListId}/`);
+        const videoResponse = await axios.get(
+          `${baseURL}/api/video/${urlPlayListId}/`
+        );
         setVideoList(videoResponse.data);
       } catch (error) {
         console.error("Error fetching video list: ", error);
@@ -39,7 +41,9 @@ const Play = () => {
     const fetchCommentData = async () => {
       try {
         console.log(`${baseURL}/api/comment/${urlPlayListId}/`);
-        const commentResponse = await axios.get(`${baseURL}/api/comment/${urlPlayListId}/`);
+        const commentResponse = await axios.get(
+          `${baseURL}/api/comment/${urlPlayListId}/`
+        );
         setCommentData(commentResponse.data);
       } catch (error) {
         console.error("Error fetching comment data: ", error);

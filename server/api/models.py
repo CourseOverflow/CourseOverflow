@@ -8,6 +8,7 @@ class User(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=255)
     profilePicture = models.TextField(blank=True, null=True)
+    cloudinaryPublicId = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(
         default=timezone.now, null=True, blank=True)
 
@@ -24,6 +25,7 @@ class Playlist(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField(blank=True, null=True)
     thumbnail = models.TextField(blank=True, null=True)
+    cloudinaryPublicId = models.TextField(blank=True, null=True)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
     duration = models.DurationField(default=0)
@@ -33,13 +35,7 @@ class Playlist(models.Model):
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
         default=timezone.now, null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if not self.thumbnail and self.title:
-            encoded_title = quote(self.title)
-            self.thumbnail = f"https://via.placeholder.com/150?text={encoded_title}"
-        super().save(*args, **kwargs)
-
+    
     def __str__(self):
         return self.title
 
