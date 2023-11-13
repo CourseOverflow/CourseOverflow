@@ -26,32 +26,30 @@ const VideoControls = (props) => {
   return (
     <>
       <div className={styles["videoHeader"]}>
-        <div className={styles["videoTopic"]}>
-          <h1>{props.title}</h1>
-        </div>
+        <h1 className={styles["videoTopic"]}>{props.title}</h1>
       </div>
-
       <div className={styles["video-controls"]}>
         <div className="flex">
           <div className={styles.author}>
             <img src={props.authorProfile} alt="Author Profile" />
-            <span>
-              <h1>{props.authorName}</h1>
-              <p>450K Subscribers</p>
-            </span>
+            <h1>{props.authorName}</h1>
           </div>
+        </div>
+        <div className={styles.flex}>
           <div className={styles.likesDislikes}>
-            <div className={`${styles["like"]} ${styles["flex"]}`}>
+            <div
+              className={`${styles["btn-hover"]} ${styles["color-5-back"]} ${styles["btn-hover-back"]}`}
+            >
               <FaThumbsUp className={styles.icon} />
               <p>{props.likes}</p>
             </div>
-            <div className={`${styles["dislike"]} ${styles["flex"]}`}>
+            <div
+              className={`${styles["btn-hover"]} ${styles["color-5"]} ${styles["btn-hover"]}`}
+            >
               <FaThumbsDown className={styles.icon} />
               <p>{props.dislikes}</p>
             </div>
           </div>
-        </div>
-        <div className={styles.flex}>
           <div className={styles.buttons}>
             <button
               className={`${styles["btn-hover"]} ${styles["color-5-back"]} ${styles["btn-hover-back"]}`}

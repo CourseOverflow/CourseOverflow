@@ -15,7 +15,7 @@ const PlaylistCard = (props) => {
       >
         <span className={`${styles.videoIdx}`}>
           {props.isDraggable && <FaBars />}
-          {props.currVideo ? <FaPlay /> : props.rank}
+          {props.currVideo ? <FaPlay /> : props.index + 1}
         </span>
         <div className={`${styles.imageContainer}`}>
           <img

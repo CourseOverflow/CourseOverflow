@@ -1,6 +1,5 @@
-// CardImage.js
 import React from "react";
-import styles from "./Card.module.css";
+import styles from "./CardImage.module.css";
 import CardFooter from "./CardFooter";
 import { FaPlay } from "react-icons/fa";
 

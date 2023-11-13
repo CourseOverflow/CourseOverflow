@@ -13,7 +13,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   cursor: pointer;
-  padding: 10px 5px;
+  padding: 10px 0;
   width: 100%;
 }
 
@@ -83,13 +83,13 @@
 }
 
 .videoIdx {
-  margin-left: 5px;
   background-color: transparent;
   color: var(--text);
-  font-size: 1rem;
-  margin-right: 16px;
+  font-size: 0.9rem;
+  width: 30px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .videoIdx > svg {
   background-color: transparent;

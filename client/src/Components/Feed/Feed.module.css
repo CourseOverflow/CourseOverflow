@@ -4,7 +4,7 @@
 }
 
 .feed > h1 {
-  margin: 20px;
+  margin-bottom: 20px;
   margin-left: 0;
   font-size: 2rem;
   font-weight: bold;
@@ -13,32 +13,54 @@
 
 .feed-container {
   gap: 1rem;
-  overflow-x: scroll;
+  overflow-x: auto;
   height: fit-content;
   white-space: nowrap;
-  display: flex;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  display: inline-flex;
   max-width: fit-content;
-}
-
-.feed-main {
-  display: flex;
-}
-
-.feed-container::-webkit-scrollbar {
-  width: 0.1rem;
-}
-
-.feed-container::-webkit-scrollbar-track {
-  background-color: transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .feed-container::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.feed-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.leftButton,
+.rightButton {
+  margin-top: 60px;
+  height: 50px;
+  width: 30px;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: var(--base-text);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 24px;
+  border-radius: 0 5px 5px 0;
+  transition: all 0.3s;
+}
+
+.rightButton {
+  right: 20px;
+  border-radius: 5px 0 0 5px;
+}
+
+.leftButton > svg,
+.rightButton > svg {
   background-color: transparent;
 }
 
-.feed-container li:not(.card) {
-  flex: 0 0 auto;
-  min-width: 300px;
+.leftButton:hover,
+.rightButton:hover {
+  background-color: var(--box);
 }

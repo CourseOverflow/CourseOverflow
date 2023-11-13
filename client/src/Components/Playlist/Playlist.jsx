@@ -14,7 +14,7 @@ const Playlist = ({ playlistData, videoList, currVideoIdx, setVideoIndex }) => {
         title={playlistData.title}
         author={playlistData.authorName}
         duration={playlistData.duration}
-        bundleSize={playlistData.bundleSize}
+        bundleSize={videoList.length}
         watchCount={playlistData.watchCount}
       />
       <div className={styles["playlist-items"]}>

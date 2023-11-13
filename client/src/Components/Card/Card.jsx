@@ -1,15 +1,14 @@
-// Card.js
 import React from "react";
+import styles from "./Card.module.css";
 import CardImage from "./CardImage";
-import CardInfo from "./CardInfo";
 import { useNavigate } from "react-router-dom";
 
 const Card = (props) => {
   const navigate = useNavigate();
 
   const handleFeedClick = (id) => {
-    const playlistId = String(id); // Convert id to string format if in other format
-    navigate(`/playlist/${playlistId}`);
+    const playlistId = String(id);
+    navigate(`/play/${playlistId}`);
   };
 
   const watchPercentage = Math.floor(
@@ -27,7 +26,10 @@ const Card = (props) => {
         isBookmarked={props.data.isBookmarked}
         watchPercentage={watchPercentage}
       />
-      <CardInfo title={props.data.title} author={props.data.author} />
+      <div className={styles.cardDetails}>
+        <h1 className={styles.title}>{props.data.title}</h1>
+        <p className={styles.author}>{props.data.authorId}</p>
+      </div>
     </div>
   );
 };

@@ -37,7 +37,7 @@ const Sidebar = (props) => {
     },
     {
       name: "Play",
-      to: "/play",
+      to: "/play/2",
       icon: <FaPlay />,
     },
   ];

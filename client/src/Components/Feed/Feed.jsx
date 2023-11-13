@@ -1,74 +1,45 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import Card from "../Card/Card";
 import styles from "./Feed.module.css";
-import FeedLeftBtn from "./FeedLeftBtn";
-import FeedRightBtn from "./FeedRightBtn";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-const Feed = (props) => {
-  const sidebarOpen = false;
-  const [leftScrollPosition, setleftScrollPosition] = useState(0);
-  const [rightScrollPosition, setrightScrollPosition] = useState(0);
+const Feed = ({ category, data }) => {
   const feedContainerRef = useRef(null);
+  const cardWidth = 320;
 
-  useEffect(() => {
-    const updateMaxWidth = () => {
-      let sidebarWidth = sidebarOpen ? 300 : 150;
-      let screenWidth = window.innerWidth - sidebarWidth;
-      if (window.innerWidth <= 600) {
-        screenWidth += 100;
-      }
-
-      // Set the maxWidth for the feed container
-      if (feedContainerRef.current) {
-        feedContainerRef.current.style.maxWidth = `${screenWidth}px`;
-      }
-    };
-
-    const handleScroll = () => {
-      if (feedContainerRef.current) {
-        const container = feedContainerRef.current;
-        const newleftScrollPosition = container.scrollLeft;
-        const containerWidth = container.clientWidth;
-        const scrollableWidth = container.scrollWidth - containerWidth;
-        const newrightScrollPosition = scrollableWidth - newleftScrollPosition;
-
-        setleftScrollPosition(newleftScrollPosition);
-        setrightScrollPosition(newrightScrollPosition);
-      }
-    };
-    updateMaxWidth();
-    window.addEventListener("resize", updateMaxWidth);
-
+  const scrollLeft = () => {
     if (feedContainerRef.current) {
-      feedContainerRef.current.addEventListener("scroll", handleScroll);
+      const scrollAmount = cardWidth;
+      feedContainerRef.current.scrollBy({
+        left: -scrollAmount,
+        behavior: "smooth",
+      });
     }
+  };
 
-    return () => {
-      window.removeEventListener("resize", updateMaxWidth);
-
-      if (feedContainerRef.current) {
-        feedContainerRef.current.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, [sidebarOpen]);
+  const scrollRight = () => {
+    if (feedContainerRef.current) {
+      const scrollAmount = cardWidth;
+      feedContainerRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <div className={styles.feed}>
-      <h1>{props.category}</h1>
+      <h1>{category}</h1>
       <div className={styles["feed-container"]} ref={feedContainerRef}>
-        <FeedLeftBtn
-          leftScrollPosition={leftScrollPosition}
-          setleftScrollPosition={setleftScrollPosition}
-          feedContainerRef={feedContainerRef}
-        />
-        {props.data.map((item) => (
+        <button className={styles.leftButton} onClick={scrollLeft}>
+          <FaAngleLeft />
+        </button>
+        {data.map((item) => (
           <Card key={item.id} data={item} />
         ))}
-        <FeedRightBtn
-          rightScrollPosition={rightScrollPosition}
-          setrightScrollPosition={setrightScrollPosition}
-          feedContainerRef={feedContainerRef}
-        />
+        <button className={styles.rightButton} onClick={scrollRight}>
+          <FaAngleRight />
+        </button>
       </div>
     </div>
   );

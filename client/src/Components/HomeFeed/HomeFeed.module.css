@@ -1,10 +1,10 @@
 .homeFeedContainer {
-  margin-left: 20px;
+  margin: 20px;
 }
 
 .hrLine {
   height: 1px;
-  margin: 20px;
+  margin: 20px 0;
   margin-left: 0;
   background-color: var(--text);
   border: none;
