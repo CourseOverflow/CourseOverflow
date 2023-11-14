@@ -10,6 +10,7 @@
 
 .playlistCard {
   transition: background-color 0.2s;
+  background-color: transparent;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   cursor: pointer;
@@ -17,18 +18,18 @@
   width: 100%;
 }
 
-.playlistCard:hover,
-.container:hover .playlistCard {
-  background-color: var(--hover);
-}
-
 .played {
   background-color: var(--selected);
+}
+
+.currVideo {
+  background-color: var(--hover);
 }
 
 .imageContainer {
   position: relative;
   min-width: fit-content;
+  background-color: transparent;
 }
 
 .thumbnail {
@@ -91,6 +92,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .videoIdx > svg {
   background-color: transparent;
   width: 0.6rem;

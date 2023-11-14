@@ -12,14 +12,14 @@ const VideoControls = (props) => {
   const handleNextClick = () => {
     const nextIndex = props.currVideoIdx + 1;
     if (nextIndex < props.bundleSize) {
-      props.setVideoIndex(nextIndex);
+      props.updateIdx(nextIndex);
     }
   };
 
   const handleBackClick = () => {
     const nextIndex = props.currVideoIdx - 1;
     if (nextIndex >= 0) {
-      props.setVideoIndex(nextIndex);
+      props.updateIdx(nextIndex);
     }
   };
 

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Video.module.css";
 import VideoControls from "../VideoControls/VideoControls";
 
-const Video = ({ playlistData, currVideo, currVideoIdx, setVideoIndex }) => {
+const Video = ({ playlistData, currVideo, currVideoIdx, updateIdx }) => {
   return (
     <>
       <div className={styles["video-container"]}>
@@ -19,7 +19,7 @@ const Video = ({ playlistData, currVideo, currVideoIdx, setVideoIndex }) => {
         likes={playlistData.likes}
         dislikes={playlistData.dislikes}
         bundleSize={playlistData.bundleSize}
-        setVideoIndex={setVideoIndex}
+        updateIdx={updateIdx}
         currVideoIdx={currVideoIdx}
         desc={currVideo.description}
       />

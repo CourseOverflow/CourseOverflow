@@ -13,7 +13,7 @@ const Comment = ({ comment, replyHandler }) => {
   };
 
   return (
-    <div className={styles.comment} key={comment.id}>
+    <div className={styles.comment}>
       <img src={comment.userProfile} alt="User Profile" className={styles["user-image"]} />
       <div className={styles["comment-details"]}>
         <h1 className={styles["user-name"]}>{comment.username}</h1>

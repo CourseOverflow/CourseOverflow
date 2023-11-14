@@ -3,12 +3,14 @@ import styles from "./Checkbox.module.css";
 import { FaCheck, FaSquare } from "react-icons/fa";
 
 const Checkbox = (props) => {
+  const handleClick = () => {
+    props.updateWatched(props.index, !props.watched);
+  };
+
   return (
-    <div className={styles.checkbox}>
-      <span onClick={props.checkboxHandler}>
-        {props.watched ? <FaCheck /> : <FaSquare />}
-      </span>
-    </div>
+    <button onClick={handleClick} className={styles.checkbox}>
+      <span>{props.watched ? <FaCheck /> : <FaSquare />}</span>
+    </button>
   );
 };
 

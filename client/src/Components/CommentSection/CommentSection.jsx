@@ -17,10 +17,10 @@ const CommentSection = (props) => {
       <h1 className={styles.heading}>{props.comments.length} Comments</h1>
       <PostComment reply={false} addComment={addComment} />
       {props.comments.map((comment) => (
-        <>
+        <div className="bg-transparent" key={comment.id}>
           <hr />
           <Comment comment={comment} replyHandler={addReply} />
-        </>
+        </div>
       ))}
     </div>
   );

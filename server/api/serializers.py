@@ -21,9 +21,16 @@ class PlaylistInteractionSerializer(serializers.ModelSerializer):
 
 
 class VideoSerializer(serializers.ModelSerializer):
+    isWatched = serializers.SerializerMethodField()  # Define a SerializerMethodField
+
     class Meta:
         model = Video
-        fields = '__all__'
+        fields = ['id', 'title', 'author', 'thumbnail', 'duration',
+                  'youtubeHash', 'likes', 'dislikes', 'description', 'isWatched']
+
+    def get_isWatched(self, obj):
+        # Retrieve the 'isWatched' attribute from the object (video)
+        return obj.isWatched if hasattr(obj, 'isWatched') else False
 
 
 class VideoOrderSerializer(serializers.ModelSerializer):

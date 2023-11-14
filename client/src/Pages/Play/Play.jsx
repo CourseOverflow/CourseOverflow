@@ -6,13 +6,15 @@ import PlaySkeleton from "../../Components/Skeleton/PlaySkeleton.jsx";
 import { useParams } from "react-router-dom";
 
 const Play = () => {
+  const userId = 3;
+
   let { slug } = useParams();
-  console.log(slug);
   const urlPlayListId = slug;
 
   const [playlistData, setPlaylistData] = useState([]);
   const [videoList, setVideoList] = useState([]);
   const [commentData, setCommentData] = useState([]);
+  const [watchedData, setWatchedData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +31,9 @@ const Play = () => {
 
     const fetchVideoList = async () => {
       try {
-        const videoResponse = await axios.get(`${baseURL}/api/video/${urlPlayListId}/`);
+        const videoResponse = await axios.get(
+          `${baseURL}/api/video/${userId}/${urlPlayListId}/`
+        );
         setVideoList(videoResponse.data);
       } catch (error) {
         console.error("Error fetching video list: ", error);
@@ -38,15 +42,32 @@ const Play = () => {
 
     const fetchCommentData = async () => {
       try {
-        console.log(`${baseURL}/api/comment/${urlPlayListId}/`);
-        const commentResponse = await axios.get(`${baseURL}/api/comment/${urlPlayListId}/`);
+        const commentResponse = await axios.get(
+          `${baseURL}/api/comment/${urlPlayListId}/`
+        );
         setCommentData(commentResponse.data);
       } catch (error) {
         console.error("Error fetching comment data: ", error);
       }
     };
 
-    Promise.all([fetchPlaylistData(), fetchVideoList(), fetchCommentData()])
+    const fetchWatchedData = async () => {
+      try {
+        const watchedResponse = await axios.get(
+          `${baseURL}/api/playlist/watched/${userId}/${urlPlayListId}/`
+        );
+        setWatchedData(watchedResponse.data);
+      } catch (error) {
+        console.error("Error fetching last watched: ", error);
+      }
+    };
+
+    Promise.all([
+      fetchPlaylistData(),
+      fetchVideoList(),
+      fetchCommentData(),
+      fetchWatchedData(),
+    ])
       .then(() => setLoading(false))
       .catch(() => setLoading(false));
   }, [urlPlayListId]);
@@ -57,9 +78,12 @@ const Play = () => {
 
   return (
     <VideoPlayer
+      userId={userId}
       playlistData={playlistData}
-      videoList={videoList}
+      initialVideoList={videoList}
       commentData={commentData}
+      watchCount={watchedData.watchCount}
+      lastWatched={watchedData.lastWatched}
     />
   );
 };

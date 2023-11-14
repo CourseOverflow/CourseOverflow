@@ -47,7 +47,8 @@ class PlaylistInteraction(models.Model):
     isLiked = models.BooleanField(default=False)
     isDisliked = models.BooleanField(default=False)
     isBookmarked = models.BooleanField(default=False)
-    watchCount = models.IntegerField(default=0)
+    watched = models.JSONField(default=list)
+    lastWatched = models.IntegerField(default=0)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
 
