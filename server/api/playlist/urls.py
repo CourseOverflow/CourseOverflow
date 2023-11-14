@@ -7,5 +7,6 @@ urlpatterns = [
     path('recommended/',views.recommended, name='recommended'),
     path('popular/', views.playlist, name='playlist'),
     path('recent-uploads/', views.recent_uploads, name='recent_uploads'),
-    path('create-playlist/',views.create_playlist,name= 'create_playlist')
+    path('create-playlist/',views.create_playlist,name= 'create_playlist'),
+    path('upload-pdf/',views.upload_pdf,name= 'upload_pdf')
 ]

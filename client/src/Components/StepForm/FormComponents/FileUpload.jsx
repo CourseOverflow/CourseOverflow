@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import styles from "./ImageUpload.module.css";
 import { IoMdClose } from "react-icons/io";
-
+import axios from "axios";
+import baseURL from "../../../Config/apiConfig";
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -10,6 +11,29 @@ const FileUpload = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
+    }
+  };
+
+  const uploadToServer = async () => {
+    if (!selectedFile) {
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      // Make a POST request to the server's upload route
+      await axios.post(`${baseURL}/api/playlist/upload-pdf/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // Optionally, you can handle the response or perform other actions after a successful upload
+      console.log("File uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading file:", error);
     }
   };
 
@@ -81,6 +105,11 @@ const FileUpload = () => {
                 Choose File
               </button>
             </>
+          )}
+          {selectedFile && (
+            <button className={styles["btn"]} onClick={uploadToServer}>
+              Upload to Server
+            </button>
           )}
           <input
             type="file"

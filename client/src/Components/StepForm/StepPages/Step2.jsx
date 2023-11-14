@@ -8,7 +8,6 @@ const Step2 = () => {
   const [todos, setTodos] = useState(PlayListData[0].bundle);
 
   const create = (newTodo) => {
-    console.log(newTodo);
     setTodos([...todos, newTodo]);
   };
 

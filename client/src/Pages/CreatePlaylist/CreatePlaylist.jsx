@@ -9,6 +9,7 @@ import baseURL from "../../Config/apiConfig";
 
 const CreatePlaylist = () => {
   const [stepNumber, setStepNumber] = useState(1);
+  const [createdPlaylistId, setCreatedPlaylistId] = useState(null);
   const [playlistTitle, setPlaylistTitle] = useState("");
   const [playlistDesc, setPlaylistDesc] = useState("");
   const [playlistThumbnail, setPlaylistThumbnail] = useState(null);
@@ -17,7 +18,6 @@ const CreatePlaylist = () => {
   const [nextStatus, setNextStatus] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
-    // Run this logic after the initial render
     if (stepNumber === 1) {
       setBackStatus(false);
       setNextStatus(playlistTitle.length > 0);
@@ -46,7 +46,10 @@ const CreatePlaylist = () => {
 
       if (response.ok) {
         // Handle successful response, e.g., show a success message
-        console.log("Playlist created successfully");
+        const playlistData = await response.json();
+        // Access the playlist ID from the response data
+        const playlistId = playlistData.id;
+        setCreatedPlaylistId(playlistId);
       } else {
         // Handle error response, e.g., show an error message
         console.error("Failed to create playlist");
@@ -58,7 +61,8 @@ const CreatePlaylist = () => {
 
   const handelStep1NextClick = () => {
     if (stepNumber === 1) {
-      sendStep1Data();
+      // stop for a while :)
+      // sendStep1Data();
     }
   };
 
@@ -83,8 +87,8 @@ const CreatePlaylist = () => {
             setSelectedImage={setSelectedImage}
           />
         )}
-        {stepNumber === 2 && <Step2 />}
-        {stepNumber === 3 && <Step3 />}
+        {stepNumber === 2 && <Step2 createdPlaylistId={createdPlaylistId} />}
+        {stepNumber === 3 && <Step3 createdPlaylistId={createdPlaylistId} />}
         <hr className={styles["createDivider"]} />
         <FooterBar
           handelStep1NextClick={handelStep1NextClick}
