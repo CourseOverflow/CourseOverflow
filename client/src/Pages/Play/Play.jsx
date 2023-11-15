@@ -21,7 +21,7 @@ const Play = () => {
     const fetchPlaylistData = async () => {
       try {
         const playlistResponse = await axios.get(
-          `${baseURL}/api/playlist/${urlPlayListId}/`
+          `${baseURL}/api/playlist/${userId}/${urlPlayListId}/`
         );
         setPlaylistData(playlistResponse.data);
       } catch (error) {
@@ -43,7 +43,7 @@ const Play = () => {
     const fetchCommentData = async () => {
       try {
         const commentResponse = await axios.get(
-          `${baseURL}/api/comment/${urlPlayListId}/`
+          `${baseURL}/api/comment/${userId}/${urlPlayListId}/`
         );
         setCommentData(commentResponse.data);
       } catch (error) {

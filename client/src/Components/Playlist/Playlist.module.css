@@ -8,7 +8,7 @@
 }
 
 .playlist-items {
-  max-height: 500px;
+  max-height: 90vh;
   background-color: transparent;
   overflow: auto;
   width: 100%;

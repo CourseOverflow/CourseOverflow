@@ -5,14 +5,23 @@ from api.serializers import PlaylistSerializer, UserSerializer
 
 
 @api_view(['GET'])
-def playlist_detail(request, pk):
-    playlist = Playlist.objects.get(id=pk)
+def getPlaylist(request, userId, playlistId):
+    playlist = Playlist.objects.get(id=playlistId)
     serializer = PlaylistSerializer(playlist, many=False)
+    playlist_interaction, created = PlaylistInteraction.objects.get_or_create(
+        userId=User.objects.get(id=userId),
+        playlistId=playlist
+    )
+    playlist_data = serializer.data
+    playlist_data['isLiked'] = playlist_interaction.isLiked
+    playlist_data['isDisliked'] = playlist_interaction.isDisliked
+    playlist_data['isBookmarked'] = playlist_interaction.isBookmarked
+
     author = User.objects.get(id=playlist.authorId.id)
     author_data = UserSerializer(author).data
-    playlist_data = serializer.data
     playlist_data['authorName'] = author_data['username']
     playlist_data['authorProfile'] = author_data['profilePicture']
+
     return Response(playlist_data)
 
 
@@ -63,27 +72,30 @@ def watched(request, userId, playlistId):
 
 
 @api_view(['POST'])
-def setLastWatched(request, userId, playlistId):
-    last_watched_idx = request.data.get('lastWatched', None)
-    if last_watched_idx is not None:
-        try:
-            playlist_interaction = PlaylistInteraction.objects.get(
-                userId=userId, playlistId=playlistId)
-            playlist_interaction.lastWatched = last_watched_idx
-            playlist_interaction.save()
-            return Response({'message': 'Last watched updated successfully'})
-        except PlaylistInteraction.DoesNotExist:
-            return Response({'message': 'Playlist interaction not found'}, status=404)
-    else:
-        return Response({'message': 'Invalid data sent'}, status=400)
+def setLastWatched(request):
+    try:
+        playlist_interaction = PlaylistInteraction.objects.get(
+            userId=User.objects.get(id=request.data['userId']),
+            playlistId=Playlist.objects.get(id=request.data['playlistId'])
+        )
+        playlist_interaction.lastWatched = request.data['lastWatched']
+        playlist_interaction.save()
+        return Response({'message': 'Last watched updated successfully'})
+    except PlaylistInteraction.DoesNotExist:
+        return Response({'message': 'Playlist interaction not found'}, status=404)
 
 
 @api_view(['POST'])
-def addWatched(request, userId, playlistId, index):
+def updateWatched(request):
     try:
         playlist_interaction = PlaylistInteraction.objects.get(
-            userId=userId, playlistId=playlistId)
-        playlist_interaction.watched.append(index)
+            userId=User.objects.get(id=request.data['userId']),
+            playlistId=Playlist.objects.get(id=request.data['playlistId'])
+        )
+        if (request.data['add']):
+            playlist_interaction.watched.append(request.data['index'])
+        else:
+            playlist_interaction.watched.remove(request.data['index'])
         playlist_interaction.save()
         return Response({'message': 'Watched updated successfully'})
     except PlaylistInteraction.DoesNotExist:
@@ -91,12 +103,21 @@ def addWatched(request, userId, playlistId, index):
 
 
 @api_view(['POST'])
-def deleteWatched(request, userId, playlistId, index):
+def updateLikeDislike(request):
     try:
-        playlist_interaction = PlaylistInteraction.objects.get(
-            userId=userId, playlistId=playlistId)
-        playlist_interaction.watched.remove(index)
+        playlist_interaction, created = PlaylistInteraction.objects.get_or_create(
+            userId=User.objects.get(id=request.data['userId']),
+            playlistId=Playlist.objects.get(id=request.data['playlistId']),
+        )
+        playlist_interaction.isLiked = request.data['liked']
+        playlist_interaction.isDisliked = request.data['disliked']
         playlist_interaction.save()
-        return Response({'message': 'Watched updated successfully'})
+
+        playlist = Playlist.objects.get(id=request.data['playlistId'])
+        playlist.likes += request.data['newLikes']
+        playlist.dislikes += request.data['newDislikes']
+        playlist.save()
+
+        return Response({'message': 'Like/Dislike updated successfully'})
     except PlaylistInteraction.DoesNotExist:
         return Response({'message': 'Playlist interaction not found'}, status=404)

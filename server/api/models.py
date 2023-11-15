@@ -98,7 +98,7 @@ class Comment(models.Model):
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     commentId = models.ForeignKey(
-        'self', on_delete=models.CASCADE, null=True, blank=True)
+        'self', on_delete=models.CASCADE, null=True, blank=True, default=None)
     created_at = models.DateTimeField(
         default=timezone.now, null=True, blank=True)
 

@@ -21,15 +21,13 @@ const VideoPlayer = ({
   const currVideo = videoList[currVideoIdx];
 
   const updateIdx = (idx) => {
-    const requestData = { lastWatched: idx };
+    const requestData = {
+      userId: userId,
+      playlistId: playlistData.id,
+      lastWatched: idx,
+    };
     axios
-      .post(
-        `${baseURL}/api/playlist/setLastWatched/${userId}/${playlistData.id}/`,
-        requestData
-      )
-      .then((response) => {
-        console.log(response);
-      })
+      .post(`${baseURL}/api/playlist/setLastWatched/`, requestData)
       .catch((error) => {
         console.error("Error updating last watched: ", error);
       });
@@ -39,18 +37,14 @@ const VideoPlayer = ({
   const updateWatched = (idx, isWatched) => {
     const updatedVideoList = [...videoList];
     updatedVideoList[idx].isWatched = isWatched;
-    console.log(idx + " " + isWatched)
-    const requestData = { index: idx };
+    const requestData = {
+      userId: userId,
+      playlistId: playlistData.id,
+      index: idx,
+      add: isWatched,
+    };
     axios
-      .post(
-        `${baseURL}/api/playlist/updateWatched/${
-          isWatched ? "add" : "delete"
-        }/${userId}/${playlistData.id}/${idx}/`,
-        requestData
-      )
-      .then((response) => {
-        console.log(response);
-      })
+      .post(`${baseURL}/api/playlist/updateWatched/`, requestData)
       .catch((error) => {
         console.error("Error updating watched data: ", error);
       });
@@ -63,6 +57,7 @@ const VideoPlayer = ({
       <div className={styles.top}>
         <div className={styles.videoContainer}>
           <Video
+            userId={userId}
             playlistData={playlistData}
             currVideo={currVideo}
             currVideoIdx={currVideoIdx}
@@ -80,7 +75,7 @@ const VideoPlayer = ({
           />
         </div>
       </div>
-      <CommentSection comments={commentData} />
+      <CommentSection playlistId={playlistData.id} comments={commentData} />
     </div>
   );
 };

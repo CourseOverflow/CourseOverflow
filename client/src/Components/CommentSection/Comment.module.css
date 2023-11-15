@@ -34,11 +34,12 @@
 
 .reply-button {
   background-color: transparent;
-  font-size: 14px;
+  font-size: 0.8rem;
   font-weight: 300;
   margin-top: 5px;
   color: var(--theme);
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .reply-button:hover {

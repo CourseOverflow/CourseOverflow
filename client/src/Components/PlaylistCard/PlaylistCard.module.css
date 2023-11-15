@@ -54,8 +54,9 @@
   background-color: transparent;
   display: flex;
   flex-direction: column;
-  margin-left: 16px;
+  margin: 0 10px;
   overflow: hidden;
+  width: 100%;
 }
 
 .topic {
@@ -87,7 +88,7 @@
   background-color: transparent;
   color: var(--text);
   font-size: 0.9rem;
-  width: 30px;
+  width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;

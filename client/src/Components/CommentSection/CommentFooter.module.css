@@ -2,16 +2,13 @@
   background-color: transparent;
   display: flex;
   font-size: 14px;
-}
-
-.comment-footer > svg > path {
-  fill: var(--text);
+  margin-top: 5px;
+  transition: all 0.3s ease;
 }
 
 .comment-footer > p {
   background-color: transparent;
-  margin: 0;
-  padding: 0;
+  font-size: 0.8rem;
   margin-right: 10px;
 }
 
@@ -19,20 +16,33 @@
   background-color: transparent;
   border: none;
   color: var(--text);
-  font-size: 14px;
+  font-size: 0.8rem;
   font-weight: 300;
   margin-left: 10px;
 }
 
+.comment-footer > button:hover {
+  color: var(--theme-hover);
+}
+
 .icon {
   background-color: transparent;
-  margin: 3px;
+  font-size: 1rem;
+  margin-right: 5px;
+}
+
+.icon > path {
+  fill: var(--text);
+}
+
+.icon > path:hover {
+  fill: var(--theme-hover);
 }
 
 .icon:hover {
   cursor: pointer;
 }
 
-.comment-footer > button:hover {
-  color: var(--theme-hover);
+.selected > path {
+  fill: var(--theme);
 }

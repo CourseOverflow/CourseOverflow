@@ -25,31 +25,38 @@ const VideoControls = (props) => {
 
   return (
     <>
-      <div className={styles["videoHeader"]}>
-        <h1 className={styles["videoTopic"]}>{props.title}</h1>
-      </div>
+      <h1 className={styles["videoTopic"]}>{props.title}</h1>
+
       <div className={styles["video-controls"]}>
-        <div className="flex">
+        <div className={styles.flex}>
           <div className={styles.author}>
             <img src={props.authorProfile} alt="Author Profile" />
             <h1>{props.authorName}</h1>
           </div>
         </div>
+
         <div className={styles.flex}>
           <div className={styles.likesDislikes}>
             <div
-              className={`${styles["btn-hover"]} ${styles["color-5-back"]} ${styles["btn-hover-back"]}`}
+              onClick={props.updateLiked}
+              className={`${styles["btn-hover"]} ${styles["color-5-back"]} ${
+                styles["btn-hover-back"]
+              } ${props.isLiked && styles.selected}`}
             >
               <FaThumbsUp className={styles.icon} />
               <p>{props.likes}</p>
             </div>
             <div
-              className={`${styles["btn-hover"]} ${styles["color-5"]} ${styles["btn-hover"]}`}
+              onClick={props.updateDisliked}
+              className={`${styles["btn-hover"]} ${styles["color-5"]} ${
+                styles["btn-hover"]
+              }  ${props.isDisliked && styles.selected}`}
             >
               <FaThumbsDown className={styles.icon} />
               <p>{props.dislikes}</p>
             </div>
           </div>
+
           <div className={styles.buttons}>
             <button
               className={`${styles["btn-hover"]} ${styles["color-5-back"]} ${styles["btn-hover-back"]}`}
@@ -61,7 +68,6 @@ const VideoControls = (props) => {
               </div>
             </button>
           </div>
-
           <div className={styles.buttons}>
             <button
               className={`${styles["btn-hover"]} ${styles["color-5"]}`}
