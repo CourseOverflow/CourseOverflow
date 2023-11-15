@@ -2,14 +2,16 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from api.models import Playlist, User, PlaylistInteraction
 from api.serializers import PlaylistSerializer, UserSerializer
+from rest_framework import status
 
 
 @api_view(['GET'])
 def getPlaylist(request, userId, playlistId):
+    user = User.objects.get(id=userId)
     playlist = Playlist.objects.get(id=playlistId)
     serializer = PlaylistSerializer(playlist, many=False)
     playlist_interaction, created = PlaylistInteraction.objects.get_or_create(
-        userId=User.objects.get(id=userId),
+        userId=user,
         playlistId=playlist
     )
     playlist_data = serializer.data
@@ -121,3 +123,34 @@ def updateLikeDislike(request):
         return Response({'message': 'Like/Dislike updated successfully'})
     except PlaylistInteraction.DoesNotExist:
         return Response({'message': 'Playlist interaction not found'}, status=404)
+
+
+@api_view(['POST'])
+def create_playlist(request):
+    if request.method == 'POST':
+        title = request.data.get('title')
+        author_id = request.data.get('authorId')
+        playlistThumbnail = request.data.get('playlistThumbnail')
+
+        playlist_data = {
+            'title': title,
+            'desc': request.data.get('desc', None),
+            'thumbnail': request.data.get('playlistThumbnail', "https://picsum.photos/300/200"),
+            'cloudinaryPublicId': request.data.get('cloudinaryPublicId', None),
+            'likes': 0,
+            'dislikes': 0,
+            'duration': 0,
+            'views': 0,
+            'isDraft': True,
+            'coursePDF': '',
+            'authorId': author_id,
+        }
+
+        serializer = PlaylistSerializer(data=playlist_data)
+
+        if serializer.is_valid():
+            playlist = serializer.save()
+            response_data = PlaylistSerializer(playlist).data
+            return Response(response_data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

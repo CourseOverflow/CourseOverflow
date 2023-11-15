@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
-import baseURL from "../../ApiConfig/apiConfig.js";
 import styles from "./Video.module.css";
 import VideoControls from "../VideoControls/VideoControls";
+import axios from "axios";
+import baseURL from "../../Config/apiConfig.js";
 
 const Video = ({
   userId,

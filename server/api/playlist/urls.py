@@ -12,4 +12,5 @@ urlpatterns = [
     path('setLastWatched/', views.setLastWatched, name='setLastWatched'),
     path('updateWatched/', views.updateWatched, name='updateWatched'),
     path('updateLikeDislike/', views.updateLikeDislike, name='updateLikeDislike'),
+    path('create-playlist/', views.create_playlist, name='create_playlist')
 ]

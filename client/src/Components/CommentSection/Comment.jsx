@@ -4,7 +4,7 @@ import Reply from "./Reply";
 import CommentFooter from "./CommentFooter";
 import PostComment from "./PostComment";
 import axios from "axios";
-import baseURL from "../../ApiConfig/apiConfig";
+import baseURL from "../../Config/apiConfig";
 
 const Comment = ({
   comment,

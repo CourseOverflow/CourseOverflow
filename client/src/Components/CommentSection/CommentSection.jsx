@@ -3,7 +3,7 @@ import styles from "./CommentSection.module.css";
 import PostComment from "./PostComment";
 import Comment from "./Comment";
 import axios from "axios";
-import baseURL from "../../ApiConfig/apiConfig";
+import baseURL from "../../Config/apiConfig";
 
 const CommentSection = (props) => {
   const userId = 3;

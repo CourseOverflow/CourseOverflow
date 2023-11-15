@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import baseURL from "../../ApiConfig/apiConfig.js";
+import baseURL from "../../Config/apiConfig.js";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.jsx";
 import PlaySkeleton from "../../Components/Skeleton/PlaySkeleton.jsx";
 import { useParams } from "react-router-dom";

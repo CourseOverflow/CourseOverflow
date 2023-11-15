@@ -57,7 +57,7 @@ def postComment(request):
             id=parentId) if parentId is not None else None
     except Comment.DoesNotExist:
         parentComment = None
-
+    print(request.data)
     comment = Comment.objects.create(
         userId=User.objects.get(id=request.data['userId']),
         playlistId=Playlist.objects.get(id=request.data['playlistId']),

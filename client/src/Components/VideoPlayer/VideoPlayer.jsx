@@ -4,7 +4,7 @@ import Video from "../Video/Video";
 import Playlist from "../Playlist/Playlist";
 import CommentSection from "../CommentSection/CommentSection";
 import axios from "axios";
-import baseURL from "../../ApiConfig/apiConfig";
+import baseURL from "../../Config/apiConfig";
 
 const VideoPlayer = ({
   userId,
@@ -17,7 +17,6 @@ const VideoPlayer = ({
   const [totalWatched, setTotalWatched] = useState(watchCount);
   const [currVideoIdx, setVideoIdx] = useState(lastWatched);
   const [videoList, setVideoList] = useState(initialVideoList);
-
   const currVideo = videoList[currVideoIdx];
 
   const updateIdx = (idx) => {
