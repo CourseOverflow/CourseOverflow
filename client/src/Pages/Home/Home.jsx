@@ -52,15 +52,28 @@ const Home = (props) => {
     return <HomeSkeleton />;
   }
 
+  const feedList = [
+    {
+      id: 1,
+      category: "Recommended",
+      data: recommendedPlaylistData,
+    },
+    {
+      id: 2,
+      category: "Popular",
+      data: popularPlaylistData,
+    },
+    {
+      id: 3,
+      category: "Recently Uploaded",
+      data: recentUploadsPlaylistData,
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <ImageSlider images={images} />
-      <HomeFeed
-        recommendedPlaylistData={recommendedPlaylistData}
-        popularPlaylistData={popularPlaylistData}
-        recentUploadsPlaylistData={recentUploadsPlaylistData}
-        sidebarOpen={props.sidebarOpen}
-      />
+      <HomeFeed feedList={feedList} />
     </div>
   );
 };

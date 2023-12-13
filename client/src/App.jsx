@@ -8,6 +8,7 @@ import Search from "./Pages/Search/Search";
 import About from "./Pages/About/About";
 import Auth from "./Pages/Auth/Auth";
 import styles from "./App.module.css";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -42,6 +43,14 @@ const App = () => {
           element={
             <MainLayout overlay={false}>
               <Search />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <MainLayout overlay={false}>
+              <Dashboard />
             </MainLayout>
           }
         />

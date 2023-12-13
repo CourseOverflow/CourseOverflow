@@ -30,17 +30,25 @@ const Feed = ({ category, data }) => {
   return (
     <div className={styles.feed}>
       <h1>{category}</h1>
-      <div className={styles["feed-container"]} ref={feedContainerRef}>
-        <button className={styles.leftButton} onClick={scrollLeft}>
-          <FaAngleLeft />
-        </button>
-        {data.map((item) => (
-          <Card key={item.id} data={item} />
-        ))}
-        <button className={styles.rightButton} onClick={scrollRight}>
-          <FaAngleRight />
-        </button>
-      </div>
+      {data.length ? (
+        <div className={styles.container}>
+          <button className={styles.leftButton} onClick={scrollLeft}>
+            <FaAngleLeft />
+          </button>
+
+          <div className={styles["feed-container"]} ref={feedContainerRef}>
+            {data.map((item) => (
+              <Card key={item.id} data={item} />
+            ))}
+          </div>
+
+          <button className={styles.rightButton} onClick={scrollRight}>
+            <FaAngleRight />
+          </button>
+        </div>
+      ) : (
+        <div className={styles.noData}>No data</div>
+      )}
     </div>
   );
 };
