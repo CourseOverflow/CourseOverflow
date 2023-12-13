@@ -16,6 +16,7 @@ const CreatePlaylist = () => {
   const [backStatus, setBackStatus] = useState(false);
   const [nextStatus, setNextStatus] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
   useEffect(() => {
     // Run this logic after the initial render
     if (stepNumber === 1) {
@@ -47,6 +48,7 @@ const CreatePlaylist = () => {
       if (response.ok) {
         // Handle successful response, e.g., show a success message
         console.log("Playlist created successfully");
+        console.log(response);
       } else {
         // Handle error response, e.g., show an error message
         console.error("Failed to create playlist");
