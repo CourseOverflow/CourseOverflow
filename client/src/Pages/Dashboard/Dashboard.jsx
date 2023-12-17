@@ -18,7 +18,7 @@ const Dashboard = () => {
 
     Promise.all([fetchPopularPlaylistData])
       .then((responses) => {
-        setPopularPlaylistData(responses[1].data);
+        setPopularPlaylistData(responses[0].data);
       })
       .catch((error) => {
         console.error("Error fetching playlist data: ", error);
@@ -53,11 +53,12 @@ const Dashboard = () => {
   return (
     <>
       <div className={styles.top}>
-        <ProfileHeader
-          username={"SlimeMaster"}
-          profilePic={process.env.PUBLIC_URL + "/logo.png"}
-        />
-        <Analytics />
+        <div className={styles.profileHeader}>
+          <ProfileHeader />
+        </div>
+        <div className={styles.analytics}>
+          <Analytics />
+        </div>
       </div>
       <HomeFeed feedList={feedList} />
     </>

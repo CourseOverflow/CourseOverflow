@@ -6,7 +6,7 @@
   margin-top: 10px;
   background-color: transparent;
   font-size: 1rem;
-  max-width: 300px;
+  max-width: 280px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -17,7 +17,7 @@
   font-size: 0.8rem;
   color: var(--text);
   text-wrap: wrap;
-  max-width: 300px;
+  max-width: 280px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

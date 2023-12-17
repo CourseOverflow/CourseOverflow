@@ -5,7 +5,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Feed = ({ category, data }) => {
   const feedContainerRef = useRef(null);
-  const cardWidth = 320;
+  const cardWidth = 295;
 
   const scrollLeft = () => {
     if (feedContainerRef.current) {

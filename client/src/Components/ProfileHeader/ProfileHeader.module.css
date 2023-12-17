@@ -6,7 +6,7 @@
   border: 1px solid var(--hover);
   border-radius: 8px;
   padding: 20px;
-  background: linear-gradient(to top, var(--box) 30%, var(--hover) 90%);
+  background: linear-gradient(to top, var(--box) 30%, var(--base) 90%);
 }
 
 .profilePicContainer {
@@ -14,8 +14,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-bottom: 10px;
   background-color: transparent;
+  margin-top: 10px;
 }
 
 .profilePic {
@@ -23,7 +23,6 @@
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 10px;
 }
 
 .horizontalLine {
@@ -38,4 +37,98 @@
   font-weight: bold;
   color: var(--base-text);
   background-color: transparent;
+}
+
+.usernameEditable {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--base-text);
+  background-color: transparent;
+}
+
+.usernameEditable > input,
+.usernameEditable > h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--base-text);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: fit-content;
+  width: min-content;
+}
+
+.usernameInput {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.usernameInput:hover {
+  cursor: pointer;
+}
+
+.usernameInput:focus {
+  width: 100%;
+}
+
+.editPen {
+  font-size: 1.2rem;
+  margin-top: 8px;
+  margin-left: 5px;
+  object-fit: cover;
+  fill: var(--base-text);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.profilePicContainer {
+  position: relative;
+  min-width: 100%;
+}
+
+.imageContainer {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profilePicEditable {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.overlay > span {
+  padding-top: 40px;
+  color: var(--base-text);
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.imageContainer:hover .overlay {
+  opacity: 1;
 }

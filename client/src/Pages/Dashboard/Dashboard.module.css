@@ -4,5 +4,30 @@
   align-items: stretch;
   justify-content: center;
   margin: 20px;
-  max-height: 300px;
+  height: fit-content;
+}
+
+.profileHeader {
+  height: 300px;
+  width: 50%;
+}
+
+.analytics {
+  height: 300px;
+  width: 50%;
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 980px) {
+  .top {
+    flex-direction: column;
+  }
+  .profileHeader {
+    width: 100%;
+  }
+  .analytics {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 0px;
+  }
 }
