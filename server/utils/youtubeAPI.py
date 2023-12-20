@@ -7,7 +7,7 @@ youtube = googleapiclient.discovery.build(
     'youtube', 'v3', developerKey=api_key)
 
 
-def getPlaylist(topics):
+def generatePlaylist(topics):
     video_ids = []
     video_data = []
     for topic in topics:
@@ -38,34 +38,44 @@ def get_video_details(video_id):
     items = video_response.get('items', [])
 
     if items:
+        snippet = items[0].get('snippet', {})
+        content_details = items[0].get('contentDetails', {})
+
         video_details = {
-            'title': items[0]['snippet']['title'],
-            'author': items[0]['snippet']['channelTitle'],
-            'description': items[0]['snippet']['description'],
+            'title': snippet.get('title', ''),
+            'author': snippet.get('channelTitle', ''),
+            'thumbnail': f'https://i.ytimg.com/vi/{video_id}/hq720.jpg',
+            'description': snippet.get('description', ''),
             'video_id': video_id,
-            'duration': items[0]['contentDetails']['duration'],
         }
 
-        num = ''
-        hours, minutes, seconds = 0, 0, 0
-        for c in video_details['duration'][2:]:
-            if c == 'H':
-                hours = int(num)
-                num = ''
-            elif c == 'M':
-                minutes = int(num)
-                num = ''
-            elif c == 'S':
-                seconds = int(num)
-                num = ''
-            else:
-                num += c
+        duration = content_details.get('duration', '')
+        if duration:
+            video_details['duration'] = parse_duration(duration)
 
-        time_delta = timedelta(hours=hours, minutes=minutes, seconds=seconds)
-        video_details['duration'] = str(time_delta).zfill(8)
         return video_details
     else:
         return None
+
+
+def parse_duration(duration):
+    num = ''
+    hours, minutes, seconds = 0, 0, 0
+    for c in duration[2:]:
+        if c == 'H':
+            hours = int(num)
+            num = ''
+        elif c == 'M':
+            minutes = int(num)
+            num = ''
+        elif c == 'S':
+            seconds = int(num)
+            num = ''
+        else:
+            num += c
+
+    time_delta = timedelta(hours=hours, minutes=minutes, seconds=seconds)
+    return str(time_delta).zfill(8)
 
 
 if __name__ == '__main__':
@@ -87,7 +97,7 @@ if __name__ == '__main__':
     #   "maximum independent edge dominating set", "maximum feedback vertex set", "maximum feedback edge set"]
     # print(len(topics))
 
-    playlist = getPlaylist(topics)
+    playlist = generatePlaylist(topics)
 
     with open(output_file_path, "w", encoding="utf-8") as file:
         for video in playlist:

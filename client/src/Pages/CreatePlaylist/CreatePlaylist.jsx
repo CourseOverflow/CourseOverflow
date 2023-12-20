@@ -31,7 +31,7 @@ const CreatePlaylist = () => {
     const loggedInUser = 4;
     console.log(playlistThumbnail);
     try {
-      const response = await fetch(`${baseURL}/api/playlist/create-playlist/`, {
+      const response = await fetch(`${baseURL}/api/playlist/create-draft/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

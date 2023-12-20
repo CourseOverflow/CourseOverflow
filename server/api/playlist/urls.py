@@ -12,5 +12,9 @@ urlpatterns = [
     path('setLastWatched/', views.setLastWatched, name='setLastWatched'),
     path('updateWatched/', views.updateWatched, name='updateWatched'),
     path('updateLikeDislike/', views.updateLikeDislike, name='updateLikeDislike'),
-    path('create-playlist/', views.create_playlist, name='create_playlist')
+    path('create-draft/', views.create_draft, name='create_draft'),
+    path('update-draft/', views.update_draft, name='update_draft'),
+    path('delete-draft/', views.delete_draft, name='delete_draft'),
+    path('fetch-videos/', views.fetch_videos, name='fetch_videos'),
+    path('create-playlist/', views.create_playlist, name='create_playlist'),
 ]

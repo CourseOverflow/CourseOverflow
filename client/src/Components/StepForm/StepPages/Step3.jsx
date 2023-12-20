@@ -23,6 +23,7 @@ const Step3 = () => {
     newItems.splice(result.destination.index, 0, reorderedItem);
 
     setItems(newItems);
+    console.log(newItems);
   };
 
   return (

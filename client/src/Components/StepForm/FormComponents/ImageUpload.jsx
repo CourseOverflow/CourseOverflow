@@ -66,29 +66,6 @@ const ImageUpload = (props) => {
   };
 
   const handleRemoveFile = () => {
-    // not working
-    // if (props.cloudinaryPublicId) {
-    //   const cloudinaryUrl = `https://cors-anywhere.herokuapp.com/https://api.cloudinary.com/v1_1/dsum3x8ok/image/destroy/${props.cloudinaryPublicId}`;
-
-    //   fetch(cloudinaryUrl, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: "9b-6oMTY3rl_EPWHye4LReyt6MQ",
-    //     },
-    //     body: JSON.stringify({
-    //       upload_preset: "neetqub9",
-    //     }),
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log("File deleted from Cloudinary:", data);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error deleting file from Cloudinary:", error);
-    //     });
-    // }
-
     setSelectedFile(null);
     props.setPlaylistThumbnail(null);
     setFormKey(formKey + 1);

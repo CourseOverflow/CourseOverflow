@@ -1,10 +1,16 @@
 from rest_framework import serializers
-from .models import User, Playlist, PlaylistInteraction, Video, VideoOrder, Comment, CommentInteraction
+from .models import User, Draft, Playlist, PlaylistInteraction, Video, VideoOrder, Comment, CommentInteraction
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
+
+
+class DraftSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Draft
         fields = '__all__'
 
 
@@ -21,16 +27,10 @@ class PlaylistInteractionSerializer(serializers.ModelSerializer):
 
 
 class VideoSerializer(serializers.ModelSerializer):
-    isWatched = serializers.SerializerMethodField()  # Define a SerializerMethodField
 
     class Meta:
         model = Video
-        fields = ['id', 'title', 'author', 'thumbnail', 'duration',
-                  'youtubeHash', 'likes', 'dislikes', 'description', 'isWatched']
-
-    def get_isWatched(self, obj):
-        # Retrieve the 'isWatched' attribute from the object (video)
-        return obj.isWatched if hasattr(obj, 'isWatched') else False
+        fields = '__all__'
 
 
 class VideoOrderSerializer(serializers.ModelSerializer):

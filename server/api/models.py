@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from urllib.parse import quote
 
+
 class User(models.Model):
     googleId = models.CharField(max_length=255, blank=True, null=True)
     username = models.CharField(max_length=255)
@@ -21,6 +22,23 @@ class User(models.Model):
         return self.username
 
 
+class Draft(models.Model):
+    title = models.CharField(max_length=255)
+    desc = models.TextField(blank=True, null=True)
+    thumbnail = models.TextField(blank=True, null=True)
+    cloudinaryPublicId = models.TextField(blank=True, null=True)
+    topicList = models.JSONField(default=list)
+    videoList = models.JSONField(default=list)
+    duration = models.DurationField(default=0)
+    coursePDF = models.TextField(blank=True, null=True)
+    authorId = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(
+        default=timezone.now, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Playlist(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField(blank=True, null=True)
@@ -30,12 +48,11 @@ class Playlist(models.Model):
     dislikes = models.IntegerField(default=0)
     duration = models.DurationField(default=0)
     views = models.IntegerField(default=0)
-    isDraft = models.BooleanField(default=True)
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
         default=timezone.now, null=True, blank=True)
-    
+
     def __str__(self):
         return self.title
 
@@ -71,8 +88,6 @@ class Video(models.Model):
     thumbnail = models.TextField()
     duration = models.DurationField()
     youtubeHash = models.CharField(max_length=255)
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
