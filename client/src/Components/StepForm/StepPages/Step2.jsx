@@ -1,40 +1,12 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styles from "./Step2.module.css";
 import FileUpload from "../FormComponents/FileUpload";
 import TodoList from "../TodoList/TodoList";
-import PlayListData from "../../../Data/PlayListData";
+import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 
 const Step2 = () => {
-  const [todos, setTodos] = useState(PlayListData[0].bundle);
-
-  const create = (newTodo) => {
-    console.log(newTodo);
-    setTodos([...todos, newTodo]);
-  };
-
-  const remove = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const update = (id, updatedTask) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, topic: updatedTask };
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  };
-
-  const toggleComplete = (id) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  };
+  const { setBackStatus } = usePlaylistContext();
+  setBackStatus(true);
 
   return (
     <div className={styles.flexContainer}>
@@ -42,13 +14,7 @@ const Step2 = () => {
         <FileUpload />
       </div>
       <div className={styles.listContainer}>
-        <TodoList
-          todos={todos}
-          createTodo={create}
-          removeTodo={remove}
-          updateTodo={update}
-          toggleCompleteTodo={toggleComplete}
-        />
+        <TodoList />
       </div>
     </div>
   );

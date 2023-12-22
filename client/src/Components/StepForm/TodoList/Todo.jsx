@@ -1,29 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaCheck, FaPen, FaTrash } from "react-icons/fa";
-import style from "./Todo.module.css";
+import styles from "./Todo.module.css";
+import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 
-const Todo = ({ todo, remove, update, toggleComplete }) => {
+const Todo = ({ updateDraft, index }) => {
+  const { setNextStatus, playlistData, setPlaylistData } = usePlaylistContext();
   const [isEditing, setIsEditing] = useState(false);
-  const [topic, setTask] = useState(todo.topic);
+  const [topic, setTopic] = useState(playlistData.topicList[index]);
+  const inputRef = useRef(null);
 
-  const toggleFrom = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const newList = [...playlistData.topicList];
+    newList[index] = topic;
+    setPlaylistData({ ...playlistData, topicList: newList });
+    updateDraft(newList);
     setIsEditing(!isEditing);
   };
-  const handleUpdate = (evt) => {
-    evt.preventDefault();
-    update(todo.id, topic);
-    toggleFrom();
+
+  const handleChange = (e) => {
+    setTopic(e.target.value);
   };
-  const handleChange = (evt) => {
-    setTask(evt.target.value);
+
+  const removeTopic = () => {
+    const newList = [...playlistData.topicList];
+    newList.splice(index, 1);
+    setPlaylistData({ ...playlistData, topicList: newList });
+    updateDraft();
+    if (newList.length === 0) {
+      setNextStatus(false);
+    }
   };
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEditing]);
 
   let result;
   if (isEditing) {
     result = (
-      <div className={style.Todo}>
-        <form className={style["Todo-edit-form"]} onSubmit={handleUpdate}>
-          <input onChange={handleChange} value={topic} type="text" />
+      <div className={styles.Todo}>
+        <form className={styles["Todo-edit-form"]} onSubmit={handleUpdate}>
+          <input
+            ref={inputRef}
+            onChange={handleChange}
+            value={topic}
+            type="text"
+          />
           <button>
             <FaCheck />
           </button>
@@ -31,19 +57,14 @@ const Todo = ({ todo, remove, update, toggleComplete }) => {
       </div>
     );
   } else {
-    const topicClassName = todo.completed
-      ? style["Todo-topic completed"]
-      : style["Todo-topic"];
     result = (
-      <div className={style.Todo}>
-        <li id={todo.id} className={topicClassName}>
-          {todo.topic}
-        </li>
-        <div className={style["Todo-buttons"]}>
-          <button onClick={toggleFrom}>
+      <div className={styles.Todo}>
+        <li>{playlistData.topicList[index]}</li>
+        <div className={styles["Todo-buttons"]}>
+          <button onClick={() => setIsEditing(!isEditing)}>
             <FaPen />
           </button>
-          <button onClick={() => remove(todo.id)}>
+          <button onClick={removeTopic}>
             <FaTrash />
           </button>
         </div>

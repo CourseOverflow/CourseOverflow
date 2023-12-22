@@ -128,48 +128,30 @@ def updateLikeDislike(request):
 
 
 @api_view(['POST'])
-def create_draft(request):
-    draft_data = {
-        'title': request.data.get('title'),
-        'desc': request.data.get('desc', None),
-        'thumbnail': request.data.get('playlistThumbnail', "https://picsum.photos/300/200"),
-        'cloudinaryPublicId': request.data.get('cloudinaryPublicId', None),
-        'topicList': request.data.get('topicList', []),
-        'videoList': request.data.get('videoList', []),
-        'duration': timedelta(0),
-        'coursePDF': '',
-        'authorId': request.data.get('authorId'),
-    }
-
-    serializer = DraftSerializer(data=draft_data)
-
-    if serializer.is_valid():
-        draft = serializer.save()
-        response_data = DraftSerializer(draft).data
-        return Response(response_data, status=status.HTTP_201_CREATED)
-
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
 def update_draft(request):
     draft_id = request.data.get('draftId')
+    author_id = request.data.get('authorId')
+    author = User.objects.get(id=author_id)
     try:
         draft = Draft.objects.get(id=draft_id)
     except Draft.DoesNotExist:
-        return Response({'error': 'Draft not found'}, status=status.HTTP_404_NOT_FOUND)
+        draft = Draft()
 
-    draft.title = request.data.get('title', draft.title)
-    draft.desc = request.data.get('desc', draft.desc)
-    draft.thumbnail = request.data.get('playlistThumbnail', draft.thumbnail)
-    draft.cloudinaryPublicId = request.data.get(
-        'cloudinaryPublicId', draft.cloudinaryPublicId)
-    draft.topicList = request.data.get('topicList', draft.topicList)
+    draft.title = request.data.get('title')
+    draft.desc = request.data.get('desc', None)
+    draft.thumbnail = request.data.get(
+        'thumbnail', "https://picsum.photos/300/200")
+    draft.cloudinaryPublicId = request.data.get('cloudinaryPublicId', None)
+    draft.topicList = request.data.get('topicList', [])
+    draft.videoList = request.data.get('videoList', [])
+    draft.duration = timedelta(0)
+    draft.coursePDF = request.data.get('coursePDF', None)
+    draft.authorId = author
+    draft.save()
 
     serializer = DraftSerializer(instance=draft, data=request.data)
     if serializer.is_valid():
-        updated_draft = serializer.save()
-        response_data = DraftSerializer(updated_draft).data
+        response_data = {'draftId': draft.id}
         return Response(response_data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -182,23 +164,23 @@ def fetch_videos(request):
     video_list = generatePlaylist(draft.topicList)
     draft.videoList = video_list
     draft.save()
-
-    serializer = DraftSerializer(instance=draft)
-    response_data = serializer.data
-    return Response(response_data, status=status.HTTP_201_CREATED)
+    return Response(video_list, status=status.HTTP_201_CREATED)
 
 
 @api_view(['DELETE'])
 def delete_draft(request):
     draft_id = request.data.get('draftId')
-    draft = Draft.objects.get(id=draft_id)
-    draft.delete()
+    try:
+        draft = Draft.objects.get(id=draft_id)
+        draft.delete()
+    except Draft.DoesNotExist:
+        pass
     return Response(status=status.HTTP_200_OK)
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 def create_playlist(request):
-    draft_id = request.data.get('draftId')
+    draft_id = request.query_params.get('draftId')
     draft = Draft.objects.get(id=draft_id)
 
     playlist_data = {
@@ -251,7 +233,8 @@ def create_playlist(request):
         print(
             f'Total Duration: {hours} hours, {minutes} minutes, {seconds} seconds')
         playlist.save()
-        # draft.delete()
+        draft.delete()
 
-        return Response(PlaylistSerializer(playlist).data, status=status.HTTP_201_CREATED)
+        response_data = {'playlistId': playlist.id}
+        return Response(response_data, status=status.HTTP_201_CREATED)
     return Response(playlist_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

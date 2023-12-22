@@ -1,8 +1,11 @@
 import React from "react";
 import { FaCircle, FaCheckCircle } from "react-icons/fa";
 import styles from "./CreateHeader.module.css";
+import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 
-const CreateHeader = ({ stepNumber }) => {
+const CreateHeader = () => {
+  const { stepNumber } = usePlaylistContext();
+
   return (
     <>
       <h1 className={styles["createHeader"]}>Create Playlist</h1>
