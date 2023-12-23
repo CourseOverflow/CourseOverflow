@@ -6,6 +6,11 @@ import CreatePlaylist from "./Pages/CreatePlaylist/CreatePlaylist";
 import Play from "./Pages/Play/Play";
 import Search from "./Pages/Search/Search";
 import About from "./Pages/About/About";
+import Login from "./Pages/Auth/Login";
+import Signup from "./Pages/Auth/Signup";
+import ResetPassword from "./Pages/Auth/ResetPassword";
+import ResetPasswordConfirm from "./Pages/Auth/ResetPasswordConfirm";
+import Activate from "./Pages/Auth/Activate";
 import Auth from "./Pages/Auth/Auth";
 import styles from "./App.module.css";
 
@@ -47,6 +52,14 @@ const App = () => {
         />
         <Route path="/about" element={<About />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/password/reset/confirm/:uid/:token"
+          element={<ResetPasswordConfirm />}
+        />
+        <Route path="/activate/:uid/:token" element={<Activate />} />
       </Routes>
     </BrowserRouter>
   );

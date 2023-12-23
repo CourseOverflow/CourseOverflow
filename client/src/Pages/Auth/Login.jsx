@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
+import { connect } from "react-redux";
 
-const Auth = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,7 +27,7 @@ const Auth = () => {
 
   return (
     <div className={styles["form-container"]}>
-      <h1 className={styles.authHeader}>Sign up</h1>
+      <h1 className={styles.authHeader}>Login</h1>
       <hr className={styles.authLoader} />
       <form
         onSubmit={(e) => {
@@ -41,8 +42,8 @@ const Auth = () => {
           </label>
 
           <span className={styles.authPsw}>
-            Already have an account?
-            <a href="/login"> Log in</a>
+            Don't have an account?
+            <a href="/signup"> Sign Up</a>
           </span>
           <input
             type="text"
@@ -76,27 +77,16 @@ const Auth = () => {
               className={styles.authInput}
             />
           </div>
-          <label htmlFor="cpsw">
-            <b>Confirm Password</b>
-          </label>
-          <div className={styles.passwordContainer}>
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter Password"
-              name="cpsw"
-              required
-              className={styles.authInput}
-            />
-          </div>
-          <label className={styles.rememberBtn}>
+
+          {/* <label className={styles.rememberBtn}>
             <input type="checkbox" checked="checked" name="remember" /> Remember
             me
-          </label>
+          </label> */}
           <span className={styles.authPsw}>
             <a href="/reset-password">Forgot password?</a>
           </span>
           <button type="submit" className={styles.authButton}>
-            Sign up for free
+            Login
           </button>
           <div
             style={{
@@ -125,4 +115,9 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+// const mapStateToProps = (state) => ({
+//   isAuthenticated: state.auth.isAuthenticated,
+// });
+
+export default connect(null, {})(Login);
+// export default Login;
