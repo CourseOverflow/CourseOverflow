@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
 import { connect } from "react-redux";
+import { login } from "../../Actions/Auth";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -11,9 +13,10 @@ const Login = () => {
   const { email, password } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const onSubmit = async (e) => {
-    e.prevnetDefault();
-    //login(emiail,password)
+    e.preventDefault();
+    login(email, password);
   };
 
   // is the user authenticated?
@@ -25,6 +28,12 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const navigate = useNavigate();
+
+  if (isAuthenticated) {
+    navigate("/CourseOverflow"); // Navigate if authenticated
+    return null; // Or return something else if needed
+  }
   return (
     <div className={styles["form-container"]}>
       <h1 className={styles.authHeader}>Login</h1>
@@ -69,7 +78,7 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter Password"
-              name="psw"
+              name="password"
               value={password}
               onChange={(e) => onChange(e)}
               minLength={6}
@@ -107,7 +116,7 @@ const Login = () => {
               alt="Google Logo"
               className={styles.googleLogo}
             />
-            <button type="submit">Continue with Google</button>
+            <button type="button">Continue with Google</button>
           </div>
         </div>
       </form>
@@ -115,9 +124,9 @@ const Login = () => {
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-export default connect(null, {})(Login);
+export default connect(mapStateToProps, { login })(Login);
 // export default Login;

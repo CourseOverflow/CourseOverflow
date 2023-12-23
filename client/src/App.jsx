@@ -7,61 +7,66 @@ import Play from "./Pages/Play/Play";
 import Search from "./Pages/Search/Search";
 import About from "./Pages/About/About";
 import Login from "./Pages/Auth/Login";
+import AuthCheck from "./Layouts/AuthCheck";
 import Signup from "./Pages/Auth/Signup";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import ResetPasswordConfirm from "./Pages/Auth/ResetPasswordConfirm";
 import Activate from "./Pages/Auth/Activate";
 import Auth from "./Pages/Auth/Auth";
 import styles from "./App.module.css";
+import { Provider } from "react-redux"; // Correct import
+import store from "./store";
 
 const App = () => {
   return (
-    <BrowserRouter className={styles.app}>
-      <Routes>
-        <Route
-          path="/CourseOverflow"
-          element={
-            <MainLayout overlay={false}>
-              <Home />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/create"
-          element={
-            <MainLayout overlay={false}>
-              <CreatePlaylist />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/play/:slug"
-          element={
-            <MainLayout overlay={true}>
-              <Play />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/search"
-          element={
-            <MainLayout overlay={false}>
-              <Search />
-            </MainLayout>
-          }
-        />
-        <Route path="/about" element={<About />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route
-          path="/password/reset/confirm/:uid/:token"
-          element={<ResetPasswordConfirm />}
-        />
-        <Route path="/activate/:uid/:token" element={<Activate />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter className={styles.app}>
+        <Routes>
+          <Route
+            path="/CourseOverflow"
+            element={
+              <MainLayout overlay={false}>
+                <Home />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/create"
+            element={
+              <MainLayout overlay={false}>
+                <CreatePlaylist />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/play/:slug"
+            element={
+              <MainLayout overlay={true}>
+                <Play />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <MainLayout overlay={false}>
+                <Search />
+              </MainLayout>
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/login" element={<AuthCheck />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            path="/password/reset/confirm/:uid/:token"
+            element={<ResetPasswordConfirm />}
+          />
+          <Route path="/activate/:uid/:token" element={<Activate />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 };
 

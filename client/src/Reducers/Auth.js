@@ -15,8 +15,6 @@ import {
   ACTIVATION_FAIL,
   GOOGLE_AUTH_SUCCESS,
   GOOGLE_AUTH_FAIL,
-  FACEBOOK_AUTH_SUCCESS,
-  FACEBOOK_AUTH_FAIL,
   LOGOUT,
 } from "../Actions/Types";
 
@@ -27,7 +25,7 @@ const initialState = {
   user: null,
 };
 
-export default function (state = initialState, action) {
+export default function reducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -38,7 +36,6 @@ export default function (state = initialState, action) {
       };
     case LOGIN_SUCCESS:
     case GOOGLE_AUTH_SUCCESS:
-    case FACEBOOK_AUTH_SUCCESS:
       localStorage.setItem("access", payload.access);
       localStorage.setItem("refresh", payload.refresh);
       return {
@@ -68,7 +65,6 @@ export default function (state = initialState, action) {
         user: null,
       };
     case GOOGLE_AUTH_FAIL:
-    case FACEBOOK_AUTH_FAIL:
     case LOGIN_FAIL:
     case SIGNUP_FAIL:
     case LOGOUT:
