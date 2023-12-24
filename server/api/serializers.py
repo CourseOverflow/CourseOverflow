@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import User, Playlist, PlaylistInteraction, Video, VideoOrder, Comment, CommentInteraction
+from .models import User, Draft, Playlist, PlaylistInteraction, Video, VideoOrder, Comment, CommentInteraction
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 
@@ -14,6 +15,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+
+class DraftSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Draft
+        fields = '__all__'
+
 
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +36,7 @@ class PlaylistInteractionSerializer(serializers.ModelSerializer):
 
 
 class VideoSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Video
         fields = '__all__'

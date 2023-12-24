@@ -12,6 +12,7 @@ import Signup from "./Pages/Auth/Signup";
 import ResetPassword from "./Pages/Auth/ResetPassword";
 import ResetPasswordConfirm from "./Pages/Auth/ResetPasswordConfirm";
 import Activate from "./Pages/Auth/Activate";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 import Auth from "./Pages/Auth/Auth";
 import styles from "./App.module.css";
 import { Provider } from "react-redux"; // Correct import
@@ -54,6 +55,14 @@ const App = () => {
               </MainLayout>
             }
           />
+          <Route
+            path="/dashboard"
+            element={
+              <MainLayout overlay={false}>
+                <Dashboard />
+              </MainLayout>
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/login" element={<AuthCheck />} />
@@ -69,5 +78,4 @@ const App = () => {
     </Provider>
   );
 };
-
 export default App;

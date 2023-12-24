@@ -1,33 +1,44 @@
-import React, { useReducer } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./NewTodoForm.module.css";
 import { FaPlus } from "react-icons/fa";
+import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 
-function NewTodoForm({ createTodo }) {
-  const [userInput, setUserInput] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      topic: "",
+function NewTodoForm({ updateDraft }) {
+  const { setNextStatus, playlistData, setPlaylistData } = usePlaylistContext();
+  const [userInput, setUserInput] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
-  );
+  }, []);
 
-  const handleChange = (evt) => {
-    setUserInput({ [evt.target.name]: evt.target.value });
+  const handleInputChange = (e) => {
+    setUserInput(e.target.value);
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const newTodo = { id: uuidv4(), topic: userInput.topic, completed: false };
-    createTodo(newTodo);
-    setUserInput({ topic: "" });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (userInput === "") return;
+
+    setPlaylistData((prevData) => ({
+      ...prevData,
+      topicList: [...prevData.topicList, userInput],
+    }));
+
+    updateDraft([...playlistData.topicList, userInput]);
+    setUserInput("");
+    setNextStatus(true);
   };
 
   return (
     <div className={styles.container}>
       <form className={styles.NewTodoForm} onSubmit={handleSubmit}>
         <input
-          value={userInput.topic}
-          onChange={handleChange}
+          ref={inputRef}
+          value={userInput}
+          onChange={handleInputChange}
           id="topic"
           type="text"
           name="topic"

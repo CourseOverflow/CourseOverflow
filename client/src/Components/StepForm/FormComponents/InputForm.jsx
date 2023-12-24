@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./InputForm.module.css";
+import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 
-const InputForm = (props) => {
+const InputForm = () => {
+  const { setNextStatus, playlistData, setPlaylistData } = usePlaylistContext();
   const [isTitleDivFocused, setIsTitleDivFocused] = useState(false);
   const [isDescDivFocused, setIsDescDivFocused] = useState(false);
 
@@ -10,16 +12,26 @@ const InputForm = (props) => {
 
   const handleTitleChange = (e) => {
     const inputValue = e.target.value;
+    if (inputValue.length === 0) {
+      setNextStatus(false);
+    } else {
+      setNextStatus(true);
+    }
     if (inputValue.length <= 100) {
-      props.setPlaylistTitle(inputValue);
+      setPlaylistData((prevData) => ({
+        ...prevData,
+        title: inputValue,
+      }));
     }
   };
 
   const handleDescriptionChange = (e) => {
-    let inputValue = e.target.value; // Use innerText instead of textContent
+    const inputValue = e.target.value;
     if (inputValue.length <= 5000) {
-      inputValue = inputValue.split("").reverse().join(""); // Reverse the string
-      props.setPlaylistDesc(inputValue);
+      setPlaylistData((prevData) => ({
+        ...prevData,
+        desc: inputValue,
+      }));
     }
   };
 
@@ -68,12 +80,12 @@ const InputForm = (props) => {
           <label htmlFor="title" className={styles["titleLabel"]}>
             Title <span className={styles["required"]}>*</span>
           </label>
-          <p className={styles["count"]}>{props.playlistTitle.length}/100</p>
+          <p className={styles["count"]}>{playlistData.title.length}/100</p>
         </div>
         <input
           type="text"
           id="title"
-          value={props.playlistTitle}
+          value={playlistData.title}
           placeholder="Enter a title for your Playlist"
           onChange={handleTitleChange}
           className={styles["titleInput"]}
@@ -90,17 +102,16 @@ const InputForm = (props) => {
           <label htmlFor="description" className={styles["descLabel"]}>
             Description
           </label>
-          <p className={styles["count"]}>{props.playlistDesc.length}/5000</p>
+          <p className={styles["count"]}>{playlistData.desc.length}/5000</p>
         </div>
         <textarea
           id="description"
-          onInput={handleDescriptionChange} // Use onInput event
+          onInput={handleDescriptionChange}
           className={styles["descInput"]}
           ref={descInputRef}
           placeholder="Enter a description for your Playlist..."
-        >
-          {props.playlistDesc}
-        </textarea>
+          value={playlistData.desc}
+        />
       </div>
     </form>
   );

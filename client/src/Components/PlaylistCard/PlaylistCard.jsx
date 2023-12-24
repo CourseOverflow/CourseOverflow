@@ -6,17 +6,24 @@ import Checkbox from "./Checkbox";
 const PlaylistCard = (props) => {
   return (
     <div
-      onClick={props.playlistItem ? () => props.setVideoIdx(props.index) : null}
-      className={`${styles.container} ${props.isWatched && styles.played}`}
+      className={`${styles.container} ${props.isWatched && styles.played} ${
+        props.currVideo && styles.currVideo
+      }`}
     >
       <div
-        onClick={props.clickHandler}
-        className={`${styles.playlistCard} ${props.isWatched && styles.played}`}
+        onClick={props.playlistItem ? () => props.updateIdx(props.index) : null}
+        className={`${styles.playlistCard}`}
       >
         <span className={`${styles.videoIdx}`}>
-          {props.isDraggable && <FaBars />}
-          {props.currVideo ? <FaPlay /> : props.index + 1}
+          {props.isDraggable ? (
+            <FaBars />
+          ) : props.currVideo ? (
+            <FaPlay />
+          ) : (
+            props.index + 1
+          )}
         </span>
+
         <div className={`${styles.imageContainer}`}>
           <img
             className={`${styles.thumbnail}`}
@@ -32,8 +39,9 @@ const PlaylistCard = (props) => {
       </div>
       {props.playlistItem && (
         <Checkbox
-          checkboxHandler={props.checkboxHandler}
+          updateWatched={props.updateWatched}
           watched={props.isWatched}
+          index={props.index}
         />
       )}
     </div>

@@ -1,0 +1,22 @@
+.analyticsContainer {
+  padding: 20px;
+  border: 1px solid var(--hover);
+  background-color: var(--box);
+  border-radius: 8px;
+  height: 100%;
+  background: linear-gradient(to top, var(--box) 30%, var(--base) 90%);
+}
+
+.chartTitle {
+  background-color: transparent;
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--base-text);
+  margin-bottom: 10px;
+}
+
+.chartWrapper {
+  background-color: transparent;
+  position: relative;
+}

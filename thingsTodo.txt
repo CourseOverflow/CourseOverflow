@@ -5,3 +5,7 @@
 5 about page
 6 django setup
 7 write database model
+
+image upload line 113
+aspect ratio of the uploaded image should be 16 / 9. we may
+need to use a service for that.

@@ -5,15 +5,15 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, name, password=None, is_staff=False, is_superuser=False):
-       if not email:
-           raise ValueError("Users must have an email address")
+        if not email:
+            raise ValueError("Users must have an email address")
        
-       email = self.normalize_email(email)
-       user = self.model(email=email, name=name, is_staff=is_staff, is_superuser=is_superuser)
-       user.set_password(password)
-       user.save()
+        email = self.normalize_email(email)
+        user = self.model(email=email, name=name, is_staff=is_staff, is_superuser=is_superuser)
+        user.set_password(password)
+        user.save(using=self._db)
 
-       return user
+        return user
     
     def create_superuser(self, email, name, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -26,16 +26,13 @@ class UserAccountManager(BaseUserManager):
 
         return self.create_user(email, name, password, **extra_fields)
 
-
-
-
-
 class User(AbstractBaseUser, PermissionsMixin):
-    email: models.EmailField = models.EmailField(max_length=255, unique=True)
-    name: models.CharField = models.CharField(max_length=255)
-    is_active: models.BooleanField = models.BooleanField(default=True)
-    is_staff: models.BooleanField = models.BooleanField(default=False)
-
+    email = models.EmailField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
@@ -69,6 +66,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 #         return self.username
 
 
+class Draft(models.Model):
+    title = models.CharField(max_length=255)
+    desc = models.TextField(blank=True, null=True)
+    thumbnail = models.TextField(blank=True, null=True)
+    cloudinaryPublicId = models.TextField(blank=True, null=True)
+    topicList = models.JSONField(default=list)
+    videoList = models.JSONField(default=list)
+    duration = models.DurationField(default=0)
+    coursePDF = models.TextField(blank=True, null=True)
+    authorId = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(
+        default=timezone.now, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Playlist(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField(blank=True, null=True)
@@ -78,12 +92,11 @@ class Playlist(models.Model):
     dislikes = models.IntegerField(default=0)
     duration = models.DurationField(default=0)
     views = models.IntegerField(default=0)
-    isDraft = models.BooleanField(default=True)
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
         default=timezone.now, null=True, blank=True)
-    
+
     def __str__(self):
         return self.title
 
@@ -92,7 +105,8 @@ class PlaylistInteraction(models.Model):
     isLiked = models.BooleanField(default=False)
     isDisliked = models.BooleanField(default=False)
     isBookmarked = models.BooleanField(default=False)
-    watchCount = models.IntegerField(default=0)
+    watched = models.JSONField(default=list)
+    lastWatched = models.IntegerField(default=0)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -118,8 +132,6 @@ class Video(models.Model):
     thumbnail = models.TextField()
     duration = models.DurationField()
     youtubeHash = models.CharField(max_length=255)
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -142,7 +154,7 @@ class Comment(models.Model):
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     commentId = models.ForeignKey(
-        'self', on_delete=models.CASCADE, null=True, blank=True)
+        'self', on_delete=models.CASCADE, null=True, blank=True, default=None)
     created_at = models.DateTimeField(
         default=timezone.now, null=True, blank=True)
 

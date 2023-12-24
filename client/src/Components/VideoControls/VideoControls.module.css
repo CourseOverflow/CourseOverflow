@@ -11,6 +11,7 @@
   margin: 10px;
   background-color: transparent;
   font-size: 1.4rem;
+  font-weight: 700;
   color: var(--base-text);
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -39,6 +40,7 @@
   color: var(--base-text);
   font-size: 1rem;
   line-height: 0.8;
+  font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
@@ -84,7 +86,9 @@
   fill: var(--text);
 }
 
-/* back & next css \/ */
+.selected path {
+  fill: var(--theme-hover);
+}
 
 .buttons {
   text-align: center;

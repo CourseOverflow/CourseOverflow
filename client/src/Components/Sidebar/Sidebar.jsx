@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { FaHome, FaPlus, FaBookmark, FaPlay } from "react-icons/fa";
+import { FaHome, FaPlus, FaBookmark, FaPlay, FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { MdOutlinePlaylistPlay } from "react-icons/md";
 
@@ -40,9 +40,14 @@ const Sidebar = (props) => {
       to: "/play/2",
       icon: <FaPlay />,
     },
+    {
+      name: "Dashboard",
+      to: "/dashboard",
+      icon: <FaUser />,
+    },
   ];
 
-  const bookMark = {
+  const bookmark = {
     name: "Bookmark",
     to: "/",
     icon: <FaBookmark />,

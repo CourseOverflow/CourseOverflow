@@ -1,6 +1,6 @@
 .video-container {
   position: relative;
-  padding-bottom: 56.25%;
+  aspect-ratio: 16/9;
 }
 
 .video-container iframe {

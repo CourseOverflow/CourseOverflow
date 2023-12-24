@@ -17,7 +17,7 @@ const PostComment = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    props.addComment(e);
+    props.addComment(comment);
     setComment("");
   };
 

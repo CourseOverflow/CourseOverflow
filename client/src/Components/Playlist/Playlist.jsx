@@ -3,11 +3,14 @@ import PlaylistHeader from "../PlaylistHeader/PlaylistHeader";
 import PlaylistCard from "../PlaylistCard/PlaylistCard";
 import styles from "./Playlist.module.css";
 
-const Playlist = ({ playlistData, videoList, currVideoIdx, setVideoIndex }) => {
-  const checkboxHandler = () => {
-    console.log("not yet integrated: checkboxHandler");
-  };
-
+const Playlist = ({
+  playlistData,
+  videoList,
+  currVideoIdx,
+  updateIdx,
+  totalWatched,
+  updateWatched,
+}) => {
   return (
     <div className={styles.playlist}>
       <PlaylistHeader
@@ -15,14 +18,14 @@ const Playlist = ({ playlistData, videoList, currVideoIdx, setVideoIndex }) => {
         author={playlistData.authorName}
         duration={playlistData.duration}
         bundleSize={videoList.length}
-        watchCount={playlistData.watchCount}
+        watchCount={totalWatched}
       />
       <div className={styles["playlist-items"]}>
         {videoList.map((item, index) => {
           return (
             <PlaylistCard
-              setVideoIdx={setVideoIndex}
-              currVideo={currVideoIdx === item.index}
+              updateIdx={updateIdx}
+              currVideo={currVideoIdx === index}
               index={index}
               author={item.author}
               key={item.id}
@@ -31,7 +34,7 @@ const Playlist = ({ playlistData, videoList, currVideoIdx, setVideoIndex }) => {
               duration={item.duration}
               desc={item.description}
               isWatched={item.isWatched}
-              checkboxHandler={checkboxHandler}
+              updateWatched={updateWatched}
               playlistItem={true}
             />
           );

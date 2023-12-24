@@ -1,6 +1,6 @@
 .card {
-  width: 300px;
-  height: 169px;
+  width: 280px;
+  aspect-ratio: 16 / 9;
   position: relative;
   cursor: pointer;
   overflow: hidden;

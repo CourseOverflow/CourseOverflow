@@ -21,7 +21,7 @@
 .Dragable > ul {
   border: 1px solid var(--hover);
   border-radius: 5px;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 100%;
 }
 

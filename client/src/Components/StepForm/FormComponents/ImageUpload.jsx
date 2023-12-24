@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./ImageUpload.module.css";
 import { IoMdClose } from "react-icons/io";
+import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 
 const LoadingImg = () => {
   return (
@@ -24,7 +25,8 @@ const LoadingImg = () => {
   );
 };
 
-const ImageUpload = (props) => {
+const ImageUpload = () => {
+  const { setNextStatus, playlistData, setPlaylistData } = usePlaylistContext();
   const [selectedFile, setSelectedFile] = useState(null);
   const [formKey, setFormKey] = useState(0);
   const [uploading, setUploading] = useState(false);
@@ -36,7 +38,7 @@ const ImageUpload = (props) => {
       setSelectedFile(file);
       setFormKey(formKey + 1);
       setUploading(true);
-      props.setNextStatus(false);
+      setNextStatus(false);
 
       const formData = new FormData();
       formData.append("file", file);
@@ -49,16 +51,19 @@ const ImageUpload = (props) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          props.setCloudinaryPublicId(data.public_id);
-          props.setPlaylistThumbnail(data.secure_url);
+          setPlaylistData((prevData) => ({
+            ...prevData,
+            cloudinaryPublicId: data.public_id,
+            thumbnail: data.secure_url,
+          }));
         })
         .catch((error) => {
           console.error(error);
         })
         .finally(() => {
           setUploading(false);
-          if (!uploading && props.playlistTitle.length > 0) {
-            props.setNextStatus(true);
+          if (!uploading && playlistData.title.length > 0) {
+            setNextStatus(true);
           }
         });
     }
@@ -66,31 +71,12 @@ const ImageUpload = (props) => {
   };
 
   const handleRemoveFile = () => {
-    // not working
-    // if (props.cloudinaryPublicId) {
-    //   const cloudinaryUrl = `https://cors-anywhere.herokuapp.com/https://api.cloudinary.com/v1_1/dsum3x8ok/image/destroy/${props.cloudinaryPublicId}`;
-
-    //   fetch(cloudinaryUrl, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: "9b-6oMTY3rl_EPWHye4LReyt6MQ",
-    //     },
-    //     body: JSON.stringify({
-    //       upload_preset: "neetqub9",
-    //     }),
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log("File deleted from Cloudinary:", data);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error deleting file from Cloudinary:", error);
-    //     });
-    // }
-
     setSelectedFile(null);
-    props.setPlaylistThumbnail(null);
+    setPlaylistData((prevData) => ({
+      ...prevData,
+      cloudinaryPublicId: null,
+      thumbnail: null,
+    }));
     setFormKey(formKey + 1);
 
     if (fileInputRef.current) {
@@ -121,10 +107,11 @@ const ImageUpload = (props) => {
                   </div>
                 </button>
               </>
-            ) : props.playlistThumbnail ? (
+            ) : playlistData.thumbnail ? (
               <>
                 <span className={styles["selectedFileName"]}>
-                  {props.cloudinaryPublicId}
+                  {/* needs to be updated, on back button click, the name changes */}
+                  {playlistData.cloudinaryPublicId}
                 </span>
                 <button
                   className={styles["removeFileBtn"]}
@@ -147,11 +134,11 @@ const ImageUpload = (props) => {
             <LoadingImg />
           ) : (
             <>
-              {props.playlistThumbnail ? (
+              {playlistData.thumbnail ? (
                 <div className={styles["img_box"]}>
                   <img
                     className={styles["Uplodedimg"]}
-                    src={props.playlistThumbnail}
+                    src={playlistData.thumbnail}
                     alt="playlist thumbnail"
                   />
                 </div>

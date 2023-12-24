@@ -2,11 +2,18 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.playlist, name='playlist'),
-    path('<int:pk>/', views.playlist_detail, name='playlist_detail'),
-    path('recommended/',views.recommended, name='recommended'),
-    path('popular/', views.playlist, name='playlist'),
+    path('<int:userId>/<int:playlistId>/',
+         views.getPlaylist, name='getPlaylist'),
+    path('recommended/', views.recommended, name='recommended'),
+    path('popular/', views.popular, name='popular'),
     path('recent-uploads/', views.recent_uploads, name='recent_uploads'),
-    path('create-playlist/',views.create_playlist,name= 'create_playlist'),
-    path('upload-pdf/',views.upload_pdf,name= 'upload_pdf')
+    path('watched/<int:userId>/<int:playlistId>/',
+         views.watched, name='watched'),
+    path('setLastWatched/', views.setLastWatched, name='setLastWatched'),
+    path('updateWatched/', views.updateWatched, name='updateWatched'),
+    path('updateLikeDislike/', views.updateLikeDislike, name='updateLikeDislike'),
+    path('update-draft/', views.update_draft, name='update_draft'),
+    path('delete-draft/', views.delete_draft, name='delete_draft'),
+    path('fetch-videos/', views.fetch_videos, name='fetch_videos'),
+    path('create-playlist/', views.create_playlist, name='create_playlist'),
 ]

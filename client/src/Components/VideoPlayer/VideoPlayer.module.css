@@ -10,8 +10,8 @@
   flex: 1;
   flex-direction: row;
   max-height: min-content;
-  height: min-content;
   margin-bottom: 20px;
+  align-items: stretch;
 }
 
 .videoContainer {
@@ -20,7 +20,6 @@
 }
 
 .playlistContainer {
-  max-height: min-content;
   width: 30%;
 }
 

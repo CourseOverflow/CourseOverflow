@@ -1,14 +1,23 @@
 .feed {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .feed > h1 {
   margin-bottom: 20px;
-  margin-left: 0;
+  margin-left: 40px;
   font-size: 2rem;
   font-weight: bold;
   color: var(--base-text);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .feed-container {
@@ -32,10 +41,10 @@
 
 .leftButton,
 .rightButton {
-  margin-top: 60px;
-  height: 50px;
-  width: 30px;
-  position: absolute;
+  margin: 0 10px;
+  margin-bottom: 50px;
+  height: 70px;
+  width: 40px;
   z-index: 1;
   display: flex;
   justify-content: center;
@@ -46,13 +55,19 @@
   border: none;
   outline: none;
   font-size: 24px;
-  border-radius: 0 5px 5px 0;
+  border-radius: 5px;
   transition: all 0.3s;
+  padding: 3px;
+}
+
+.leftButton {
+  margin-left: 0;
+  margin-right: 5px;
 }
 
 .rightButton {
-  right: 20px;
-  border-radius: 5px 0 0 5px;
+  margin-left: 5px;
+  margin-right: 0;
 }
 
 .leftButton > svg,
@@ -63,4 +78,17 @@
 .leftButton:hover,
 .rightButton:hover {
   background-color: var(--box);
+}
+
+.noData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: var(--box);
+  color: var(--base-text);
+  font-size: large;
 }
