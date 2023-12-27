@@ -37,7 +37,7 @@ const Sidebar = (props) => {
     },
     {
       name: "Play",
-      to: "/play/2",
+      to: "/play?playlistId=44&index=0",
       icon: <FaPlay />,
     },
     {

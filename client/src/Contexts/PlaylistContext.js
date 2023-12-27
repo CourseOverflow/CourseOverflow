@@ -2,7 +2,6 @@ import { createContext, useState, useContext } from "react";
 
 export const usePlaylist = () => {
   const [stepNumber, setStepNumber] = useState(1);
-  const [playlistId, setPlaylistId] = useState(null);
   const [backStatus, setBackStatus] = useState(false);
   const [nextStatus, setNextStatus] = useState(false);
   const [fetchingVideos, setFetchingVideos] = useState(false);
@@ -21,8 +20,6 @@ export const usePlaylist = () => {
   return {
     stepNumber,
     setStepNumber,
-    playlistId,
-    setPlaylistId,
     backStatus,
     setBackStatus,
     nextStatus,

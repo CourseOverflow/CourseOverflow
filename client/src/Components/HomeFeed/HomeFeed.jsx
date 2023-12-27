@@ -7,7 +7,11 @@ const HomeFeed = ({ feedList }) => {
     <div className={styles.homeFeedContainer}>
       {feedList.map((feed) => (
         <div key={feed.id}>
-          <Feed category={feed.category} data={feed.data} />
+          <Feed
+            category={feed.category}
+            data={feed.data}
+            isDraft={feed.isDraft}
+          />
           <hr className={styles.hrLine} />
         </div>
       ))}

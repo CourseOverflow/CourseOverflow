@@ -6,7 +6,5 @@ urlpatterns = [
     path('playlist/', include('api.playlist.urls')),
     path('video/', include('api.video.urls')),
     path('comment/', include('api.comment.urls')),
-    path('playlist-interaction/', include('api.playlistInteraction.urls')),
-    path('comment-interaction/', include('api.commentInteraction.urls')),
-    path('video-order/', include('api.videoOrder.urls')),
+    path('draft/', include('api.draft.urls')),
 ]

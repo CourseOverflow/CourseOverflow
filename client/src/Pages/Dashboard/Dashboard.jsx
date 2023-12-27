@@ -8,18 +8,40 @@ import baseURL from "../../Config/apiConfig.js";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
 
 const Dashboard = () => {
-  const [popularPlaylistData, setPopularPlaylistData] = useState([]);
+  // const userId = localStorage.getItem("userId");
+  const userId = 3;
+  const [createdPlaylists, setCreatedPlaylists] = useState([]);
+  const [likedPlaylists, setLikedPlaylists] = useState([]);
+  const [createdDrafts, setCreatedDrafts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPopularPlaylistData = axios.get(
-      `${baseURL}/api/playlist/popular/`
+    const fetchCreatedPlaylists = axios.get(
+      `${baseURL}/api/playlist/user-playlists/?userId=${userId}`
+    );
+    const fetchLikedPlaylists = axios.get(
+      `${baseURL}/api/playlist/user-liked-playlists/?userId=${userId}`
+    );
+    const fetchCreatedDrafts = axios.get(
+      `${baseURL}/api/draft/get-all-drafts/?userId=${userId}`
     );
 
-    Promise.all([fetchPopularPlaylistData])
-      .then((responses) => {
-        setPopularPlaylistData(responses[0].data);
-      })
+    Promise.all([
+      fetchCreatedPlaylists,
+      fetchLikedPlaylists,
+      fetchCreatedDrafts,
+    ])
+      .then(
+        ([
+          createdPlaylistsResponse,
+          likedPlaylistsResponse,
+          createdDraftsResponse,
+        ]) => {
+          setCreatedPlaylists(createdPlaylistsResponse.data);
+          setLikedPlaylists(likedPlaylistsResponse.data);
+          setCreatedDrafts(createdDraftsResponse.data);
+        }
+      )
       .catch((error) => {
         console.error("Error fetching playlist data: ", error);
       })
@@ -36,17 +58,18 @@ const Dashboard = () => {
     {
       id: 1,
       category: "Playlists",
-      data: popularPlaylistData,
+      data: createdPlaylists,
     },
     {
       id: 2,
       category: "Liked",
-      data: popularPlaylistData,
+      data: likedPlaylists,
     },
     {
       id: 3,
       category: "Drafts",
-      data: popularPlaylistData,
+      data: createdDrafts,
+      isDraft: true,
     },
   ];
 

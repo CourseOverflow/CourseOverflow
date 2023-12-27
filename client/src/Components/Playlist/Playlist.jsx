@@ -10,6 +10,7 @@ const Playlist = ({
   updateIdx,
   totalWatched,
   updateWatched,
+  videoContainerHeight,
 }) => {
   return (
     <div className={styles.playlist}>
@@ -20,7 +21,10 @@ const Playlist = ({
         bundleSize={videoList.length}
         watchCount={totalWatched}
       />
-      <div className={styles["playlist-items"]}>
+      <div
+        className={styles["playlist-items"]}
+        style={{ height: `${videoContainerHeight - 88}px` }}
+      >
         {videoList.map((item, index) => {
           return (
             <PlaylistCard

@@ -10,7 +10,7 @@ import {
 
 const VideoControls = (props) => {
   const handleNextClick = () => {
-    const nextIndex = props.currVideoIdx + 1;
+    const nextIndex = parseInt(props.currVideoIdx) + 1;
     if (nextIndex < props.bundleSize) {
       props.updateIdx(nextIndex);
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Video.module.css";
 import VideoControls from "../VideoControls/VideoControls";
 import axios from "axios";
@@ -7,10 +7,24 @@ import baseURL from "../../Config/apiConfig.js";
 const Video = ({
   userId,
   playlistData,
+  bundleSize,
   currVideo,
   currVideoIdx,
   updateIdx,
+  videoContainerRef,
+  setVideoContainerHeight,
 }) => {
+  useEffect(() => {
+    const updateHeight = () => {
+      setVideoContainerHeight(videoContainerRef.current?.clientHeight || 0);
+    };
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [currVideoIdx, videoContainerRef, setVideoContainerHeight]);
+
   const [likes, setLikes] = useState(playlistData.likes);
   const [dislikes, setDislikes] = useState(playlistData.dislikes);
   const [liked, setLiked] = useState(playlistData.isLiked);
@@ -65,7 +79,7 @@ const Video = ({
   };
 
   return (
-    <>
+    <div ref={videoContainerRef}>
       <div className={styles["video-container"]}>
         <iframe
           title={currVideo.title}
@@ -79,7 +93,7 @@ const Video = ({
         authorProfile={playlistData.authorProfile}
         likes={likes}
         dislikes={dislikes}
-        bundleSize={playlistData.bundleSize}
+        bundleSize={bundleSize}
         updateIdx={updateIdx}
         currVideoIdx={currVideoIdx}
         desc={currVideo.description}
@@ -88,7 +102,7 @@ const Video = ({
         isLiked={liked}
         isDisliked={disliked}
       />
-    </>
+    </div>
   );
 };
 

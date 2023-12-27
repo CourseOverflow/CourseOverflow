@@ -9,6 +9,7 @@ import About from "./Pages/About/About";
 import Auth from "./Pages/Auth/Auth";
 import styles from "./App.module.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import Rat from "./Pages/Rat/Rat";
 
 const App = () => {
   return (
@@ -31,7 +32,7 @@ const App = () => {
           }
         />
         <Route
-          path="/play/:slug"
+          path="/play"
           element={
             <MainLayout overlay={true}>
               <Play />
@@ -56,6 +57,8 @@ const App = () => {
         />
         <Route path="/about" element={<About />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/rat" element={<Rat />} />
+        <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </BrowserRouter>
   );
