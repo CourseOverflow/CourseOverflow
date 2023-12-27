@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
+import { connect } from "react-redux";
+import { login } from "../../Actions/Auth";
+import { useNavigate } from "react-router-dom";
 
-const Auth = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -10,9 +13,10 @@ const Auth = () => {
   const { email, password } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const onSubmit = async (e) => {
-    e.prevnetDefault();
-    //login(emiail,password)
+    e.preventDefault();
+    login(email, password);
   };
 
   // is the user authenticated?
@@ -24,9 +28,15 @@ const Auth = () => {
     setShowPassword(!showPassword);
   };
 
+  const navigate = useNavigate();
+
+  if (isAuthenticated) {
+    navigate("/CourseOverflow"); // Navigate if authenticated
+    return null; // Or return something else if needed
+  }
   return (
     <div className={styles["form-container"]}>
-      <h1 className={styles.authHeader}>Sign up</h1>
+      <h1 className={styles.authHeader}>Login</h1>
       <hr className={styles.authLoader} />
       <form
         onSubmit={(e) => {
@@ -41,8 +51,8 @@ const Auth = () => {
           </label>
 
           <span className={styles.authPsw}>
-            Already have an account?
-            <a href="/login"> Log in</a>
+            Don't have an account?
+            <a href="/signup"> Sign Up</a>
           </span>
           <input
             type="text"
@@ -68,7 +78,7 @@ const Auth = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter Password"
-              name="psw"
+              name="password"
               value={password}
               onChange={(e) => onChange(e)}
               minLength={6}
@@ -76,27 +86,16 @@ const Auth = () => {
               className={styles.authInput}
             />
           </div>
-          <label htmlFor="cpsw">
-            <b>Confirm Password</b>
-          </label>
-          <div className={styles.passwordContainer}>
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter Password"
-              name="cpsw"
-              required
-              className={styles.authInput}
-            />
-          </div>
-          <label className={styles.rememberBtn}>
+
+          {/* <label className={styles.rememberBtn}>
             <input type="checkbox" checked="checked" name="remember" /> Remember
             me
-          </label>
+          </label> */}
           <span className={styles.authPsw}>
             <a href="/reset-password">Forgot password?</a>
           </span>
           <button type="submit" className={styles.authButton}>
-            Sign up for free
+            Login
           </button>
           <div
             style={{
@@ -117,7 +116,7 @@ const Auth = () => {
               alt="Google Logo"
               className={styles.googleLogo}
             />
-            <button type="submit">Continue with Google</button>
+            <button type="button">Continue with Google</button>
           </div>
         </div>
       </form>
@@ -125,4 +124,9 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
+// export default Login;

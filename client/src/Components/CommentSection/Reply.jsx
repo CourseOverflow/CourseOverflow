@@ -9,7 +9,7 @@ const Reply = ({
   updateReplyInteraction,
   postLikeDislikeUpdate,
 }) => {
-  const userId = 3;
+  const userId = 2;
 
   const likeHandler = () => {
     const liked = reply.isLiked ? false : true;

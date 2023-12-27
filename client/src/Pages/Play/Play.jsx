@@ -9,7 +9,7 @@ import axios from "axios";
 import baseURL from "../../Config/apiConfig.js";
 
 const Play = () => {
-  const userId = 3;
+  const userId = 2;
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const playlistId = searchParams.get("playlistId");
@@ -98,7 +98,7 @@ const Play = () => {
       </div>
     );
   }
-
+  console.log(videoList);
   return (
     <div className={styles.container}>
       <div className={styles.top}>

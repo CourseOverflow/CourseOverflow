@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
 
-const Auth = () => {
+const Signup = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -88,13 +88,13 @@ const Auth = () => {
               className={styles.authInput}
             />
           </div>
-          <label className={styles.rememberBtn}>
+          {/* <label className={styles.rememberBtn}>
             <input type="checkbox" checked="checked" name="remember" /> Remember
             me
           </label>
           <span className={styles.authPsw}>
-            <a href="/reset-password">Forgot password?</a>
-          </span>
+            <a href="/">Forgot password?</a>
+          </span> */}
           <button type="submit" className={styles.authButton}>
             Sign up for free
           </button>
@@ -125,4 +125,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Signup;

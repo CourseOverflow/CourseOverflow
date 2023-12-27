@@ -1,8 +1,11 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from api.models import Playlist, User, PlaylistInteraction, Draft
 from api.serializers import PlaylistSerializer, UserSerializer, VideoSerializer, VideoOrderSerializer
 from rest_framework import status
+from PyPDF2 import PdfFileReader
+from django.http import JsonResponse
 from datetime import datetime, timedelta
 
 
@@ -22,7 +25,7 @@ def getPlaylist(request, userId, playlistId):
 
     author = User.objects.get(id=playlist.authorId.id)
     author_data = UserSerializer(author).data
-    playlist_data['authorName'] = author_data['username']
+    playlist_data['authorName'] = author_data['name']
     playlist_data['authorProfile'] = author_data['profilePicture']
 
     return Response(playlist_data)
@@ -99,14 +102,16 @@ def watch_count(request, userId, playlistId):
 @api_view(['GET'])
 def getLastWatched(request):
     try:
-        playlist_interaction = PlaylistInteraction.objects.get(
-            userId=User.objects.get(id=request.query_params['userId']),
-            playlistId=Playlist.objects.get(
-                id=request.query_params['playlistId'])
+        user = User.objects.get(id=request.query_params['userId'])
+        playlist = Playlist.objects.get(id=request.query_params['playlistId'])
+        playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
+            userId=user,
+            playlistId=playlist,
+            defaults={'lastWatched': 0}
         )
         return Response({'lastWatched': playlist_interaction.lastWatched})
-    except PlaylistInteraction.DoesNotExist:
-        return Response({'message': 'Playlist interaction not found'}, status=404)
+    except Playlist.DoesNotExist:
+        return Response({'message': 'Playlist not found'}, status=404)
 
 
 @api_view(['POST'])

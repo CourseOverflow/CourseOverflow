@@ -35,6 +35,7 @@
 /* Input Fields */
 .titleDiv > .titleInput,
 .descDiv > .descInput {
+  resize: none;
   border-radius: 5px;
   padding: 5px;
   outline: none; /* Remove focus outline */

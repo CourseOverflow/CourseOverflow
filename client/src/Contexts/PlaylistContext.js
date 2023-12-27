@@ -14,7 +14,7 @@ export const usePlaylist = () => {
     topicList: [],
     videoList: [],
     coursePDF: null,
-    authorId: 3,
+    authorId: 2,
   });
 
   return {

@@ -1,10 +1,12 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.http import JsonResponse
 from api.models import User, Draft
 from api.serializers import DraftSerializer
 from datetime import timedelta
 from utils.youtubeAPI import generatePlaylist
+from PyPDF2 import PdfFileReader
 
 
 @api_view(['GET'])
@@ -83,3 +85,36 @@ def delete_draft(request):
     except Draft.DoesNotExist:
         pass
     return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def upload_pdf(request):
+
+    if request.method == 'POST':
+        # Check if the 'file' key is in the request.data dictionary
+        if 'file' not in request.data:
+            return JsonResponse({'error': 'No file provided'}, status=400)
+
+        # Get the uploaded file from the request.data dictionary
+        uploaded_file = request.data['file']
+
+        # Check if the uploaded file is a PDF
+        if not uploaded_file.name.lower().endswith(('.pdf',)):
+            return JsonResponse({'error': 'Unsupported file format'}, status=400)
+
+        # Process the PDF file
+        try:
+            pdf_reader = PdfFileReader(uploaded_file)
+            text = ''
+            for page_num in range(pdf_reader.numPages):
+                page = pdf_reader.getPage(page_num)
+                text += page.extractText()
+        except Exception as e:
+            return JsonResponse({'error': f'Error extracting text: {str(e)}'}, status=500)
+
+        # You can now use the 'text' variable containing the extracted text as needed
+        # For example, you may want to store it in your database or perform further processing
+
+        return JsonResponse({'success': 'File uploaded and text extracted successfully'})
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
