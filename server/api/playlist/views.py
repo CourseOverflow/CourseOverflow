@@ -1,13 +1,12 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from api.models import Playlist, User, PlaylistInteraction, VideoOrder, Draft
-from api.serializers import PlaylistSerializer, UserSerializer, VideoSerializer, VideoOrderSerializer, DraftSerializer
+from api.models import Playlist, User, PlaylistInteraction, Draft
+from api.serializers import PlaylistSerializer, UserSerializer, VideoSerializer, VideoOrderSerializer
 from rest_framework import status
 from PyPDF2 import PdfFileReader
 from django.http import JsonResponse
-# pip3 install PyPDF2
 from datetime import datetime, timedelta
-from utils.youtubeAPI import generatePlaylist
 
 
 @api_view(['GET'])
@@ -26,7 +25,7 @@ def getPlaylist(request, userId, playlistId):
 
     author = User.objects.get(id=playlist.authorId.id)
     author_data = UserSerializer(author).data
-    playlist_data['authorName'] = author_data['username']
+    playlist_data['authorName'] = author_data['name']
     playlist_data['authorProfile'] = author_data['profilePicture']
 
     return Response(playlist_data)
@@ -54,28 +53,65 @@ def recent_uploads(request):
 
 
 @api_view(['GET'])
-def watched(request, userId, playlistId):
+def user_playlists(request):
+    user = User.objects.get(id=request.query_params['userId'])
+    playlists = Playlist.objects.filter(authorId=user)
+    serializer = PlaylistSerializer(playlists, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def user_liked_playlists(request):
+    user = User.objects.get(id=request.query_params['userId'])
+    playlists = Playlist.objects.filter(
+        playlistinteraction__userId=user, playlistinteraction__isLiked=True)
+    serializer = PlaylistSerializer(playlists, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def user_bookmarked_playlists(request):
+    user = User.objects.get(id=request.query_params['userId'])
+    playlists = Playlist.objects.filter(
+        playlistinteraction__userId=user, playlistinteraction__isBookmarked=True)
+    serializer = PlaylistSerializer(playlists, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def watch_count(request, userId, playlistId):
     try:
         user = User.objects.get(id=userId)
         playlist = Playlist.objects.get(id=playlistId)
         playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
             userId=user, playlistId=playlist)
         watchCount = len(playlist_interaction.watched)
-        last_watched = playlist_interaction.lastWatched
     except User.DoesNotExist:
         return Response({
             'watchCount': 404,
-            'lastWatched': 404
         })
     except Playlist.DoesNotExist:
         return Response({
             'watchCount': 404,
-            'lastWatched': 404
         })
     return Response({
         'watchCount': watchCount,
-        'lastWatched': last_watched
     })
+
+
+@api_view(['GET'])
+def getLastWatched(request):
+    try:
+        user = User.objects.get(id=request.query_params['userId'])
+        playlist = Playlist.objects.get(id=request.query_params['playlistId'])
+        playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
+            userId=user,
+            playlistId=playlist,
+            defaults={'lastWatched': 0}
+        )
+        return Response({'lastWatched': playlist_interaction.lastWatched})
+    except Playlist.DoesNotExist:
+        return Response({'message': 'Playlist not found'}, status=404)
 
 
 @api_view(['POST'])
@@ -128,90 +164,6 @@ def updateLikeDislike(request):
         return Response({'message': 'Like/Dislike updated successfully'})
     except PlaylistInteraction.DoesNotExist:
         return Response({'message': 'Playlist interaction not found'}, status=404)
-
-
-@api_view(['POST'])
-def update_draft(request):
-    draft_id = request.data.get('draftId')
-    author_id = request.data.get('authorId')
-    author = User.objects.get(id=author_id)
-    try:
-        draft = Draft.objects.get(id=draft_id)
-    except Draft.DoesNotExist:
-        draft = Draft()
-
-    draft.title = request.data.get('title')
-    draft.desc = request.data.get('desc', None)
-    draft.thumbnail = request.data.get(
-        'thumbnail', "https://picsum.photos/300/200")
-    draft.cloudinaryPublicId = request.data.get('cloudinaryPublicId', None)
-    draft.topicList = request.data.get('topicList', [])
-    draft.videoList = request.data.get('videoList', [])
-    draft.duration = timedelta(0)
-    draft.coursePDF = request.data.get('coursePDF', None)
-    draft.authorId = author
-    draft.save()
-
-    serializer = DraftSerializer(instance=draft, data=request.data)
-    if serializer.is_valid():
-        response_data = {'draftId': draft.id}
-        return Response(response_data, status=status.HTTP_201_CREATED)
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-def upload_pdf(request):
-    
-    if request.method == 'POST':
-        # Check if the 'file' key is in the request.data dictionary
-        if 'file' not in request.data:
-            return JsonResponse({'error': 'No file provided'}, status=400)
-
-        # Get the uploaded file from the request.data dictionary
-        uploaded_file = request.data['file']
-
-        # Check if the uploaded file is a PDF
-        if not uploaded_file.name.lower().endswith(('.pdf',)):
-            return JsonResponse({'error': 'Unsupported file format'}, status=400)
-
-        # Process the PDF file
-        try:
-            pdf_reader = PdfFileReader(uploaded_file)
-            text = ''
-            for page_num in range(pdf_reader.numPages):
-                page = pdf_reader.getPage(page_num)
-                text += page.extractText()
-        except Exception as e:
-            return JsonResponse({'error': f'Error extracting text: {str(e)}'}, status=500)
-
-        # You can now use the 'text' variable containing the extracted text as needed
-        # For example, you may want to store it in your database or perform further processing
-
-        return JsonResponse({'success': 'File uploaded and text extracted successfully'})
-
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
-
-       
-@api_view(['GET'])
-def fetch_videos(request):
-    draft_id = request.query_params.get('draftId')
-    draft = Draft.objects.get(id=draft_id)
-    video_list = generatePlaylist(draft.topicList)
-    draft.videoList = video_list
-    draft.save()
-    return Response(video_list, status=status.HTTP_201_CREATED)
-
-
-@api_view(['DELETE'])
-def delete_draft(request):
-    draft_id = request.data.get('draftId')
-    try:
-        draft = Draft.objects.get(id=draft_id)
-        draft.delete()
-    except Draft.DoesNotExist:
-        pass
-    return Response(status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

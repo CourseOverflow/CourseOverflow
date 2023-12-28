@@ -4,7 +4,7 @@ import { FaPen } from "react-icons/fa";
 
 const ProfileHeader = () => {
   const userId = 2;
-  const loggedInUserId = 3;
+  const loggedInUserId = 2;
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState("SlimeMaster");
   const profilePic = process.env.PUBLIC_URL + "/logo.png";

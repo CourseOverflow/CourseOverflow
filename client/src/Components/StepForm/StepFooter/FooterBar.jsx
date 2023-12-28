@@ -1,14 +1,16 @@
 import React from "react";
 import styles from "./FooterBar.module.css";
+import { useNavigate } from "react-router-dom";
 import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 import baseURL from "../../../Config/apiConfig";
 
-const FooterBar = () => {
+const FooterBar = ({ setSearchParams }) => {
+  const navigate = useNavigate();
   const {
     stepNumber,
     setStepNumber,
-    setPlaylistId,
     backStatus,
+    setBackStatus,
     nextStatus,
     setNextStatus,
     setFetchingVideos,
@@ -18,8 +20,7 @@ const FooterBar = () => {
 
   const updateDraft = async () => {
     try {
-      console.log("Updating playlist");
-      const response = await fetch(`${baseURL}/api/playlist/update-draft/`, {
+      const response = await fetch(`${baseURL}/api/draft/update-draft/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,10 +32,14 @@ const FooterBar = () => {
         const data = await response.json();
         console.log("Playlist updated successfully");
         console.log(data);
-        setPlaylistData((prevData) => ({
-          ...prevData,
-          draftId: data.draftId,
-        }));
+        if (!playlistData.draftId) {
+          setPlaylistData((prevData) => ({
+            ...prevData,
+            draftId: data.draftId,
+          }));
+          setSearchParams({ draftId: data.draftId });
+          navigate(`/create?draftId=${data.draftId}`, { replace: true });
+        }
       } else {
         console.error("Failed to update playlist");
       }
@@ -48,7 +53,7 @@ const FooterBar = () => {
     setNextStatus(false);
     try {
       const response = await fetch(
-        `${baseURL}/api/playlist/fetch-videos/?draftId=${playlistData.draftId}`,
+        `${baseURL}/api/draft/fetch-videos/?draftId=${playlistData.draftId}`,
         {
           method: "GET",
           headers: {
@@ -91,7 +96,7 @@ const FooterBar = () => {
         const data = await response.json();
         console.log("Playlist published successfully");
         console.log(data);
-        setPlaylistId(data.playlistId);
+        navigate(`/play?playlistId=${data.playlistId}&index=0`);
       } else {
         console.error("Failed to publish playlist");
       }
@@ -104,13 +109,16 @@ const FooterBar = () => {
     updateDraft();
     console.log(playlistData);
     setStepNumber(stepNumber - 1);
+    if (stepNumber === 2) {
+      setBackStatus(false);
+    }
   };
 
-  const handelNextClick = () => {
+  const handelNextClick = async () => {
     if (stepNumber === 2) {
       fetchVideos();
     } else if (stepNumber === 3) {
-      publishPlaylist();
+      await publishPlaylist();
     } else {
       updateDraft();
     }

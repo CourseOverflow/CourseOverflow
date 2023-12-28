@@ -6,10 +6,12 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
         fields = ('id', 'email', 'name', 'password')
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,6 +38,10 @@ class PlaylistInteractionSerializer(serializers.ModelSerializer):
 
 
 class VideoSerializer(serializers.ModelSerializer):
+    isWatched = serializers.SerializerMethodField()
+
+    def get_isWatched(self, video):
+        return video.isWatched if hasattr(video, 'isWatched') else False
 
     class Meta:
         model = Video

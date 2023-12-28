@@ -14,17 +14,18 @@ const Signup = ({ signup, isAuthenticated }) => {
     password: "",
     re_password: "",
   });
-  const { email, name, password, re_password } = formData;
+  const { name, email, password, re_password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
-    e.prevnetDefault();
+    e.preventDefault();
     if (password !== re_password) {
       console.log("Passwords do not match");
     } else {
-      signup({ name, email, password, re_password });
+      console.log("tryingggg to create and account....");
+      signup(name, email, password, re_password);
       setAccountCreated(true);
     }
   };
@@ -154,7 +155,7 @@ const Signup = ({ signup, isAuthenticated }) => {
   );
 };
 const mapStateToProps = (state) => ({
-  isAuthinticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { signup })(Signup);

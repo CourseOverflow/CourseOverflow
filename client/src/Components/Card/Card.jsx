@@ -2,13 +2,32 @@ import React from "react";
 import styles from "./Card.module.css";
 import CardImage from "./CardImage";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import baseURL from "../../Config/apiConfig.js";
 
 const Card = (props) => {
   const navigate = useNavigate();
+  const userId = 2;
+  const getLastWatched = async (playlistId) => {
+    try {
+      const response = await axios.get(
+        `${baseURL}/api/playlist/getLastWatched/?userId=${userId}&playlistId=${playlistId}`
+      );
+      return response.data.lastWatched;
+    } catch (error) {
+      console.error("Error getting last watched: ", error);
+      return 1;
+    }
+  };
 
-  const handleFeedClick = (id) => {
+  const handleFeedClick = async (id) => {
+    if (props.isDraft) {
+      navigate(`/create?draftId=${id}`);
+      return;
+    }
     const playlistId = String(id);
-    navigate(`/play/${playlistId}`);
+    const lastWatched = await getLastWatched(playlistId);
+    navigate(`/play?playlistId=${playlistId}&index=${lastWatched}`);
   };
 
   const watchPercentage = Math.floor(

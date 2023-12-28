@@ -13,9 +13,9 @@ import ResetPassword from "./Pages/Auth/ResetPassword";
 import ResetPasswordConfirm from "./Pages/Auth/ResetPasswordConfirm";
 import Activate from "./Pages/Auth/Activate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import Auth from "./Pages/Auth/Auth";
+import Rat from "./Pages/Rat/Rat";
 import styles from "./App.module.css";
-import { Provider } from "react-redux"; // Correct import
+import { Provider } from "react-redux";
 import store from "./store";
 
 const App = () => {
@@ -40,7 +40,7 @@ const App = () => {
             }
           />
           <Route
-            path="/play/:slug"
+            path="/play"
             element={
               <MainLayout overlay={true}>
                 <Play />
@@ -64,7 +64,7 @@ const App = () => {
             }
           />
           <Route path="/about" element={<About />} />
-          <Route path="/auth" element={<Auth />} />
+
           <Route path="/login" element={<AuthCheck />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset-password" element={<ResetPassword />} />
@@ -77,6 +77,8 @@ const App = () => {
             element={<ResetPasswordConfirm />}
           />
           <Route path="/activate/:uid/:token" element={<Activate />} />
+          <Route path="/rat" element={<Rat />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>
     </Provider>

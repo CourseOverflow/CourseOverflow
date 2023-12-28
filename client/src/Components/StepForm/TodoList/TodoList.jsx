@@ -17,7 +17,7 @@ const TodoList = () => {
     };
 
     try {
-      const response = await fetch(`${baseURL}/api/playlist/update-draft/`, {
+      const response = await fetch(`${baseURL}/api/draft/update-draft/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,19 +28,18 @@ const TodoList = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Playlist updated successfully");
+        console.log("Draft updated successfully");
         console.log(data);
         setPlaylistData((prevData) => ({
           ...prevData,
           draftId: data.draftId,
         }));
       } else {
-        console.error("Failed to update playlist");
+        console.error("Failed to update draft");
       }
     } catch (error) {
-      console.error("Error updating playlist:", error);
+      console.error("Error updating draft:", error);
     }
-    console.log("updateDraft");
   };
 
   useEffect(() => {

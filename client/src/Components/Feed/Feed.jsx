@@ -3,7 +3,7 @@ import Card from "../Card/Card";
 import styles from "./Feed.module.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-const Feed = ({ category, data }) => {
+const Feed = ({ category, data, isDraft }) => {
   const feedContainerRef = useRef(null);
   const cardWidth = 295;
 
@@ -38,7 +38,7 @@ const Feed = ({ category, data }) => {
 
           <div className={styles["feed-container"]} ref={feedContainerRef}>
             {data.map((item) => (
-              <Card key={item.id} data={item} />
+              <Card key={item.id} data={item} isDraft={isDraft} />
             ))}
           </div>
 

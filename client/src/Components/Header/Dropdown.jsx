@@ -33,7 +33,7 @@ const Dropdown = ({ props, toggleDropdown, isAuthenticated, logout }) => {
             <p>email@gmail.com</p>
           </div>
           <div className={styles.links}>
-            <Link to={"/auth"} className={styles.button}>
+            <Link to={"/signup"} className={styles.button}>
               <FaPlus />
             </Link>
             <Link to={"/login"} className={styles.button}>
