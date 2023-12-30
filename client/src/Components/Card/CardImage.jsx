@@ -11,10 +11,11 @@ const CardImage = (props) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardImage} style={cardStyle}></div>
-      <div className={styles.cardContent}>
+      <div className={styles.cardContent} onClick={props.handleFeedClick}>
         <FaPlay className="text-3xl bg-transparent" />
       </div>
       <CardFooter
+        id={props.id}
         isLiked={props.isLiked}
         isDisliked={props.isDisliked}
         isBookmarked={props.isBookmarked}

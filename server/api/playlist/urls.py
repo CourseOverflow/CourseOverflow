@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('<int:userId>/<int:playlistId>/',
          views.getPlaylist, name='getPlaylist'),
+    path('search/', views.search, name='search'),
     path('recommended/', views.recommended, name='recommended'),
     path('popular/', views.popular, name='popular'),
     path('recent-uploads/', views.recent_uploads, name='recent_uploads'),
