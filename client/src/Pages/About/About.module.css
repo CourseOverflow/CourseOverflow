@@ -1,5 +1,4 @@
-.container {
-  /* add 10px to remove the scrollbar color from bg */
+/* .container {
   width: 100vw+10px;
   height: 100vh;
   background-color: transparent;
@@ -15,4 +14,7 @@
   scroll-snap-align: start;
   background-color: transparent;
   z-index: 2;
+} */
+.dummy {
+  height: 50px;
 }

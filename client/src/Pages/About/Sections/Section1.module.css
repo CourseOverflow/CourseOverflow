@@ -1,6 +1,56 @@
 .container {
-  max-width: 100vw;
-  max-height: 100vh;
-  background-color: var(--hover);
-  /* overflow: scroll; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh - 50px;
+  width: 100vw;
+  background-color: var(--base);
+}
+.jumbo {
+  height: calc(100vh - 50px);
+  width: 80vw;
+  justify-content: center;
+  text-align: center;
+}
+.hero {
+  margin: 10rem 0 1rem 0;
+  font-weight: 900;
+  font-size: 4.5rem;
+  text-transform: uppercase;
+  color: #3b365e;
+}
+.heroChild {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5rem;
+  margin-bottom: 0;
+  color: #8b64b4;
+}
+.btnGrp {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.mirrorGlowBtn {
+  margin: 0 1rem;
+  display: inline-block; /* Ensures it behaves like a block element */
+  padding: 15px 30px;
+  color: #03e9f4;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.4s all ease-in;
+  letter-spacing: 4px;
+  overflow: hidden;
+  border: 2px solid #03e9f4;
+}
+
+.mirrorGlowBtn:hover {
+  background: #03e9f4;
+  color: #050801;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    0 0 200px #03e9f4;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
 }

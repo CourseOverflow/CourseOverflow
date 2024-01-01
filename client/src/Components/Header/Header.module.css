@@ -1,11 +1,73 @@
+:root {
+  --color-primary: var(--theme);
+  --color-primary-light: #66bb6a;
+  --color-text-light: snow;
+}
+
 .container {
   padding: 10px 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-bottom: var(--box) 1px solid;
+  border-bottom: var(--box) 1px solid; /* Assuming --box is another variable */
   position: fixed;
   z-index: 1000;
   width: 100%;
+}
+.btnGrp {
+  background-color: transparent;
+}
+
+.glowBtn {
+  margin: 0 10px;
+  background-color: transparent;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 5px;
+  color: var(--color-text-light);
+  cursor: pointer;
+  font-size: large;
+  letter-spacing: 0.1em;
+  outline: none;
+  padding: 2px 7px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.glowBtn:hover {
+  animation: glow 1s ease-in infinite;
+}
+
+.glowBtn::before {
+  animation: glow 1s ease-in infinite;
+  background: var(--color-primary);
+  border-radius: inherit;
+  content: "";
+  filter: blur(10px);
+  opacity: 0.75;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.glowBtn:hover::before {
+  filter: blur(20px);
+  opacity: 1;
+}
+
+@keyframes glow {
+  0% {
+    background: var(--color-primary);
+  }
+  25% {
+    background: var(--color-primary-light);
+  }
+  100% {
+    background: var(--color-primary);
+  }
 }

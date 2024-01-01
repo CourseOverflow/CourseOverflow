@@ -1,15 +1,17 @@
 import React from "react";
 import styles from "./Section1.module.css";
-import Markdown from "..//Markdown.jsx";
+
 const Section1 = () => {
   return (
-    <div className={`${styles.container}`}>
-      <img
-        src="https://i.imgur.com/2Z3Q1ZP.png"
-        alt="CourseOverflow Logo"
-        className={`${styles.logo}`}
-      />
-      {/* <Markdown /> */}
+    <div className={styles.container}>
+      <div className={styles.jumbo}>
+        <h1 className={styles.hero}>Make Your Study Playlist at ease.</h1>
+        <p className={styles.heroChild}>From Students for Students</p>
+        <div className={styles.btnGrp}>
+          <button className={styles.mirrorGlowBtn}>Sign up for free</button>
+          <button className={styles.mirrorGlowBtn}>Contact us</button>
+        </div>
+      </div>
     </div>
   );
 };

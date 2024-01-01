@@ -7,9 +7,23 @@ import styles from "./Header.module.css";
 const Header = (props) => {
   return (
     <nav className={`${styles.container}`}>
-      <CourseOverflow toggleSidebar={props.toggleSidebar} closeSidebar={props.closeSidebar}/>
-      <SearchBar />
-      <User username={"SlimeMaster"} />
+      <CourseOverflow
+        isAboutPage={props.isAboutPage}
+        toggleSidebar={props.toggleSidebar}
+        closeSidebar={props.closeSidebar}
+      />
+      {!props.isAboutPage ? (
+        <>
+          <SearchBar /> <User username={"SlimeMaster"} />
+        </>
+      ) : (
+        <>
+          <div className={`${styles.btnGrp}`}>
+            <button className={`${styles.glowBtn}`}> Sign up</button>
+            <button className={`${styles.glowBtn}`}> Contact us</button>
+          </div>
+        </>
+      )}
     </nav>
   );
 };

@@ -10,6 +10,7 @@ const MainLayout = (props) => {
   return (
     <>
       <Header
+        isAboutPage={false}
         toggleSidebar={() => {
           setIsOpen(!isOpen);
         }}

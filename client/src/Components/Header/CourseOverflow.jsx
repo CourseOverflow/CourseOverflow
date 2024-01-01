@@ -6,8 +6,16 @@ import { Link } from "react-router-dom";
 const CourseOverflow = (props) => {
   return (
     <div className={styles.container}>
-      <FaBars onClick={props.toggleSidebar} className={styles.FaBars} />
-      <Link onClick={props.closeSidebar} className={styles.link} to={"/CourseOverflow"}>
+      {!props.isAboutPage ? (
+        <FaBars onClick={props.toggleSidebar} className={styles.FaBars} />
+      ) : (
+        <></>
+      )}
+      <Link
+        onClick={props.closeSidebar}
+        className={styles.link}
+        to={"/CourseOverflow"}
+      >
         <img
           src={process.env.PUBLIC_URL + "/slimyLogo.png"}
           alt="Course Overflow Logo"
