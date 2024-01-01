@@ -5,19 +5,18 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, name, password=None, is_staff=False, is_superuser=False):
+    def create_user(self, email, password=None, is_staff=False, is_superuser=False, **extra_fields):
         if not email:
             raise ValueError("Users must have an email address")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name,
-                          is_staff=is_staff, is_superuser=is_superuser)
+        user = self.model(email=email, is_staff=is_staff, is_superuser=is_superuser, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, name, password=None, **extra_fields):
+    def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -26,12 +25,14 @@ class UserAccountManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(email, name, password, **extra_fields)
+        return self.create_user(email,  password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, blank=True, null=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     profilePicture = models.TextField(blank=True, null=True)
@@ -42,18 +43,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def save(self, *args, **kwargs):
-        if not self.profilePicture and self.name:
-            self.profilePicture = f"https://via.placeholder.com/150?text={self.name[0]}"
+        if not self.username:
+            # Generate username as first_name + '_' + user_id
+            self.username = f"{self.first_name.lower()}_{self.id}"
+
+        if not self.profilePicture and self.first_name:
+            self.profilePicture = f"https://via.placeholder.com/150?text={self.first_name[0]}"
+
         super().save(*args, **kwargs)
 
     def get_full_name(self):
-        return self.name
+        return self.first_name
 
     def get_short_name(self):
-        return self.name
+        return self.first_name
 
     def __str__(self):
         return self.email

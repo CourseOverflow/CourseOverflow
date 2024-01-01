@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./User.module.css";
 import Dropdown from "./Dropdown";
 import { connect } from "react-redux";
 
-const User = ({ props, logout, isAuthenticated }) => {
+const User = ({ props, logout, isAuthenticated, user }) => {
   const [dropdown, setDropdown] = React.useState(false);
+  // Log user details if available
+  useEffect(() => {
+    if (user) {
+      console.log("User details:", user);
+    }
+  }, [user]);
 
   const toggleDropdown = () => {
     console.log("dropdown toggle: " + !dropdown);

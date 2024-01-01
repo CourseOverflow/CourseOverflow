@@ -4,6 +4,7 @@ import styles from "./Auth.module.css";
 import { signup } from "../../Actions/Auth";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = ({ signup, isAuthenticated }) => {
   const [accountCreated, setAccountCreated] = useState(false);
@@ -18,6 +19,18 @@ const Signup = ({ signup, isAuthenticated }) => {
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const continueWithGoogle = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/auth/o/google-oauth2/?redirect_uri=http://localhost:3000/`
+      );
+      console.log(res.data);
+      window.location.replace(res.data.authorization_url);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -147,7 +160,7 @@ const Signup = ({ signup, isAuthenticated }) => {
               alt="Google Logo"
               className={styles.googleLogo}
             />
-            <button type="submit">Continue with Google</button>
+            <button onClick={continueWithGoogle}>Continue with Google</button>
           </div>
         </div>
       </form>
