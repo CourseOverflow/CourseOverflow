@@ -20,7 +20,8 @@ const Card = (props) => {
     }
   };
 
-  const handleFeedClick = async (id) => {
+  const handleFeedClick = async () => {
+    const id = props.data.id;
     if (props.isDraft) {
       navigate(`/create?draftId=${id}`);
       return;
@@ -35,8 +36,9 @@ const Card = (props) => {
   );
 
   return (
-    <div key={props.data.id} onClick={() => handleFeedClick(props.data.id)}>
+    <div key={props.data.id}>
       <CardImage
+        id={props.data.id}
         image={props.data.thumbnail}
         likes={props.data.likes}
         dislikes={props.data.dislikes}
@@ -44,11 +46,20 @@ const Card = (props) => {
         isDisliked={props.data.isDisliked}
         isBookmarked={props.data.isBookmarked}
         watchPercentage={watchPercentage}
+        handleFeedClick={handleFeedClick}
       />
       <div className={styles.cardDetails}>
-        <h1 className={styles.title}>{props.data.title}</h1>
-        <p className={styles.author}>{props.data.authorId}</p>
+        <div className={styles.profilePic}>
+          <img src={props.data.authorProfile} alt="Author Profile" />
+        </div>
+        <div className={styles.textDetails}>
+          <h1 className={styles.title}>{props.data.title}</h1>
+          <p className={styles.author}>{props.data.authorName}</p>
+        </div>
       </div>
+      <p className={styles.views}>
+        {props.data.duration} | {props.data.views} views
+      </p>
     </div>
   );
 };

@@ -18,16 +18,16 @@ const Home = (props) => {
     []
   );
   const [loading, setLoading] = useState(true);
-
+  const userId = 2;
   useEffect(() => {
     const fetchRecommendedPlaylistData = axios.get(
-      `${baseURL}/api/playlist/recommended/`
+      `${baseURL}/api/playlist/recommended/?userId=${userId}`
     );
     const fetchPopularPlaylistData = axios.get(
-      `${baseURL}/api/playlist/popular/`
+      `${baseURL}/api/playlist/popular/?userId=${userId}`
     );
     const fetchRecentUploadsPlaylistData = axios.get(
-      `${baseURL}/api/playlist/recent-uploads/`
+      `${baseURL}/api/playlist/recent-uploads/?userId=${userId}`
     );
 
     Promise.all([
@@ -51,7 +51,7 @@ const Home = (props) => {
   if (loading) {
     return <HomeSkeleton />;
   }
-
+  console.log(recommendedPlaylistData);
   const feedList = [
     {
       id: 1,

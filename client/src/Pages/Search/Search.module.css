@@ -30,6 +30,7 @@
   flex-direction: column;
   margin-left: 16px;
   overflow: hidden;
+  width: 100%;
 }
 
 .title {
@@ -47,8 +48,19 @@
   white-space: normal;
 }
 
-.authorContainer {
+.headline {
   display: flex;
+  flex-direction: row;
+}
+
+.headline > img {
+  height: 40px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.titleAuthor {
+  flex-direction: column;
   align-items: center;
   margin-top: 5px;
 }

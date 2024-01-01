@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import styles from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
-
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(searchValue);
+    if (!searchValue) return;
     setSearchValue("");
+    navigate(`/search?query=${searchValue}`);
   };
 
   return (
@@ -21,11 +22,9 @@ const SearchBar = () => {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      <Link to="/search">
-        <button type="submit" className={styles["search-button"]}>
-          <FaSearch className="bg-transparent" />
-        </button>
-      </Link>
+      <button type="submit" className={styles["search-button"]}>
+        <FaSearch className="bg-transparent" />
+      </button>
     </form>
   );
 };

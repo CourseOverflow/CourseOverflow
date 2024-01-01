@@ -32,7 +32,9 @@
     "react-scripts": "5.0.1",
     "tw-elements-react": "^1.0.0-alpha1",
     "uuid": "^9.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

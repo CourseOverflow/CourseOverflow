@@ -1,11 +1,10 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from api.models import Playlist, User, PlaylistInteraction, Draft
+from api.models import Playlist, VideoOrder, User, PlaylistInteraction, Draft
 from api.serializers import PlaylistSerializer, UserSerializer, VideoSerializer, VideoOrderSerializer
 from rest_framework import status
-from PyPDF2 import PdfFileReader
-from django.http import JsonResponse
+from django.db.models import Q, Count
 from datetime import datetime, timedelta
 
 
@@ -32,23 +31,115 @@ def getPlaylist(request, userId, playlistId):
 
 
 @api_view(['GET'])
-def recommended(request):
-    playlists = Playlist.objects.order_by('dislikes')[:10]
+def search(request):
+    userId = request.query_params.get('userId')
+    query = request.query_params.get('query')
+    playlists = Playlist.objects.filter(
+        Q(title__icontains=query) |
+        Q(authorId__name__icontains=query) |
+        Q(desc__icontains=query)
+    )
     serializer = PlaylistSerializer(playlists, many=True)
+    user = User.objects.get(id=userId)
+    for playlist in serializer.data:
+        playlist_interaction, created = PlaylistInteraction.objects.get_or_create(
+            userId=user,
+            playlistId=playlist['id']
+        )
+        playlist['isLiked'] = playlist_interaction.isLiked
+        playlist['isDisliked'] = playlist_interaction.isDisliked
+        playlist['isBookmarked'] = playlist_interaction.isBookmarked
+        playlist['watchCount'] = len(playlist_interaction.watched)
+        video_count = VideoOrder.objects.filter(
+            playlistId=playlist['id']).count()
+        playlist['videoCount'] = video_count
+        playlist['authorName'] = user.name
+        playlist['authorProfile'] = user.profilePicture
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def recommended(request):
+    user = User.objects.get(id=request.query_params['userId'])
+    liked_playlists = PlaylistInteraction.objects.filter(
+        userId=user, isLiked=True).values_list('playlistId', flat=True)
+    similar_users = PlaylistInteraction.objects.filter(
+        playlistId__in=liked_playlists, isLiked=True
+    ).values('userId').annotate(common_likes=Count('playlistId')).order_by('-common_likes')[:5]
+    recommended_playlists = PlaylistInteraction.objects.filter(
+        userId__in=[user['userId'] for user in similar_users], isLiked=True
+    ).exclude(playlistId__in=liked_playlists).values('playlistId').annotate(likes=Count('userId')).order_by('-likes')[:10]
+    if not recommended_playlists:
+        popular_playlists = Playlist.objects.order_by('-likes')[:10]
+        serializer = PlaylistSerializer(popular_playlists, many=True)
+    else:
+        recommended_playlists = Playlist.objects.filter(
+            id__in=[playlist['playlistId']
+                    for playlist in recommended_playlists]
+        )
+        serializer = PlaylistSerializer(recommended_playlists, many=True)
+
+    for playlist in serializer.data:
+        playlist_interaction, created = PlaylistInteraction.objects.get_or_create(
+            userId=user,
+            playlistId=playlist['id']
+        )
+        playlist['isLiked'] = playlist_interaction.isLiked
+        playlist['isDisliked'] = playlist_interaction.isDisliked
+        playlist['isBookmarked'] = playlist_interaction.isBookmarked
+        playlist['watchCount'] = len(playlist_interaction.watched)
+        video_count = VideoOrder.objects.filter(
+            playlistId=playlist['id']).count()
+        playlist['videoCount'] = video_count
+        playlist['authorName'] = user.name
+        playlist['authorProfile'] = user.profilePicture
+
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def popular(request):
+    user = User.objects.get(id=request.query_params['userId'])
     playlists = Playlist.objects.order_by('-likes')[:10]
     serializer = PlaylistSerializer(playlists, many=True)
+    for playlist in serializer.data:
+        playlist_interaction, created = PlaylistInteraction.objects.get_or_create(
+            userId=user,
+            playlistId=playlist['id']
+        )
+        playlist['isLiked'] = playlist_interaction.isLiked
+        playlist['isDisliked'] = playlist_interaction.isDisliked
+        playlist['isBookmarked'] = playlist_interaction.isBookmarked
+        playlist['watchCount'] = len(playlist_interaction.watched)
+        video_count = VideoOrder.objects.filter(
+            playlistId=playlist['id']).count()
+        playlist['videoCount'] = video_count
+        playlist['authorName'] = user.name
+        playlist['authorProfile'] = user.profilePicture
+
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def recent_uploads(request):
+    user = User.objects.get(id=request.query_params['userId'])
     playlists = Playlist.objects.order_by('-created_at')[:10]
     serializer = PlaylistSerializer(playlists, many=True)
+    for playlist in serializer.data:
+        playlist_interaction, created = PlaylistInteraction.objects.get_or_create(
+            userId=user,
+            playlistId=playlist['id']
+        )
+        playlist['isLiked'] = playlist_interaction.isLiked
+        playlist['isDisliked'] = playlist_interaction.isDisliked
+        playlist['isBookmarked'] = playlist_interaction.isBookmarked
+        playlist['watchCount'] = len(playlist_interaction.watched)
+        video_count = VideoOrder.objects.filter(
+            playlistId=playlist['id']).count()
+        playlist['videoCount'] = video_count
+        playlist['authorName'] = user.name
+        playlist['authorProfile'] = user.profilePicture
+
     return Response(serializer.data)
 
 
