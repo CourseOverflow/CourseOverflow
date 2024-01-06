@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#dx*ef^j(+zy0^1o(ye7us6w5a8r7z9i-ggi*hi#*+(k+!nj4^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'api',
     'rest_framework_simplejwt.token_blacklist',
-'rest_framework.authtoken',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -160,8 +160,8 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
 }
 
-DOMAIN = ('localhost:3000') 
-SITE_NAME = ('CourseOverflow') 
+DOMAIN = ('localhost:3000')
+SITE_NAME = ('CourseOverflow')
 
 DJOSER = {
     'LOGIN_FIELD': 'email',

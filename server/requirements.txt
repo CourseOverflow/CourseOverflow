@@ -1,0 +1,5 @@
+Django==4.2.7
+djangorestframework==3.14.0
+djoser==2.2.2
+google_api_python_client==2.108.0
+PyPDF2==3.0.1
