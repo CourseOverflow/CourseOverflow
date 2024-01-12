@@ -1,20 +1,18 @@
-/* .container {
-  width: 100vw+10px;
-  height: 100vh;
+.container {
+  width: 100%;
   background-color: transparent;
   overflow-x: hidden;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  /* scroll-snap-type: y mandatory;
+  overflow-y: scroll; */
+  height: 100vh;
+  -webkit-overflow-scrolling: touch;
 }
 
 .section {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
   scroll-snap-align: start;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
   background-color: transparent;
   z-index: 2;
-} */
-.dummy {
-  height: 50px;
 }

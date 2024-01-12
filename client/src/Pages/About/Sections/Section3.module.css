@@ -1,0 +1,253 @@
+.glow {
+  height: 1px;
+  background: #03e9f4;
+  color: #050801;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    0 0 200px #03e9f4;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+
+.header {
+  margin-top: 80px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: 800;
+}
+
+.container {
+  align-items: center;
+  background-color: var(--base);
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+}
+
+.allCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.allCards:hover > .card::after {
+  opacity: 1;
+}
+
+.card {
+  width: calc(70vh * 1);
+  height: 70vh;
+  aspect-ratio: 1 / 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card::before,
+.card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+}
+
+.card::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  z-index: 3;
+}
+
+.card::after {
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.4),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+.card-cursor {
+  background-color: var(--base);
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  inset: 1px;
+  padding: 10px;
+  position: absolute;
+  z-index: 2;
+}
+
+/* -- ↓ ↓ ↓ extra card content styles ↓ ↓ ↓ -- */
+
+.card-content {
+  background-color: transparent;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  inset: 1px;
+  padding: 10px;
+  position: absolute;
+  z-index: 4;
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: transparent;
+}
+
+.cardTop > img {
+  background-color: transparent;
+  width: 50%;
+  object-fit: cover;
+}
+
+.cardTopText {
+  background-color: transparent;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.cardTopText > h1 {
+  background-color: transparent;
+  color: var(--base-text);
+  font-size: 3rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.cardTopText > p {
+  background-color: transparent;
+  color: var(--text);
+  margin: 0px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: 450;
+}
+
+.card-content > h1 {
+  background-color: transparent;
+  font-size: 1.2rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  margin: 30px;
+}
+
+.cardTopIcons {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.cardTopIcons > a {
+  background-color: transparent;
+}
+
+.cardTopIcons > a > svg {
+  background-color: transparent;
+  fill: var(--base-text);
+  font-size: 2rem;
+}
+
+@media only screen and (max-width: 1500px) {
+  .card {
+    height: 60vh;
+    width: 40vw;
+  }
+  .cardTopText > h1 {
+    font-size: 2rem;
+  }
+  .cardTopText > p {
+    font-size: 1rem;
+  }
+  .cardTopIcons > a > svg {
+    font-size: 1.5rem;
+  }
+  .card-content > h1 {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .allCards {
+    flex-direction: column;
+  }
+  .card {
+    width: 90vw;
+    height: 90vw;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .card {
+    width: 90vw;
+    height: 90vw;
+  }
+  .cardTopText > h1 {
+    font-size: 1.5rem;
+  }
+  .cardTopText > p {
+    font-size: 0.8rem;
+  }
+  .cardTopIcons > a > svg {
+    font-size: 1.2rem;
+  }
+  .card-content > h1 {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .card {
+    width: 90vw;
+    height: 800px;
+  }
+  .cardTop {
+    flex-direction: column;
+  }
+  .cardTop > img {
+    width: 90%;
+  }
+  .cardTopText {
+    text-align: center;
+  }
+  .cardTopText > h1 {
+    margin-top: 20px;
+    font-size: 2rem;
+  }
+  .cardTopText > p {
+    font-size: 1rem;
+  }
+  .cardTopIcons > a > svg {
+    font-size: 1.5rem;
+  }
+  .card-content > h1 {
+    font-size: 1rem;
+  }
+}

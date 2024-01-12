@@ -1,9 +1,11 @@
 .title {
-  margin-top: 50px;
+  margin-top: 80px;
+  margin-bottom: 30px;
   text-align: center;
   font-size: xx-large;
   font-weight: 800;
 }
+
 .glow {
   height: 1px;
   background: #03e9f4;

@@ -1,55 +1,58 @@
 import React, { useEffect } from "react";
 import styles from "./Features.module.css";
-//import react icons
-import {
-  FaCircle,
-  FaSearch,
-  FaUser,
-  FaChevronCircleDown,
-} from "react-icons/fa";
+import { FaSearch, FaUser } from "react-icons/fa";
+import { RiPlayListAddLine } from "react-icons/ri";
+import { GoDiscussionClosed } from "react-icons/go";
+import { IoAnalyticsSharp } from "react-icons/io5";
+import { SiLetsencrypt } from "react-icons/si";
 
 const cardData = [
   {
     key: 1,
-    image: process.env.PUBLIC_URL + "/images/features/transparentSearch.jpg",
-    icon: <FaSearch />,
-    title: "Powerful search",
-    description: "Find anything across your courses",
+    image: process.env.PUBLIC_URL + "/images/features/createPlaylist.png",
+    icon: <RiPlayListAddLine />,
+    title: "Custom Playlists",
+    description:
+      "Create personalized playlists for a tailored learning experience.",
   },
   {
     key: 2,
-    image: process.env.PUBLIC_URL + "/images/features/transparentSearch.jpg",
-    icon: <FaUser />,
-    title: "User Analytics",
-    description: "Places to be apart. Wait, what?",
+    image: process.env.PUBLIC_URL + "/images/features/transparentSearch.png",
+    icon: <FaSearch />,
+    title: "Powerful Search",
+    description: "Effortlessly find content with our robust search feature.",
   },
   {
     key: 3,
-    image: process.env.PUBLIC_URL + "/images/features/createPlaylist.jpg",
-    icon: <FaChevronCircleDown />,
-    title: "Create Playslists",
-    description: "Places to be apart. Wait, what?",
+    image:
+      process.env.PUBLIC_URL + "/images/features/transparentRecommendation.png",
+    icon: <FaUser />,
+    title: "Recommendations",
+    description: "Discover new content with personalized recommendations.",
   },
   {
     key: 4,
-    image: process.env.PUBLIC_URL + "/images/features/transparentSearch.jpg",
-    icon: <FaCircle />,
-    title: "Apartments",
-    description: "Places to be apart. Wait, what?",
+    image:
+      process.env.PUBLIC_URL + "/images/features/transparentDiscussion.png",
+    icon: <GoDiscussionClosed />,
+    title: "Discussions",
+    description: "Engage in meaningful discussions and connect with others.",
   },
   {
     key: 5,
-    image: process.env.PUBLIC_URL + "/images/features/transparentSearch.jpg",
-    icon: <FaCircle />,
-    title: "Apartments",
-    description: "Places to be apart. Wait, what?",
+    image: process.env.PUBLIC_URL + "/images/features/transparentAnalytics.png",
+    icon: <IoAnalyticsSharp />,
+    title: "User Analytics",
+    description:
+      "Gain insights into your usage patterns for an enhanced experience.",
   },
   {
     key: 6,
-    image: process.env.PUBLIC_URL + "/images/features/transparentSearch.jpg",
-    icon: <FaCircle />,
-    title: "Apartments",
-    description: "Places to be apart. Wait, what?",
+    image: process.env.PUBLIC_URL + "/images/features/transparentSecurity.png",
+    icon: <SiLetsencrypt />,
+    title: "Security and Privacy",
+    description:
+      "Rest easy knowing your data is secure with our privacy measures.",
   },
 ];
 
@@ -58,11 +61,11 @@ const Card = ({ icon, image, title, description }) => {
     <div className={styles.card}>
       <div className={styles["card-content"]}>
         <div className={styles["card-image"]}>
-          <img src={image} alt="apartment" />
+          <img src={image} alt="feature" />
         </div>
         <div className={styles["card-info-wrapper"]}>
           <div className={styles["card-info"]}>
-            {icon}
+            <span className={styles["card-icon"]}>{icon}</span>
             <div className={styles["card-info-title"]}>
               <h3>{title}</h3>
               <h4>{description}</h4>

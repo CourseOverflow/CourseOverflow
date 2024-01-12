@@ -2,12 +2,12 @@
   align-items: center;
   background-color: var(--bg-color);
   display: flex;
-  height: 100vh;
   justify-content: center;
   margin: 0px;
   overflow: hidden;
   padding: 0px;
 }
+
 .allCards {
   display: flex;
   flex-wrap: wrap;
@@ -122,19 +122,26 @@ i {
   gap: 10px;
 }
 
-.card-info > i {
-  font-size: 1em;
-  height: 20px;
-  line-height: 20px;
+.card-icon {
+  display: flex;
+  height: 25px;
+  justify-content: center;
+  width: 25px;
+}
+
+.card-icon > svg {
+  fill: var(--base-text);
+  font-size: large;
 }
 
 .card-info-title > h3 {
+  color: var(--base-text);
   font-size: 1.1em;
   line-height: 20px;
 }
 
 .card-info-title > h4 {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text);
   font-size: 0.85em;
   margin-top: 8px;
 }

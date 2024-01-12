@@ -5,9 +5,7 @@ const Section2 = () => {
   return (
     <div>
       <div className={`${styles.glow}`}></div>
-      <p className={`${styles.title}`}>
-        What all features CourseOverflow offers{" "}
-      </p>
+      <h2 className={styles.title}>Explore the Features of CourseOverflow</h2>
       <Features />
     </div>
   );

@@ -1,11 +1,3 @@
-1 user log in responsiveness
-2 top right username UI
-3 previw card read more
-4 play page description UI
-5 about page
-6 django setup
-7 write database model
-
 image upload line 113
 aspect ratio of the uploaded image should be 16 / 9. we may
 need to use a service for that.
