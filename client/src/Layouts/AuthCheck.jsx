@@ -9,7 +9,7 @@ const AuthCheck = (props) => {
     props.checkAuthenticated();
     props.load_user();
     // console.log("AuthCheck");
-  }, []);
+  }, [props]);
   return (
     <>
       <Login />

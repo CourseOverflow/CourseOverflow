@@ -31,7 +31,7 @@ const Login = ({ login, isAuthenticated }) => {
   const navigate = useNavigate();
 
   if (isAuthenticated) {
-    navigate("/CourseOverflow"); // Navigate if authenticated
+    navigate("/"); // Navigate if authenticated
     return null; // Or return something else if needed
   }
   return (

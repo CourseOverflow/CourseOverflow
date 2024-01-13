@@ -6,7 +6,7 @@ import CreatePlaylist from "./Pages/CreatePlaylist/CreatePlaylist";
 import Play from "./Pages/Play/Play";
 import Search from "./Pages/Search/Search";
 import About from "./Pages/About/About";
-import Login from "./Pages/Auth/Login";
+// import Login from "./Pages/Auth/Login";
 import AuthCheck from "./Layouts/AuthCheck";
 import Signup from "./Pages/Auth/Signup";
 import ResetPassword from "./Pages/Auth/ResetPassword";
@@ -14,7 +14,6 @@ import ResetPasswordConfirm from "./Pages/Auth/ResetPasswordConfirm";
 import Activate from "./Pages/Auth/Activate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Auth from "./Pages/Auth/Auth";
-import Rat from "./Pages/Rat/Rat";
 import styles from "./App.module.css";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -25,7 +24,7 @@ const App = () => {
       <BrowserRouter className={styles.app}>
         <Routes>
           <Route
-            path="/CourseOverflow"
+            path="/"
             element={
               <MainLayout overlay={false}>
                 <Home />
@@ -78,7 +77,6 @@ const App = () => {
             element={<ResetPasswordConfirm />}
           />
           <Route path="/activate/:uid/:token" element={<Activate />} />
-          <Route path="/rat" element={<Rat />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>

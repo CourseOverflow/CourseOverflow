@@ -12,7 +12,7 @@ const Step1 = () => {
     if (titleInput) {
       titleInput.focus();
     }
-  }, []);
+  }, [setBackStatus, playlistData.title.length]);
 
   return (
     <div className={styles.flexContainer}>

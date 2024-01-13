@@ -46,7 +46,7 @@ const CreatePlaylist = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [draftId, setPlaylistData, setSearchParams, setNextStatus]);
 
   return (
     <PlaylistContext.Provider

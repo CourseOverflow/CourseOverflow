@@ -33,7 +33,7 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
   const navigate = useNavigate();
 
   if (requestSent) {
-    navigate("/CourseOverflow"); // Navigate if authenticated
+    navigate("/"); // Navigate if authenticated
     return null; // Or return something else if needed
   }
   return (

@@ -159,7 +159,7 @@ export const reset_password = (email) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  const body = JSON.stringify({ email });
+  // const body = JSON.stringify({ email });
   try {
     const res = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/auth/users/reset_password/`,

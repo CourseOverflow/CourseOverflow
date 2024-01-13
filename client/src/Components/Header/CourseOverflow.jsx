@@ -11,11 +11,7 @@ const CourseOverflow = (props) => {
       ) : (
         <></>
       )}
-      <Link
-        onClick={props.closeSidebar}
-        className={styles.link}
-        to={"/CourseOverflow"}
-      >
+      <Link onClick={props.closeSidebar} className={styles.link} to={"/"}>
         <img
           src={process.env.PUBLIC_URL + "/slimyLogo.png"}
           alt="Course Overflow Logo"

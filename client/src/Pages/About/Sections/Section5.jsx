@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Section5.module.css";
-import Success from "../../../Components/Alterts/Success";
+// import Success from "../../../Components/Alterts/Success";
 
 const Section5 = () => {
   const [email, setEmail] = useState("");

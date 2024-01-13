@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CardFooter.module.css";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
+// import axios from "axios";
+// import baseURL from "../../Config/apiConfig.js";
 import {
   FaThumbsUp,
   FaRegThumbsUp,
