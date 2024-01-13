@@ -18,7 +18,7 @@ const Home = (props) => {
     []
   );
   const [loading, setLoading] = useState(true);
-  const userId = 2;
+  const userId = 1;
   useEffect(() => {
     const fetchRecommendedPlaylistData = axios.get(
       `${baseURL}/api/playlist/recommended/?userId=${userId}`

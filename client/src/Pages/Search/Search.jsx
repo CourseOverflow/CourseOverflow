@@ -6,7 +6,7 @@ import axios from "axios";
 import baseURL from "../../Config/apiConfig.js";
 
 const Search = () => {
-  const userId = 2;
+  const userId = 1;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [SearchData, setSearchData] = useState([]);

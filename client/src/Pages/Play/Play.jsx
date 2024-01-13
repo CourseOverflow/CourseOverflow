@@ -9,7 +9,7 @@ import axios from "axios";
 import baseURL from "../../Config/apiConfig.js";
 
 const Play = () => {
-  const userId = 2;
+  const userId = 1;
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const playlistId = searchParams.get("playlistId");

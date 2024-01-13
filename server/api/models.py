@@ -45,8 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['name']
 
     def save(self, *args, **kwargs):
-        if not self.profilePicture and self.username:
-            self.profilePicture = f"https://via.placeholder.com/150?text={self.username[0]}"
+        if not self.profilePicture and self.name:
+            self.profilePicture = f"https://via.placeholder.com/150?text={self.name[0]}"
         super().save(*args, **kwargs)
 
     def get_full_name(self):

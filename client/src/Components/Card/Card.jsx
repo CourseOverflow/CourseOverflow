@@ -7,7 +7,7 @@ import baseURL from "../../Config/apiConfig.js";
 
 const Card = (props) => {
   const navigate = useNavigate();
-  const userId = 2;
+  const userId = 1;
   const getLastWatched = async (playlistId) => {
     try {
       const response = await axios.get(

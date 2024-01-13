@@ -29,3 +29,5 @@ yarn-error.log*
 *.pyd
 db.sqlite3
 media/
+.venv/
+.vercel

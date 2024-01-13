@@ -13,7 +13,7 @@ const Comment = ({
   updateCommentInteraction,
   updateReplyInteraction,
 }) => {
-  const userId = 2;
+  const userId = 1;
 
   const replies = comment.thread;
   const [openReplies, setOpenReplies] = useState(false);

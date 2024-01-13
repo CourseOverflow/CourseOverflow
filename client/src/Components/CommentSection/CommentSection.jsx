@@ -6,7 +6,7 @@ import axios from "axios";
 import baseURL from "../../Config/apiConfig";
 
 const CommentSection = (props) => {
-  const userId = 2;
+  const userId = 1;
   const username = "testuser";
   const userProfile = process.env.PUBLIC_URL + "/logo.png";
 

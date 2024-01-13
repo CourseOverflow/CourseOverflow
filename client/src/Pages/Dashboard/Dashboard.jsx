@@ -9,7 +9,7 @@ import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
 
 const Dashboard = () => {
   // const userId = localStorage.getItem("userId");
-  const userId = 3;
+  const userId = 1;
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
   const [likedPlaylists, setLikedPlaylists] = useState([]);
   const [createdDrafts, setCreatedDrafts] = useState([]);
