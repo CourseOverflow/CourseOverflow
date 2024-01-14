@@ -49,7 +49,12 @@ const Home = (props) => {
   }, []);
 
   if (loading) {
-    return <HomeSkeleton />;
+    return (
+      <div className={styles.container}>
+        <ImageSlider images={images} />
+        <HomeSkeleton />
+      </div>
+    );
   }
   console.log(recommendedPlaylistData);
   const feedList = [

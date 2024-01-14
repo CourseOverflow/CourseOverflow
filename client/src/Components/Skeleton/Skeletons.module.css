@@ -1,0 +1,64 @@
+.home {
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.home__title {
+  display: flex;
+  flex-direction: column;
+}
+
+.home__cards {
+  display: flex;
+  flex-direction: row;
+}
+
+.top {
+  display: flex;
+  margin-bottom: 1rem;
+  width: 100%;
+  gap: 1rem;
+}
+
+.video {
+  width: 70%;
+}
+
+.playlist {
+  margin-bottom: 15px;
+  width: 30%;
+}
+
+.left {
+  width: 40%;
+  height: 300px;
+}
+
+.right {
+  height: 300px;
+  width: 60%;
+}
+
+.height {
+  height: 300px;
+}
+
+.half {
+  width: 50%;
+  margin: 20px;
+  border: 1px solid var(--skeleton);
+  border-radius: 5px;
+  padding: 20px;
+  height: 300px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}

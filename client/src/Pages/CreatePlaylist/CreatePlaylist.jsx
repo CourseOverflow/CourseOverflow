@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CreatePlaylist.module.css";
 import CreateHeader from "../../Components/StepForm/FormHeader/CreateHeader";
 import Step1 from "../../Components/StepForm/StepPages/Step1";
@@ -9,6 +9,7 @@ import { PlaylistContext, usePlaylist } from "../../Contexts/PlaylistContext";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import baseURL from "../../Config/apiConfig.js";
+import CreateSkeleton from "../../Components/Skeleton/CreateSkeleton.jsx";
 
 const CreatePlaylist = () => {
   const {
@@ -25,11 +26,13 @@ const CreatePlaylist = () => {
   } = usePlaylist();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(true);
   const draftId = searchParams.get("draftId");
 
   useEffect(() => {
     const fetchData = async () => {
       if (draftId) {
+        setLoading(true);
         try {
           const response = await axios.get(
             `${baseURL}/api/draft/get-draft/?draftId=${draftId}`
@@ -46,6 +49,7 @@ const CreatePlaylist = () => {
       }
     };
     fetchData();
+    setLoading(false);
   }, [draftId, setPlaylistData, setSearchParams, setNextStatus]);
 
   return (
@@ -66,9 +70,15 @@ const CreatePlaylist = () => {
       <div className={styles.container}>
         <div className={styles["createPlaylist-container"]}>
           <CreateHeader />
-          {stepNumber === 1 && <Step1 />}
-          {stepNumber === 2 && <Step2 />}
-          {stepNumber === 3 && <Step3 />}
+          {loading ? (
+            <CreateSkeleton />
+          ) : (
+            <>
+              {stepNumber === 1 && <Step1 />}
+              {stepNumber === 2 && <Step2 />}
+              {stepNumber === 3 && <Step3 />}
+            </>
+          )}
           <hr className={styles["createDivider"]} />
           <FooterBar setSearchParams={setSearchParams} />
         </div>

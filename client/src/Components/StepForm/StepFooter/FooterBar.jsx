@@ -5,6 +5,7 @@ import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 import baseURL from "../../../Config/apiConfig";
 
 const FooterBar = ({ setSearchParams }) => {
+  console.log("baseURL:", baseURL);
   const navigate = useNavigate();
   const {
     stepNumber,
