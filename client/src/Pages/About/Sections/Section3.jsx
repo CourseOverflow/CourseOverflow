@@ -73,11 +73,7 @@ const Section3 = () => {
             onClick={() => console.log("card")}
             name="Pradyumna"
             image={process.env.PUBLIC_URL + "/pradyDev.png"}
-            bio="lorem ipsum dolor sit amet, consectetur adipiscing
-            elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. lorem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua."
+            bio="I am a full stack developer with a keen interest in web development and competitive programming. I am a quick learner and a team player. I am always ready to learn new technologies and implement them in my projects. I am a self motivated person and I am always ready to take up new challenges."
             github="https://github.com/prady8339"
             linkedin="https://www.linkedin.com/in/prady8339/"
             leetcode="https://leetcode.com/prady8339/"

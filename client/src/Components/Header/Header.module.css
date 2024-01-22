@@ -1,5 +1,5 @@
 :root {
-  --color-primary: var(--theme);
+  --color-primary: white;
   --color-primary-light: #66bb6a;
   --color-text-light: snow;
 }
@@ -10,22 +10,23 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-bottom: var(--box) 1px solid; /* Assuming --box is another variable */
+  border-bottom: var(--box) 1px solid;
   position: fixed;
   z-index: 1000;
   width: 100%;
 }
-.btnGrp {
+
+/* .btnGrp {
   background-color: transparent;
 }
 
 .glowBtn {
   margin: 0 10px;
   background-color: transparent;
-  background: var(--color-primary);
+  background: transparent;
   border: none;
   border-radius: 5px;
-  color: var(--color-text-light);
+  color: white;
   cursor: pointer;
   font-size: large;
   letter-spacing: 0.1em;
@@ -41,7 +42,7 @@
 
 .glowBtn::before {
   animation: glow 1s ease-in infinite;
-  background: var(--color-primary);
+  background: transparent;
   border-radius: inherit;
   content: "";
   filter: blur(10px);
@@ -70,4 +71,15 @@
   100% {
     background: var(--color-primary);
   }
+} */
+
+.glowBtn {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  flex-direction: row;
+}
+
+.btnIcon {
+  margin: auto;
 }
