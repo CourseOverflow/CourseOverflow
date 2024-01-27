@@ -1,6 +1,11 @@
 import { createContext, useState, useContext } from "react";
+import { useSelector } from "react-redux";
 
 export const usePlaylist = () => {
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+  const userId = user?.id || 12;
+  console.log(userId);
   const [stepNumber, setStepNumber] = useState(1);
   const [backStatus, setBackStatus] = useState(false);
   const [nextStatus, setNextStatus] = useState(false);
@@ -14,7 +19,7 @@ export const usePlaylist = () => {
     topicList: [],
     videoList: [],
     coursePDF: null,
-    authorId: 2,
+    authorId: userId,
   });
 
   return {

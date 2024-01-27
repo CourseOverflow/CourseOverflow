@@ -16,7 +16,6 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Rat from "./Pages/Rat/Rat";
 import styles from "./App.module.css";
 import { Provider } from "react-redux";
-
 import store from "./store";
 
 const App = () => {

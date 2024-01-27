@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./ProfileHeader.module.css";
 import { FaPen } from "react-icons/fa";
 
-const ProfileHeader = () => {
-  const userId = 2;
+const ProfileHeader = (user) => {
+  const userId = user?.id || 1;
   const loggedInUserId = 2;
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState("SlimeMaster");

@@ -8,7 +8,7 @@ import {
   googleAuthenticate,
 } from "../Actions/Auth";
 
-const AuthCheck = (props) => {
+const AuthCheck = (props, user) => {
   const location = useLocation();
   useEffect(() => {
     const values = queryString.parse(location.search);
@@ -21,6 +21,7 @@ const AuthCheck = (props) => {
     }
     props.checkAuthenticated();
     props.load_user();
+    // console.log(user);
   }, [location]);
 
   return <>{props.children}</>;

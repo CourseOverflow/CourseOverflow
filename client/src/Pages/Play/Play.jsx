@@ -7,9 +7,13 @@ import CommentSection from "../../Components/CommentSection/CommentSection.jsx";
 import PlaySkeleton from "../../Components/Skeleton/PlaySkeleton.jsx";
 import axios from "axios";
 import baseURL from "../../Config/apiConfig.js";
+import { useSelector } from "react-redux";
 
 const Play = () => {
-  const userId = 2;
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+  const userId = user?.id || 1;
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const playlistId = searchParams.get("playlistId");

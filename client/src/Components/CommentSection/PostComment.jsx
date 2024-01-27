@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styles from "./PostComment.module.css";
+import { useSelector } from "react-redux";
 
 const PostComment = (props) => {
   const [comment, setComment] = useState("");
   const [charCount, setCharCount] = useState(0);
+
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+
+  const imgSrc = user
+    ? user.profilePicture
+    : process.env.PUBLIC_URL + "/logo.png";
 
   useEffect(() => {
     setCharCount(comment.length);
@@ -24,7 +32,7 @@ const PostComment = (props) => {
   return (
     <div className={styles["post-comment"]}>
       <img
-        src={process.env.PUBLIC_URL + "/logo.png"}
+        src={imgSrc}
         alt="User"
         className={`${styles["user-image"]} ${props.reply && styles.reply}`}
       />

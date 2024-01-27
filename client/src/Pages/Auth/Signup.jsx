@@ -11,11 +11,12 @@ const Signup = ({ signup, isAuthenticated }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    name: "",
+    first_name: "",
+    last_name: "",
     password: "",
     re_password: "",
   });
-  const { name, email, password, re_password } = formData;
+  const { first_name, last_name, email, password, re_password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,7 +40,7 @@ const Signup = ({ signup, isAuthenticated }) => {
       console.log("Passwords do not match");
     } else {
       console.log("tryingggg to create and account....");
-      signup(name, email, password, re_password);
+      signup(first_name, last_name, email, password, re_password);
       setAccountCreated(true);
     }
   };
@@ -87,19 +88,30 @@ const Signup = ({ signup, isAuthenticated }) => {
             required
           />
 
-          <label htmlFor="name">
-            <b>Your Name</b>
+          <label htmlFor="first_name">
+            <b>First Name</b>
           </label>
           <input
             type="text"
-            placeholder="John Doe"
-            name="name"
-            value={name}
+            placeholder="John"
+            name="first_name"
+            value={first_name}
             onChange={(e) => onChange(e)}
             className={styles.authInput}
             required
           />
-
+          <label htmlFor="last_name">
+            <b>Last Name</b>
+          </label>
+          <input
+            type="text"
+            placeholder="Doe"
+            name="last_name"
+            value={last_name}
+            onChange={(e) => onChange(e)}
+            className={styles.authInput}
+            required
+          />
           <label htmlFor="psw">
             <b>Password</b>
           </label>

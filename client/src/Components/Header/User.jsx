@@ -2,27 +2,31 @@ import React, { useEffect } from "react";
 import styles from "./User.module.css";
 import Dropdown from "./Dropdown";
 import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { load_user } from "../../Actions/Auth";
 
-const User = ({ props, logout, isAuthenticated, user }) => {
-  const [dropdown, setDropdown] = React.useState(false);
-  // Log user details if available
+const User = ({ props, isAuthenticated, logout }) => {
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+
   useEffect(() => {
-    if (user) {
-      console.log("User details:", user);
+    if (isAuthenticated) {
+      load_user();
     }
-  }, [user]);
+  }, [isAuthenticated]);
 
+  const [dropdown, setDropdown] = React.useState(false);
   const toggleDropdown = () => {
-    console.log("dropdown toggle: " + !dropdown);
     setDropdown(!dropdown);
   };
+
   const GuestUser = () => {
     return (
       <>
         <button onClick={toggleDropdown} className={`${styles.container}`}>
           <img
             title="SlimeMaster"
-            src={process.env.PUBLIC_URL + "/logo192.png"}
+            src={process.env.PUBLIC_URL + "/logo.png"}
             alt="User Profile"
             className={`${styles["profile-image"]} `}
           />
@@ -45,17 +49,18 @@ const User = ({ props, logout, isAuthenticated, user }) => {
       <>
         <button onClick={toggleDropdown} className={`${styles.container}`}>
           <img
-            title="SlimeMaster"
-            src={process.env.PUBLIC_URL + "/logo.png"}
+            title="UserName"
+            src={`${user.profilePicture}`}
             alt="User Profile"
             className={`${styles["profile-image"]} `}
           />
-          <span title="SlimeMaster" className={styles.username}>
-            SlimeMaster
+          <span title="UserName" className={styles.username}>
+            {`${user.first_name}`}
           </span>
         </button>
         {dropdown && (
           <Dropdown
+            user={user}
             toggleDropdown={toggleDropdown}
             isAuthenticated={isAuthenticated}
           />
@@ -63,7 +68,7 @@ const User = ({ props, logout, isAuthenticated, user }) => {
       </>
     );
   };
-  return <>{isAuthenticated ? <LoggedInUser /> : <GuestUser />}</>;
+  return <>{isAuthenticated && user ? <LoggedInUser /> : <GuestUser />}</>;
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

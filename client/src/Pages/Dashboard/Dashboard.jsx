@@ -6,10 +6,13 @@ import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import axios from "axios";
 import baseURL from "../../Config/apiConfig.js";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  // const userId = localStorage.getItem("userId");
-  const userId = 3;
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+
+  const userId = user?.id || 1;
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
   const [likedPlaylists, setLikedPlaylists] = useState([]);
   const [createdDrafts, setCreatedDrafts] = useState([]);
@@ -77,7 +80,7 @@ const Dashboard = () => {
     <>
       <div className={styles.top}>
         <div className={styles.profileHeader}>
-          <ProfileHeader />
+          <ProfileHeader user={user} />
         </div>
         <div className={styles.analytics}>
           <Analytics />

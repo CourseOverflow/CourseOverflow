@@ -25,7 +25,7 @@ def getPlaylist(request, userId, playlistId):
 
     author = User.objects.get(id=playlist.authorId.id)
     author_data = UserSerializer(author).data
-    playlist_data['authorName'] = author_data['name']
+    playlist_data['authorName'] = author_data['username']
     playlist_data['authorProfile'] = author_data['profilePicture']
 
     return Response(playlist_data)
