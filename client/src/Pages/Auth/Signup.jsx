@@ -1,24 +1,58 @@
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
+import { signup } from "../../Actions/Auth";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Signup = () => {
+const Signup = ({ signup, isAuthenticated }) => {
+  const [accountCreated, setAccountCreated] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
+    first_name: "",
+    last_name: "",
     password: "",
+    re_password: "",
   });
-  const { email, password } = formData;
+  const { first_name, last_name, email, password, re_password } = formData;
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  const onSubmit = async (e) => {
-    e.prevnetDefault();
-    //login(emiail,password)
+
+  const continueWithGoogle = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/auth/o/google-oauth2/?redirect_uri=http:/localhost:3000/`
+      );
+
+      console.log(res.data);
+      window.location.replace(res.data.authorization_url);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  // is the user authenticated?
-  // redirect them to the dashboard
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== re_password) {
+      console.log("Passwords do not match");
+    } else {
+      console.log("tryingggg to create and account....");
+      signup(first_name, last_name, email, password, re_password);
+      setAccountCreated(true);
+    }
+  };
 
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  if (isAuthenticated) {
+    navigate("/CourseOverflow"); // Navigate if authenticated
+    return null; // Or return something else if needed
+  }
+  if (accountCreated) {
+    navigate("/login");
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -53,6 +87,31 @@ const Signup = () => {
             className={styles.authInput}
             required
           />
+
+          <label htmlFor="first_name">
+            <b>First Name</b>
+          </label>
+          <input
+            type="text"
+            placeholder="John"
+            name="first_name"
+            value={first_name}
+            onChange={(e) => onChange(e)}
+            className={styles.authInput}
+            required
+          />
+          <label htmlFor="last_name">
+            <b>Last Name</b>
+          </label>
+          <input
+            type="text"
+            placeholder="Doe"
+            name="last_name"
+            value={last_name}
+            onChange={(e) => onChange(e)}
+            className={styles.authInput}
+            required
+          />
           <label htmlFor="psw">
             <b>Password</b>
           </label>
@@ -68,7 +127,7 @@ const Signup = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter Password"
-              name="psw"
+              name="password"
               value={password}
               onChange={(e) => onChange(e)}
               minLength={6}
@@ -83,18 +142,15 @@ const Signup = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter Password"
-              name="cpsw"
+              name="re_password"
+              value={re_password}
+              onChange={(e) => onChange(e)}
+              minLength={6}
               required
               className={styles.authInput}
             />
           </div>
-          {/* <label className={styles.rememberBtn}>
-            <input type="checkbox" checked="checked" name="remember" /> Remember
-            me
-          </label>
-          <span className={styles.authPsw}>
-            <a href="/">Forgot password?</a>
-          </span> */}
+
           <button type="submit" className={styles.authButton}>
             Sign up for free
           </button>
@@ -117,12 +173,15 @@ const Signup = () => {
               alt="Google Logo"
               className={styles.googleLogo}
             />
-            <button type="submit">Continue with Google</button>
+            <button onClick={continueWithGoogle}>Continue with Google</button>
           </div>
         </div>
       </form>
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-export default Signup;
+export default connect(mapStateToProps, { signup })(Signup);

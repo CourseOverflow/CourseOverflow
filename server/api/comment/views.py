@@ -22,7 +22,7 @@ def commentSection(request, userId, playlistId):
             comment_data = CommentSerializer(comment).data
             comment_data['thread'] = []
             user_data = UserSerializer(comment.userId).data
-            comment_data['username'] = user_data['name']
+            comment_data['username'] = user_data['username']
             comment_data['userProfile'] = user_data['profilePicture']
             comment_data['isLiked'] = comment_interaction.isLiked if comment_interaction is not None else False
             comment_data['isDisliked'] = comment_interaction.isDisliked if comment_interaction is not None else False
@@ -40,7 +40,7 @@ def commentSection(request, userId, playlistId):
 
                     reply_data = CommentSerializer(comment).data
                     user_data = UserSerializer(comment.userId).data
-                    reply_data['username'] = user_data['name']
+                    reply_data['username'] = user_data['username']
                     reply_data['userProfile'] = user_data['profilePicture']
                     reply_data['isLiked'] = comment_interaction.isLiked if comment_interaction is not None else False
                     reply_data['isDisliked'] = comment_interaction.isDisliked if comment_interaction is not None else False

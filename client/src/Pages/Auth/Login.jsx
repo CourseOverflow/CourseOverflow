@@ -4,6 +4,7 @@ import styles from "./Auth.module.css";
 import { connect } from "react-redux";
 import { login } from "../../Actions/Auth";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -19,8 +20,16 @@ const Login = ({ login, isAuthenticated }) => {
     login(email, password);
   };
 
-  // is the user authenticated?
-  // redirect them to the dashboard
+  const continueWithGoogle = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}/courseOverflow`
+      );
+      window.location.replace(res.data.authorization_url);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -116,7 +125,9 @@ const Login = ({ login, isAuthenticated }) => {
               alt="Google Logo"
               className={styles.googleLogo}
             />
-            <button type="button">Continue with Google</button>
+            <button type="button" onClick={continueWithGoogle}>
+              Continue with Google
+            </button>
           </div>
         </div>
       </form>

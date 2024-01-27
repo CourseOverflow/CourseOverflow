@@ -5,6 +5,7 @@ import CommentFooter from "./CommentFooter";
 import PostComment from "./PostComment";
 import axios from "axios";
 import baseURL from "../../Config/apiConfig";
+import { useSelector } from "react-redux";
 
 const Comment = ({
   comment,
@@ -13,7 +14,9 @@ const Comment = ({
   updateCommentInteraction,
   updateReplyInteraction,
 }) => {
-  const userId = 1;
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+  const userId = user?.id || 1;
 
   const replies = comment.thread;
   const [openReplies, setOpenReplies] = useState(false);

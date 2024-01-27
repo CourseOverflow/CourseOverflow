@@ -12,7 +12,7 @@ import {
 import { logout } from "../../Actions/Auth";
 import { connect } from "react-redux";
 
-const Dropdown = ({ props, toggleDropdown, isAuthenticated, logout }) => {
+const Dropdown = ({ props, toggleDropdown, isAuthenticated, logout, user }) => {
   const [isDark, setIsDark] = React.useState(false);
   const toggleDarkMode = () => {
     console.log("toggle dark mode");
@@ -33,7 +33,7 @@ const Dropdown = ({ props, toggleDropdown, isAuthenticated, logout }) => {
             <p>email@gmail.com</p>
           </div>
           <div className={styles.links}>
-            <Link to={"/auth"} className={styles.button}>
+            <Link to={"/signup"} className={styles.button}>
               <FaPlus />
             </Link>
             <Link to={"/login"} className={styles.button}>
@@ -54,9 +54,9 @@ const Dropdown = ({ props, toggleDropdown, isAuthenticated, logout }) => {
       <>
         <div className={styles.dropdown}>
           <div className={styles.profile}>
-            <img src={process.env.PUBLIC_URL + "/logo.png"} alt="SlimeMaster" />
-            <h1>SlimeMaster</h1>
-            <p>slimemaster@gmail.com</p>
+            <img src={`${user.profilePicture}`} alt="display" />
+            <h1>{`${user.username}`}</h1>
+            <p>{`${user.email}`}</p>
           </div>
           <div className={styles.links}>
             <Link to={"/dashboard"} className={styles.button}>
@@ -74,7 +74,7 @@ const Dropdown = ({ props, toggleDropdown, isAuthenticated, logout }) => {
       </>
     );
   };
-  return <>{isAuthenticated ? <LoggedInUser /> : <GuestUser />}</>;
+  return <>{isAuthenticated && user ? <LoggedInUser /> : <GuestUser />}</>;
 };
 
 const mapStateToProps = (state) => ({

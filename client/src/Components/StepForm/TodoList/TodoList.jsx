@@ -20,6 +20,7 @@ const TodoList = () => {
       const response = await fetch(`${baseURL}/api/draft/update-draft/`, {
         method: "POST",
         headers: {
+          Authorization: `JWT ${localStorage.getItem("access")}`,
           "Content-Type": "application/json",
         },
 

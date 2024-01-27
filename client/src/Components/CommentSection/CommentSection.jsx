@@ -4,10 +4,14 @@ import PostComment from "./PostComment";
 import Comment from "./Comment";
 import axios from "axios";
 import baseURL from "../../Config/apiConfig";
+import { useSelector } from "react-redux";
 
 const CommentSection = (props) => {
-  const userId = 1;
-  const username = "testuser";
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
+  const userId = user?.id || 1;
+  const username = user?.username || "Guest";
+
   const userProfile = process.env.PUBLIC_URL + "/logo.png";
 
   const [comments, setComments] = useState(props.comments);
