@@ -2,24 +2,21 @@ import React, { useEffect, useState } from "react";
 import styles from "./Search.module.css";
 import CardImage from "../../Components/Card/CardImage";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
+import api from "../../Config/apiConfig.js";
 
 const Search = () => {
-  const userId = 1;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [SearchData, setSearchData] = useState([]);
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
-  console.log(query);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${baseURL}/api/playlist/search/?userId=${userId}&query=${query}`
-        );
+        const response = await api.get(`playlist/search`, {
+          params: { query },
+        });
         setSearchData(response.data);
         console.log(response.data);
       } catch (error) {
@@ -43,9 +40,9 @@ const Search = () => {
 
   const getLastWatched = async (playlistId) => {
     try {
-      const response = await axios.get(
-        `${baseURL}/api/playlist/getLastWatched/?userId=${userId}&playlistId=${playlistId}`
-      );
+      const response = await api.get("playlist/get-last-watched", {
+        params: { playlistId },
+      });
       return response.data.lastWatched;
     } catch (error) {
       console.error("Error getting last watched: ", error);

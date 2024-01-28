@@ -3,8 +3,7 @@ import styles from "./Comment.module.css";
 import Reply from "./Reply";
 import CommentFooter from "./CommentFooter";
 import PostComment from "./PostComment";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig";
+import api from "../../Config/apiConfig.js";
 import { useSelector } from "react-redux";
 
 const Comment = ({
@@ -16,7 +15,6 @@ const Comment = ({
 }) => {
   const authState = useSelector((state) => state.auth);
   const { user } = authState;
-  const userId = user?.id || 1;
 
   const replies = comment.thread;
   const [openReplies, setOpenReplies] = useState(false);
@@ -33,19 +31,24 @@ const Comment = ({
   };
 
   const postLikeDislikeUpdate = (requestData) => {
-    axios
-      .post(`${baseURL}/api/comment/updateComment/likeDislike/`, requestData)
-      .catch((error) => {
-        console.error("Error updating like/dislike: ", error);
-      });
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
+    api.post(`comment/update-like-dislike`, requestData).catch((error) => {
+      console.error("Error updating like/dislike: ", error);
+    });
   };
 
   const likeHandler = () => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
     const liked = comment.isLiked ? false : true;
     const newLikes = comment.isLiked ? -1 : 1;
     const newDislikes = comment.isDisliked ? -1 : 0;
     const requestData = {
-      userId: userId,
       commentId: comment.id,
       isLiked: liked,
       isDisliked: false,
@@ -57,11 +60,14 @@ const Comment = ({
   };
 
   const dislikeHandler = () => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
     const disliked = comment.isDisliked ? false : true;
     const newLikes = comment.isLiked ? -1 : 0;
     const newDislikes = comment.isDisliked ? -1 : 1;
     const requestData = {
-      userId: userId,
       commentId: comment.id,
       isLiked: false,
       isDisliked: disliked,

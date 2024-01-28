@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import ImageSlider from "../../Components/ImageSlider/ImageSlider";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
 import HomeSkeleton from "../../Components/Skeleton/HomeSkeleton";
+import api from "../../Config/apiConfig.js";
 
 const Home = (props) => {
   const images = [
@@ -18,17 +17,10 @@ const Home = (props) => {
     []
   );
   const [loading, setLoading] = useState(true);
-  const userId = 1;
   useEffect(() => {
-    const fetchRecommendedPlaylistData = axios.get(
-      `${baseURL}/api/playlist/recommended/?userId=${userId}`
-    );
-    const fetchPopularPlaylistData = axios.get(
-      `${baseURL}/api/playlist/popular/?userId=${userId}`
-    );
-    const fetchRecentUploadsPlaylistData = axios.get(
-      `${baseURL}/api/playlist/recent-uploads/?userId=${userId}`
-    );
+    const fetchRecommendedPlaylistData = api.get(`playlist/recommended`);
+    const fetchPopularPlaylistData = api.get(`playlist/popular`);
+    const fetchRecentUploadsPlaylistData = api.get(`playlist/recent-uploads`);
 
     Promise.all([
       fetchRecommendedPlaylistData,

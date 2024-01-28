@@ -1,5 +1,6 @@
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
+
 urlpatterns = [
     path('user/', include('api.user.urls')),
     path('playlist/', include('api.playlist.urls')),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('auth/', include('djoser.social.urls')),
 ]
 
-urlpatterns += [re_path(r'^.*',TemplateView.as_view(template_name='index.html'))]
+urlpatterns += [re_path(r'^.*',
+                        TemplateView.as_view(template_name='index.html'))]

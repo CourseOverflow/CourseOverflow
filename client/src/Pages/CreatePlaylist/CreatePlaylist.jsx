@@ -5,13 +5,15 @@ import Step1 from "../../Components/StepForm/StepPages/Step1";
 import Step2 from "../../Components/StepForm/StepPages/Step2";
 import Step3 from "../../Components/StepForm/StepPages/Step3";
 import FooterBar from "../../Components/StepForm/StepFooter/FooterBar";
+import CreateSkeleton from "../../Components/Skeleton/CreateSkeleton.jsx";
 import { PlaylistContext, usePlaylist } from "../../Contexts/PlaylistContext";
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
-import CreateSkeleton from "../../Components/Skeleton/CreateSkeleton.jsx";
+import api from "../../Config/apiConfig.js";
+import { useSelector } from "react-redux";
 
 const CreatePlaylist = () => {
+  const authState = useSelector((state) => state.auth);
+  const { user } = authState;
   const {
     stepNumber,
     setStepNumber,
@@ -30,13 +32,17 @@ const CreatePlaylist = () => {
   const draftId = searchParams.get("draftId");
 
   useEffect(() => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
     const fetchData = async () => {
       if (draftId) {
         setLoading(true);
         try {
-          const response = await axios.get(
-            `${baseURL}/api/draft/get-draft/?draftId=${draftId}`
-          );
+          const response = await api.get(`draft/get-draft`, {
+            params: { draftId },
+          });
           const draftData = response.data;
           setPlaylistData(draftData);
           if (draftData.title.length > 0) {
@@ -50,7 +56,12 @@ const CreatePlaylist = () => {
     };
     fetchData();
     setLoading(false);
-  }, [draftId, setPlaylistData, setSearchParams, setNextStatus]);
+  }, [user, draftId, setPlaylistData, setSearchParams, setNextStatus]);
+
+  if (!user) {
+    console.log("User not logged in");
+    return <h1>You need to log in to access this feature</h1>;
+  }
 
   return (
     <PlaylistContext.Provider

@@ -5,7 +5,7 @@ const AuthenticationCallback = () => {
   const navigate = useNavigate();
   useEffect(() => {
     navigate("/courseOverflow");
-  }, []); // Only run this effect once on component mount
+  }, [navigate]);
 
   return <div>Authenticating...</div>;
 };

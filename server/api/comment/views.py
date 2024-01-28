@@ -1,14 +1,18 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from api.models import Comment, User, CommentInteraction, Playlist
 from api.serializers import CommentSerializer, UserSerializer
 
 
 @api_view(['GET'])
-def commentSection(request, userId, playlistId):
+def commentSection(request):
+    if request.user.is_authenticated:
+        userId = request.user.id
+
     user = User.objects.get(id=userId)
-    comments = Comment.objects.filter(playlistId=playlistId)
+    comments = Comment.objects.filter(playlistId=request.GET['playlistId'])
     serialized_comments = []
 
     for comment in comments:
@@ -51,13 +55,16 @@ def commentSection(request, userId, playlistId):
 
 @api_view(['POST'])
 def postComment(request):
+    if not request.user.is_authenticated:
+        return Response('User not authenticated', status=status.HTTP_401_UNAUTHORIZED)
+
     parentId = request.data['commentId'] if 'commentId' in request.data else None
     try:
         parentComment = Comment.objects.get(
             id=parentId) if parentId is not None else None
     except Comment.DoesNotExist:
         parentComment = None
-    print(request.data)
+
     comment = Comment.objects.create(
         userId=User.objects.get(id=request.data['userId']),
         playlistId=Playlist.objects.get(id=request.data['playlistId']),
@@ -70,16 +77,19 @@ def postComment(request):
 
 
 @api_view(['POST'])
-def likeDislikeComment(request):
+def updateLikeDislike(request):
+    if not request.user.is_authenticated:
+        return Response('User not authenticated', status=status.HTTP_401_UNAUTHORIZED)
+
     try:
-        user = User.objects.get(id=request.data['userId'])
+        user = request.user
         comment = Comment.objects.get(id=request.data['commentId'])
 
         comment.likes += request.data['newLikes']
         comment.dislikes += request.data['newDislikes']
         comment.save()
 
-        comment_interaction, created = CommentInteraction.objects.get_or_create(
+        comment_interaction, _ = CommentInteraction.objects.get_or_create(
             commentId=comment,
             userId=user
         )
@@ -92,7 +102,5 @@ def likeDislikeComment(request):
 
     except Comment.DoesNotExist:
         return Response('Comment not found', status=status.HTTP_404_NOT_FOUND)
-    except User.DoesNotExist:
-        return Response('User not found', status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response(f'Error: {str(e)}', status=status.HTTP_500_INTERNAL_SERVER_ERROR)

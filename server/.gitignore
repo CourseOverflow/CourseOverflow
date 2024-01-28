@@ -31,3 +31,5 @@ db.sqlite3
 media/
 media/
 .vercel
+./venv
+/venv

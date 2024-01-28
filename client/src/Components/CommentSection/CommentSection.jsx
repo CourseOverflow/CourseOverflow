@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import styles from "./CommentSection.module.css";
 import PostComment from "./PostComment";
 import Comment from "./Comment";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig";
+import api from "../../Config/apiConfig.js";
 import { useSelector } from "react-redux";
 
 const CommentSection = (props) => {
   const authState = useSelector((state) => state.auth);
   const { user } = authState;
-  const userId = user?.id || 1;
   const username = user?.username || "Guest";
 
   const userProfile = process.env.PUBLIC_URL + "/logo.png";
@@ -17,14 +15,17 @@ const CommentSection = (props) => {
   const [comments, setComments] = useState(props.comments);
 
   const addComment = (text) => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
     const requestData = {
-      userId: userId,
       playlistId: props.playlistId,
       commentId: null,
       text: text,
     };
-    axios
-      .post(`${baseURL}/api/comment/post/`, requestData)
+    api
+      .post("comment/post", requestData)
       .then((response) => {
         const modifiedResponse = {
           ...response.data,
@@ -40,14 +41,17 @@ const CommentSection = (props) => {
   };
 
   const addReply = (index, text) => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
     const requestData = {
-      userId: userId,
       playlistId: props.playlistId,
       commentId: comments[index].id,
       text: text,
     };
-    axios
-      .post(`${baseURL}/api/comment/post/`, requestData)
+    api
+      .post("comment/post", requestData)
       .then((response) => {
         const modifiedResponse = {
           ...response.data,
@@ -73,6 +77,10 @@ const CommentSection = (props) => {
     newLikes,
     newDislikes
   ) => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
     const newComments = [...comments];
     newComments[i] = {
       ...newComments[i],
@@ -92,6 +100,10 @@ const CommentSection = (props) => {
     newLikes,
     newDislikes
   ) => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
     const newComments = [...comments];
     newComments[i].thread[j] = {
       ...newComments[i].thread[j],

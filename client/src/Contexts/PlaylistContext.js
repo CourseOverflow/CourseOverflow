@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 export const usePlaylist = () => {
   const authState = useSelector((state) => state.auth);
   const { user } = authState;
-  const userId = user?.id || 12;
+  const userId = user?.id || 1;
   console.log(userId);
   const [stepNumber, setStepNumber] = useState(1);
   const [backStatus, setBackStatus] = useState(false);

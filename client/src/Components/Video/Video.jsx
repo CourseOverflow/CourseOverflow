@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Video.module.css";
 import VideoControls from "../VideoControls/VideoControls";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
+import api from "../../Config/apiConfig.js";
 
 const Video = ({
   userId,
@@ -41,13 +40,14 @@ const Video = ({
       newLikes: newLikes,
       newDislikes: newDislikes,
     };
-    axios
-      .post(`${baseURL}/api/playlist/updateLikeDislike/`, requestData)
+    api
+      .post(`playlist/update-like-dislike`, requestData)
       .then((response) => {
         setLikes(likes + newLikes);
         setDislikes(dislikes + newDislikes);
         setDisliked(false);
         setLiked(!liked);
+        console.log(response.data.message);
       })
       .catch((error) => {
         console.error("Error updating like: ", error);
@@ -65,13 +65,14 @@ const Video = ({
       newLikes: newLikes,
       newDislikes: newDislikes,
     };
-    axios
-      .post(`${baseURL}/api/playlist/updateLikeDislike/`, requestData)
+    api
+      .post(`playlist/update-like-dislike`, requestData)
       .then((response) => {
         setLikes(likes + newLikes);
         setDislikes(dislikes + newDislikes);
         setDisliked(!disliked);
         setLiked(false);
+        console.log(response.data.message);
       })
       .catch((error) => {
         console.error("Error updating dislike: ", error);

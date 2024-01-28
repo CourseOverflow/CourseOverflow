@@ -5,8 +5,7 @@ import Video from "../../Components/Video/Video.jsx";
 import Playlist from "../../Components/Playlist/Playlist.jsx";
 import CommentSection from "../../Components/CommentSection/CommentSection.jsx";
 import PlaySkeleton from "../../Components/Skeleton/PlaySkeleton.jsx";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
+import api from "../../Config/apiConfig.js";
 import { useSelector } from "react-redux";
 
 const Play = () => {
@@ -36,13 +35,11 @@ const Play = () => {
           videoResponse,
           commentResponse,
           watchedResponse,
-        ] = await axios.all([
-          axios.get(`${baseURL}/api/playlist/${userId}/${playlistId}/`),
-          axios.get(`${baseURL}/api/video/${userId}/${playlistId}/`),
-          axios.get(`${baseURL}/api/comment/${userId}/${playlistId}/`),
-          axios.get(
-            `${baseURL}/api/playlist/watch-count/${userId}/${playlistId}/`
-          ),
+        ] = await Promise.all([
+          api.get("playlist/get-playlist", { params: { playlistId } }),
+          api.get("video/video-detail", { params: { playlistId } }),
+          api.get("comment/section", { params: { playlistId } }),
+          api.get("playlist/watch-count", { params: { playlistId } }),
         ]);
 
         setPlaylistData(playlistResponse.data);
@@ -56,43 +53,47 @@ const Play = () => {
         throw error;
       }
     };
-
     fetchData();
   }, [playlistId]);
 
-  const updateIdx = (idx) => {
-    navigate(`/play?playlistId=${playlistId}&index=${idx}`, {
-      replace: true,
-    });
-
-    const requestData = {
-      userId: userId,
-      playlistId: playlistData.id,
-      lastWatched: idx,
-    };
-    axios
-      .post(`${baseURL}/api/playlist/setLastWatched/`, requestData)
-      .catch((error) => {
-        console.error("Error updating last watched: ", error);
+  const updateIdx = async (idx) => {
+    try {
+      if (user) {
+        await api.post("playlist/set-last-watched", {
+          playlistId: playlistData.id,
+          lastWatched: idx,
+        });
+      }
+      navigate(`/play?playlistId=${playlistId}&index=${idx}`, {
+        replace: true,
       });
+    } catch (error) {
+      console.error("Error updating last watched: ", error);
+    }
   };
 
-  const updateWatched = (idx, isWatched) => {
-    const updatedVideoList = [...videoList];
-    updatedVideoList[idx].isWatched = isWatched;
-    const requestData = {
-      userId: userId,
-      playlistId: playlistData.id,
-      index: idx,
-      add: isWatched,
-    };
-    axios
-      .post(`${baseURL}/api/playlist/updateWatched/`, requestData)
-      .catch((error) => {
-        console.error("Error updating watched data: ", error);
+  const updateWatched = async (idx, isWatched) => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
+    try {
+      const updatedVideoList = [...videoList];
+      updatedVideoList[idx].isWatched = isWatched;
+
+      await api.post("playlist/update-watched", {
+        playlistId: playlistData.id,
+        index: idx,
+        add: isWatched,
       });
-    setVideoList(updatedVideoList);
-    setTotalWatched(isWatched ? totalWatched + 1 : totalWatched - 1);
+
+      setVideoList(updatedVideoList);
+      setTotalWatched((prevWatched) =>
+        isWatched ? prevWatched + 1 : prevWatched - 1
+      );
+    } catch (error) {
+      console.error("Error updating watched data: ", error);
+    }
   };
 
   if (loading) {
@@ -102,7 +103,7 @@ const Play = () => {
       </div>
     );
   }
-  console.log(videoList);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>

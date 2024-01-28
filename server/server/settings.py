@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-#dx*ef^j(+zy0^1o(ye7us6w5a8r7z9i-ggi*hi#*+(k+!nj4^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app', '*']
+ALLOWED_HOSTS = ['course-overflow.vercel.app']
 
 # Application definition
 
@@ -58,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -82,8 +81,8 @@ TEMPLATES = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    # other allowed origins
+    # "http://localhost:3000",
+    "https://courseoverflow.vercel.app",
 ]
 
 WSGI_APPLICATION = 'server.wsgi.application'
@@ -92,26 +91,26 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'course-overflow-postgres',
-#         'USER': 'anshujlayan3',
-#         'PASSWORD': 'Zn64aiIMoNvG',
-#         'HOST': 'ep-red-butterfly-39847555.eu-central-1.aws.neon.tech',
-#         'PORT': '',
-#         'OPTIONS': {
-#             'sslmode': 'require',
-#         },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'course-overflow-postgres',
+        'USER': 'anshujlayan3',
+        'PASSWORD': 'Zn64aiIMoNvG',
+        'HOST': 'ep-red-butterfly-39847555.eu-central-1.aws.neon.tech',
+        'PORT': '',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
+    }
+}
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -156,11 +155,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
-]
+STATIC_URL = 'staticfiles/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [
@@ -178,13 +176,21 @@ AUTHENTICATION_BACKENDS = (
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+    'ALGORITHM': 'HS256',
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=5),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=5),
+    'ROTATE_REFRESH_TOKENS': False,
+    'SIGNING_KEY': 'slimeball',
 }
 
-DOMAIN = ('localhost:3000')
+
+# DOMAIN = ('localhost:3000')
+DOMAIN = ('courseoverflow.vercel.app')
 SITE_NAME = ('CourseOverflow')
+
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
@@ -206,12 +212,12 @@ DJOSER = {
         'current_user': 'api.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
-
 }
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '492813304799-ukoph11jr2b8hminsttti3nerl5ul721.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH_SECRET = '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'
-SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']
+SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = ['https://www.googleapis.com/auth/userinfo.email',
+                                  'https://www.googleapis.com/auth/userinfo.profile', 'openid']
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 
 AUTH_USER_MODEL = 'api.User'
@@ -221,9 +227,6 @@ AUTH_USER_MODEL = 'api.User'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
 # clientid:
 # 492813304799-ukoph11jr2b8hminsttti3nerl5ul721.apps.googleusercontent.com
 # clientsecret:

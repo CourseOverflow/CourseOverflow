@@ -2,10 +2,9 @@ import React from "react";
 import styles from "./FooterBar.module.css";
 import { useNavigate } from "react-router-dom";
 import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
-import baseURL from "../../../Config/apiConfig";
+import api from "../../../Config/apiConfig";
 
 const FooterBar = ({ setSearchParams }) => {
-  console.log("baseURL:", baseURL);
   const navigate = useNavigate();
   const {
     stepNumber,
@@ -21,31 +20,18 @@ const FooterBar = ({ setSearchParams }) => {
 
   const updateDraft = async () => {
     try {
-      const response = await fetch(`${baseURL}/api/draft/update-draft/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(playlistData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Playlist updated successfully");
-        console.log(data);
-        if (!playlistData.draftId) {
-          setPlaylistData((prevData) => ({
-            ...prevData,
-            draftId: data.draftId,
-          }));
-          setSearchParams({ draftId: data.draftId });
-          navigate(`/create?draftId=${data.draftId}`, { replace: true });
-        }
-      } else {
-        console.error("Failed to update playlist");
+      const response = await api.post(`draft/update-draft`, playlistData);
+      if (!playlistData.draftId) {
+        setPlaylistData((prevData) => ({
+          ...prevData,
+          draftId: response.data.draftId,
+        }));
+        setSearchParams({ draftId: response.data.draftId });
+        navigate(`/create?draftId=${response.data.draftId}`, { replace: true });
       }
     } catch (error) {
-      console.error("Error updating playlist:", error);
+      console.error("Error fetching draft data: ", error);
+      setSearchParams();
     }
   };
 
@@ -53,27 +39,13 @@ const FooterBar = ({ setSearchParams }) => {
     setFetchingVideos(true);
     setNextStatus(false);
     try {
-      const response = await fetch(
-        `${baseURL}/api/draft/fetch-videos/?draftId=${playlistData.draftId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Playlist fetched successfully");
-        console.log(data);
-        setPlaylistData((prevData) => ({
-          ...prevData,
-          videoList: data,
-        }));
-      } else {
-        console.error("Failed to fetch playlist");
-      }
+      const response = await api.get(`draft/fetch-videos`, {
+        params: { draftId: playlistData.draftId },
+      });
+      setPlaylistData((prevData) => ({
+        ...prevData,
+        videoList: response.data,
+      }));
     } catch (error) {
       console.error("Error fetching playlist:", error);
     }
@@ -83,24 +55,13 @@ const FooterBar = ({ setSearchParams }) => {
 
   const publishPlaylist = async () => {
     try {
-      const response = await fetch(
-        `${baseURL}/api/playlist/create-playlist/?draftId=${playlistData.draftId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await api.get(`playlist/create-playlist`, {
+        params: { draftId: playlistData.draftId },
+      });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Playlist published successfully");
-        console.log(data);
-        navigate(`/play?playlistId=${data.playlistId}&index=0`);
-      } else {
-        console.error("Failed to publish playlist");
-      }
+      const data = response.data;
+      console.log("Playlist published successfully");
+      navigate(`/play?playlistId=${data.playlistId}&index=0`);
     } catch (error) {
       console.error("Error publishing playlist:", error);
     }

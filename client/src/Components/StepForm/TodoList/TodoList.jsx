@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Todo from "./Todo";
 import style from "./TodoList.module.css";
 import NewTodoForm from "./NewTodoForm";
-import baseURL from "../../../Config/apiConfig";
+import api from "../../../Config/apiConfig";
 import { v4 as uuidv4 } from "uuid";
 import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
 
@@ -17,23 +17,13 @@ const TodoList = () => {
     };
 
     try {
-      const response = await fetch(`${baseURL}/api/draft/update-draft/`, {
-        method: "POST",
-        headers: {
-          Authorization: `JWT ${localStorage.getItem("access")}`,
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(updatedData),
-      });
-
+      const response = await api.post(`draft/update-draft`, updatedData);
       if (response.ok) {
-        const data = await response.json();
         console.log("Draft updated successfully");
-        console.log(data);
+        console.log(response.data);
         setPlaylistData((prevData) => ({
           ...prevData,
-          draftId: data.draftId,
+          draftId: response.data.draftId,
         }));
       } else {
         console.error("Failed to update draft");

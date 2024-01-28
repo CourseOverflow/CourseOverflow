@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./ImageUpload.module.css";
 import { IoMdClose } from "react-icons/io";
-import axios from "axios";
-import baseURL from "../../../Config/apiConfig";
+// import api from "../../../Config/apiConfig";
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -24,11 +23,11 @@ const FileUpload = () => {
       formData.append("file", selectedFile);
 
       // Make a POST request to the server's upload route
-      await axios.post(`${baseURL}/api/playlist/upload-pdf/`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      // await api.post(`playlist/upload-pdf`, formData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
 
       // Optionally, you can handle the response or perform other actions after a successful upload
       console.log("File uploaded successfully");

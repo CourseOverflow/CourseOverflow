@@ -3,9 +3,8 @@ import styles from "./Dashboard.module.css";
 import ProfileHeader from "../../Components/ProfileHeader/ProfileHeader";
 import Analytics from "../../Components/Analytics/Analytics";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
+import api from "../../Config/apiConfig.js";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
@@ -19,16 +18,15 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCreatedPlaylists = axios.get(
-      `${baseURL}/api/playlist/user-playlists/?userId=${userId}`
-    );
-    const fetchLikedPlaylists = axios.get(
-      `${baseURL}/api/playlist/user-liked-playlists/?userId=${userId}`
-    );
-    const fetchCreatedDrafts = axios.get(
-      `${baseURL}/api/draft/get-all-drafts/?userId=${userId}`
-    );
-
+    const fetchCreatedPlaylists = api.get(`playlist/user-playlists`, {
+      params: { userId },
+    });
+    const fetchLikedPlaylists = api.get(`playlist/user-liked-playlists`, {
+      params: { userId },
+    });
+    const fetchCreatedDrafts = api.get(`draft/get-all-drafts`, {
+      params: { userId },
+    });
     Promise.all([
       fetchCreatedPlaylists,
       fetchLikedPlaylists,
