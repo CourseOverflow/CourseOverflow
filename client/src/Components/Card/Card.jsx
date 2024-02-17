@@ -2,20 +2,15 @@ import React from "react";
 import styles from "./Card.module.css";
 import CardImage from "./CardImage";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import baseURL from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
+import api from "../../Config/apiConfig";
 
 const Card = (props) => {
   const navigate = useNavigate();
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
-  const userId = user?.id || 1;
 
   const getLastWatched = async (playlistId) => {
     try {
-      const response = await axios.get(
-        `${baseURL}/api/playlist/getLastWatched/?userId=${userId}&playlistId=${playlistId}`
+      const response = await api.get(
+        `playlist/get-last-watched?playlistId=${playlistId}`
       );
       return response.data.lastWatched;
     } catch (error) {

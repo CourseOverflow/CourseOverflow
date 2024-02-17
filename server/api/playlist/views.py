@@ -107,9 +107,11 @@ def recommended(request):
 
     for playlist in serializer.data:
         if request.user.is_authenticated:
+            playlist_id = playlist['id']
+            playlist_instance = Playlist.objects.get(id=playlist_id)
             playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
                 userId=user,
-                playlistId=playlist['id']
+                playlistId=playlist_instance
             )
             playlist['isLiked'] = playlist_interaction.isLiked
             playlist['isDisliked'] = playlist_interaction.isDisliked
@@ -137,6 +139,7 @@ def popular(request):
     playlists = Playlist.objects.order_by('-likes')[:10]
     serializer = PlaylistSerializer(playlists, many=True)
 
+    user = None
     if request.user.is_authenticated:
         user = request.user
 
@@ -150,9 +153,11 @@ def popular(request):
         playlist['authorProfile'] = author.profilePicture
 
         if user:
+            playlist_id = playlist['id']
+            playlist_instance = Playlist.objects.get(id=playlist_id)
             playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
                 userId=user,
-                playlistId=playlist['id']
+                playlistId=playlist_instance
             )
             playlist['isLiked'] = playlist_interaction.isLiked
             playlist['isDisliked'] = playlist_interaction.isDisliked
@@ -172,6 +177,7 @@ def recent_uploads(request):
     playlists = Playlist.objects.order_by('-created_at')[:10]
     serializer = PlaylistSerializer(playlists, many=True)
 
+    user = None
     if request.user.is_authenticated:
         user = request.user
 
@@ -185,9 +191,11 @@ def recent_uploads(request):
         playlist['authorProfile'] = author.profilePicture
 
         if user:
+            playlist_id = playlist['id']
+            playlist_instance = Playlist.objects.get(id=playlist_id)
             playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
                 userId=user,
-                playlistId=playlist['id']
+                playlistId=playlist_instance
             )
             playlist['isLiked'] = playlist_interaction.isLiked
             playlist['isDisliked'] = playlist_interaction.isDisliked
@@ -246,15 +254,21 @@ def user_bookmarked_playlists(request):
 @api_view(['GET'])
 def watch_count(request):
     if not request.user.is_authenticated:
-        return Response({'message': 'User not authenticated'}, status=401)
+        return Response({'watchCount': 0})
 
     user = request.user
-    playlist = Playlist.objects.get(id=request.query_params['playlistId'])
-    playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
-        userId=user, playlistId=playlist)
-    watchCount = len(playlist_interaction.watched)
+    playlist_id = request.query_params.get('playlistId')
+    if not playlist_id:
+        return Response({'message': 'PlaylistId not provided'}, status=400)
 
-    return Response({'watchCount': watchCount})
+    try:
+        playlist = Playlist.objects.get(id=playlist_id)
+        playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
+            userId=user, playlistId=playlist)
+        watch_count = len(playlist_interaction.watched)
+        return Response({'watchCount': watch_count})
+    except Playlist.DoesNotExist:
+        return Response({'message': 'Playlist not found'}, status=404)
 
 
 @api_view(['GET'])

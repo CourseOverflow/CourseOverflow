@@ -8,10 +8,10 @@ from api.serializers import CommentSerializer, UserSerializer
 
 @api_view(['GET'])
 def commentSection(request):
+    user = None
     if request.user.is_authenticated:
-        userId = request.user.id
+        user = request.user
 
-    user = User.objects.get(id=userId)
     comments = Comment.objects.filter(playlistId=request.GET['playlistId'])
     serialized_comments = []
 

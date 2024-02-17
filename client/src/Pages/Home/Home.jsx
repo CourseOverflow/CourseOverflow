@@ -4,6 +4,7 @@ import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import ImageSlider from "../../Components/ImageSlider/ImageSlider";
 import HomeSkeleton from "../../Components/Skeleton/HomeSkeleton";
 import api from "../../Config/apiConfig.js";
+import Section1 from "../About/Sections/Section1.jsx";
 
 const Home = (props) => {
   const images = [
@@ -70,6 +71,7 @@ const Home = (props) => {
   return (
     <div className={styles.container}>
       <ImageSlider images={images} />
+      {/* <Section1 /> */}
       <HomeFeed feedList={feedList} />
     </div>
   );
