@@ -3,11 +3,13 @@ import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { FaHome, FaPlus, FaPlay, FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import useAlerts from "../Alerts/useAlerts";
 
 const Sidebar = (props) => {
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
+  const { addAlert } = useAlerts();
   const location = useLocation();
   const menuItem = [
     {
@@ -61,6 +63,16 @@ const Sidebar = (props) => {
             </div>
           </NavLink>
         ))}
+        <div>
+          <h1>DUCK</h1>
+          <button
+            onClick={() => {
+              addAlert("Error", "Alerts are working! This is a success alert.");
+            }}
+          >
+            RAT
+          </button>
+        </div>
       </div>
     </div>
   );

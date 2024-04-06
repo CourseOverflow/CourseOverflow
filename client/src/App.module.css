@@ -9,7 +9,10 @@
   --text: #878787;
   --hover: #3f3f3f;
   --baseText: #dddddd;
+  --success: #5db867;
   --error: tomato;
+  --warning: #f39c12;
+  --info: #3498db;
   --border: #525252;
   --selected: #282828;
   --skeleton: #374151;
