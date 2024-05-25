@@ -4,9 +4,7 @@
 *.pyd
 db.sqlite3
 media/
-media/
+.venv/
 .vercel
-./venv
-/venv
+.DS_Store
 .env
-db.sqlite3
