@@ -1,49 +1,50 @@
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
 from django.utils import timezone
-from urllib.parse import quote
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, password=None, is_staff=False, is_superuser=False, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("Users must have an email address")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=is_staff, is_superuser=is_superuser, **extra_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
 
-        if extra_fields.get('is_staff') is not True:
+        if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
-        if extra_fields.get('is_superuser') is not True:
+        if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(email,  password, **extra_fields)
+        return self.create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    username = models.CharField(max_length=255, blank=True, null=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
     profilePicture = models.TextField(blank=True, null=True)
     cloudinaryPublicId = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now)
 
     objects = UserAccountManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def save(self, *args, **kwargs):
         if not self.username:
@@ -51,7 +52,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.username = f"{self.first_name.lower()}_{self.id}"
 
         if not self.profilePicture and self.first_name:
-            self.profilePicture = f"https://via.placeholder.com/150?text={self.first_name[0]}"
+            self.profilePicture = (
+                f"https://via.placeholder.com/150?text={self.first_name[0]}"
+            )
 
         super().save(*args, **kwargs)
 
@@ -63,24 +66,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-# class User(models.Model):
-#     googleId = models.CharField(max_length=255, blank=True, null=True)
-#     username = models.CharField(max_length=255)
-#     email = models.EmailField()
-#     password = models.CharField(max_length=255)
-#     profilePicture = models.TextField(blank=True, null=True)
-#     cloudinaryPublicId = models.TextField(blank=True, null=True)
-#     created_at = models.DateTimeField(
-#         default=timezone.now, null=True, blank=True)
-
-#     def save(self, *args, **kwargs):
-#         if not self.profilePicture and self.username:
-#             self.profilePicture = f"https://via.placeholder.com/150?text={self.username[0]}"
-#         super().save(*args, **kwargs)
-
-#     def __str__(self):
-#         return self.username
 
 
 class Draft(models.Model):
@@ -94,7 +79,8 @@ class Draft(models.Model):
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
@@ -112,7 +98,8 @@ class Playlist(models.Model):
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
@@ -140,7 +127,7 @@ class PlaylistInteraction(models.Model):
         return reaction
 
     class Meta:
-        unique_together = ('userId', 'playlistId')
+        unique_together = ("userId", "playlistId")
 
 
 class Video(models.Model):
@@ -171,9 +158,11 @@ class Comment(models.Model):
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     commentId = models.ForeignKey(
-        'self', on_delete=models.CASCADE, null=True, blank=True, default=None)
+        "self", on_delete=models.CASCADE, null=True, blank=True, default=None
+    )
     created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.text[:100]
