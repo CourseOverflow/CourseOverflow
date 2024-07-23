@@ -8,7 +8,3 @@ urlpatterns = [
     path("comment/", include("api.comment.urls")),
     path("draft/", include("api.draft.urls")),
 ]
-
-# urlpatterns += [
-#     re_path(r"^.*", TemplateView.as_view(template_name="index.html"))
-# ]
