@@ -2,7 +2,9 @@ import axios from "axios";
 
 const DEBUG = process.env.DEBUG === "true";
 
-const baseURL = DEBUG ? process.env.LOCAL_SERVER : process.env.REMOTE_SERVER;
+const baseURL = DEBUG
+  ? "http://localhost:8000/api/"
+  : process.env.REMOTE_SERVER;
 
 const api = axios.create({
   baseURL: baseURL,

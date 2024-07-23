@@ -1,18 +1,5 @@
-version: '3.8'
+version: "3.8"
 services:
-  apache:
-    image: httpd:2.4
-    container_name: courseoverflow_apache
-    ports:
-      - "80:80"
-    volumes:
-      - ./apache:/usr/local/apache2/conf
-    networks:
-      - courseoverflow
-    depends_on:
-      - react
-      - django
-
   react:
     image: courseoverflow/react
     container_name: courseoverflow_react
@@ -44,7 +31,7 @@ services:
       - ./server/.env
 
   postgres:
-    image: postgres:13
+    image: postgres:latest
     container_name: courseoverflow_postgres
     networks:
       - courseoverflow
