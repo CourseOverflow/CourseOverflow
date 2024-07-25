@@ -1,15 +1,15 @@
 FROM node:22.1.0-alpine
 
-WORKDIR /urs/src/app
+WORKDIR /usr/src/app
 
-COPY package.json /urs/src/app
+COPY package.json ./
+COPY package-lock.json ./
 
-RUN apk add --no-cache git && \
-    npm install
+RUN npm install
 
-COPY . /urs/src/app
+RUN npx browserslist@latest -y --update-db
 
-RUN npm run build
+COPY . .
 
 EXPOSE 3000
 

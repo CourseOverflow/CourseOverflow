@@ -16,10 +16,10 @@ import ResetPasswordConfirm from "./Pages/Auth/ResetPasswordConfirm";
 import Activate from "./Pages/Auth/Activate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 // import Auth from "./Pages/Auth/Auth";
-// import Rat from "./Pages/Rat/Rat";
 import styles from "./App.module.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import GoogleAuth from "./Pages/Test/GoogleAuth";
 
 const App = () => {
   return (
@@ -134,7 +134,7 @@ const App = () => {
             }
           />
           <Route path="/activate/:uid/:token" element={<Activate />} />
-          {/* <Route path="/rat" element={<Rat />} /> */}
+          <Route path="/googleauth" element={<GoogleAuth />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>

@@ -28,11 +28,18 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS", "http://localhost"
 ).split(",")
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "https://courseoverflow.vercel.app",
+]
+
 DOMAIN = os.environ.get("DOMAIN", "http://localhost:3000")
 
 SITE_NAME = os.environ.get("SITE_NAME", "CourseOverflow")
 
 # Application definition
+
+SITE_ID = 1
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -41,13 +48,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites",
-    "social_django",
+    "api",
     "corsheaders",
     "rest_framework",
-    "rest_framework_simplejwt",
-    "rest_framework_simplejwt.token_blacklist",
-    "api",
 ]
 
 MIDDLEWARE = [
@@ -59,15 +62,18 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
+
 
 ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "build")],
+        "DIRS": [
+            os.path.join(BASE_DIR, "build"),
+            os.path.join(BASE_DIR, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -106,7 +112,7 @@ else:
             "HOST": os.environ.get("POSTGRES_HOST", "postgres"),
             "PORT": os.environ.get("POSTGRES_PORT", "5432"),
             "OPTIONS": {
-                "sslmode": os.environ.get("POSTGRES_SSLMODE", "prefer"),
+                "sslmode": os.environ.get("POSTGRES_SSLMODE", "disable"),
             },
         }
     }
@@ -119,7 +125,7 @@ EMAIL_HOST_USER = os.environ.get(
     "EMAIL_HOST_USER", "courseoverflow.in@gmail.com"
 )
 EMAIL_HOST_PASSWORD = os.environ.get(
-    "EMAIL_HOST_PASSWORD", "courseoverflow@123"
+    "EMAIL_HOST_PASSWORD", "yjae xjuo rysg zkip"
 )
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "true") == "true"
 
@@ -168,18 +174,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
 }
 
-AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
-    "social_core.backends.google.GoogleOAuth2",
-)
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
@@ -192,20 +195,9 @@ SIMPLE_JWT = {
     "SIGNING_KEY": SECRET_KEY,
 }
 
-SITE_ID = 1
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get(
-    "SOCIAL_AUTH_GOOGLE_OAUTH_KEY", ""
-)
-SOCIAL_AUTH_GOOGLE_OAUTH_SECRET = os.environ.get(
-    "SOCIAL_AUTH_GOOGLE_OAUTH_SECRET", ""
-)
-SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
-    "https://www.googleapis.com/auth/userinfo.email",
-    "https://www.googleapis.com/auth/userinfo.profile",
-    "openid",
-]
-SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ["first_name", "last_name"]
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+
 
 AUTH_USER_MODEL = "api.User"
 

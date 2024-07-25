@@ -1,10 +1,10 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const DEBUG = process.env.DEBUG === "true";
+// const DEBUG = process.env.DEBUG === "true";
 
-const baseURL = !DEBUG
-  ? "http://localhost:8000/api/"
-  : process.env.REMOTE_SERVER;
+// const baseURL = DEBUG ? process.env.LOCAL_SERVER : process.env.REMOTE_SERVER;
+
+const baseURL = "http://localhost:8000/api/";
 
 module.exports = function (app) {
   app.use(

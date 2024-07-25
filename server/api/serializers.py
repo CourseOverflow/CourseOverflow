@@ -1,8 +1,7 @@
-from django.contrib.auth import get_user_model
-from djoser.serializers import UserCreateSerializer
+from django.forms import ValidationError
 from rest_framework import serializers
 
-from .models import (
+from api.models import (
     Comment,
     CommentInteraction,
     Draft,
@@ -12,14 +11,6 @@ from .models import (
     Video,
     VideoOrder,
 )
-
-User = get_user_model()
-
-
-class UserCreateSerializer(UserCreateSerializer):
-    class Meta(UserCreateSerializer.Meta):
-        model = User
-        fields = "__all__"
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -41,6 +32,14 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data["is_superuser"] = False
         user = User.objects.create_user(**validated_data)
         return user
+
+    def validate(self, data):
+        email = data.get("email")
+        if User.objects.filter(email=email, is_active=False).exists():
+            raise ValidationError(
+                "An account with this email already exists and is pending activation."
+            )
+        return data
 
 
 class DraftSerializer(serializers.ModelSerializer):

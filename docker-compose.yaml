@@ -6,6 +6,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
     volumes:
       - ./client:/usr/src/app
     networks:
@@ -29,6 +31,10 @@ services:
       - postgres
     env_file:
       - ./server/.env
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
 
   postgres:
     image: postgres:latest
@@ -37,6 +43,8 @@ services:
       - courseoverflow
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./server/.env
 
 networks:
   courseoverflow:

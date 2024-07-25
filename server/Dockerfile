@@ -1,13 +1,13 @@
 FROM python:3.10-slim
 
-WORKDIR /urs/src/app
+WORKDIR /usr/src/app
 
-COPY requirements.txt /urs/src/app/
+COPY requirements.txt /usr/src/app/
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /urs/src/app/
+COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
