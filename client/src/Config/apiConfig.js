@@ -1,13 +1,7 @@
 import axios from "axios";
 
-// const DEBUG = process.env.DEBUG === "true";
-
-// const baseURL = DEBUG ? process.env.LOCAL_SERVER : process.env.REMOTE_SERVER;
-
-const baseURL = "http://localhost:8000/api/";
-
 const api = axios.create({
-  baseURL: baseURL,
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

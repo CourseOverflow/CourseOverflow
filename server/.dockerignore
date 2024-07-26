@@ -6,6 +6,7 @@ db.sqlite3
 media/
 .venv/
 /venv
+/venv/
 .vercel
 .DS_Store
 .env

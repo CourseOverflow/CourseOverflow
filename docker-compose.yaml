@@ -1,22 +1,4 @@
-version: "3.8"
 services:
-  react:
-    image: courseoverflow/react
-    container_name: courseoverflow_react
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./client:/usr/src/app
-    networks:
-      - courseoverflow
-    depends_on:
-      - django
-    env_file:
-      - ./client/.env
-
   django:
     image: courseoverflow/django
     container_name: courseoverflow_django
@@ -25,16 +7,19 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./server:/usr/src/app
+    ports:
+      - "8000:8000"
     networks:
       - courseoverflow
     depends_on:
       - postgres
     env_file:
       - ./server/.env
-    command: >
-      sh -c "python manage.py makemigrations &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+    # command: >
+    #   sh -c "python manage.py makemigrations &&
+    #          python manage.py migrate &&
+    #          python manage.py collectstatic --noinput &&
+    #          python manage.py runserver 0.0.0.0:8000"
 
   postgres:
     image: postgres:latest
