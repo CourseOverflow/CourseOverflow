@@ -5,6 +5,7 @@ import { signup } from "../../Actions/Auth";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import api from "../../Config/apiConfig";
 
 const Signup = ({ signup, isAuthenticated }) => {
   const [accountCreated, setAccountCreated] = useState(false);
@@ -24,7 +25,7 @@ const Signup = ({ signup, isAuthenticated }) => {
   const continueWithGoogle = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/auth/o/google-oauth2/?redirect_uri=http:/localhost:3000/`
+        `${process.env.REACT_APP_API_URL}/api/auth/o/google-oauth2/?redirect_uri=http:/localhost:3000/`,
       );
 
       console.log(res.data);
@@ -40,7 +41,18 @@ const Signup = ({ signup, isAuthenticated }) => {
       console.log("Passwords do not match");
     } else {
       console.log("tryingggg to create and account....");
-      signup(first_name, last_name, email, password, re_password);
+      // signup(first_name, last_name, email, password, re_password);
+      try {
+        const res = await api.post("/user/register/", {
+          email,
+          first_name,
+          last_name,
+          password,
+        });
+        console.log("Account created: ", res.data);
+      } catch (err) {
+        console.log(err);
+      }
       setAccountCreated(true);
     }
   };

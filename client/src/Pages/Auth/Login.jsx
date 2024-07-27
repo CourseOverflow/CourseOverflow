@@ -5,8 +5,13 @@ import { connect } from "react-redux";
 import { login } from "../../Actions/Auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import api from "../../Config/apiConfig";
+import Cookies from "js-cookie";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const Login = ({ login, isAuthenticated }) => {
+  const hiddenGoogleLoginRef = React.useRef(null);
+  const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,18 +22,52 @@ const Login = ({ login, isAuthenticated }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
-  };
-
-  const continueWithGoogle = async () => {
+    // login(email, password);
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}/courseOverflow`
-      );
-      window.location.replace(res.data.authorization_url);
+      const res = await api.post("/user/token/", {
+        email,
+        password,
+      });
+      Cookies.set("access_token", res.data.access, { expires: 1 }); // expires in 1 day
+      Cookies.set("refresh_token", res.data.refresh, { expires: 7 }); // expires in 7 days
+      console.log("Login success: ", res.data);
+      console.log("Login success: ", res.data);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const continueWithGoogle = useGoogleLogin({
+    onSuccess: (tokenResponse) => handleLoginSuccess(tokenResponse),
+    onError: (error) => handleLoginFailure(error),
+  });
+
+  const handleLoginSuccess = (response) => {
+    console.log("got response", response);
+    const { credential } = response;
+    api
+      .post("user/google-login/", {
+        tokenId: credential,
+      })
+      .then((res) => {
+        // Store the tokens and set user state
+        localStorage.setItem("access_token", res.data.access);
+        localStorage.setItem("refresh_token", res.data.refresh);
+        setUser({
+          email: response.profileObj.email,
+          name: response.profileObj.name,
+          imageUrl: response.profileObj.imageUrl,
+        });
+        console.log("Login success: ", res.data);
+      })
+      .catch((err) => {
+        console.error("Login failed: ", err);
+      });
+  };
+
+  const handleLoginFailure = (error) => {
+    console.log("got error", error);
+    console.error("Login failed: ", error);
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -58,7 +97,6 @@ const Login = ({ login, isAuthenticated }) => {
           <label htmlFor="uname">
             <b>Your Email</b>
           </label>
-
           <span className={styles.authPsw}>
             Don't have an account?
             <a href="/signup"> Sign Up</a>
@@ -80,6 +118,7 @@ const Login = ({ login, isAuthenticated }) => {
             onClick={togglePasswordVisibility}
             className={styles.showPasswordButton}
           >
+            {" "}
             {showPassword ? <FiEyeOff /> : <FiEye />}{" "}
             {showPassword ? "Hide" : "Show"}
           </button>
@@ -95,7 +134,6 @@ const Login = ({ login, isAuthenticated }) => {
               className={styles.authInput}
             />
           </div>
-
           {/* <label className={styles.rememberBtn}>
             <input type="checkbox" checked="checked" name="remember" /> Remember
             me
@@ -118,8 +156,7 @@ const Login = ({ login, isAuthenticated }) => {
             OR
             <hr className={styles.formLine} />
           </div>
-
-          <div className={styles.googleButton}>
+          <div className={styles.googleButton} onClick={continueWithGoogle}>
             <img
               src={process.env.PUBLIC_URL + "/images/google-logo.png"}
               alt="Google Logo"
