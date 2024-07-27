@@ -1,26 +1,24 @@
 import React from "react";
+import store from "./store";
+import styles from "./App.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Provider } from "react-redux";
+
 import MainLayout from "./Layouts/MainLayout";
 import AuthCheck from "./Layouts/AuthCheck";
+
 import Home from "./Pages/Home/Home";
 import CreatePlaylist from "./Pages/CreatePlaylist/CreatePlaylist";
 import Play from "./Pages/Play/Play";
 import Search from "./Pages/Search/Search";
 import About from "./Pages/About/About";
-// import Login from "./Pages/Auth/Login";
-// import AuthCheck from "./Layouts/AuthCheck";
 import Login from "./Pages/Auth/Login";
 import Signup from "./Pages/Auth/Signup";
 import ResetPassword from "./Pages/Auth/ResetPassword";
-import ResetPasswordConfirm from "./Pages/Auth/ResetPasswordConfirm";
 import Activate from "./Pages/Auth/Activate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-// import Auth from "./Pages/Auth/Auth";
-import styles from "./App.module.css";
-import { Provider } from "react-redux";
-import store from "./store";
-import GoogleAuth from "./Pages/Test/GoogleAuth";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import ForgotPassword from "./Pages/Auth/ForgotPassword";
 
 const App = () => {
   return (
@@ -104,7 +102,15 @@ const App = () => {
               }
             />
             <Route
-              path="/reset-password"
+              path="/forgot-password"
+              element={
+                <AuthCheck>
+                  <ForgotPassword />
+                </AuthCheck>
+              }
+            />
+            <Route
+              path="/reset-password/:uidb64/:token"
               element={
                 <AuthCheck>
                   <ResetPassword />
@@ -112,31 +118,13 @@ const App = () => {
               }
             />
             <Route
-              path="/reset-password-confirm"
-              element={
-                <AuthCheck>
-                  <ResetPasswordConfirm />
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/password/reset/confirm/:uid/:token"
-              element={
-                <AuthCheck>
-                  <ResetPasswordConfirm />
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/activate/:uid/:token"
+              path="/activate/:uidb64/:token"
               element={
                 <AuthCheck>
                   <Activate />
                 </AuthCheck>
               }
             />
-            <Route path="/activate/:uid/:token" element={<Activate />} />
-            <Route path="/googleauth" element={<GoogleAuth />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </BrowserRouter>

@@ -40,6 +40,19 @@
   background-color: red;
 } */
 
+.signUpButton {
+  margin-left: 5px;
+  border: none;
+  background-color: transparent;
+  color: var(--theme);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.signUpButton:hover {
+  color: var(--themeHover);
+}
+
 .authButton {
   border-radius: 10px;
   background-color: var(--theme);

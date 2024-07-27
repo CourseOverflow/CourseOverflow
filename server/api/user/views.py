@@ -1,11 +1,10 @@
 import os
 from datetime import datetime
 
+from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -47,21 +46,15 @@ def register_view(request):
 
     if existing_user:
         if not existing_user.is_active:
-            current_site = get_current_site(request)
             mail_subject = "Activate your account."
             uid = urlsafe_base64_encode(force_bytes(existing_user.pk))
             token = default_token_generator.make_token(existing_user)
-            activation_link = f"http://{current_site.domain}" + str(
-                reverse("activate", kwargs={"uidb64": uid, "token": token})
-            )
+            activation_link = f"{settings.DOMAIN}/activate/{uid}/{token}"
 
             html_message = render_to_string(
                 "account_activation_email.html",
                 {
                     "user": existing_user,
-                    "domain": current_site.domain,
-                    "uid": uid,
-                    "token": token,
                     "activation_link": activation_link,
                     "current_year": datetime.now().year,
                 },
@@ -88,21 +81,15 @@ def register_view(request):
     user.is_active = False
     user.save()
 
-    current_site = get_current_site(request)
     mail_subject = "Activate your account."
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = default_token_generator.make_token(user)
-    activation_link = f"http://{current_site.domain}" + str(
-        reverse("activate", kwargs={"uidb64": uid, "token": token})
-    )
+    activation_link = f"{settings.DOMAIN}/activate/{uid}/{token}"
 
     html_message = render_to_string(
         "account_activation_email.html",
         {
             "user": user,
-            "domain": current_site.domain,
-            "uid": uid,
-            "token": token,
             "activation_link": activation_link,
             "current_year": datetime.now().year,
         },
@@ -112,7 +99,7 @@ def register_view(request):
     email = EmailMultiAlternatives(
         subject=mail_subject,
         body=plain_message,
-        from_email="noreply@courseoverflow.in",
+        from_email="courseoverflow.in@gmail.com",
         to=[user.email],
     )
     email.attach_alternative(html_message, "text/html")
@@ -203,23 +190,36 @@ def password_reset_request(request):
         )
 
     user = User.objects.filter(email=email).first()
-    if user:
-        token = default_token_generator.make_token(user)
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        current_site = get_current_site(request)
-        mail_subject = "Password Reset Request"
-        message = render_to_string(
-            "password_reset_email.html",
-            {
-                "user": user,
-                "domain": current_site.domain,
-                "uid": uid,
-                "token": token,
-            },
+    if not user:
+        return Response(
+            {"error": "No user found with this email"},
+            status=status.HTTP_400_BAD_REQUEST,
         )
-        send_mail(
-            mail_subject, message, "courseoverflow.in@gmail.com", [user.email]
-        )
+
+    token = default_token_generator.make_token(user)
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    mail_subject = "Password Reset Request"
+    reset_link = f"{settings.DOMAIN}/reset-password/{uid}/{token}"
+
+    html_message = render_to_string(
+        "password_reset_email.html",
+        {
+            "user": user,
+            "reset_link": reset_link,
+            "current_year": datetime.now().year,
+        },
+    )
+
+    plain_message = strip_tags(html_message)
+
+    email = EmailMultiAlternatives(
+        subject=mail_subject,
+        body=plain_message,
+        from_email="courseoverflow.in@gmail.com",
+        to=[user.email],
+    )
+    email.attach_alternative(html_message, "text/html")
+    email.send(fail_silently=False)
 
     return Response(
         {"message": "If the email is valid, a reset link will be sent."},

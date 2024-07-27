@@ -4,17 +4,15 @@ import api from "../../Config/apiConfig";
 
 const GoogleAuth = () => {
   const [user, setUser] = useState(null);
-  // const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const GOOGLE_CLIENT_ID = "";
+  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const handleLoginSuccess = (response) => {
-    const { credential } = response; // Get the credential from Google's response
+    const { credential } = response;
     api
-      .post("http://localhost:8000/api/google-login/", {
+      .post("user/google-login/", {
         tokenId: credential,
       })
       .then((res) => {
-        // Store the tokens and set user state
         localStorage.setItem("access_token", res.data.access);
         localStorage.setItem("refresh_token", res.data.refresh);
         setUser({

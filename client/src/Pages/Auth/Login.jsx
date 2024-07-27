@@ -4,12 +4,12 @@ import styles from "./Auth.module.css";
 import { connect } from "react-redux";
 import { login } from "../../Actions/Auth";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import api from "../../Config/apiConfig";
 import Cookies from "js-cookie";
 import { useGoogleLogin } from "@react-oauth/google";
 
 const Login = ({ login, isAuthenticated }) => {
+  const navigate = useNavigate();
   const hiddenGoogleLoginRef = React.useRef(null);
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -50,7 +50,6 @@ const Login = ({ login, isAuthenticated }) => {
         tokenId: credential,
       })
       .then((res) => {
-        // Store the tokens and set user state
         localStorage.setItem("access_token", res.data.access);
         localStorage.setItem("refresh_token", res.data.refresh);
         setUser({
@@ -75,8 +74,6 @@ const Login = ({ login, isAuthenticated }) => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
-  const navigate = useNavigate();
 
   if (isAuthenticated) {
     navigate("/"); // Navigate if authenticated
@@ -177,4 +174,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { login })(Login);
-// export default Login;
