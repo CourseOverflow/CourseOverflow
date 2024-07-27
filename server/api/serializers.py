@@ -1,5 +1,7 @@
 from django.forms import ValidationError
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from api.models import (
     Comment,
@@ -11,6 +13,8 @@ from api.models import (
     Video,
     VideoOrder,
 )
+
+# ----------------------------------------------------------------------------
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,9 +41,54 @@ class UserSerializer(serializers.ModelSerializer):
         email = data.get("email")
         if User.objects.filter(email=email, is_active=False).exists():
             raise ValidationError(
-                "An account with this email already exists and is pending activation."
+                "An account with this email already exists and is "
+                + "pending activation."
             )
         return data
+
+
+# ----------------------------------------------------------------------------
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token["email"] = user.email
+        token["first_name"] = user.first_name
+        token["last_name"] = user.last_name
+        return token
+
+
+# ----------------------------------------------------------------------------
+
+
+class GoogleTokenObtainSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    def validate(self, attrs):
+        email = attrs.get("email")
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError(
+                "User with this email does not exist."
+            )
+
+        refresh = RefreshToken.for_user(user)
+
+        refresh["email"] = user.email
+        refresh["first_name"] = user.first_name
+        refresh["last_name"] = user.last_name
+
+        data = {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
+        return data
+
+
+# ----------------------------------------------------------------------------
 
 
 class DraftSerializer(serializers.ModelSerializer):
@@ -48,16 +97,25 @@ class DraftSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+# ----------------------------------------------------------------------------
+
+
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
         fields = "__all__"
 
 
+# ----------------------------------------------------------------------------
+
+
 class PlaylistInteractionSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlaylistInteraction
         fields = "__all__"
+
+
+# ----------------------------------------------------------------------------
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -71,10 +129,16 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+# ----------------------------------------------------------------------------
+
+
 class VideoOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoOrder
         fields = "__all__"
+
+
+# ----------------------------------------------------------------------------
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -83,7 +147,13 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+# ----------------------------------------------------------------------------
+
+
 class CommentInteractionSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommentInteraction
         fields = "__all__"
+
+
+# ----------------------------------------------------------------------------
