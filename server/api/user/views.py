@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMultiAlternatives
@@ -61,7 +60,7 @@ class RegisterView(generics.CreateAPIView):
                 email = EmailMultiAlternatives(
                     subject=mail_subject,
                     body=plain_message,
-                    from_email="noreply@courseoverflow.in",
+                    from_email="courseoverflow.in@gmail.com",
                     to=[existing_user.email],
                 )
                 email.attach_alternative(html_message, "text/html")
@@ -71,15 +70,12 @@ class RegisterView(generics.CreateAPIView):
                     "A verification email has been sent to the provided email address. Please check your inbox."
                 )
 
-            # If the user is already active, no need to create a new user
             raise ValidationError("A user with this email already exists.")
 
-        # If no unverified user exists, create a new user
         user = serializer.save()
         user.is_active = False
         user.save()
 
-        # Send activation email as usual
         current_site = get_current_site(self.request)
         mail_subject = "Activate your account."
         uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -136,9 +132,8 @@ class GoogleLoginView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        token = request.data.get("tokenId")
         try:
-            # Verify the token
+            token = request.data.get("tokenId")
             id_info = id_token.verify_oauth2_token(
                 token,
                 requests.Request(),
@@ -152,20 +147,16 @@ class GoogleLoginView(APIView):
 
             email = id_info["email"]
             name = id_info["name"]
-            profile_pic = id_info["picture"]
 
-            # Check if user exists, if not create a new user
             user, created = User.objects.get_or_create(
                 email=email,
                 defaults={
                     "username": email.split("@")[0],
                     "first_name": name.split()[0],
                     "last_name": name.split()[-1],
-                    "profile_pic": profile_pic,
                 },
             )
 
-            # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
             return Response(
                 {

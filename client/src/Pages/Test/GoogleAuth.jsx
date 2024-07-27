@@ -6,9 +6,10 @@ const GoogleAuth = () => {
   const [user, setUser] = useState(null);
 
   const handleLoginSuccess = (response) => {
+    console.log("got response", response);
     const { credential } = response;
     api
-      .post("http://localhost:8000/api/google-login/", {
+      .post("user/google-login/", {
         tokenId: credential,
       })
       .then((res) => {
@@ -28,6 +29,7 @@ const GoogleAuth = () => {
   };
 
   const handleLoginFailure = (error) => {
+    console.log("got error", error);
     console.error("Login failed: ", error);
   };
 
