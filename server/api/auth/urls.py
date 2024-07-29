@@ -1,16 +1,16 @@
-from django.urls import path
-
 from api.auth.views import (
     MyTokenObtainPairView,
     MyTokenRefreshView,
     activate_account_view,
+    get_csrf_token,
     google_login_view,
+    logoutUser,
     password_reset_confirm,
     password_reset_request,
     register_view,
     user_view,
-    get_csrf_token,
 )
+from django.urls import path
 
 urlpatterns = [
     path("", user_view, name="user"),
@@ -26,4 +26,5 @@ urlpatterns = [
         password_reset_confirm,
         name="reset-password-confirm",
     ),
+    path("logout/", logoutUser, name="logout"),
 ]

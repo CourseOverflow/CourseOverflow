@@ -6,14 +6,11 @@ from django.contrib.auth.models import (
 from django.db import models
 from django.utils import timezone
 
-
 # ----------------------------------------------------------------------------
 
 
 class UserAccountManager(BaseUserManager):
-    def create_user(
-        self, email, first_name, last_name, password=None, **extra_fields
-    ):
+    def create_user(self, email, first_name, last_name, password=None, **extra_fields):
         if not email:
             raise ValueError("Users must have an email address")
         if not first_name:
@@ -43,9 +40,7 @@ class UserAccountManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(
-            email, first_name, last_name, password, **extra_fields
-        )
+        return self.create_user(email, first_name, last_name, password, **extra_fields)
 
 
 # ----------------------------------------------------------------------------
@@ -71,9 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         if not self.username:
-            self.username = (
-                self.first_name.capitalize() + self.last_name.capitalize()
-            )
+            self.username = self.first_name.capitalize() + self.last_name.capitalize()
 
         if not self.profilePicture and self.first_name:
             self.profilePicture = (
@@ -105,9 +98,7 @@ class Draft(models.Model):
     duration = models.DurationField(default=0)
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True
-    )
+    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -127,9 +118,7 @@ class Playlist(models.Model):
     views = models.IntegerField(default=0)
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True
-    )
+    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -199,9 +188,7 @@ class Comment(models.Model):
     commentId = models.ForeignKey(
         "self", on_delete=models.CASCADE, null=True, blank=True, default=None
     )
-    created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True
-    )
+    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     def __str__(self):
         return self.text[:100]
