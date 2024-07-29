@@ -19,6 +19,7 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log("api headers", api.defaults.headers);
     api
       .post("/auth/token/", {
         email,
@@ -59,7 +60,7 @@ const Login = () => {
           </span>
           <input
             type="text"
-            placeholder="name@company.com"
+            placeholder="name@gmail.com"
             name="email"
             value={email}
             onChange={(e) => onChange(e)}

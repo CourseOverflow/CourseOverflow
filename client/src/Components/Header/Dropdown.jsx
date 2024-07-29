@@ -1,20 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Dropdown.module.css";
-import { Link } from "react-router-dom";
-import {
-  FaUser,
-  FaSignOutAlt,
-  FaSignInAlt,
-  FaMoon,
-  FaSun,
-  FaPlus,
-} from "react-icons/fa";
+import { FaUser, FaSignOutAlt, FaMoon, FaSun } from "react-icons/fa";
 import { logoutUser } from "../../Config/apiConfig";
+import { useNavigate } from "react-router-dom";
 
-const Dropdown = ({ toggleDropdown, isAuthenticated }) => {
-  const user = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : null;
+const Dropdown = ({ toggleDropdown }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
   const [isDark, setIsDark] = useState(false);
   const toggleDarkMode = () => {
@@ -22,62 +14,40 @@ const Dropdown = ({ toggleDropdown, isAuthenticated }) => {
     setIsDark(!isDark);
   };
 
-  const handleLogout = () => {
+  const logoutHandler = () => {
     logoutUser();
+    navigate("/login");
   };
 
-  const GuestUser = () => {
-    return (
-      <>
-        <div className={styles.dropdown}>
-          <div className={styles.profile}>
-            <img src={process.env.PUBLIC_URL + "/logo192.png"} alt="Guest" />
-            <h1>Guest</h1>
-            <p>email@gmail.com</p>
-          </div>
-          <div className={styles.links}>
-            <Link to={"/signup"} className={styles.button}>
-              <FaPlus />
-            </Link>
-            <Link to={"/login"} className={styles.button}>
-              <FaSignInAlt />
-            </Link>
-            <button onClick={toggleDarkMode} className={styles.button}>
-              {isDark ? <FaMoon /> : <FaSun />}
-            </button>
-          </div>
+  return (
+    <>
+      <div className={styles.dropdown}>
+        <div className={styles.profile}>
+          <img src={`${user.profilePicture}`} alt="display" />
+          <h1>{`${user.first_name}`}</h1>
+          <p>{`${user.email}`}</p>
         </div>
-        <div onClick={toggleDropdown} className={styles.overlay} />
-      </>
-    );
-  };
-
-  const LoggedInUser = () => {
-    return (
-      <>
-        <div className={styles.dropdown}>
-          <div className={styles.profile}>
-            <img src={`${user.profilePicture}`} alt="display" />
-            <h1>{`${user.first_name}`}</h1>
-            <p>{`${user.email}`}</p>
-          </div>
-          <div className={styles.links}>
-            <Link to={"/dashboard"} className={styles.button}>
-              <FaUser />
-            </Link>
-            <button onClick={handleLogout} className={styles.button}>
-              <FaSignOutAlt />
-            </button>
-            <button onClick={toggleDarkMode} className={styles.button}>
-              {isDark ? <FaMoon /> : <FaSun />}
-            </button>
-          </div>
+        <div className={styles.links}>
+          <button
+            onClick={() => {
+              navigate("/dashboard");
+              toggleDropdown();
+            }}
+            className={styles.button}
+          >
+            <FaUser />
+          </button>
+          <button onClick={logoutHandler} className={styles.button}>
+            <FaSignOutAlt />
+          </button>
+          <button onClick={toggleDarkMode} className={styles.button}>
+            {isDark ? <FaMoon /> : <FaSun />}
+          </button>
         </div>
-        <div onClick={toggleDropdown} className={styles.overlay} />
-      </>
-    );
-  };
-  return <>{isAuthenticated && user ? <LoggedInUser /> : <GuestUser />}</>;
+      </div>
+      <div onClick={toggleDropdown} className={styles.overlay} />
+    </>
+  );
 };
 
 export default Dropdown;

@@ -3,15 +3,11 @@ import CourseOverflow from "./CourseOverflow";
 import SearchBar from "./SearchBar";
 import User from "./User";
 import styles from "./Header.module.css";
-import { FaArrowAltCircleRight } from "react-icons/fa";
+import { IoRocketSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 const Header = (props) => {
   const navigate = useNavigate();
-  const exploreBtn = (e) => {
-    e.preventDefault();
-    navigate(`/`);
-  };
 
   return (
     <nav className={`${styles.container}`}>
@@ -22,14 +18,17 @@ const Header = (props) => {
       />
       {!props.isAboutPage ? (
         <>
-          <SearchBar /> <User username={"SlimeMaster"} />
+          <SearchBar /> <User />
         </>
       ) : (
         <>
           <div className={`${styles.btnGrp}`}>
-            <button onClick={exploreBtn} className={`${styles.glowBtn}`}>
+            <button
+              onClick={() => navigate("/login")}
+              className={`${styles.glowBtn}`}
+            >
               <span className={`${styles.btnIcon}`}>
-                <FaArrowAltCircleRight />
+                <IoRocketSharp />
               </span>
               &nbsp; Explore Playlist
             </button>

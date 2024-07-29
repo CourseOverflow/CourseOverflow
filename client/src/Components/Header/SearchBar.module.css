@@ -38,19 +38,25 @@
   border: 1px solid var(--text);
 }
 
+@media only screen and (max-width: 800px) {
+  .search-input {
+    width: 25rem;
+  }
+}
+
 @media only screen and (max-width: 720px) {
   .search-input {
-    width: 16rem;
+    width: 20rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .search-input {
+    width: 12rem;
   }
 }
 
 @media only screen and (max-width: 480px) {
-  .search-input {
-    width: 10rem;
-  }
-}
-
-@media only screen and (max-width: 400px) {
   .search-input {
     width: 8rem;
   }

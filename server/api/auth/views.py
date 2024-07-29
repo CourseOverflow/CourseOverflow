@@ -29,14 +29,6 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from api.models import User
-from api.serializers import (
-    GoogleTokenObtainSerializer,
-    MyTokenObtainPairSerializer,
-    MyTokenRefreshSerializer,
-    UserSerializer,
-)
-
 
 # ----------------------------------------------------------------------------
 
@@ -54,9 +46,13 @@ class MyTokenObtainPairView(TokenObtainPairView):
                 samesite="Strict",
                 secure=not settings.DEBUG,
             )
-            return super().finalize_response(request, response, *args, **kwargs)
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
         except Exception:
-            return super().finalize_response(request, response, *args, **kwargs)
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
 
 
 # ----------------------------------------------------------------------------
@@ -75,9 +71,13 @@ class MyTokenRefreshView(TokenRefreshView):
                 samesite="Strict",
                 secure=not settings.DEBUG,
             )
-            return super().finalize_response(request, response, *args, **kwargs)
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
         except Exception:
-            return super().finalize_response(request, response, *args, **kwargs)
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
 
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,9 @@ class MyTokenRefreshView(TokenRefreshView):
 def get_csrf_token(request):
     try:
         csrf_token = get_token(request)
-        response = Response({"csrfToken": csrf_token}, status=status.HTTP_200_OK)
+        response = Response(
+            {"csrfToken": csrf_token}, status=status.HTTP_200_OK
+        )
         response.set_cookie(
             "csrfToken",
             csrf_token,
@@ -201,7 +203,9 @@ def activate_account_view(request, uidb64, token):
             status=status.HTTP_200_OK,
         )
     except Exception:
-        return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -347,6 +351,11 @@ def user_view(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def logoutUser(request):
-    response = Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+    response = Response(
+        {"message": "Logout successful"}, status=status.HTTP_200_OK
+    )
     response.delete_cookie("refresh")
     return response
+
+
+# ----------------------------------------------------------------------------

@@ -14,7 +14,7 @@ const api = axios.create({
 
 const setCsrfToken = (token) => {
   csrfToken = token;
-  api.defaults.headers["X-CSRF-Token"] = csrfToken;
+  api.defaults.headers["X-CSRFToken"] = csrfToken;
 };
 
 export const setAccessToken = (token) => {
@@ -25,13 +25,21 @@ export const setAccessToken = (token) => {
 };
 
 const fetchCsrfToken = async () => {
-  const response = await api.get("auth/token/csrf/");
-  setCsrfToken(response.data.csrftoken);
+  try {
+    const response = await api.get("auth/token/csrf/");
+    setCsrfToken(response.data.csrfToken);
+  } catch (error) {
+    console.error("Failed to fetch CSRF token: ", error);
+  }
 };
 
 const fetchAccessToken = async () => {
-  const response = await api.post("auth/token/refresh/");
-  setAccessToken(response.data.access);
+  try {
+    const response = await api.post("auth/token/refresh/");
+    setAccessToken(response.data.access);
+  } catch (error) {
+    console.error("Failed to fetch access token: ", error);
+  }
 };
 
 export const setTokens = async () => {
@@ -51,7 +59,7 @@ api.interceptors.response.use(
       return api(originalRequest);
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 const decodeJWT = (token) => {
@@ -61,16 +69,23 @@ const decodeJWT = (token) => {
     atob(base64)
       .split("")
       .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-      .join(""),
+      .join("")
   );
   return JSON.parse(jsonPayload);
 };
 
 export const logoutUser = async () => {
-  await api.post("auth/logout/");
-  accessToken = null;
-  delete api.defaults.headers["Authorization"];
-  localStorage.removeItem("user");
+  await api
+    .post("auth/logout/")
+    .then(() => {
+      accessToken = null;
+      delete api.defaults.headers["Authorization"];
+      localStorage.clear();
+      console.log("User logged out successfully");
+    })
+    .catch((error) => {
+      console.error("Failed to logout user: ", error);
+    });
 };
 
 export const getUserDetails = () => {
