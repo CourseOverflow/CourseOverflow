@@ -4,6 +4,7 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
+from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.html import strip_tags
@@ -19,7 +20,6 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from django.middleware.csrf import get_token
 
 from api.models import User
 from api.serializers import (

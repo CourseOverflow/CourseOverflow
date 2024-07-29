@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
 import api, { setAccessToken } from "../../Config/apiConfig";
-import { useGoogleLogin } from "@react-oauth/google";
+import GoogleAuth from "./GoogleAuth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -32,33 +32,6 @@ const Login = () => {
       .catch((err) => {
         console.error("Login failed: ", err);
       });
-  };
-
-  const continueWithGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => handleLoginSuccess(tokenResponse),
-    onError: (error) => handleLoginFailure(error),
-  });
-
-  const handleLoginSuccess = (response) => {
-    console.log("got response", response);
-    const { credential } = response;
-    api
-      .post("auth/google-login/", {
-        tokenId: credential,
-      })
-      .then((res) => {
-        setAccessToken(res.data.access);
-        navigate("/");
-        console.log("Login success: ", res.data);
-      })
-      .catch((err) => {
-        console.error("Login failed: ", err);
-      });
-  };
-
-  const handleLoginFailure = (error) => {
-    console.log("got error", error);
-    console.error("Login failed: ", error);
   };
 
   const togglePasswordVisibility = () => {
@@ -137,16 +110,7 @@ const Login = () => {
             OR
             <hr className={styles.formLine} />
           </div>
-          <div className={styles.googleButton} onClick={continueWithGoogle}>
-            <img
-              src={process.env.PUBLIC_URL + "/images/google-logo.png"}
-              alt="Google Logo"
-              className={styles.googleLogo}
-            />
-            <button type="button" onClick={continueWithGoogle}>
-              Continue with Google
-            </button>
-          </div>
+          <GoogleAuth />
         </div>
       </form>
     </div>

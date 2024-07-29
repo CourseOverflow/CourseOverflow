@@ -14,7 +14,7 @@ const api = axios.create({
 
 const setCsrfToken = (token) => {
   csrfToken = token;
-  api.defaults.headers["X-CSRFToken"] = csrfToken;
+  api.defaults.headers["X-CSRF-Token"] = csrfToken;
 };
 
 export const setAccessToken = (token) => {

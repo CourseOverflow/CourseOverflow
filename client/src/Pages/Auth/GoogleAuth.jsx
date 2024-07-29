@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import api from "../../Config/apiConfig";
+import api, { setAccessToken } from "../../Config/apiConfig";
+import { useNavigate } from "react-router-dom";
+import styles from "./Auth.module.css";
 
 const GoogleAuth = () => {
-  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  if (localStorage.getItem("access")) {
+    console.log("Already logged in");
+    navigate("/");
+  }
+
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
-  const handleLoginSuccess = (response) => {
-    const { credential } = response;
+  const handleLoginSuccess = (credentialResponse) => {
+    const { credential } = credentialResponse;
     api
-      .post("user/google-login/", {
+      .post("auth/google-login/", {
         tokenId: credential,
       })
       .then((res) => {
-        localStorage.setItem("access_token", res.data.access);
-        localStorage.setItem("refresh_token", res.data.refresh);
-        setUser({
-          email: response.profileObj.email,
-          name: response.profileObj.name,
-          imageUrl: response.profileObj.imageUrl,
-        });
+        setAccessToken(res.data.access);
+        navigate("/");
         console.log("Login success: ", res.data);
       })
       .catch((err) => {
@@ -33,10 +36,18 @@ const GoogleAuth = () => {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <GoogleLogin
-        onSuccess={handleLoginSuccess}
-        onFailure={handleLoginFailure}
-      />
+      <div className={styles.googleButtonWrapper}>
+        <GoogleLogin
+          onSuccess={handleLoginSuccess}
+          onError={handleLoginFailure}
+          useOneTap
+          theme="filled_black"
+          shape="rectangular"
+          logo_alignment="center"
+          width="370"
+          text="continue_with"
+        />
+      </div>
     </GoogleOAuthProvider>
   );
 };
