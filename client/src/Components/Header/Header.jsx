@@ -27,7 +27,6 @@ const Header = (props) => {
       ) : (
         <>
           <div className={`${styles.btnGrp}`}>
-            {/* Remove the parentheses after exploreBtn */}
             <button onClick={exploreBtn} className={`${styles.glowBtn}`}>
               <span className={`${styles.btnIcon}`}>
                 <FaArrowAltCircleRight />

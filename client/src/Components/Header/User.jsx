@@ -1,21 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./User.module.css";
 import Dropdown from "./Dropdown";
-import { connect } from "react-redux";
-import { useSelector } from "react-redux";
-import { load_user } from "../../Actions/Auth";
 
 const User = ({ props, isAuthenticated, logout }) => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      load_user();
-    }
-  }, [isAuthenticated]);
-
   const [dropdown, setDropdown] = React.useState(false);
+
+  isAuthenticated = false;
+  const user = {
+    first_name: "SlimeMaster",
+    profilePicture: process.env.PUBLIC_URL + "/logo.png",
+  };
+
   const toggleDropdown = () => {
     setDropdown(!dropdown);
   };
@@ -70,8 +65,5 @@ const User = ({ props, isAuthenticated, logout }) => {
   };
   return <>{isAuthenticated && user ? <LoggedInUser /> : <GuestUser />}</>;
 };
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
 
-export default connect(mapStateToProps)(User);
+export default User;

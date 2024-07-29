@@ -460,9 +460,7 @@ def create_playlist(request):
         total_seconds = int(total_duration.total_seconds())
         hours, remainder = divmod(total_seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
-        print(
-            f"Total Duration: {hours} hours, {minutes} minutes, {seconds} seconds"
-        )
+
         playlist.save()
         draft.delete()
 

@@ -100,10 +100,10 @@
   float: right;
   padding-top: 0;
 }
-.authPsw > a {
+.authPsw > button {
   color: var(--theme);
 }
-.authPsw > a:hover {
+.authPsw > button:hover {
   color: var(--themeHover);
 }
 .formLine {

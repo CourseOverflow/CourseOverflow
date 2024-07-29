@@ -12,18 +12,26 @@ const api = axios.create({
   withCredentials: true,
 });
 
-const fetchAccessToken = async () => {
-  const response = await api.post("auth/token/refresh/");
-  accessToken = response.data.access;
+const setCsrfToken = (token) => {
+  csrfToken = token;
+  api.defaults.headers["X-CSRFToken"] = csrfToken;
+};
+
+export const setAccessToken = (token) => {
+  accessToken = token;
   api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
-  console.log(accessToken);
+  const user = accessToken ? decodeJWT(accessToken) : null;
+  localStorage.setItem("user", JSON.stringify(user));
 };
 
 const fetchCsrfToken = async () => {
   const response = await api.get("auth/token/csrf/");
-  csrfToken = response.data.csrfToken;
-  api.defaults.headers["X-CSRF-Token"] = csrfToken;
-  console.log(csrfToken);
+  setCsrfToken(response.data.csrftoken);
+};
+
+const fetchAccessToken = async () => {
+  const response = await api.post("auth/token/refresh/");
+  setAccessToken(response.data.access);
 };
 
 export const setTokens = async () => {
@@ -45,5 +53,17 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+const decodeJWT = (token) => {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split("")
+      .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+      .join("")
+  );
+  return JSON.parse(jsonPayload);
+};
 
 export default api;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Auth.module.css";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../Config/apiConfig";
 
 const Activate = () => {

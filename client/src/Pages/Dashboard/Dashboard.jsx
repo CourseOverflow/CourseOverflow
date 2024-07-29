@@ -5,11 +5,11 @@ import Analytics from "../../Components/Analytics/Analytics";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
 
   const userId = user?.id || 1;
   const [createdPlaylists, setCreatedPlaylists] = useState([]);

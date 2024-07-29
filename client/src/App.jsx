@@ -1,12 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { Provider } from "react-redux";
-import store from "./store";
-import styles from "./App.module.css";
-
 import MainLayout from "./Layouts/MainLayout";
-import AuthCheck from "./Layouts/AuthCheck";
+import styles from "./App.module.css";
 
 import Home from "./Pages/Home/Home";
 import CreatePlaylist from "./Pages/CreatePlaylist/CreatePlaylist";
@@ -23,112 +19,60 @@ import ForgotPassword from "./Pages/Auth/ForgotPassword";
 const App = () => {
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <Provider store={store}>
-        <BrowserRouter className={styles.app}>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <AuthCheck>
-                  <MainLayout overlay={false}>
-                    <Home />
-                  </MainLayout>
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/create"
-              element={
-                <AuthCheck>
-                  <MainLayout overlay={false}>
-                    <CreatePlaylist />
-                  </MainLayout>
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/play"
-              element={
-                <AuthCheck>
-                  <MainLayout overlay={true}>
-                    <Play />
-                  </MainLayout>
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/search"
-              element={
-                <AuthCheck>
-                  <MainLayout overlay={false}>
-                    <Search />
-                  </MainLayout>
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <AuthCheck>
-                  <MainLayout overlay={false}>
-                    <Dashboard />
-                  </MainLayout>
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/about"
-              element={
-                <AuthCheck>
-                  {" "}
-                  <About />{" "}
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/login"
-              element={
-                <AuthCheck>
-                  <Login />
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/signup"
-              element={
-                <AuthCheck>
-                  <Signup />
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/forgot-password"
-              element={
-                <AuthCheck>
-                  <ForgotPassword />
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/reset-password/:uidb64/:token"
-              element={
-                <AuthCheck>
-                  <ResetPassword />
-                </AuthCheck>
-              }
-            />
-            <Route
-              path="/activate/:uidb64/:token"
-              element={
-                <AuthCheck>
-                  <Activate />
-                </AuthCheck>
-              }
-            />
-            <Route path="*" element={<h1>404 Not Found</h1>} />
-          </Routes>
-        </BrowserRouter>
-      </Provider>
+      <BrowserRouter className={styles.app}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainLayout overlay={false}>
+                <Home />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/create"
+            element={
+              <MainLayout overlay={false}>
+                <CreatePlaylist />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/play"
+            element={
+              <MainLayout overlay={true}>
+                <Play />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <MainLayout overlay={false}>
+                <Search />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <MainLayout overlay={false}>
+                <Dashboard />
+              </MainLayout>
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/reset-password/:uidb64/:token"
+            element={<ResetPassword />}
+          />
+          <Route path="/activate/:uidb64/:token" element={<Activate />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+        </Routes>
+      </BrowserRouter>
     </GoogleOAuthProvider>
   );
 };

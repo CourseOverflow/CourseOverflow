@@ -6,11 +6,11 @@ import Playlist from "../../Components/Playlist/Playlist.jsx";
 import CommentSection from "../../Components/CommentSection/CommentSection.jsx";
 import PlaySkeleton from "../../Components/Skeleton/PlaySkeleton.jsx";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
 
 const Play = () => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
   const userId = user?.id || 1;
 
   const navigate = useNavigate();

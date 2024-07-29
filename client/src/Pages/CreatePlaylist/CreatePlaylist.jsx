@@ -9,11 +9,12 @@ import CreateSkeleton from "../../Components/Skeleton/CreateSkeleton.jsx";
 import { PlaylistContext, usePlaylist } from "../../Contexts/PlaylistContext";
 import { useSearchParams } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
 
 const CreatePlaylist = () => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
   const {
     stepNumber,
     setStepNumber,

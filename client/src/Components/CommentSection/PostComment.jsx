@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./PostComment.module.css";
-import { useSelector } from "react-redux";
 
 const PostComment = (props) => {
   const [comment, setComment] = useState("");
   const [charCount, setCharCount] = useState(0);
 
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
 
   const imgSrc = user
     ? user.profilePicture

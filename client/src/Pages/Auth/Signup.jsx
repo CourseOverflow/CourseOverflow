@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
-import { signup } from "../../Actions/Auth";
-import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import api from "../../Config/apiConfig";
+import api, { setAccessToken } from "../../Config/apiConfig";
+import { useGoogleLogin } from "@react-oauth/google";
 
-const Signup = ({ signup, isAuthenticated }) => {
-  const [accountCreated, setAccountCreated] = useState(false);
+const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -22,53 +19,56 @@ const Signup = ({ signup, isAuthenticated }) => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const continueWithGoogle = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/auth/o/google-oauth2/?redirect_uri=http:/localhost:3000/`,
-      );
+  const continueWithGoogle = useGoogleLogin({
+    onSuccess: (tokenResponse) => handleLoginSuccess(tokenResponse),
+    onError: (error) => handleLoginFailure(error),
+  });
 
-      console.log(res.data);
-      window.location.replace(res.data.authorization_url);
-    } catch (err) {
-      console.log(err);
-    }
+  const handleLoginSuccess = (response) => {
+    console.log("got response", response);
+    const { credential } = response;
+    api
+      .post("auth/google-login/", {
+        tokenId: credential,
+      })
+      .then((res) => {
+        setAccessToken(res.data.access);
+        navigate("/");
+        console.log("Login success: ", res.data);
+      })
+      .catch((err) => {
+        console.error("Login failed: ", err);
+      });
+  };
+
+  const handleLoginFailure = (error) => {
+    console.log("got error", error);
+    console.error("Login failed: ", error);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== re_password) {
       console.log("Passwords do not match");
-    } else {
-      console.log("tryingggg to create and account....");
-      // signup(first_name, last_name, email, password, re_password);
-      try {
-        const res = await api.post("/user/register/", {
-          email,
-          first_name,
-          last_name,
-          password,
-        });
-        console.log("Account created: ", res.data);
-      } catch (err) {
-        console.log(err);
-      }
-      setAccountCreated(true);
+      return;
     }
+    api
+      .post("auth/register/", {
+        email,
+        first_name,
+        last_name,
+        password,
+      })
+      .then((res) => {
+        console.log("Signup success: ", res.data);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.error("Signup failed: ", err);
+      });
   };
 
   const navigate = useNavigate();
-  if (isAuthenticated) {
-    navigate("/CourseOverflow"); // Navigate if authenticated
-    return null; // Or return something else if needed
-  }
-  if (accountCreated) {
-    navigate("/login");
-  }
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   return (
     <div className={styles["form-container"]}>
@@ -87,8 +87,8 @@ const Signup = ({ signup, isAuthenticated }) => {
           </label>
 
           <span className={styles.authPsw}>
-            Already have an account?
-            <a href="/login"> Log in</a>
+            Already have an account?{" "}
+            <button onClick={() => navigate("/login")}>Log in</button>
           </span>
           <input
             type="text"
@@ -129,7 +129,7 @@ const Signup = ({ signup, isAuthenticated }) => {
           </label>
           <button
             type="button"
-            onClick={togglePasswordVisibility}
+            onClick={() => setShowPassword(!showPassword)}
             className={styles.showPasswordButton}
           >
             {showPassword ? <FiEyeOff /> : <FiEye />}{" "}
@@ -192,8 +192,5 @@ const Signup = ({ signup, isAuthenticated }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
 
-export default connect(mapStateToProps, { signup })(Signup);
+export default Signup;

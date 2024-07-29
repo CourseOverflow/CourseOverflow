@@ -36,15 +36,22 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
     def finalize_response(self, request, response, *args, **kwargs):
-        response.set_cookie(
-            "refresh",
-            response.data.pop("refresh"),
-            max_age=3600 * 24 * 14,
-            httponly=True,
-            samesite="Strict",
-            secure=not settings.DEBUG,
-        )
-        return super().finalize_response(request, response, *args, **kwargs)
+        try:
+            response.set_cookie(
+                "refresh",
+                response.data.pop("refresh"),
+                max_age=3600 * 24 * 14,
+                httponly=True,
+                samesite="Strict",
+                secure=not settings.DEBUG,
+            )
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
+        except Exception:
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
 
 
 # ----------------------------------------------------------------------------
@@ -54,15 +61,22 @@ class MyTokenRefreshView(TokenRefreshView):
     serializer_class = MyTokenRefreshSerializer
 
     def finalize_response(self, request, response, *args, **kwargs):
-        response.set_cookie(
-            "refresh",
-            response.data.pop("refresh"),
-            max_age=3600 * 24 * 14,
-            httponly=True,
-            samesite="Strict",
-            secure=not settings.DEBUG,
-        )
-        return super().finalize_response(request, response, *args, **kwargs)
+        try:
+            response.set_cookie(
+                "refresh",
+                response.data.pop("refresh"),
+                max_age=3600 * 24 * 14,
+                httponly=True,
+                samesite="Strict",
+                secure=not settings.DEBUG,
+            )
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
+        except Exception:
+            return super().finalize_response(
+                request, response, *args, **kwargs
+            )
 
 
 # ----------------------------------------------------------------------------
@@ -71,8 +85,25 @@ class MyTokenRefreshView(TokenRefreshView):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def get_csrf_token(request):
-    csrf_token = get_token(request)
-    return Response({"csrfToken": csrf_token}, status=status.HTTP_200_OK)
+    try:
+        csrf_token = get_token(request)
+        response = Response(
+            {"csrfToken": csrf_token}, status=status.HTTP_200_OK
+        )
+        response.set_cookie(
+            "csrfToken",
+            csrf_token,
+            max_age=3600 * 24 * 14,
+            httponly=True,
+            samesite="Strict",
+            secure=not settings.DEBUG,
+        )
+        return response
+    except Exception:
+        return Response(
+            {"error": "Failed to get CSRF token"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -163,17 +194,14 @@ def activate_account_view(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and default_token_generator.check_token(user, token):
+        default_token_generator.check_token(user, token)
         user.is_active = True
         user.save()
         return Response(
             {"message": "Email verified successfully!"},
             status=status.HTTP_200_OK,
         )
-    else:
+    except Exception:
         return Response(
             {"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST
         )
