@@ -1,9 +1,9 @@
 import React from "react";
-import store from "./store";
-import styles from "./App.module.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
+import store from "./store";
+import styles from "./App.module.css";
 
 import MainLayout from "./Layouts/MainLayout";
 import AuthCheck from "./Layouts/AuthCheck";

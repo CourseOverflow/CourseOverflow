@@ -1,21 +1,23 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import (
+from api.auth.views import (
     MyTokenObtainPairView,
+    MyTokenRefreshView,
     activate_account_view,
     google_login_view,
     password_reset_confirm,
     password_reset_request,
     register_view,
     user_view,
+    get_csrf_token,
 )
 
 urlpatterns = [
     path("", user_view, name="user"),
-    path("register/", register_view, name="register"),
     path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("token/refresh/", MyTokenRefreshView.as_view(), name="token_refresh"),
+    path("token/csrf/", get_csrf_token, name="token-csrf"),
+    path("register/", register_view, name="register"),
     path("activate/<uidb64>/<token>/", activate_account_view, name="activate"),
     path("google-login/", google_login_view, name="google-login"),
     path("reset-password/", password_reset_request, name="reset-password"),

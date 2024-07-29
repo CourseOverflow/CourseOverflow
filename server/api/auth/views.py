@@ -15,13 +15,17 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from django.middleware.csrf import get_token
 
 from api.models import User
 from api.serializers import (
     GoogleTokenObtainSerializer,
     MyTokenObtainPairSerializer,
+    MyTokenRefreshSerializer,
     UserSerializer,
 )
 
@@ -30,6 +34,45 @@ from api.serializers import (
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        response.set_cookie(
+            "refresh",
+            response.data.pop("refresh"),
+            max_age=3600 * 24 * 14,
+            httponly=True,
+            samesite="Strict",
+            secure=not settings.DEBUG,
+        )
+        return super().finalize_response(request, response, *args, **kwargs)
+
+
+# ----------------------------------------------------------------------------
+
+
+class MyTokenRefreshView(TokenRefreshView):
+    serializer_class = MyTokenRefreshSerializer
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        response.set_cookie(
+            "refresh",
+            response.data.pop("refresh"),
+            max_age=3600 * 24 * 14,
+            httponly=True,
+            samesite="Strict",
+            secure=not settings.DEBUG,
+        )
+        return super().finalize_response(request, response, *args, **kwargs)
+
+
+# ----------------------------------------------------------------------------
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def get_csrf_token(request):
+    csrf_token = get_token(request)
+    return Response({"csrfToken": csrf_token}, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
@@ -270,7 +313,7 @@ def password_reset_confirm(request, uidb64, token):
 def user_view(request):
     users = User.objects.all()[:5]
     serializer = UserSerializer(users, many=True)
-    return Response(serializer.data, status=HTTP_200_OK)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------

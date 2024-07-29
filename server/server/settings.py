@@ -18,6 +18,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DOMAIN = os.environ.get("DOMAIN", "http://localhost:3000")
+
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-#&")
 
 DEBUG = os.environ.get("DEBUG", "true") == "true"
@@ -28,9 +30,21 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS", "http://localhost:3000"
 ).split(",")
 
-DOMAIN = os.environ.get("DOMAIN", "http://localhost:3000")
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+    "x-csrf-token",
+]
 
-SITE_NAME = os.environ.get("SITE_NAME", "CourseOverflow")
+CORS_ALLOW_CREDENTIALS = True
+
 
 # Application definition
 
@@ -174,8 +188,8 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
     "ALGORITHM": "HS256",
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=20),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "SIGNING_KEY": SECRET_KEY,

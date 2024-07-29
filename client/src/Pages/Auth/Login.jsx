@@ -4,7 +4,7 @@ import styles from "./Auth.module.css";
 import { connect } from "react-redux";
 import { login } from "../../Actions/Auth";
 import { useNavigate } from "react-router-dom";
-import api from "../../Config/apiConfig";
+import api, { fetchAccessToken } from "../../Config/apiConfig";
 import Cookies from "js-cookie";
 import { useGoogleLogin } from "@react-oauth/google";
 

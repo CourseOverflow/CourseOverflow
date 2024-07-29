@@ -7,6 +7,9 @@ from django.db import models
 from django.utils import timezone
 
 
+# ----------------------------------------------------------------------------
+
+
 class UserAccountManager(BaseUserManager):
     def create_user(
         self, email, first_name, last_name, password=None, **extra_fields
@@ -43,6 +46,9 @@ class UserAccountManager(BaseUserManager):
         return self.create_user(
             email, first_name, last_name, password, **extra_fields
         )
+
+
+# ----------------------------------------------------------------------------
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -86,6 +92,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+# ----------------------------------------------------------------------------
+
+
 class Draft(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField(blank=True, null=True)
@@ -102,6 +111,9 @@ class Draft(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# ----------------------------------------------------------------------------
 
 
 class Playlist(models.Model):
@@ -121,6 +133,9 @@ class Playlist(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# ----------------------------------------------------------------------------
 
 
 class PlaylistInteraction(models.Model):
@@ -148,6 +163,9 @@ class PlaylistInteraction(models.Model):
         unique_together = ("userId", "playlistId")
 
 
+# ----------------------------------------------------------------------------
+
+
 class Video(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
@@ -169,6 +187,9 @@ class VideoOrder(models.Model):
         return f"{self.playlistId.title}: {self.index}"
 
 
+# ----------------------------------------------------------------------------
+
+
 class Comment(models.Model):
     text = models.TextField()
     likes = models.IntegerField(default=0)
@@ -186,6 +207,9 @@ class Comment(models.Model):
         return self.text[:100]
 
 
+# ----------------------------------------------------------------------------
+
+
 class CommentInteraction(models.Model):
     isLiked = models.BooleanField(default=False)
     isDisliked = models.BooleanField(default=False)
@@ -199,3 +223,6 @@ class CommentInteraction(models.Model):
             return "disliked"
         else:
             return "error"
+
+
+# ----------------------------------------------------------------------------

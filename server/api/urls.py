@@ -1,7 +1,7 @@
 from django.urls import include, path
 
 urlpatterns = [
-    path("user/", include("api.user.urls")),
+    path("auth/", include("api.auth.urls")),
     path("playlist/", include("api.playlist.urls")),
     path("video/", include("api.video.urls")),
     path("comment/", include("api.comment.urls")),
