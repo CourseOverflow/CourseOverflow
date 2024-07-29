@@ -3,15 +3,11 @@ import styles from "./User.module.css";
 import Dropdown from "./Dropdown";
 import { getUserDetails } from "../../Config/apiConfig";
 
-const User = ({ props, isAuthenticated, logout }) => {
+const User = () => {
   const [dropdown, setDropdown] = React.useState(false);
   const userData = getUserDetails();
 
-  isAuthenticated = userData ? true : false;
-  const user = {
-    first_name: "SlimeMaster",
-    profilePicture: process.env.PUBLIC_URL + "/logo.png",
-  };
+  const isAuthenticated = userData.isAuthenticated;
 
   const toggleDropdown = () => {
     setDropdown(!dropdown);
@@ -28,7 +24,7 @@ const User = ({ props, isAuthenticated, logout }) => {
             className={`${styles["profile-image"]} `}
           />
           <span title="SlimeMaster" className={styles.username}>
-            Guest
+            {`${userData.first_name}` || "Guest"}
           </span>
         </button>
         {dropdown && (
@@ -65,7 +61,7 @@ const User = ({ props, isAuthenticated, logout }) => {
       </>
     );
   };
-  return <>{isAuthenticated && user ? <LoggedInUser /> : <GuestUser />}</>;
+  return <>{isAuthenticated ? <LoggedInUser /> : <GuestUser />}</>;
 };
 
 export default User;

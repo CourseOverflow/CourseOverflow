@@ -5,11 +5,13 @@ import Analytics from "../../Components/Analytics/Analytics";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
 import api from "../../Config/apiConfig.js";
+import { getUserDetails } from "../../Config/apiConfig";
 
 const Dashboard = () => {
-  const user = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : null;
+  const user = getUserDetails();
+
+  const url = window.location.href;
+  const profileId = url.split("/").pop().split("-").pop();
 
   const userId = user?.id || 1;
   const [createdPlaylists, setCreatedPlaylists] = useState([]);

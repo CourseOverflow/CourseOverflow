@@ -85,6 +85,7 @@ export const getUserDetails = () => {
     user.email = userDetails.email;
     user.first_name = userDetails.first_name;
     user.profilePicture = userDetails.profilePicture;
+    user.id = userDetails.user_id;
     user.isAuthenticated = true;
   }
 

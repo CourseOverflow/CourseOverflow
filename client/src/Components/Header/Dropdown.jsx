@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { logoutUser } from "../../Config/apiConfig";
 
-const Dropdown = ({ props, toggleDropdown, isAuthenticated, userremove }) => {
+const Dropdown = ({ toggleDropdown, isAuthenticated }) => {
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;

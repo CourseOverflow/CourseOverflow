@@ -15,7 +15,7 @@ const Home = (props) => {
   const [recommendedPlaylistData, setRecommendedPlaylistData] = useState([]);
   const [popularPlaylistData, setPopularPlaylistData] = useState([]);
   const [recentUploadsPlaylistData, setRecentUploadsPlaylistData] = useState(
-    []
+    [],
   );
   const [loading, setLoading] = useState(true);
   useEffect(() => {

@@ -3,10 +3,11 @@ import styles from "./ProfileHeader.module.css";
 import { FaPen } from "react-icons/fa";
 
 const ProfileHeader = (user) => {
+  const userData = user["user"];
   const userId = user?.id || 1;
   const loggedInUserId = 2;
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState("SlimeMaster");
+  const [username, setUsername] = useState(userData?.first_name || "Guest");
   const profilePic = process.env.PUBLIC_URL + "/logo.png";
 
   useEffect(() => {

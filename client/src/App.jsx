@@ -61,6 +61,14 @@ const App = () => {
               </MainLayout>
             }
           />
+          <Route
+            path="u/:username"
+            element={
+              <MainLayout overlay={false}>
+                <Dashboard />
+              </MainLayout>
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
