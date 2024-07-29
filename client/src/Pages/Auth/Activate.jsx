@@ -10,7 +10,7 @@ const Activate = () => {
 
   useEffect(() => {
     api
-      .get(`/user/activate/${uidb64}/${token}`)
+      .get(`auth/activate/${uidb64}/${token}`)
       .then((res) => {
         console.log("Activation success: ", res.data);
         setActivateStatus("Verified");

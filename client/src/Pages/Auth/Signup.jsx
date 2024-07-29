@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
-import api, { setAccessToken } from "../../Config/apiConfig";
-import { useGoogleLogin } from "@react-oauth/google";
+import api from "../../Config/apiConfig";
+import GoogleAuth from "./GoogleAuth";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,33 +18,6 @@ const Signup = () => {
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const continueWithGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) => handleLoginSuccess(tokenResponse),
-    onError: (error) => handleLoginFailure(error),
-  });
-
-  const handleLoginSuccess = (response) => {
-    console.log("got response", response);
-    const { credential } = response;
-    api
-      .post("auth/google-login/", {
-        tokenId: credential,
-      })
-      .then((res) => {
-        setAccessToken(res.data.access);
-        navigate("/");
-        console.log("Login success: ", res.data);
-      })
-      .catch((err) => {
-        console.error("Login failed: ", err);
-      });
-  };
-
-  const handleLoginFailure = (error) => {
-    console.log("got error", error);
-    console.error("Login failed: ", error);
-  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -178,15 +151,7 @@ const Signup = () => {
             OR
             <hr className={styles.formLine} />
           </div>
-
-          <div className={styles.googleButton}>
-            <img
-              src={process.env.PUBLIC_URL + "/images/google-logo.png"}
-              alt="Google Logo"
-              className={styles.googleLogo}
-            />
-            <button onClick={continueWithGoogle}>Continue with Google</button>
-          </div>
+          <GoogleAuth />
         </div>
       </form>
     </div>
