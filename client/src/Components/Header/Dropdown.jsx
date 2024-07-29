@@ -9,14 +9,9 @@ import {
   FaSun,
   FaPlus,
 } from "react-icons/fa";
+import { logoutUser } from "../../Config/apiConfig";
 
-const Dropdown = ({
-  props,
-  toggleDropdown,
-  isAuthenticated,
-  logout,
-  userremove,
-}) => {
+const Dropdown = ({ props, toggleDropdown, isAuthenticated, userremove }) => {
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
@@ -28,7 +23,7 @@ const Dropdown = ({
   };
 
   const handleLogout = () => {
-    logout();
+    logoutUser();
   };
 
   const GuestUser = () => {
@@ -63,7 +58,7 @@ const Dropdown = ({
         <div className={styles.dropdown}>
           <div className={styles.profile}>
             <img src={`${user.profilePicture}`} alt="display" />
-            <h1>{`${user.username}`}</h1>
+            <h1>{`${user.first_name}`}</h1>
             <p>{`${user.email}`}</p>
           </div>
           <div className={styles.links}>

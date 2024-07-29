@@ -1,6 +1,13 @@
 import os
 from datetime import datetime
 
+from api.models import User
+from api.serializers import (
+    GoogleTokenObtainSerializer,
+    MyTokenObtainPairSerializer,
+    MyTokenRefreshSerializer,
+    UserSerializer,
+)
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
@@ -16,6 +23,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -28,6 +36,7 @@ from api.serializers import (
     MyTokenRefreshSerializer,
     UserSerializer,
 )
+
 
 # ----------------------------------------------------------------------------
 
@@ -45,13 +54,9 @@ class MyTokenObtainPairView(TokenObtainPairView):
                 samesite="Strict",
                 secure=not settings.DEBUG,
             )
-            return super().finalize_response(
-                request, response, *args, **kwargs
-            )
+            return super().finalize_response(request, response, *args, **kwargs)
         except Exception:
-            return super().finalize_response(
-                request, response, *args, **kwargs
-            )
+            return super().finalize_response(request, response, *args, **kwargs)
 
 
 # ----------------------------------------------------------------------------
@@ -70,13 +75,9 @@ class MyTokenRefreshView(TokenRefreshView):
                 samesite="Strict",
                 secure=not settings.DEBUG,
             )
-            return super().finalize_response(
-                request, response, *args, **kwargs
-            )
+            return super().finalize_response(request, response, *args, **kwargs)
         except Exception:
-            return super().finalize_response(
-                request, response, *args, **kwargs
-            )
+            return super().finalize_response(request, response, *args, **kwargs)
 
 
 # ----------------------------------------------------------------------------
@@ -87,9 +88,7 @@ class MyTokenRefreshView(TokenRefreshView):
 def get_csrf_token(request):
     try:
         csrf_token = get_token(request)
-        response = Response(
-            {"csrfToken": csrf_token}, status=status.HTTP_200_OK
-        )
+        response = Response({"csrfToken": csrf_token}, status=status.HTTP_200_OK)
         response.set_cookie(
             "csrfToken",
             csrf_token,
@@ -202,9 +201,7 @@ def activate_account_view(request, uidb64, token):
             status=status.HTTP_200_OK,
         )
     except Exception:
-        return Response(
-            {"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST
-        )
+        return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # ----------------------------------------------------------------------------
@@ -345,3 +342,11 @@ def user_view(request):
 
 
 # ----------------------------------------------------------------------------
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def logoutUser(request):
+    response = Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+    response.delete_cookie("refresh")
+    return response

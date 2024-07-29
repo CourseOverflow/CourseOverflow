@@ -1,11 +1,3 @@
-from django.forms import ValidationError
-from rest_framework import serializers
-from rest_framework_simplejwt.serializers import (
-    TokenObtainPairSerializer,
-    TokenRefreshSerializer,
-)
-from rest_framework_simplejwt.tokens import RefreshToken
-
 from api.models import (
     Comment,
     CommentInteraction,
@@ -16,7 +8,13 @@ from api.models import (
     Video,
     VideoOrder,
 )
-
+from django.forms import ValidationError
+from rest_framework import serializers
+from rest_framework_simplejwt.serializers import (
+    TokenObtainPairSerializer,
+    TokenRefreshSerializer,
+)
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # ----------------------------------------------------------------------------
 
@@ -28,6 +26,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["email"] = user.email
         token["first_name"] = user.first_name
         token["last_name"] = user.last_name
+        token["profilePicture"] = user.profilePicture
         return token
 
 
@@ -59,15 +58,14 @@ class GoogleTokenObtainSerializer(serializers.Serializer):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            raise serializers.ValidationError(
-                "User with this email does not exist."
-            )
+            raise serializers.ValidationError("User with this email does not exist.")
 
         refresh = RefreshToken.for_user(user)
 
         refresh["email"] = user.email
         refresh["first_name"] = user.first_name
         refresh["last_name"] = user.last_name
+        refresh["profilePicture"] = user.profilePicture
 
         data = {
             "refresh": str(refresh),

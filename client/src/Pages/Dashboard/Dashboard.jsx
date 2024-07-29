@@ -41,7 +41,7 @@ const Dashboard = () => {
           setCreatedPlaylists(createdPlaylistsResponse.data);
           setLikedPlaylists(likedPlaylistsResponse.data);
           setCreatedDrafts(createdDraftsResponse.data);
-        }
+        },
       )
       .catch((error) => {
         console.error("Error fetching playlist data: ", error);

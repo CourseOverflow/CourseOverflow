@@ -51,7 +51,7 @@ api.interceptors.response.use(
       return api(originalRequest);
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 const decodeJWT = (token) => {
@@ -61,9 +61,34 @@ const decodeJWT = (token) => {
     atob(base64)
       .split("")
       .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-      .join("")
+      .join(""),
   );
   return JSON.parse(jsonPayload);
+};
+
+export const logoutUser = async () => {
+  await api.post("auth/logout/");
+  accessToken = null;
+  delete api.defaults.headers["Authorization"];
+  localStorage.removeItem("user");
+};
+
+export const getUserDetails = () => {
+  const user = {
+    email: "email@domain.com",
+    first_name: "Guest",
+    profilePicture: process.env.PUBLIC_URL + "/logo.png",
+    isAuthenticated: false,
+  };
+  if (accessToken) {
+    const userDetails = decodeJWT(accessToken);
+    user.email = userDetails.email;
+    user.first_name = userDetails.first_name;
+    user.profilePicture = userDetails.profilePicture;
+    user.isAuthenticated = true;
+  }
+
+  return user;
 };
 
 export default api;
