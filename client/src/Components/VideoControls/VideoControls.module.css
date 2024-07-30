@@ -39,7 +39,7 @@
 .author > h1 {
   color: var(--base-text);
   font-size: 1rem;
-  line-height: 0.8;
+  line-height: 1.2;
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;

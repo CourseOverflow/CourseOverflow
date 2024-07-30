@@ -54,7 +54,7 @@ const App = () => {
             }
           />
           <Route
-            path="/dashboard"
+            path="/u/:username"
             element={
               <MainLayout overlay={false}>
                 <Dashboard />

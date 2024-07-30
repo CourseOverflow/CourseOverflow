@@ -1,13 +1,6 @@
 import os
 from datetime import datetime
 
-from api.models import User
-from api.serializers import (
-    GoogleTokenObtainSerializer,
-    MyTokenObtainPairSerializer,
-    MyTokenRefreshSerializer,
-    UserSerializer,
-)
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
@@ -23,12 +16,18 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
+from api.models import User
+from api.serializers import (
+    GoogleTokenObtainSerializer,
+    MyTokenObtainPairSerializer,
+    MyTokenRefreshSerializer,
+    UserSerializer,
+)
 
 # ----------------------------------------------------------------------------
 
@@ -243,10 +242,22 @@ def google_login_view(request):
         serializer.is_valid(raise_exception=True)
         token_data = serializer.validated_data
 
-        return Response(token_data, status=status.HTTP_200_OK)
+        response = Response(token_data, status=status.HTTP_200_OK)
+        response.set_cookie(
+            "refresh",
+            token_data.pop("refresh"),
+            max_age=3600 * 24 * 14,
+            httponly=True,
+            samesite="Strict",
+            secure=not settings.DEBUG,
+        )
+        return response
 
-    except ValueError as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception:
+        return Response(
+            {"error": "Invalid token"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -337,7 +348,7 @@ def password_reset_confirm(request, uidb64, token):
 # ----------------------------------------------------------------------------
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def user_view(request):
     users = User.objects.all()[:5]

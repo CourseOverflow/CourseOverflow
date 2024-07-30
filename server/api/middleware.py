@@ -1,7 +1,7 @@
-from django.middleware.csrf import CsrfViewMiddleware
-from django.utils.translation import gettext_lazy as _
 from functools import wraps
 
+from django.middleware.csrf import CsrfViewMiddleware
+from django.utils.translation import gettext_lazy as _
 
 # ----------------------------------------------------------------------------
 
@@ -26,6 +26,9 @@ class CustomCsrfMiddleware(CsrfViewMiddleware):
             return None
 
         if getattr(callback, "custom_csrf_exempt", False):
+            return None
+
+        if request.user.is_superuser or request.path == "/admin/login/":
             return None
 
         csrf_token = request.META.get("HTTP_X_CSRFTOKEN")

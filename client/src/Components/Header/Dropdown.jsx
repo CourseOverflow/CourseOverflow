@@ -30,17 +30,28 @@ const Dropdown = ({ toggleDropdown }) => {
         <div className={styles.links}>
           <button
             onClick={() => {
-              navigate("/dashboard");
+              navigate(`/u/${user.username}`);
               toggleDropdown();
             }}
             className={styles.button}
+            data-tooltip="Dashboard"
           >
             <FaUser />
           </button>
-          <button onClick={logoutHandler} className={styles.button}>
+          <button
+            onClick={logoutHandler}
+            className={styles.button}
+            data-tooltip="Log out"
+          >
             <FaSignOutAlt />
           </button>
-          <button onClick={toggleDarkMode} className={styles.button}>
+          <button
+            onClick={toggleDarkMode}
+            className={styles.button}
+            data-tooltip={
+              isDark ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
             {isDark ? <FaMoon /> : <FaSun />}
           </button>
         </div>

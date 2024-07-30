@@ -53,6 +53,7 @@
 }
 
 .button {
+  position: relative;
   width: 35px;
   height: 35px;
   margin: 0 5px;
@@ -80,4 +81,28 @@
 .button:hover {
   background-color: var(--hover);
   border: 1px solid var(--base-text);
+}
+
+.button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s,
+    visibility 0.3s;
+}
+
+.button:hover::after {
+  opacity: 1;
+  visibility: visible;
 }

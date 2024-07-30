@@ -10,7 +10,9 @@ from django.utils import timezone
 
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, password=None, **extra_fields):
+    def create_user(
+        self, email, first_name, last_name, password=None, **extra_fields
+    ):
         if not email:
             raise ValueError("Users must have an email address")
         if not first_name:
@@ -40,7 +42,9 @@ class UserAccountManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(email, first_name, last_name, password, **extra_fields)
+        return self.create_user(
+            email, first_name, last_name, password, **extra_fields
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -48,7 +52,9 @@ class UserAccountManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    username = models.CharField(max_length=255, blank=True, null=True)
+    username = models.CharField(
+        max_length=255, blank=True, unique=True, db_index=True
+    )
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -65,15 +71,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
         if not self.username:
-            self.username = self.first_name.capitalize() + self.last_name.capitalize()
+            self.username = (
+                self.first_name[:60].capitalize()
+                + self.last_name[:60].capitalize()
+                + str(self.id)
+            )
 
         if not self.profilePicture and self.first_name:
             self.profilePicture = (
                 f"https://via.placeholder.com/150?text={self.first_name[0]}"
             )
-
-        super().save(*args, **kwargs)
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -98,7 +108,9 @@ class Draft(models.Model):
     duration = models.DurationField(default=0)
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    created_at = models.DateTimeField(
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
@@ -118,7 +130,9 @@ class Playlist(models.Model):
     views = models.IntegerField(default=0)
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    created_at = models.DateTimeField(
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
@@ -131,7 +145,7 @@ class PlaylistInteraction(models.Model):
     isLiked = models.BooleanField(default=False)
     isDisliked = models.BooleanField(default=False)
     isBookmarked = models.BooleanField(default=False)
-    watched = models.JSONField(default=list)
+    watched = models.JSONField(default=list, blank=True)
     lastWatched = models.IntegerField(default=0)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -188,7 +202,9 @@ class Comment(models.Model):
     commentId = models.ForeignKey(
         "self", on_delete=models.CASCADE, null=True, blank=True, default=None
     )
-    created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    created_at = models.DateTimeField(
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.text[:100]

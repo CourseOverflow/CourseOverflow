@@ -53,13 +53,27 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      await setTokens();
-      return api(originalRequest);
+
+    if (error.response.status === 401 && !originalRequest._retry_401) {
+      originalRequest._retry_401 = true;
+      try {
+        await fetchAccessToken();
+        return api(originalRequest);
+      } catch (err) {
+        return Promise.reject(err);
+      }
     }
-    return Promise.reject(error);
-  }
+
+    if (error.response.status === 403 && !originalRequest._retry_403) {
+      originalRequest._retry_403 = true;
+      try {
+        await setTokens();
+        return api(originalRequest);
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+  },
 );
 
 const decodeJWT = (token) => {
@@ -69,7 +83,7 @@ const decodeJWT = (token) => {
     atob(base64)
       .split("")
       .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-      .join("")
+      .join(""),
   );
   return JSON.parse(jsonPayload);
 };

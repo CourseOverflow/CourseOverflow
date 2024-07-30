@@ -4,7 +4,6 @@ import VideoControls from "../VideoControls/VideoControls";
 import api from "../../Config/apiConfig.js";
 
 const Video = ({
-  userId,
   playlistData,
   bundleSize,
   currVideo,
@@ -13,6 +12,16 @@ const Video = ({
   videoContainerRef,
   setVideoContainerHeight,
 }) => {
+  const [likes, setLikes] = useState(playlistData.likes);
+  const [dislikes, setDislikes] = useState(playlistData.dislikes);
+  const [liked, setLiked] = useState(playlistData.isLiked);
+  const [disliked, setDisliked] = useState(playlistData.isDisliked);
+  const [updating, setUpdating] = useState(false);
+
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
   useEffect(() => {
     const updateHeight = () => {
       setVideoContainerHeight(videoContainerRef.current?.clientHeight || 0);
@@ -24,59 +33,62 @@ const Video = ({
     };
   }, [currVideoIdx, videoContainerRef, setVideoContainerHeight]);
 
-  const [likes, setLikes] = useState(playlistData.likes);
-  const [dislikes, setDislikes] = useState(playlistData.dislikes);
-  const [liked, setLiked] = useState(playlistData.isLiked);
-  const [disliked, setDisliked] = useState(playlistData.isDisliked);
-
-  const updateLiked = () => {
-    const newLikes = liked ? -1 : 1;
-    const newDislikes = disliked ? -1 : 0;
-    const requestData = {
-      userId: userId,
-      playlistId: playlistData.id,
-      liked: !liked,
-      disliked: false,
-      newLikes: newLikes,
-      newDislikes: newDislikes,
-    };
-    api
-      .post(`playlist/update-like-dislike`, requestData)
-      .then((response) => {
-        setLikes(likes + newLikes);
-        setDislikes(dislikes + newDislikes);
-        setDisliked(false);
-        setLiked(!liked);
-        console.log(response.data.message);
-      })
-      .catch((error) => {
-        console.error("Error updating like: ", error);
+  const updateLiked = async () => {
+    if (!user || updating) {
+      console.log("User not logged in or updating");
+      return;
+    }
+    setUpdating(true);
+    try {
+      const newLikes = liked ? -1 : 1;
+      const newDislikes = disliked ? -1 : 0;
+      const res = await api.post(`playlist/update-like-dislike`, {
+        playlistId: playlistData.id,
+        liked: !liked,
+        disliked: false,
+        newLikes: newLikes,
+        newDislikes: newDislikes,
       });
+
+      setLikes(likes + newLikes);
+      setDislikes(dislikes + newDislikes);
+      setDisliked(false);
+      setLiked(!liked);
+      console.log(res.data.message);
+    } catch (error) {
+      console.error("Error updating like: ", error);
+    } finally {
+      setUpdating(false);
+    }
   };
 
-  const updateDisliked = () => {
-    const newLikes = liked ? -1 : 0;
-    const newDislikes = disliked ? -1 : 1;
-    const requestData = {
-      userId: userId,
-      playlistId: playlistData.id,
-      liked: false,
-      disliked: !disliked,
-      newLikes: newLikes,
-      newDislikes: newDislikes,
-    };
-    api
-      .post(`playlist/update-like-dislike`, requestData)
-      .then((response) => {
-        setLikes(likes + newLikes);
-        setDislikes(dislikes + newDislikes);
-        setDisliked(!disliked);
-        setLiked(false);
-        console.log(response.data.message);
-      })
-      .catch((error) => {
-        console.error("Error updating dislike: ", error);
+  const updateDisliked = async () => {
+    if (!user) {
+      console.log("User not logged in");
+      return;
+    }
+    setUpdating(true);
+    try {
+      const newLikes = liked ? -1 : 0;
+      const newDislikes = disliked ? -1 : 1;
+      const res = await api.post(`playlist/update-like-dislike`, {
+        playlistId: playlistData.id,
+        liked: false,
+        disliked: !disliked,
+        newLikes: newLikes,
+        newDislikes: newDislikes,
       });
+
+      setLikes(likes + newLikes);
+      setDislikes(dislikes + newDislikes);
+      setDisliked(!disliked);
+      setLiked(false);
+      console.log(res.data.message);
+    } catch (error) {
+      console.error("Error updating dislike: ", error);
+    } finally {
+      setUpdating(false);
+    }
   };
 
   return (
