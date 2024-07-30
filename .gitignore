@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+package-lock.json
 /.pnp
 .pnp.js
 
@@ -31,3 +32,4 @@ db.sqlite3
 media/
 .venv/
 .vercel
+static/

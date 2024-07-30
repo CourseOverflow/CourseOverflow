@@ -4,9 +4,8 @@ import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import ImageSlider from "../../Components/ImageSlider/ImageSlider";
 import HomeSkeleton from "../../Components/Skeleton/HomeSkeleton";
 import api from "../../Config/apiConfig.js";
-import Section1 from "../About/Sections/Section1.jsx";
 
-const Home = (props) => {
+const Home = () => {
   const images = [
     "https://fastly.picsum.photos/id/918/1500/500.jpg?hmac=7Vk0wUBOW3B_8jUK2EkbZZyDmmeGiC-x7_gKxHwVrJ8",
     "https://fastly.picsum.photos/id/678/1500/500.jpg?hmac=QW-aa6JuhmoUlr7Hoe9FF9f1P3mFCQj25Rr0Av2typk",
@@ -15,7 +14,7 @@ const Home = (props) => {
   const [recommendedPlaylistData, setRecommendedPlaylistData] = useState([]);
   const [popularPlaylistData, setPopularPlaylistData] = useState([]);
   const [recentUploadsPlaylistData, setRecentUploadsPlaylistData] = useState(
-    []
+    [],
   );
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -49,7 +48,7 @@ const Home = (props) => {
       </div>
     );
   }
-  console.log(recommendedPlaylistData);
+
   const feedList = [
     {
       id: 1,
@@ -71,7 +70,6 @@ const Home = (props) => {
   return (
     <div className={styles.container}>
       <ImageSlider images={images} />
-      {/* <Section1 /> */}
       <HomeFeed feedList={feedList} />
     </div>
   );

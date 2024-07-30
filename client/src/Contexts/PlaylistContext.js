@@ -1,9 +1,9 @@
 import { createContext, useState, useContext } from "react";
-import { useSelector } from "react-redux";
 
 export const usePlaylist = () => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
   const userId = user?.id || 1;
   console.log(userId);
   const [stepNumber, setStepNumber] = useState(1);

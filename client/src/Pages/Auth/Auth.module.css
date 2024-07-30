@@ -40,6 +40,19 @@
   background-color: red;
 } */
 
+.signUpButton {
+  margin-left: 5px;
+  border: none;
+  background-color: transparent;
+  color: var(--theme);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.signUpButton:hover {
+  color: var(--themeHover);
+}
+
 .authButton {
   border-radius: 10px;
   background-color: var(--theme);
@@ -68,13 +81,32 @@
   width: 100%;
   justify-content: center;
 }
+
 .googleLogo {
   width: 25px;
   height: 25px;
   margin-right: 10px;
 }
+
 .googleButton:hover {
   border: 1px solid var(--themeHover);
+}
+
+.googleButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.googleButtonWrapper > div {
+  max-width: 370px !important;
+  width: 100% !important;
+}
+
+.googleButtonWrapper > div:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .authImgcontainer {
@@ -87,10 +119,10 @@
   float: right;
   padding-top: 0;
 }
-.authPsw > a {
+.authPsw > button {
   color: var(--theme);
 }
-.authPsw > a:hover {
+.authPsw > button:hover {
   color: var(--themeHover);
 }
 .formLine {

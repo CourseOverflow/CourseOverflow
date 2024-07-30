@@ -55,8 +55,8 @@ const FooterBar = ({ setSearchParams }) => {
 
   const publishPlaylist = async () => {
     try {
-      const response = await api.get(`playlist/create-playlist`, {
-        params: { draftId: playlistData.draftId },
+      const response = await api.post(`playlist/create-playlist`, {
+        draftId: playlistData.draftId,
       });
 
       const data = response.data;

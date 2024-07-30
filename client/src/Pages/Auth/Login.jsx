@@ -1,48 +1,44 @@
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import styles from "./Auth.module.css";
-import { connect } from "react-redux";
-import { login } from "../../Actions/Auth";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api, { setAccessToken } from "../../Config/apiConfig";
+import GoogleAuth from "./GoogleAuth";
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = () => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const { email, password } = formData;
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
+    console.log("api headers", api.defaults.headers);
+    api
+      .post("/auth/token/", {
+        email,
+        password,
+      })
+      .then((res) => {
+        setAccessToken(res.data.access);
+        navigate("/");
+        console.log("Login success: ", res.data);
+      })
+      .catch((err) => {
+        console.error("Login failed: ", err);
+      });
   };
-
-  const continueWithGoogle = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}/courseOverflow`
-      );
-      window.location.replace(res.data.authorization_url);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const navigate = useNavigate();
-
-  if (isAuthenticated) {
-    navigate("/"); // Navigate if authenticated
-    return null; // Or return something else if needed
-  }
   return (
     <div className={styles["form-container"]}>
       <h1 className={styles.authHeader}>Login</h1>
@@ -58,14 +54,13 @@ const Login = ({ login, isAuthenticated }) => {
           <label htmlFor="uname">
             <b>Your Email</b>
           </label>
-
           <span className={styles.authPsw}>
-            Don't have an account?
-            <a href="/signup"> Sign Up</a>
+            Don't have an account?{" "}
+            <button onClick={() => navigate("/signup")}>Sign Up</button>
           </span>
           <input
             type="text"
-            placeholder="name@company.com"
+            placeholder="name@gmail.com"
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
@@ -80,6 +75,7 @@ const Login = ({ login, isAuthenticated }) => {
             onClick={togglePasswordVisibility}
             className={styles.showPasswordButton}
           >
+            {" "}
             {showPassword ? <FiEyeOff /> : <FiEye />}{" "}
             {showPassword ? "Hide" : "Show"}
           </button>
@@ -95,13 +91,10 @@ const Login = ({ login, isAuthenticated }) => {
               className={styles.authInput}
             />
           </div>
-
-          {/* <label className={styles.rememberBtn}>
-            <input type="checkbox" checked="checked" name="remember" /> Remember
-            me
-          </label> */}
           <span className={styles.authPsw}>
-            <a href="/reset-password">Forgot password?</a>
+            <button onClick={() => navigate("/forgot-password")}>
+              Forgot password?
+            </button>
           </span>
           <button type="submit" className={styles.authButton}>
             Login
@@ -118,26 +111,11 @@ const Login = ({ login, isAuthenticated }) => {
             OR
             <hr className={styles.formLine} />
           </div>
-
-          <div className={styles.googleButton}>
-            <img
-              src={process.env.PUBLIC_URL + "/images/google-logo.png"}
-              alt="Google Logo"
-              className={styles.googleLogo}
-            />
-            <button type="button" onClick={continueWithGoogle}>
-              Continue with Google
-            </button>
-          </div>
+          <GoogleAuth />
         </div>
       </form>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(Login);
-// export default Login;
+export default Login;

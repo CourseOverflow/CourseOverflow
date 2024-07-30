@@ -4,7 +4,6 @@ import Reply from "./Reply";
 import CommentFooter from "./CommentFooter";
 import PostComment from "./PostComment";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
 
 const Comment = ({
   comment,
@@ -13,8 +12,9 @@ const Comment = ({
   updateCommentInteraction,
   updateReplyInteraction,
 }) => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
 
   const replies = comment.thread;
   const [openReplies, setOpenReplies] = useState(false);

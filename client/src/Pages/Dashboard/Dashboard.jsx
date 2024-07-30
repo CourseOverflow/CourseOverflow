@@ -5,13 +5,14 @@ import Analytics from "../../Components/Analytics/Analytics";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const Dashboard = () => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const { username } = useParams();
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
 
-  const userId = user?.id || 1;
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
   const [likedPlaylists, setLikedPlaylists] = useState([]);
   const [createdDrafts, setCreatedDrafts] = useState([]);
@@ -19,36 +20,46 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchCreatedPlaylists = api.get(`playlist/user-playlists`, {
-      params: { userId },
+      params: { username },
     });
     const fetchLikedPlaylists = api.get(`playlist/user-liked-playlists`, {
-      params: { userId },
+      params: { username },
     });
-    const fetchCreatedDrafts = api.get(`draft/get-all-drafts`, {
-      params: { userId },
-    });
-    Promise.all([
+
+    let fetchCreatedDrafts;
+
+    if (user && username === user.username) {
+      fetchCreatedDrafts = api.get(`draft/get-all-drafts`, {
+        params: { username },
+      });
+    }
+
+    const requests = [
       fetchCreatedPlaylists,
       fetchLikedPlaylists,
       fetchCreatedDrafts,
-    ])
-      .then(
-        ([
+    ].filter(Boolean);
+
+    Promise.all(requests)
+      .then((responses) => {
+        const [
           createdPlaylistsResponse,
           likedPlaylistsResponse,
           createdDraftsResponse,
-        ]) => {
-          setCreatedPlaylists(createdPlaylistsResponse.data);
-          setLikedPlaylists(likedPlaylistsResponse.data);
+        ] = responses;
+        setCreatedPlaylists(createdPlaylistsResponse.data);
+        setLikedPlaylists(likedPlaylistsResponse.data);
+        if (createdDraftsResponse) {
           setCreatedDrafts(createdDraftsResponse.data);
         }
-      )
+      })
       .catch((error) => {
         console.error("Error fetching playlist data: ", error);
       })
       .finally(() => {
         setLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {

@@ -5,6 +5,9 @@ import { FaHome, FaPlus, FaPlay, FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = (props) => {
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
   const location = useLocation();
   const menuItem = [
     {
@@ -24,7 +27,7 @@ const Sidebar = (props) => {
     },
     {
       name: "Dashboard",
-      to: "/dashboard",
+      to: user ? `/u/${user.username}` : "/login",
       icon: <FaUser />,
     },
   ];

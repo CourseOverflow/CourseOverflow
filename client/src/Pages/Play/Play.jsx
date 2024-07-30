@@ -6,12 +6,11 @@ import Playlist from "../../Components/Playlist/Playlist.jsx";
 import CommentSection from "../../Components/CommentSection/CommentSection.jsx";
 import PlaySkeleton from "../../Components/Skeleton/PlaySkeleton.jsx";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
 
 const Play = () => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
-  const userId = user?.id || 1;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -59,7 +58,7 @@ const Play = () => {
   const updateIdx = async (idx) => {
     try {
       if (user) {
-        await api.post("playlist/set-last-watched", {
+        api.post("playlist/set-last-watched", {
           playlistId: playlistData.id,
           lastWatched: idx,
         });
@@ -81,7 +80,7 @@ const Play = () => {
       const updatedVideoList = [...videoList];
       updatedVideoList[idx].isWatched = isWatched;
 
-      await api.post("playlist/update-watched", {
+      api.post("playlist/update-watched", {
         playlistId: playlistData.id,
         index: idx,
         add: isWatched,
@@ -89,7 +88,7 @@ const Play = () => {
 
       setVideoList(updatedVideoList);
       setTotalWatched((prevWatched) =>
-        isWatched ? prevWatched + 1 : prevWatched - 1
+        isWatched ? prevWatched + 1 : prevWatched - 1,
       );
     } catch (error) {
       console.error("Error updating watched data: ", error);
@@ -109,7 +108,6 @@ const Play = () => {
       <div className={styles.top}>
         <div className={styles.videoContainer}>
           <Video
-            userId={userId}
             playlistData={playlistData}
             bundleSize={videoList.length}
             currVideo={videoList[index]}

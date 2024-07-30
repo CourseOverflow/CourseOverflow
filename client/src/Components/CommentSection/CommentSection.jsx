@@ -3,11 +3,12 @@ import styles from "./CommentSection.module.css";
 import PostComment from "./PostComment";
 import Comment from "./Comment";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
 
 const CommentSection = (props) => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
   const username = user?.username || "Guest";
 
   const userProfile = process.env.PUBLIC_URL + "/logo.png";

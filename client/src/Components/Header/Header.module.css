@@ -78,6 +78,8 @@
   justify-content: center;
   margin: auto;
   flex-direction: row;
+  margin: 0 10px;
+  font-size: medium;
 }
 
 .btnIcon {

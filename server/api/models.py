@@ -1,36 +1,60 @@
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
 from django.utils import timezone
-from urllib.parse import quote
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
+# ----------------------------------------------------------------------------
 
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, password=None, is_staff=False, is_superuser=False, **extra_fields):
+    def create_user(
+        self, email, first_name, last_name, password=None, **extra_fields
+    ):
         if not email:
             raise ValueError("Users must have an email address")
+        if not first_name:
+            raise ValueError("Users must have a first name")
+        if not last_name:
+            raise ValueError("Users must have a last name")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=is_staff, is_superuser=is_superuser, **extra_fields)
+        user = self.model(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            **extra_fields,
+        )
         user.set_password(password)
         user.save(using=self._db)
-
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+    def create_superuser(
+        self, email, first_name, last_name, password=None, **extra_fields
+    ):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
 
-        if extra_fields.get('is_staff') is not True:
+        if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
-        if extra_fields.get('is_superuser') is not True:
+        if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self.create_user(email,  password, **extra_fields)
+        return self.create_user(
+            email, first_name, last_name, password, **extra_fields
+        )
+
+
+# ----------------------------------------------------------------------------
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    username = models.CharField(max_length=255, blank=True, null=True)
+    username = models.CharField(
+        max_length=255, blank=True, unique=True, db_index=True
+    )
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -38,25 +62,31 @@ class User(AbstractBaseUser, PermissionsMixin):
     profilePicture = models.TextField(blank=True, null=True)
     cloudinaryPublicId = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+        default=timezone.now, null=True, blank=True, editable=False
+    )
 
     objects = UserAccountManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def save(self, *args, **kwargs):
-        if not self.username:
-            # Generate username as first_name + '_' + user_id
-            self.username = f"{self.first_name.lower()}_{self.id}"
-
-        if not self.profilePicture and self.first_name:
-            self.profilePicture = f"https://via.placeholder.com/150?text={self.first_name[0]}"
-
         super().save(*args, **kwargs)
 
+        if not self.username:
+            self.username = (
+                self.first_name[:60].capitalize()
+                + self.last_name[:60].capitalize()
+                + str(self.id)
+            )
+
+        if not self.profilePicture and self.first_name:
+            self.profilePicture = (
+                f"https://via.placeholder.com/150?text={self.first_name[0]}"
+            )
+
     def get_full_name(self):
-        return self.first_name
+        return f"{self.first_name} {self.last_name}"
 
     def get_short_name(self):
         return self.first_name
@@ -64,23 +94,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-# class User(models.Model):
-#     googleId = models.CharField(max_length=255, blank=True, null=True)
-#     username = models.CharField(max_length=255)
-#     email = models.EmailField()
-#     password = models.CharField(max_length=255)
-#     profilePicture = models.TextField(blank=True, null=True)
-#     cloudinaryPublicId = models.TextField(blank=True, null=True)
-#     created_at = models.DateTimeField(
-#         default=timezone.now, null=True, blank=True)
 
-#     def save(self, *args, **kwargs):
-#         if not self.profilePicture and self.username:
-#             self.profilePicture = f"https://via.placeholder.com/150?text={self.username[0]}"
-#         super().save(*args, **kwargs)
-
-#     def __str__(self):
-#         return self.username
+# ----------------------------------------------------------------------------
 
 
 class Draft(models.Model):
@@ -94,10 +109,14 @@ class Draft(models.Model):
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
+
+
+# ----------------------------------------------------------------------------
 
 
 class Playlist(models.Model):
@@ -112,17 +131,21 @@ class Playlist(models.Model):
     coursePDF = models.TextField(blank=True, null=True)
     authorId = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
+
+
+# ----------------------------------------------------------------------------
 
 
 class PlaylistInteraction(models.Model):
     isLiked = models.BooleanField(default=False)
     isDisliked = models.BooleanField(default=False)
     isBookmarked = models.BooleanField(default=False)
-    watched = models.JSONField(default=list)
+    watched = models.JSONField(default=list, blank=True)
     lastWatched = models.IntegerField(default=0)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -140,7 +163,10 @@ class PlaylistInteraction(models.Model):
         return reaction
 
     class Meta:
-        unique_together = ('userId', 'playlistId')
+        unique_together = ("userId", "playlistId")
+
+
+# ----------------------------------------------------------------------------
 
 
 class Video(models.Model):
@@ -164,6 +190,9 @@ class VideoOrder(models.Model):
         return f"{self.playlistId.title}: {self.index}"
 
 
+# ----------------------------------------------------------------------------
+
+
 class Comment(models.Model):
     text = models.TextField()
     likes = models.IntegerField(default=0)
@@ -171,12 +200,17 @@ class Comment(models.Model):
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     playlistId = models.ForeignKey(Playlist, on_delete=models.CASCADE)
     commentId = models.ForeignKey(
-        'self', on_delete=models.CASCADE, null=True, blank=True, default=None)
+        "self", on_delete=models.CASCADE, null=True, blank=True, default=None
+    )
     created_at = models.DateTimeField(
-        default=timezone.now, null=True, blank=True)
+        default=timezone.now, null=True, blank=True
+    )
 
     def __str__(self):
         return self.text[:100]
+
+
+# ----------------------------------------------------------------------------
 
 
 class CommentInteraction(models.Model):
@@ -192,3 +226,6 @@ class CommentInteraction(models.Model):
             return "disliked"
         else:
             return "error"
+
+
+# ----------------------------------------------------------------------------

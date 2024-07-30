@@ -9,11 +9,13 @@ import CreateSkeleton from "../../Components/Skeleton/CreateSkeleton.jsx";
 import { PlaylistContext, usePlaylist } from "../../Contexts/PlaylistContext";
 import { useSearchParams } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreatePlaylist = () => {
-  const authState = useSelector((state) => state.auth);
-  const { user } = authState;
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
   const {
     stepNumber,
     setStepNumber,
@@ -27,14 +29,15 @@ const CreatePlaylist = () => {
     setPlaylistData,
   } = usePlaylist();
 
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const draftId = searchParams.get("draftId");
 
   useEffect(() => {
     if (!user) {
-      console.log("User not logged in");
-      return;
+      console.log("Log in to access this page.");
+      navigate("/login");
     }
     const fetchData = async () => {
       if (draftId) {
@@ -56,12 +59,8 @@ const CreatePlaylist = () => {
     };
     fetchData();
     setLoading(false);
-  }, [user, draftId, setPlaylistData, setSearchParams, setNextStatus]);
-
-  if (!user) {
-    console.log("User not logged in");
-    return <h1>You need to log in to access this feature</h1>;
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draftId, setPlaylistData, setSearchParams, setNextStatus]);
 
   return (
     <PlaylistContext.Provider
