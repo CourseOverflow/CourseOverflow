@@ -1,3 +1,5 @@
+from django.urls import path
+
 from api.auth.views import (
     MyTokenObtainPairView,
     MyTokenRefreshView,
@@ -10,7 +12,6 @@ from api.auth.views import (
     register_view,
     user_view,
 )
-from django.urls import path
 
 urlpatterns = [
     path("", user_view, name="user"),

@@ -27,7 +27,7 @@ export const setAccessToken = (token) => {
 const fetchCsrfToken = async () => {
   try {
     const response = await api.get("auth/token/csrf/");
-    setCsrfToken(response.data.csrfToken);
+    setCsrfToken(response.data.csrftoken);
   } catch (error) {
     console.error("Failed to fetch CSRF token: ", error);
   }
@@ -53,21 +53,10 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-
-    if (error.response.status === 401 && !originalRequest._retry_401) {
-      originalRequest._retry_401 = true;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
       try {
         await fetchAccessToken();
-        return api(originalRequest);
-      } catch (err) {
-        return Promise.reject(err);
-      }
-    }
-
-    if (error.response.status === 403 && !originalRequest._retry_403) {
-      originalRequest._retry_403 = true;
-      try {
-        await setTokens();
         return api(originalRequest);
       } catch (err) {
         return Promise.reject(err);
@@ -100,25 +89,6 @@ export const logoutUser = async () => {
     .catch((error) => {
       console.error("Failed to logout user: ", error);
     });
-};
-
-export const getUserDetails = () => {
-  const user = {
-    email: "email@domain.com",
-    first_name: "Guest",
-    profilePicture: process.env.PUBLIC_URL + "/logo.png",
-    isAuthenticated: false,
-  };
-  if (accessToken) {
-    const userDetails = decodeJWT(accessToken);
-    user.email = userDetails.email;
-    user.first_name = userDetails.first_name;
-    user.profilePicture = userDetails.profilePicture;
-    user.id = userDetails.user_id;
-    user.isAuthenticated = true;
-  }
-
-  return user;
 };
 
 export default api;

@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views.decorators.csrf import ensure_csrf_cookie
 from google.auth.transport import requests
 from google.oauth2 import id_token
 from rest_framework import status
@@ -83,22 +84,13 @@ class MyTokenRefreshView(TokenRefreshView):
 
 
 @api_view(["GET"])
+@ensure_csrf_cookie
 @permission_classes([AllowAny])
 def get_csrf_token(request):
     try:
         csrf_token = get_token(request)
-        response = Response(
-            {"csrfToken": csrf_token}, status=status.HTTP_200_OK
-        )
-        response.set_cookie(
-            "csrfToken",
-            csrf_token,
-            max_age=3600 * 24 * 14,
-            httponly=True,
-            samesite="Strict",
-            secure=not settings.DEBUG,
-        )
-        return response
+        return Response({"csrftoken": csrf_token}, status=status.HTTP_200_OK)
+
     except Exception:
         return Response(
             {"error": "Failed to get CSRF token"},
