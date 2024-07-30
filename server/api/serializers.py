@@ -67,6 +67,7 @@ class GoogleTokenObtainSerializer(serializers.Serializer):
         refresh = RefreshToken.for_user(user)
 
         refresh["email"] = user.email
+        refresh["username"] = user.username
         refresh["first_name"] = user.first_name
         refresh["last_name"] = user.last_name
         refresh["profilePicture"] = user.profilePicture

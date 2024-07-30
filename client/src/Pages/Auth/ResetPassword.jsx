@@ -22,10 +22,10 @@ const ResetPassword = () => {
     uidb64,
     token,
     new_password,
-    new_password_confirm
+    new_password_confirm,
   ) => {
     api
-      .post(`user/reset-password-confirm/${uidb64}/${token}/`, {
+      .post(`auth/reset-password-confirm/${uidb64}/${token}/`, {
         new_password,
         new_password_confirm,
       })

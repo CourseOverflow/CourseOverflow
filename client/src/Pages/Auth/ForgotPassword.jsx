@@ -16,7 +16,7 @@ const ForgotPassword = () => {
 
   const reset_password = async (email) => {
     api
-      .post("user/reset-password/", { email })
+      .post("auth/reset-password/", { email })
       .then((res) => {
         navigate("/login");
       })

@@ -1,8 +1,9 @@
 import os
-import googleapiclient.discovery
 from datetime import timedelta
 
-api_key = "AIzaSyCE4xdm_bjBWqtIV7aD4CdRnzoX4wFDHxk"
+import googleapiclient.discovery
+
+api_key = os.environ.get("YOUTUBE_API_KEY")
 youtube = googleapiclient.discovery.build(
     "youtube", "v3", developerKey=api_key
 )

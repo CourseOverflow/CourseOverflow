@@ -24,7 +24,7 @@ const Header = (props) => {
         <>
           <div className={`${styles.btnGrp}`}>
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/")}
               className={`${styles.glowBtn}`}
             >
               <span className={`${styles.btnIcon}`}>

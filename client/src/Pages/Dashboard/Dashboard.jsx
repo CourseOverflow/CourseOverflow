@@ -85,11 +85,15 @@ const Dashboard = () => {
     },
   ];
 
+  if (!user || username !== user.username) {
+    feedList.splice(2, 1);
+  }
+
   return (
     <>
       <div className={styles.top}>
         <div className={styles.profileHeader}>
-          <ProfileHeader user={user} />
+          <ProfileHeader />
         </div>
         <div className={styles.analytics}>
           <Analytics />

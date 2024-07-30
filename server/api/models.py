@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -27,7 +29,22 @@ class UserAccountManager(BaseUserManager):
             last_name=last_name,
             **extra_fields,
         )
+
+        user.username = uuid4().hex
         user.set_password(password)
+        user.save(using=self._db)
+
+        user.username = (
+            user.first_name[:60].capitalize()
+            + user.last_name[:60].capitalize()
+            + str(user.id)
+        )
+
+        if not user.profilePicture:
+            user.profilePicture = (
+                f"https://via.placeholder.com/150?text={user.first_name[0]}"
+            )
+
         user.save(using=self._db)
         return user
 
@@ -73,14 +90,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        if not self.username:
-            self.username = (
-                self.first_name[:60].capitalize()
-                + self.last_name[:60].capitalize()
-                + str(self.id)
-            )
+        self.username = (
+            self.first_name[:60].capitalize()
+            + self.last_name[:60].capitalize()
+            + str(self.id)
+        )
 
-        if not self.profilePicture and self.first_name:
+        if not self.profilePicture:
             self.profilePicture = (
                 f"https://via.placeholder.com/150?text={self.first_name[0]}"
             )

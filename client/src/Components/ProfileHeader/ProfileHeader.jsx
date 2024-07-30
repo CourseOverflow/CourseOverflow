@@ -1,59 +1,83 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./ProfileHeader.module.css";
 import { FaPen } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import api from "../../Config/apiConfig.js";
 
-const ProfileHeader = (user) => {
-  const userData = user["user"];
-  const userId = user?.id || 1;
-  const loggedInUserId = 2;
+const ProfileHeader = () => {
+  const { username } = useParams();
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+
+  const inputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(userData?.first_name || "Guest");
-  const profilePic = process.env.PUBLIC_URL + "/logo.png";
+  const [currentUser, setCurrentUser] = useState({
+    username: username,
+    profilePic: "",
+  });
+
+  useEffect(() => {
+    if (user.username === username) {
+      setCurrentUser(user);
+      return;
+    }
+    const fetchUser = async () => {
+      try {
+        const response = await api.get(`user/${username}`);
+        setCurrentUser(response.data);
+      } catch (error) {
+        console.error("Error fetching user: ", error);
+      }
+    };
+    fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [username]);
 
   useEffect(() => {
     if (isEditing) {
-      document.getElementById("usernameInput").focus();
+      inputRef.current.focus();
     }
   }, [isEditing]);
 
-  const handleUsernameUpdate = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
-    setIsEditing(false);
-    document.getElementById("usernameInput").blur();
-    console.log("Username updated");
+    console.log("user info updated");
   };
 
-  const handleProfilePicUpdate = () => {
-    console.log("Profile pic updated");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("user info api called");
   };
 
   return (
     <div className={styles.profileHeader}>
-      {userId === loggedInUserId ? (
+      {username === user.username ? (
         <>
           <div className={styles.profilePicContainer}>
             <div className={styles.imageContainer}>
               <img
                 className={styles.profilePicEditable}
-                src={profilePic}
+                src={currentUser.profilePic}
                 alt="Profile"
               />
-              <div className={styles.overlay} onClick={handleProfilePicUpdate}>
+              <div
+                className={styles.overlay}
+                onClick={() => console.log("to be implemented")}
+              >
                 <span>Edit</span>
               </div>
             </div>
           </div>
           <hr className={styles.horizontalLine} />
-          <form
-            className={styles.usernameEditable}
-            onSubmit={handleUsernameUpdate}
-          >
+          <form className={styles.usernameEditable} onSubmit={handleSubmit}>
             <input
               id="usernameInput"
               className={styles.usernameInput}
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => handleUpdate(e)}
+              ref={inputRef}
             />
             <FaPen
               className={styles.editPen}
@@ -64,7 +88,11 @@ const ProfileHeader = (user) => {
       ) : (
         <>
           <div className={styles.profilePicContainer}>
-            <img className={styles.profilePic} src={profilePic} alt="Profile" />
+            <img
+              className={styles.profilePic}
+              src={currentUser.profilePic}
+              alt="Profile"
+            />
           </div>
           <hr className={styles.horizontalLine} />
           <div className={styles.username}>{username}</div>

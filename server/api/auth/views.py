@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from uuid import uuid4
 
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
@@ -224,11 +225,24 @@ def google_login_view(request):
         user, created = User.objects.get_or_create(
             email=email,
             defaults={
-                "username": email.split("@")[0],
-                "first_name": name.split()[0],
-                "last_name": name.split()[-1],
+                "username": uuid4().hex,
+                "first_name": name.split()[0].capitalize(),
+                "last_name": name.split()[-1].capitalize(),
             },
         )
+
+        user.username = (
+            user.first_name[:60].capitalize()
+            + user.last_name[:60].capitalize()
+            + str(user.id)
+        )
+
+        if not user.profilePicture:
+            user.profilePicture = (
+                f"https://via.placeholder.com/150?text={user.first_name[0]}"
+            )
+
+        user.save()
 
         serializer = GoogleTokenObtainSerializer(data={"email": email})
         serializer.is_valid(raise_exception=True)
