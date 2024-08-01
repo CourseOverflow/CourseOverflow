@@ -3,14 +3,12 @@ import Header from "../Components/Header/Header";
 import Sidebar from "../Components/Sidebar/Sidebar";
 import Footer from "../Components/Footer/Footer";
 import styles from "./MainLayout.module.css";
-import AlertList from "../Components/Alerts/AlertList";
 
 const MainLayout = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <AlertList />
       <Header
         isAboutPage={false}
         toggleSidebar={() => {

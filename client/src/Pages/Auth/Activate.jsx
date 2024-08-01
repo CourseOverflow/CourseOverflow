@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./Auth.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../Config/apiConfig";
+import useAlerts from "../../Hooks/useAlerts";
 
 const Activate = () => {
+  const { addAlert } = useAlerts();
   const { uidb64, token } = useParams();
   const [activateStatus, setActivateStatus] = useState("Activating");
   const navigate = useNavigate();
@@ -12,15 +14,15 @@ const Activate = () => {
     api
       .get(`auth/activate/${uidb64}/${token}`)
       .then((res) => {
-        console.log("Activation success: ", res.data);
+        addAlert("Success", "Account activated successfully");
         setActivateStatus("Verified");
         navigate("/login");
       })
       .catch((err) => {
-        console.error("Activation failed: ", err);
         setActivateStatus("Failed");
       });
-  }, [navigate, uidb64, token]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className={styles["form-container"]}>

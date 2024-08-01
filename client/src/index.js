@@ -8,10 +8,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 await setTokens().catch((error) => console.log(error));
 
-// root.render(
-//   <React.StrictMode>
-//     <GlobalStateProvider>
-//       <App />
-//     </GlobalStateProvider>
-//   </React.StrictMode>
-// );
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

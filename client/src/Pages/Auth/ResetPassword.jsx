@@ -3,8 +3,10 @@ import styles from "./Auth.module.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../Config/apiConfig";
+import useAlerts from "../../Hooks/useAlerts";
 
 const ResetPassword = () => {
+  const { addAlert } = useAlerts();
   const navigate = useNavigate();
   const { uidb64, token } = useParams();
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +24,7 @@ const ResetPassword = () => {
     uidb64,
     token,
     new_password,
-    new_password_confirm,
+    new_password_confirm
   ) => {
     api
       .post(`auth/reset-password-confirm/${uidb64}/${token}/`, {
@@ -30,10 +32,11 @@ const ResetPassword = () => {
         new_password_confirm,
       })
       .then((res) => {
+        addAlert("Success", "Password reset successfully");
         navigate("/login");
       })
       .catch((err) => {
-        console.error(err);
+        addAlert("Error", "Error resetting password");
       });
     setFormData({ new_password: "", new_password_confirm: "" });
   };
@@ -41,7 +44,7 @@ const ResetPassword = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (new_password !== new_password_confirm) {
-      console.error("Passwords do not match");
+      addAlert("Warning", "Passwords do not match");
       return;
     }
     reset_password_confirm(uidb64, token, new_password, new_password_confirm);
