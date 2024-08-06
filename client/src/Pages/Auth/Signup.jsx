@@ -4,8 +4,11 @@ import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
 import api from "../../Config/apiConfig";
 import GoogleAuth from "./GoogleAuth";
+import useAlerts from "../../Hooks/useAlerts";
 
 const Signup = () => {
+  const { addAlert } = useAlerts();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -22,7 +25,7 @@ const Signup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== re_password) {
-      console.log("Passwords do not match");
+      addAlert("Warning", "Passwords do not match");
       return;
     }
     api
@@ -33,15 +36,16 @@ const Signup = () => {
         password,
       })
       .then((res) => {
-        console.log("Signup success: ", res.data);
+        addAlert(
+          "Success",
+          "Account created successfully, check your email to activate your account"
+        );
         navigate("/login");
       })
       .catch((err) => {
-        console.error("Signup failed: ", err);
+        addAlert("Error", "Error creating account");
       });
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className={styles["form-container"]}>

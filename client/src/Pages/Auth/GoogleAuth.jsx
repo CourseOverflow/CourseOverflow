@@ -3,15 +3,11 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import api, { setAccessToken } from "../../Config/apiConfig";
 import { useNavigate } from "react-router-dom";
 import styles from "./Auth.module.css";
+import useAlerts from "../../Hooks/useAlerts";
 
 const GoogleAuth = () => {
+  const { addAlert } = useAlerts();
   const navigate = useNavigate();
-
-  if (localStorage.getItem("access")) {
-    console.log("Already logged in");
-    navigate("/");
-  }
-
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const handleLoginSuccess = (credentialResponse) => {
@@ -22,16 +18,16 @@ const GoogleAuth = () => {
       })
       .then((res) => {
         setAccessToken(res.data.access);
+        addAlert("Success", "Logged in successfully");
         navigate("/");
-        console.log("Login success: ", res.data);
       })
       .catch((err) => {
-        console.error("Login failed: ", err);
+        addAlert("Error", "Error logging in");
       });
   };
 
   const handleLoginFailure = (error) => {
-    console.error("Login failed: ", error);
+    addAlert("Error", "Error logging in");
   };
 
   return (

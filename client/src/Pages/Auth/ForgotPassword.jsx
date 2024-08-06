@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
 import api from "../../Config/apiConfig";
+import useAlerts from "../../Hooks/useAlerts";
 
 const ForgotPassword = () => {
+  const { addAlert } = useAlerts();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -18,10 +20,11 @@ const ForgotPassword = () => {
     api
       .post("auth/reset-password/", { email })
       .then((res) => {
+        addAlert("Success", "Password reset link sent to your email");
         navigate("/login");
       })
       .catch((err) => {
-        console.error(err);
+        addAlert("Error", "Error sending password reset link");
       });
     setFormData({ email: "" });
   };

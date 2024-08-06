@@ -3,8 +3,10 @@ import styles from "./Dropdown.module.css";
 import { FaUser, FaSignOutAlt, FaMoon, FaSun } from "react-icons/fa";
 import { logoutUser } from "../../Config/apiConfig";
 import { useNavigate } from "react-router-dom";
+import useAlerts from "../../Hooks/useAlerts";
 
 const Dropdown = ({ toggleDropdown }) => {
+  const { addAlert } = useAlerts();
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
@@ -15,7 +17,11 @@ const Dropdown = ({ toggleDropdown }) => {
   };
 
   const logoutHandler = () => {
-    logoutUser();
+    if (logoutUser()) {
+      addAlert("Success", "Logged out successfully");
+    } else {
+      addAlert("Error", "Failed to logout user");
+    }
     navigate("/login");
   };
 

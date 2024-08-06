@@ -85,9 +85,11 @@ export const logoutUser = async () => {
       delete api.defaults.headers["Authorization"];
       localStorage.clear();
       console.log("User logged out successfully");
+      return true;
     })
     .catch((error) => {
       console.error("Failed to logout user: ", error);
+      return false;
     });
 };
 

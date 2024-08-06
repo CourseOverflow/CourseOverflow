@@ -4,8 +4,10 @@ import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
 import api, { setAccessToken } from "../../Config/apiConfig";
 import GoogleAuth from "./GoogleAuth";
+import useAlerts from "../../Hooks/useAlerts";
 
 const Login = () => {
+  const { addAlert } = useAlerts();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -19,7 +21,6 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("api headers", api.defaults.headers);
     api
       .post("/auth/token/", {
         email,
@@ -27,11 +28,11 @@ const Login = () => {
       })
       .then((res) => {
         setAccessToken(res.data.access);
+        addAlert("Success", "Logged in successfully");
         navigate("/");
-        console.log("Login success: ", res.data);
       })
       .catch((err) => {
-        console.error("Login failed: ", err);
+        addAlert("Error", "Error logging in");
       });
   };
 
