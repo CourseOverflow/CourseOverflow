@@ -58,10 +58,14 @@ async def get_video_details(session, video_ids):
                 "thumbnail": item["snippet"]["thumbnails"]["default"]["url"],
                 "description": item["snippet"]["description"],
                 "video_id": item["id"],
-                "duration": parse_duration(item["contentDetails"]["duration"]),
+                "duration": parse_duration(
+                    item["contentDetails"].get("duration", "PT0S")
+                ),
+                "selected": False,
             }
             for item in video_response.get("items", [])
         ]
+        videos[0]["selected"] = True
     return videos
 
 

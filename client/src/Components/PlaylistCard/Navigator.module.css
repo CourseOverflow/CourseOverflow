@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: transparent;
+}
+
+.navButton {
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+}
+
+.navButton svg {
+  fill: #9ca3af;
+  background-color: transparent;
+}

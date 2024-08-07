@@ -1,8 +1,8 @@
+import asyncio
 from datetime import timedelta
 
-from django.http import JsonResponse
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -11,20 +11,15 @@ from api.serializers import DraftSerializer
 from utils.geminiAPI import uploadPDF
 from utils.youtubeAPI import generatePlaylist
 
+# -----------------------------------------------------------------------------
+
 
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def get_draft(request):
-    if not request.user.is_authenticated:
-        return Response(
-            {"message": "User not authenticated"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
-
-    user = request.user
-    draft_id = request.query_params.get("draftId")
-    if draft_id is None:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
     try:
+        user = request.user
+        draft_id = request.query_params.get("draftId")
         draft = Draft.objects.get(id=draft_id)
         serializer = DraftSerializer(draft, many=False)
         response_data = serializer.data
@@ -36,22 +31,21 @@ def get_draft(request):
                 status=status.HTTP_401_UNAUTHORIZED,
             )
         return Response(response_data, status=status.HTTP_200_OK)
+
     except Draft.DoesNotExist:
         return Response(
             {"message": "Draft not found"}, status=status.HTTP_404_NOT_FOUND
         )
 
 
-@api_view(["GET"])
-def get_all_drafts(request):
-    if not request.user.is_authenticated:
-        return Response(
-            {"message": "User not authenticated"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
+# -----------------------------------------------------------------------------
 
-    user = request.user
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_all_drafts(request):
     try:
+        user = request.user
         drafts = Draft.objects.filter(authorId=user)
         serializer = DraftSerializer(drafts, many=True)
         return Response(serializer.data)
@@ -61,14 +55,12 @@ def get_all_drafts(request):
         )
 
 
-@api_view(["POST"])
-def update_draft(request):
-    if not request.user.is_authenticated:
-        return Response(
-            {"message": "User not authenticated"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
+# -----------------------------------------------------------------------------
 
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def update_draft(request):
     draft_id = request.data.get("draftId")
     user = request.user
     try:
@@ -103,38 +95,44 @@ def update_draft(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# -----------------------------------------------------------------------------
+
+
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def fetch_videos(request):
-    if not request.user.is_authenticated:
+    try:
+        draft_id = request.query_params.get("draftId")
+        draft = Draft.objects.get(id=draft_id)
+
+        if draft.authorId.id != request.user.id:
+            return Response(
+                {"message": "User not authorized to modify this draft"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        # fetch videos asynchronously
+        video_list = asyncio.run(generatePlaylist(draft.topicList))
+
+        draft.videoList = video_list
+        draft.save()
+
+        return Response(video_list, status=status.HTTP_200_OK)
+    except Exception as e:
         return Response(
-            {"message": "User not authenticated"},
-            status=status.HTTP_401_UNAUTHORIZED,
+            {"message": f"Error fetching videos: {str(e)}"},
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
-    draft_id = request.query_params.get("draftId")
-    draft = Draft.objects.get(id=draft_id)
-    if draft.authorId.id != request.user.id:
-        return Response(
-            {"message": "User not authorized to modify this draft"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
 
-    video_list = generatePlaylist(draft.topicList)
-    draft.videoList = video_list
-    draft.save()
-    return Response(video_list, status=status.HTTP_201_CREATED)
+# -----------------------------------------------------------------------------
 
 
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_draft(request):
-    if not request.user.is_authenticated:
-        return Response(
-            {"message": "User not authenticated"},
-            status=status.HTTP_401_UNAUTHORIZED,
-        )
-
-    draft_id = request.data.get("draftId")
     try:
+        draft_id = request.data.get("draftId")
         draft = Draft.objects.get(id=draft_id)
         if draft.authorId.id != request.user.id:
             return Response(
@@ -142,16 +140,22 @@ def delete_draft(request):
                 status=status.HTTP_401_UNAUTHORIZED,
             )
         draft.delete()
+        return Response(status=status.HTTP_200_OK)
+
     except Draft.DoesNotExist:
-        pass
-    return Response(status=status.HTTP_200_OK)
+        return Response(
+            {"message": "Draft not found"}, status=status.HTTP_404_NOT_FOUND
+        )
+
+
+# -----------------------------------------------------------------------------
 
 
 @api_view(["POST"])
 def upload_pdf(request):
     try:
         file_type = request.data.get("fileType")
-        file = request.data.get("file")
+        file = request.FILE.get("file")
 
         topic_list = uploadPDF(file, file_type)
         return Response(topic_list, status=status.HTTP_201_CREATED)
@@ -161,3 +165,6 @@ def upload_pdf(request):
             {"message": "Error uploading PDF"},
             status=status.HTTP_400_BAD_REQUEST,
         )
+
+
+# -----------------------------------------------------------------------------

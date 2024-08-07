@@ -57,8 +57,10 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         await fetchAccessToken();
+        api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (err) {
+        logoutUser();
         return Promise.reject(err);
       }
     }

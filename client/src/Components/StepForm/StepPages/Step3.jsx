@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import PreviewCard from "../../PreviewCard/PreviewCard";
 import PlaylistCard from "../../PlaylistCard/PlaylistCard";
@@ -9,26 +9,54 @@ import FetchSkeleton from "../../Skeleton/FetchSkeleton";
 DragDropContext.unstable_disableReactStrictModeWarnings = true;
 
 const Step3 = () => {
-  const { fetchingVideos, playlistData } = usePlaylistContext();
+  const { fetchingVideos, playlistData, setPlaylistData } =
+    usePlaylistContext();
   const [videoList, setVideoList] = useState([]);
 
   useEffect(() => {
     const newList = playlistData.videoList.map((item) => ({
-      ...item,
+      scrollableItems: item.map((subItem) => ({
+        ...subItem,
+        id: uuidv4(),
+      })),
       id: uuidv4(),
     }));
     setVideoList(newList);
-  }, [playlistData.videoList]);
+    // eslint-disable-next-line
+  }, [fetchingVideos]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
-
     const newList = [...videoList];
     const [reorderedItem] = newList.splice(result.source.index, 1);
     newList.splice(result.destination.index, 0, reorderedItem);
-
     setVideoList(newList);
-    console.log(newList);
+  };
+
+  const nextVideo = (indexI, indexJ) => {
+    const newList = [...videoList];
+    const nextIndex = (indexJ + 1) % newList[indexI].scrollableItems.length;
+    newList[indexI].scrollableItems[indexJ].selected = false;
+    newList[indexI].scrollableItems[nextIndex].selected = true;
+    setVideoList(newList);
+    setPlaylistData((prevData) => ({
+      ...prevData,
+      videoList: newList.map((item) => item.scrollableItems),
+    }));
+  };
+
+  const prevVideo = (indexI, indexJ) => {
+    const newList = [...videoList];
+    const prevIndex =
+      (indexJ - 1 + newList[indexI].scrollableItems.length) %
+      newList[indexI].scrollableItems.length;
+    newList[indexI].scrollableItems[indexJ].selected = false;
+    newList[indexI].scrollableItems[prevIndex].selected = true;
+    setVideoList(newList);
+    setPlaylistData((prevData) => ({
+      ...prevData,
+      videoList: newList.map((item) => item.scrollableItems),
+    }));
   };
 
   if (fetchingVideos) {
@@ -45,12 +73,12 @@ const Step3 = () => {
           <Droppable droppableId="list">
             {(provided) => (
               <ul {...provided.droppableProps} ref={provided.innerRef}>
-                {videoList.map((item, index) => {
+                {videoList.map((item, indexI) => {
                   return (
                     <Draggable
                       key={item.id}
                       draggableId={item.id}
-                      index={index}
+                      index={indexI}
                     >
                       {(provided) => (
                         <li
@@ -58,14 +86,22 @@ const Step3 = () => {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <PlaylistCard
-                            key={item.id}
-                            topic={item.title}
-                            author={item.author}
-                            thumbnail={item.thumbnail}
-                            duration={item.duration}
-                            isDraggable={true}
-                          />
+                          {item.scrollableItems.map(
+                            (subItem, indexJ) =>
+                              subItem.selected && (
+                                <PlaylistCard
+                                  key={subItem.id}
+                                  topic={subItem.title}
+                                  author={subItem.author}
+                                  thumbnail={subItem.thumbnail}
+                                  duration={subItem.duration}
+                                  nextVideo={() => nextVideo(indexI, indexJ)}
+                                  prevVideo={() => prevVideo(indexI, indexJ)}
+                                  isDraggable={true}
+                                  isScrollable={true}
+                                />
+                              ),
+                          )}
                         </li>
                       )}
                     </Draggable>
