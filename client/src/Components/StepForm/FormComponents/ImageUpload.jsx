@@ -42,10 +42,12 @@ const ImageUpload = () => {
 
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "neetqub9");
+      formData.append("upload_preset", "imageupload");
       formData.append("folder", "playlistThumbnail");
 
-      fetch("https://api.cloudinary.com/v1_1/dsum3x8ok/image/upload", {
+      const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+
+      fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
         method: "POST",
         body: formData,
       })
