@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./ImageUpload.module.css";
 import { IoMdClose } from "react-icons/io";
-// import api from "../../../Config/apiConfig";
+import api from "../../../Config/apiConfig";
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -23,11 +23,12 @@ const FileUpload = () => {
       formData.append("file", selectedFile);
 
       // Make a POST request to the server's upload route
-      // await api.post(`playlist/upload-pdf`, formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
+      await api.post(`draft/upload-pdf`, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
+      });
 
       // Optionally, you can handle the response or perform other actions after a successful upload
       console.log("File uploaded successfully");
@@ -50,14 +51,17 @@ const FileUpload = () => {
         return (
           <img src={URL.createObjectURL(selectedFile)} alt="File Preview" />
         );
-      } else if (selectedFile.type === "application/pdf") {
+      } else if (
+        selectedFile.type === "application/pdf" ||
+        selectedFile.type === "text/plain"
+      ) {
         // Display PDF preview using an iframe
         return (
           <iframe
             src={URL.createObjectURL(selectedFile)}
             title="File Preview"
             width="100%"
-            height="300px"
+            height="250px"
             className="previewFrame"
           />
         );
@@ -91,8 +95,11 @@ const FileUpload = () => {
         <div className={styles["fileActions"]}>
           {!selectedFile && (
             <>
-              <h4>Select File here</h4>
-              <p>Supported File Formats: PDF, DOC, TXT</p>
+              <h4>
+                {" "}
+                Generate Topics from Course Curriculum (PDF/TXT) Using Gemini
+              </h4>
+              <p>Supported File Formats: PDF, TXT</p>
               <button
                 className={styles["btn"]}
                 onClick={() => {
@@ -107,13 +114,13 @@ const FileUpload = () => {
           )}
           {selectedFile && (
             <button className={styles["btn"]} onClick={uploadToServer}>
-              Upload to Server
+              Generate Topics
             </button>
           )}
           <input
             type="file"
             hidden
-            accept=".pdf,.doc,.txt,image/*" // Add supported image formats here
+            accept=".pdf,.txt" // Add supported image formats here
             id={styles["fileID"]}
             ref={fileInputRef}
             onChange={handleFileChange}
