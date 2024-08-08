@@ -37,7 +37,7 @@ const FileUpload = () => {
         },
       });
 
-      if (topics?.data) {
+      if (Array.isArray(topics.data) && topics.data.length > 0) {
         setPlaylistData({
           ...playlistData,
           topicList: topics.data,
@@ -52,6 +52,7 @@ const FileUpload = () => {
       console.log("File uploaded successfully");
     } catch (error) {
       console.error("Error uploading file:", error);
+      addAlert("Failed to generate topics from course curriculum", "Error");
     }
   };
 
@@ -60,6 +61,7 @@ const FileUpload = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }
+    addAlert("File removed", "Success");
   };
 
   const renderFilePreview = () => {

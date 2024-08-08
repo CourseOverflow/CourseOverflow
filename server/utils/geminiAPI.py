@@ -19,7 +19,8 @@ def uploadPDF(file):
         return geminiAPI(text)
 
     elif file.content_type == "text/plain":
-        return geminiAPI(file.read())
+        text = file.read().decode("utf-8")
+        return geminiAPI(text)
 
     else:
         raise ValueError("Unsupported file type")
