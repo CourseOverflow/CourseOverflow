@@ -39,7 +39,7 @@ const fetchAccessToken = async () => {
     setAccessToken(response.data.access);
   } catch (error) {
     console.error("Failed to fetch access token: ", error);
-    logoutUser();
+    localStorage.clear();
   }
 };
 
@@ -61,7 +61,7 @@ api.interceptors.response.use(
         api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (err) {
-        logoutUser();
+        localStorage.clear();
         return Promise.reject(err);
       }
     }
