@@ -46,7 +46,11 @@ const PlaylistCard = (props) => {
         />
       )}
       {props.isScrollable && (
-        <Navigator nextVideo={props.nextVideo} prevVideo={props.prevVideo} />
+        <Navigator
+          nextVideo={props.nextVideo}
+          prevVideo={props.prevVideo}
+          deleteVideo={props.deleteVideo}
+        />
       )}
     </div>
   );

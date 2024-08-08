@@ -59,6 +59,16 @@ const Step3 = () => {
     }));
   };
 
+  const deleteVideo = (indexI) => {
+    const newList = [...videoList];
+    newList.splice(indexI, 1);
+    setVideoList(newList);
+    setPlaylistData((prevData) => ({
+      ...prevData,
+      videoList: newList.map((item) => item.scrollableItems),
+    }));
+  };
+
   if (fetchingVideos) {
     return <FetchSkeleton />;
   }
@@ -97,6 +107,9 @@ const Step3 = () => {
                                   duration={subItem.duration}
                                   nextVideo={() => nextVideo(indexI, indexJ)}
                                   prevVideo={() => prevVideo(indexI, indexJ)}
+                                  deleteVideo={() => {
+                                    deleteVideo(indexI);
+                                  }}
                                   isDraggable={true}
                                   isScrollable={true}
                                 />

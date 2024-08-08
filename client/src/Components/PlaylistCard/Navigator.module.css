@@ -13,6 +13,25 @@
 }
 
 .navButton svg {
-  fill: #9ca3af;
+  fill: var(--text);
   background-color: transparent;
+}
+
+.navButton svg:hover {
+  fill: var(--theme);
+}
+
+.deleteButton {
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+}
+
+.deleteButton svg {
+  fill: var(--text);
+  background-color: transparent;
+}
+
+.deleteButton svg:hover {
+  fill: var(--error);
 }
