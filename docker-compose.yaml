@@ -13,25 +13,33 @@ services:
       - courseoverflow
     depends_on:
       - postgres
+      - redis
     env_file:
       - ./server/.env
-  # command: >
-  #   sh -c "python manage.py makemigrations &&
-  #          python manage.py migrate &&
-  #          python manage.py collectstatic --noinput &&
-  #          python manage.py runserver 0.0.0.0:8000"
-  #
+    # command: >
+    #   sh -c "python manage.py makemigrations &&
+    #          python manage.py migrate &&
+    #          python manage.py collectstatic --noinput &&
+    #          python manage.py runserver 0.0.0.0:8000"
+
   postgres:
     image: postgres:latest
     container_name: courseoverflow_postgres
-    ports:
-      - "5432:5432"
     networks:
       - courseoverflow
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./server/.env
+
+  redis:
+    image: redis:latest
+    container_name: courseoverflow_redis
+    networks:
+      - courseoverflow
+    environment:
+      - REDIS_PASSWORD=pass
+    command: redis-server --requirepass pass
 
 networks:
   courseoverflow:

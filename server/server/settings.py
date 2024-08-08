@@ -90,9 +90,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "server.wsgi.application"
 
 
+# ------------------- Database Configuration -------------------
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 
 DATABASES = {
     "default": {
@@ -108,7 +108,25 @@ DATABASES = {
     }
 }
 
+# ------------------- Cache Configuration -------------------
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://default:{os.getenv('REDIS_PASSWORD')}@"
+        + f"{os.getenv('REDIS_HOST')}:{os.getenv('REDIS_PORT')}/"
+        + f"{os.getenv('REDIS_DB')}",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+        "KEY_PREFIX": os.getenv("REDIS_KEY_PREFIX", ""),
+    }
+}
 
+# ------------------- Session Configuration -------------------
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+# ------------------- Email Configuration -------------------
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
@@ -121,6 +139,7 @@ EMAIL_HOST_PASSWORD = os.environ.get(
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "true") == "true"
 
 
+# --------------- Password Reset Configuration ---------------
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -156,6 +175,7 @@ USE_I18N = True
 USE_TZ = True
 
 
+# --------------- Static files (CSS, JavaScript, Images) ---------------
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -163,6 +183,7 @@ STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
+# --------------- REST Framework Configuration ---------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -174,7 +195,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-
+# ------------------- JWT Configuration -------------------
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer"),
     "ALGORITHM": "HS256",

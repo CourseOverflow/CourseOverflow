@@ -3,6 +3,7 @@ import os
 from datetime import timedelta
 
 import aiohttp
+from django.core.cache import cache
 
 # -----------------------------------------------------------------------------
 
@@ -23,6 +24,9 @@ async def generatePlaylist(topics):
 
 
 async def search_videos(session, query):
+    if cache.get(query):
+        return cache.get(query)
+
     search_url = f"{base_url}/search"
     params = {
         "q": query,
@@ -36,7 +40,10 @@ async def search_videos(session, query):
         video_ids = [
             item["id"]["videoId"] for item in search_response.get("items", [])
         ]
-        return await get_video_details(session, video_ids)
+        result = await get_video_details(session, video_ids)
+
+    cache.set(query, result, timeout=60 * 60)
+    return result
 
 
 # -----------------------------------------------------------------------------
