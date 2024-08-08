@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: transparent;
+}
+
+.navButton {
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+}
+
+.navButton svg {
+  fill: var(--text);
+  background-color: transparent;
+}
+
+.navButton svg:hover {
+  fill: var(--theme);
+}
+
+.deleteButton {
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+}
+
+.deleteButton svg {
+  fill: var(--text);
+  background-color: transparent;
+}
+
+.deleteButton svg:hover {
+  fill: var(--error);
+}

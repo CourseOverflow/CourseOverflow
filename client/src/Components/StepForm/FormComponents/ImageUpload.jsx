@@ -147,7 +147,7 @@ const ImageUpload = () => {
               ) : (
                 <>
                   <header>
-                    <h4>Drop Image here</h4>
+                    <h4>Select Thumbnail</h4>
                   </header>
                   <p>Supported Image Formats: JPG, PNG, JPEG</p>
                   <button

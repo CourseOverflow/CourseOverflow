@@ -460,54 +460,61 @@ def create_playlist(request):
         }
 
         playlist_serializer = PlaylistSerializer(data=playlist_data)
-        if playlist_serializer.is_valid():
-            playlist = playlist_serializer.save()
+        if not playlist_serializer.is_valid():
+            return Response(
+                playlist_serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            )
 
-            total_duration = timedelta(0)
-            for index, video in enumerate(draft.videoList):
-                video_data = {
-                    "title": video["title"],
-                    "author": video["author"],
-                    "thumbnail": video["thumbnail"],
-                    "duration": datetime.strptime(
-                        video["duration"], "%H:%M:%S"
-                    ).time(),
-                    "youtubeHash": video["video_id"],
-                    "description": video["description"],
+        playlist = playlist_serializer.save()
+        total_duration = timedelta(0)
+        selected_videos = [
+            video
+            for videos in draft.videoList
+            for video in videos
+            if video["selected"]
+        ]
+
+        for index, video in enumerate(selected_videos):
+            video_data = video.copy()
+            video_data["youtubeHash"] = video["video_id"]
+            video_data["duration"] = datetime.strptime(
+                video["duration"], "%H:%M:%S"
+            ).time()
+            del video_data["selected"]
+            del video_data["video_id"]
+
+            video_serializer = VideoSerializer(data=video_data)
+            if video_serializer.is_valid():
+                video = video_serializer.save()
+                total_duration += video.duration
+
+                video_order_data = {
+                    "index": index,
+                    "playlistId": playlist.id,
+                    "videoId": video.id,
                 }
+                video_order_serializer = VideoOrderSerializer(
+                    data=video_order_data
+                )
+                if video_order_serializer.is_valid():
+                    video_order_serializer.save()
 
-                video_serializer = VideoSerializer(data=video_data)
-                if video_serializer.is_valid():
-                    video = video_serializer.save()
-                    total_duration += video.duration
+        playlist.duration = total_duration
+        total_seconds = int(total_duration.total_seconds())
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
 
-                    video_order_data = {
-                        "index": index,
-                        "playlistId": playlist.id,
-                        "videoId": video.id,
-                    }
-                    video_order_serializer = VideoOrderSerializer(
-                        data=video_order_data
-                    )
-                    if video_order_serializer.is_valid():
-                        video_order_serializer.save()
+        playlist.save()
+        draft.delete()
 
-            playlist.duration = total_duration
-            total_seconds = int(total_duration.total_seconds())
-            hours, remainder = divmod(total_seconds, 3600)
-            minutes, seconds = divmod(remainder, 60)
-
-            playlist.save()
-            draft.delete()
-
-            response_data = {"playlistId": playlist.id}
-            return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(
-            playlist_serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            {"playlistId": playlist.id}, status=status.HTTP_201_CREATED
         )
 
     except Draft.DoesNotExist:
-        return Response({"message": "Draft not found"}, status=404)
+        return Response(
+            {"message": "Draft not found"}, status=status.HTTP_404_NOT_FOUND
+        )
 
     except Exception:
         return Response(

@@ -1,37 +1,54 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className={`${styles.footer}`}>
       <div className={styles["footer-content"]}>
         <span className={`${styles["footer-text"]}`}>
-          © 2023{" "}
-          <a href="/" className="hover:underline">
-            Slimy™
-          </a>
+          © {new Date().getFullYear()}{" "}
+          <button
+            onClick={() => navigate("/")}
+            className="hover:underline cursor-pointer"
+          >
+            CourseOverflow™
+          </button>
           . All Rights Reserved.
         </span>
         <ul className={styles["footer-links"]}>
           <li>
-            <a href="/about" className={`${styles["footer-link"]}`}>
+            <button
+              onClick={() => navigate("/about")}
+              className={`${styles["footer-link"]}`}
+            >
               About
-            </a>
+            </button>
           </li>
           <li>
-            <a href="/" className={`${styles["footer-link"]}`}>
+            <button
+              onClick={() => navigate("/about")}
+              className={`${styles["footer-link"]}`}
+            >
               Privacy Policy
-            </a>
+            </button>
           </li>
           <li>
-            <a href="/" className={`${styles["footer-link"]}`}>
+            <button
+              onClick={() => navigate("/about")}
+              className={`${styles["footer-link"]}`}
+            >
               Licensing
-            </a>
+            </button>
           </li>
           <li>
-            <a href="/" className={styles["footer-link"]}>
+            <button
+              onClick={() => navigate("/about")}
+              className={styles["footer-link"]}
+            >
               Contact
-            </a>
+            </button>
           </li>
         </ul>
       </div>

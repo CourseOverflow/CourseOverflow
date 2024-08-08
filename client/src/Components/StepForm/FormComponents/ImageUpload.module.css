@@ -59,6 +59,7 @@
   background-color: var(--theme);
   color: var(--baseText);
   padding: 10px 20px;
+  margin-top: 10px;
   border: none;
   outline: none;
   border-radius: 10px;

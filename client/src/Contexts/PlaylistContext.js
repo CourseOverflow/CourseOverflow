@@ -1,11 +1,8 @@
 import { createContext, useState, useContext } from "react";
 
 export const usePlaylist = () => {
-  const user = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : null;
-  const userId = user?.id || 1;
-  console.log(userId);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = user.user_id;
   const [stepNumber, setStepNumber] = useState(1);
   const [backStatus, setBackStatus] = useState(false);
   const [nextStatus, setNextStatus] = useState(false);
@@ -42,7 +39,7 @@ export const usePlaylistContext = () => {
   const playlist = useContext(PlaylistContext);
   if (!playlist) {
     throw new Error(
-      "usePlaylistContext must be used within a PlaylistProvider"
+      "usePlaylistContext must be used within a PlaylistProvider",
     );
   }
   return playlist;

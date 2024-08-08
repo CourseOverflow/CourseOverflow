@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./PlaylistCard.module.css";
 import { FaBars, FaPlay } from "react-icons/fa";
 import Checkbox from "./Checkbox";
+import Navigator from "./Navigator";
 
 const PlaylistCard = (props) => {
   return (
@@ -12,9 +13,9 @@ const PlaylistCard = (props) => {
     >
       <div
         onClick={props.playlistItem ? () => props.updateIdx(props.index) : null}
-        className={`${styles.playlistCard}`}
+        className={styles.playlistCard}
       >
-        <span className={`${styles.videoIdx}`}>
+        <span className={styles.videoIdx}>
           {props.isDraggable ? (
             <FaBars />
           ) : props.currVideo ? (
@@ -24,17 +25,17 @@ const PlaylistCard = (props) => {
           )}
         </span>
 
-        <div className={`${styles.imageContainer}`}>
+        <div className={styles.imageContainer}>
           <img
-            className={`${styles.thumbnail}`}
+            className={styles.thumbnail}
             src={props.thumbnail}
             alt={props.topic}
           />
-          <p className={`${styles.duration}`}>{props.duration}</p>
+          <p className={styles.duration}>{props.duration}</p>
         </div>
-        <div className={`${styles.details}`}>
-          <h5 className={`${styles.topic}`}>{props.topic}</h5>
-          <p className={`${styles.author}`}>{props.author}</p>
+        <div className={styles.details}>
+          <h5 className={styles.topic}>{props.topic}</h5>
+          <p className={styles.author}>{props.author}</p>
         </div>
       </div>
       {props.playlistItem && (
@@ -42,6 +43,13 @@ const PlaylistCard = (props) => {
           updateWatched={props.updateWatched}
           watched={props.isWatched}
           index={props.index}
+        />
+      )}
+      {props.isScrollable && (
+        <Navigator
+          nextVideo={props.nextVideo}
+          prevVideo={props.prevVideo}
+          deleteVideo={props.deleteVideo}
         />
       )}
     </div>
