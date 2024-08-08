@@ -39,6 +39,7 @@ const fetchAccessToken = async () => {
     setAccessToken(response.data.access);
   } catch (error) {
     console.error("Failed to fetch access token: ", error);
+    logoutUser();
   }
 };
 
