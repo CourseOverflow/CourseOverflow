@@ -152,12 +152,17 @@ def delete_draft(request):
 
 
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def upload_pdf(request):
     try:
-        file_type = request.data.get("fileType")
-        file = request.FILE.get("file")
+        file = request.FILES.get("file")
+        if file.content_type not in ["application/pdf", "text/plain"]:
+            return Response(
+                {"message": "Unsupported file type"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
-        topic_list = uploadPDF(file, file_type)
+        topic_list = uploadPDF(file)
         return Response(topic_list, status=status.HTTP_201_CREATED)
 
     except Exception:
