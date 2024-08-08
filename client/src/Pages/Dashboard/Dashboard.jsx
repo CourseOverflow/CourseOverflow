@@ -60,7 +60,7 @@ const Dashboard = () => {
         setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [username]);
 
   if (loading) {
     return <DashboardSkeleton />;
