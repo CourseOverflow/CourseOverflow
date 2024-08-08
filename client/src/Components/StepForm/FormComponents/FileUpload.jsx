@@ -2,9 +2,14 @@ import React, { useState, useRef } from "react";
 import styles from "./ImageUpload.module.css";
 import { IoMdClose } from "react-icons/io";
 import api from "../../../Config/apiConfig";
+import { usePlaylistContext } from "../../../Contexts/PlaylistContext";
+import useAlert from "../../../Hooks/useAlerts";
+
 const FileUpload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
+  const { playlistData, setPlaylistData } = usePlaylistContext();
+  const { addAlert } = useAlert();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -23,12 +28,25 @@ const FileUpload = () => {
       formData.append("file", selectedFile);
 
       // Make a POST request to the server's upload route
-      await api.post(`draft/upload-pdf`, {
+      const topics = await api.post(`draft/upload-pdf`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        data: formData,
+        form: {
+          file: selectedFile,
+        },
       });
+
+      if (topics?.data) {
+        setPlaylistData({
+          ...playlistData,
+          topicList: topics.data,
+          coursePDF: selectedFile,
+        });
+        addAlert("Topics generated successfully", "Success");
+      } else {
+        addAlert("Failed to generate topics from course curriculum", "Error");
+      }
 
       // Optionally, you can handle the response or perform other actions after a successful upload
       console.log("File uploaded successfully");
