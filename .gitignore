@@ -33,3 +33,4 @@ media/
 .venv/
 .vercel
 static/
+staticfiles/
