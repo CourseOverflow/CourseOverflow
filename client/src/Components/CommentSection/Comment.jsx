@@ -4,6 +4,7 @@ import Reply from "./Reply";
 import CommentFooter from "./CommentFooter";
 import PostComment from "./PostComment";
 import api from "../../Config/apiConfig.js";
+import useAlerts from "../../Hooks/useAlerts";
 
 const Comment = ({
   comment,
@@ -19,6 +20,8 @@ const Comment = ({
   const replies = comment.thread;
   const [openReplies, setOpenReplies] = useState(false);
   const [openReply, setOpenReply] = useState(false);
+  const [updating, setUpdating] = useState(false);
+  const { addAlert } = useAlerts();
 
   const toggleReply = () => {
     setOpenReply(!openReply);
@@ -30,14 +33,27 @@ const Comment = ({
     setOpenReplies(true);
   };
 
-  const postLikeDislikeUpdate = (requestData) => {
+  const postLikeDislikeUpdate = async (requestData) => {
     if (!user) {
-      console.log("User not logged in");
+      addAlert("Warning", "You need to be logged in to like/dislike comments");
       return;
     }
-    api.post(`comment/update-like-dislike`, requestData).catch((error) => {
-      console.error("Error updating like/dislike: ", error);
-    });
+    if (updating) {
+      addAlert("Warning", "Please wait for the previous action to complete");
+      return;
+    }
+    setUpdating(true);
+    await api
+      .post(`comment/update-like-dislike`, requestData)
+      .then(() => {
+        addAlert("Success", "Like/Dislike updated successfully");
+      })
+      .catch(() => {
+        addAlert("Error", "Error updating like/dislike");
+      })
+      .finally(() => {
+        setUpdating(false);
+      });
   };
 
   const likeHandler = () => {

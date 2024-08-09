@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from django.db.models import Count, Q
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from api.models import Draft, Playlist, PlaylistInteraction, User, VideoOrder
@@ -18,6 +18,7 @@ from api.serializers import (
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def getPlaylist(request):
     playlistId = request.query_params.get("playlistId")
     playlist = Playlist.objects.get(id=playlistId)
@@ -42,13 +43,14 @@ def getPlaylist(request):
         playlist_data["isDisliked"] = playlist_interaction.isDisliked
         playlist_data["isBookmarked"] = playlist_interaction.isBookmarked
 
-    return Response(playlist_data)
+    return Response(playlist_data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def search(request):
     query = request.query_params.get("query")
     playlists = Playlist.objects.filter(
@@ -91,13 +93,14 @@ def search(request):
             playlist["isBookmarked"] = playlist_interaction.isBookmarked
             playlist["watchCount"] = len(playlist_interaction.watched)
 
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def recommended(request):
     recommended_playlists = []
     if request.user.is_authenticated:
@@ -163,13 +166,14 @@ def recommended(request):
         playlist["authorName"] = author.first_name + " " + author.last_name
         playlist["authorProfile"] = author.profilePicture
 
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def popular(request):
     playlists = Playlist.objects.order_by("-likes")[:10]
     serializer = PlaylistSerializer(playlists, many=True)
@@ -206,13 +210,14 @@ def popular(request):
             playlist["isBookmarked"] = False
             playlist["watchCount"] = 0
 
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def recent_uploads(request):
     playlists = Playlist.objects.order_by("-created_at")[:10]
     serializer = PlaylistSerializer(playlists, many=True)
@@ -249,13 +254,14 @@ def recent_uploads(request):
             playlist["isBookmarked"] = False
             playlist["watchCount"] = 0
 
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def user_playlists(request):
     user = User.objects.get(username=request.query_params["username"])
     playlists = Playlist.objects.filter(authorId=user)
@@ -266,13 +272,14 @@ def user_playlists(request):
             author.first_name + " " + author.last_name
         )
         playlist_data["authorProfile"] = author.profilePicture
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def user_liked_playlists(request):
     user = User.objects.get(username=request.query_params["username"])
     playlists = Playlist.objects.filter(
@@ -285,7 +292,7 @@ def user_liked_playlists(request):
             author.first_name + " " + author.last_name
         )
         playlist_data["authorProfile"] = author.profilePicture
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
@@ -299,7 +306,8 @@ def user_bookmarked_playlists(request):
         user = request.user
         if requested_user_username != user.username:
             return Response(
-                {"message": "User unauthorized to view this data"}, status=401
+                {"message": "User unauthorized to view this data"},
+                status=status.HTTP_401_UNAUTHORIZED,
             )
 
         playlists = Playlist.objects.filter(
@@ -315,14 +323,16 @@ def user_bookmarked_playlists(request):
             playlist_data["authorProfile"] = author.profilePicture
         return Response(serializer.data)
     except Exception:
-        return Response({"message": "User not found"}, status=404)
+        return Response(
+            {"message": "User not found"}, status=status.HTTP_404_NOT_FOUND
+        )
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def watch_count(request):
     try:
         user = request.user
@@ -332,16 +342,16 @@ def watch_count(request):
             userId=user, playlistId=playlist
         )
         watch_count = len(playlist_interaction.watched)
-        return Response({"watchCount": watch_count})
+        return Response({"watchCount": watch_count}, status=status.HTTP_200_OK)
     except Exception:
-        return Response({"message": "Playlist not found"}, status=404)
+        return Response({"watchCount": 0}, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def getLastWatched(request):
     try:
         user = request.user
@@ -349,9 +359,12 @@ def getLastWatched(request):
         playlist_interaction, _ = PlaylistInteraction.objects.get_or_create(
             userId=user, playlistId=playlist, defaults={"lastWatched": 0}
         )
-        return Response({"lastWatched": playlist_interaction.lastWatched})
+        return Response(
+            {"lastWatched": playlist_interaction.lastWatched},
+            status=status.HTTP_200_OK,
+        )
     except Playlist.DoesNotExist:
-        return Response({"message": "Playlist not found"}, status=404)
+        return Response({"lastWatched": 0}, status=status.HTTP_200_OK)
 
 
 # ----------------------------------------------------------------------------
@@ -368,11 +381,15 @@ def setLastWatched(request):
         )
         playlist_interaction.lastWatched = request.data["lastWatched"]
         playlist_interaction.save()
-        return Response({"message": "Last watched updated successfully"})
+        return Response(
+            {"message": "Last watched updated successfully"},
+            stauts=status.HTTP_200_OK,
+        )
 
     except Exception:
         return Response(
-            {"message": "Playlist interaction not found"}, status=404
+            {"message": "Playlist interaction not found"},
+            status=status.HTTP_404_NOT_FOUND,
         )
 
 
@@ -395,10 +412,14 @@ def updateWatched(request):
             if request.data["index"] in playlist_interaction.watched:
                 playlist_interaction.watched.remove(request.data["index"])
         playlist_interaction.save()
-        return Response({"message": "Watched updated successfully"})
+        return Response(
+            {"message": "Watched updated successfully"},
+            status=status.HTTP_200_OK,
+        )
     except Exception:
         return Response(
-            {"message": "Playlist interaction not found"}, status=404
+            {"message": "Playlist interaction not found"},
+            status=status.HTTP_404_NOT_FOUND,
         )
 
 
@@ -423,10 +444,14 @@ def updateLikeDislike(request):
         playlist.dislikes += request.data["newDislikes"]
         playlist.save()
 
-        return Response({"message": "Like/Dislike updated successfully"})
+        return Response(
+            {"message": "Like/Dislike updated successfully"},
+            status=status.HTTP_200_OK,
+        )
     except Exception:
         return Response(
-            {"message": "Playlist interaction not found"}, status=404
+            {"message": "Playlist interaction not found"},
+            status=status.HTTP_404_NOT_FOUND,
         )
 
 
@@ -443,7 +468,7 @@ def create_playlist(request):
         if draft.authorId.id != user.id:
             return Response(
                 {"message": "User unauthorized to create this playlist"},
-                status=401,
+                status=status.HTTP_401_UNAUTHORIZED,
             )
 
         playlist_data = {

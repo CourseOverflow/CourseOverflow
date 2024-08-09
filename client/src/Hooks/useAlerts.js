@@ -46,7 +46,7 @@ const useAlerts = () => {
     globalSetAlertQueue((prevQueue) => [...prevQueue, newAlert]);
     setTimeout(() => {
       globalSetAlertQueue((prevQueue) =>
-        prevQueue.filter((alert) => alert.id !== id)
+        prevQueue.filter((alert) => alert.id !== id),
       );
     }, 3000);
   };
