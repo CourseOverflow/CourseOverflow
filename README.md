@@ -20,7 +20,79 @@ The mission of CourseOverflow is to provide students with convenient access to c
 
 Explore CourseOverflow today and discover the ultimate solution for accessing relevant educational resources conveniently. Improve your learning, supplement your exam preparation, and unlock your academic potential with curated YouTube playlists tailored to your specific course curriculum.
 
-Visit our project page [CourseOverflow](https://anshujlayan.github.io/CourseOverflow/) to get started!
+Visit our project page [CourseOverflow](https://courseoverflow.vercel.app) to get started!
+
+## Development Setup
+
+1. **Clone the repository**
+2. **Install Docker and start the daemon**
+3. **Create .env files for client and server**
+   
+   client/.env
+   ```env
+   REACT_APP_DEBUG="true"
+   REACT_APP_API_URL="http://localhost:8000/api/"
+  
+   REACT_APP_CLOUDINARY_CLOUD_NAME=""
+   REACT_APP_CLOUDINARY_API_KEY=""
+   REACT_APP_CLOUDINARY_API_SECRET=""
+  
+   REACT_APP_GOOGLE_CLIENT_ID=""
+   ```
+
+   server/.env
+   ```env
+   DEBUG="true"
+   SECRET_KEY=""
+   DOMAIN="http://localhost:3000"
+   ALLOWED_HOSTS="localhost"
+   CORS_ALLOWED_ORIGINS="http://localhost:3000"
+   CSRF_TRUSTED_ORIGINS="http://localhost:3000"
+   
+   EMAIL_HOST="smtp.gmail.com"
+   EMAIL_PORT=587
+   EMAIL_HOST_USER=""
+   EMAIL_HOST_PASSWORD=""
+   EMAIL_USE_TLS="true"
+   
+   SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=""
+   SOCIAL_AUTH_GOOGLE_OAUTH_SECRET=""
+   
+   YOUTUBE_API_KEY=""
+   GEMINI_API_KEY=""
+   GEMINI_MODEL="gemini-1.5-flash"
+   
+   POSTGRES_DB="courseoverflow"
+   POSTGRES_USER="postgres"
+   POSTGRES_PASSWORD="pass"
+   POSTGRES_HOST="postgres"
+   POSTGRES_PORT=5432
+   POSTGRES_SSLMODE="disable"
+   
+   REDIS_HOST="redis"
+   REDIS_PORT=6379
+   DB_NUMBER=0
+   REDIS_PASSWORD="pass"
+   REDIS_KEY_PREFIX="courseoverflow"
+   ```
+
+   
+4. **Run the server**
+   
+   > From the root directory
+   ```bash
+   docker-compose build
+   docker-compose up
+   ```
+
+5. **Run the client side application**
+
+   > From the clint directory
+   ```bash
+   cd client
+   npm intall
+   npm start
+   ```
 
 ## Project Contributors
 
