@@ -10,7 +10,7 @@ const Card = (props) => {
   const getLastWatched = async (playlistId) => {
     try {
       const response = await api.get(
-        `playlist/get-last-watched?playlistId=${playlistId}`
+        `playlist/get-last-watched?playlistId=${playlistId}`,
       );
       return response.data.lastWatched;
     } catch (error) {
@@ -31,7 +31,7 @@ const Card = (props) => {
   };
 
   const watchPercentage = Math.floor(
-    (props.data.watchedCount / props.data.videoCount) * 100
+    (props.data.watchCount / props.data.videoCount) * 100,
   );
 
   return (

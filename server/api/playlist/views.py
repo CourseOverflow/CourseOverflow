@@ -128,7 +128,7 @@ def recommended(request):
         )
 
     if not len(recommended_playlists):
-        popular_playlists = Playlist.objects.order_by("-likes")[:10]
+        popular_playlists = Playlist.objects.order_by("?")[:10]
         serializer = PlaylistSerializer(popular_playlists, many=True)
     else:
         recommended_playlists = Playlist.objects.filter(
