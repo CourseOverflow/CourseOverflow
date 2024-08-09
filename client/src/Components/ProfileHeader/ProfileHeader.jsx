@@ -3,19 +3,25 @@ import styles from "./ProfileHeader.module.css";
 import { FaPen } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
+import useAlerts from "../../Hooks/useAlerts";
+import { useNavigate } from "react-router-dom";
 
 const ProfileHeader = () => {
   const { username } = useParams();
+  const { addAlert } = useAlerts();
+  const navigate = useNavigate();
+
+  const [currentUser, setCurrentUser] = useState({
+    username: username,
+    profilePicture: "",
+  });
+
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
 
   const inputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentUser, setCurrentUser] = useState({
-    username: username,
-    profilePic: "",
-  });
 
   useEffect(() => {
     if (user.username === username) {
@@ -24,8 +30,16 @@ const ProfileHeader = () => {
     }
     const fetchUser = async () => {
       try {
-        const response = await api.get(`user/${username}`);
-        setCurrentUser(response.data);
+        await api
+          .get(`user/${username}`)
+          .then((response) => {
+            setCurrentUser(response.data);
+          })
+          .catch((error) => {
+            addAlert("Error", "Error fetching user");
+            navigate("/");
+            console.error("Error fetching user: ", error);
+          });
       } catch (error) {
         console.error("Error fetching user: ", error);
       }
@@ -49,6 +63,53 @@ const ProfileHeader = () => {
     console.log("user info api called");
   };
 
+  const updateProfilePic = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "imageupload");
+      formData.append("folder", "profilePicture");
+
+      const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+
+      fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Uploaded image data:", data);
+          setCurrentUser((prevUser) => ({
+            ...prevUser,
+            profilePicture: data.secure_url,
+          }));
+
+          api
+            .post(`user/update-user-profile`, {
+              new_profile_picture: data.secure_url,
+              cloudinary_public_id: data.public_id,
+            })
+            .then(() => {
+              addAlert("Success", "Profile picture updated successfully");
+              localStorage.setItem(
+                "user",
+                JSON.stringify({
+                  ...user,
+                  profilePicture: data.secure_url,
+                }),
+              );
+            });
+        })
+        .catch((error) => {
+          addAlert("Error", "Error uploading image");
+          console.error("Error uploading image:", error);
+        });
+    } else {
+      addAlert("Error", "No file selected");
+    }
+  };
   return (
     <div className={styles.profileHeader}>
       {username === user.username ? (
@@ -57,14 +118,19 @@ const ProfileHeader = () => {
             <div className={styles.imageContainer}>
               <img
                 className={styles.profilePicEditable}
-                src={currentUser.profilePic}
+                src={currentUser.profilePicture}
                 alt="Profile"
               />
-              <div
-                className={styles.overlay}
-                onClick={() => console.log("to be implemented")}
-              >
-                <span>Edit</span>
+              <div className={styles.overlay}>
+                <label htmlFor="fileInput">
+                  <span>Edit</span>
+                </label>
+                <input
+                  id="fileInput"
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={updateProfilePic}
+                />
               </div>
             </div>
           </div>
@@ -89,7 +155,7 @@ const ProfileHeader = () => {
           <div className={styles.profilePicContainer}>
             <img
               className={styles.profilePic}
-              src={currentUser.profilePic}
+              src={currentUser.profilePicture}
               alt="Profile"
             />
           </div>
