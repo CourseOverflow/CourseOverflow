@@ -3,6 +3,7 @@ import styles from "./CommentSection.module.css";
 import PostComment from "./PostComment";
 import Comment from "./Comment";
 import api from "../../Config/apiConfig.js";
+import useAlerts from "../../Hooks/useAlerts";
 
 const CommentSection = (props) => {
   const user = localStorage.getItem("user")
@@ -10,14 +11,14 @@ const CommentSection = (props) => {
     : null;
 
   const username = user?.username || "Guest";
-
-  const userProfile = process.env.PUBLIC_URL + "/logo.png";
-
+  const userProfile =
+    user?.profilePicture || process.env.PUBLIC_URL + "/logo.png";
   const [comments, setComments] = useState(props.comments);
+  const { addAlert } = useAlerts();
 
-  const addComment = (text) => {
+  const addComment = async (text) => {
     if (!user) {
-      console.log("User not logged in");
+      addAlert("Warning", "You need to be logged in to post comments");
       return;
     }
     const requestData = {
@@ -25,7 +26,7 @@ const CommentSection = (props) => {
       commentId: null,
       text: text,
     };
-    api
+    await api
       .post("comment/post", requestData)
       .then((response) => {
         const modifiedResponse = {
@@ -35,15 +36,16 @@ const CommentSection = (props) => {
           thread: [],
         };
         setComments([modifiedResponse, ...comments]);
+        addAlert("Success", "Comment posted successfully");
       })
-      .catch((error) => {
-        console.error("Error posting comment: ", error);
+      .catch(() => {
+        addAlert("Error", "Error posting comment");
       });
   };
 
-  const addReply = (index, text) => {
+  const addReply = async (index, text) => {
     if (!user) {
-      console.log("User not logged in");
+      addAlert("Warning", "You need to be logged in to post replies");
       return;
     }
     const requestData = {
@@ -51,7 +53,7 @@ const CommentSection = (props) => {
       commentId: comments[index].id,
       text: text,
     };
-    api
+    await api
       .post("comment/post", requestData)
       .then((response) => {
         const modifiedResponse = {
@@ -65,9 +67,10 @@ const CommentSection = (props) => {
           ...newComments[index].thread,
         ];
         setComments(newComments);
+        addAlert("Success", "Reply posted successfully");
       })
-      .catch((error) => {
-        console.error("Error posting reply: ", error);
+      .catch(() => {
+        addAlert("Error", "Error posting reply");
       });
   };
 
@@ -76,7 +79,7 @@ const CommentSection = (props) => {
     liked,
     disliked,
     newLikes,
-    newDislikes
+    newDislikes,
   ) => {
     if (!user) {
       console.log("User not logged in");
@@ -99,7 +102,7 @@ const CommentSection = (props) => {
     liked,
     disliked,
     newLikes,
-    newDislikes
+    newDislikes,
   ) => {
     if (!user) {
       console.log("User not logged in");

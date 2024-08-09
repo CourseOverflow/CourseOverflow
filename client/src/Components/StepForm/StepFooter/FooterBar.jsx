@@ -22,7 +22,7 @@ const FooterBar = ({ setSearchParams }) => {
 
   const updateDraft = async () => {
     try {
-      addAlert("Updating draft...", "Info");
+      addAlert("Info", "Updating draft...");
       const response = await api.post(`draft/update-draft`, playlistData);
       if (!playlistData.draftId) {
         setPlaylistData((prevData) => ({
@@ -31,13 +31,13 @@ const FooterBar = ({ setSearchParams }) => {
         }));
         setSearchParams({ draftId: response.data.draftId });
         navigate(`/create?draftId=${response.data.draftId}`, { replace: true });
-        addAlert("Draft created successfully", "Success");
+        addAlert("Success", "Draft created successfully");
       } else {
-        addAlert("Draft updated successfully", "Success");
+        addAlert("Success", "Draft updated successfully");
       }
     } catch (error) {
       console.error("Error fetching draft data: ", error);
-      addAlert("Error updating draft", "Error");
+      addAlert("Error", "Error updating draft");
       setSearchParams();
     }
   };
@@ -46,7 +46,7 @@ const FooterBar = ({ setSearchParams }) => {
     setFetchingVideos(true);
     setNextStatus(false);
     try {
-      addAlert("Fetching videos...", "Info");
+      addAlert("Info", "Fetching videos...");
       const response = await api.get(`draft/fetch-videos`, {
         params: { draftId: playlistData.draftId },
       });
@@ -54,10 +54,10 @@ const FooterBar = ({ setSearchParams }) => {
         ...prevData,
         videoList: response.data,
       }));
-      addAlert("Videos fetched successfully", "Success");
+      addAlert("Success", "Videos fetched successfully");
     } catch (error) {
       console.error("Error fetching playlist:", error);
-      addAlert("Error fetching videos", "Error");
+      addAlert("Error", "Error fetching videos");
     }
     setFetchingVideos(false);
     setNextStatus(true);
@@ -65,17 +65,17 @@ const FooterBar = ({ setSearchParams }) => {
 
   const publishPlaylist = async () => {
     try {
-      addAlert("Publishing playlist...", "Info");
+      addAlert("Info", "Publishing playlist...");
       await api.post(`draft/update-draft`, playlistData);
       const response = await api.post(`playlist/create-playlist`, {
         draftId: playlistData.draftId,
       });
       const data = response.data;
       navigate(`/play?playlistId=${data.playlistId}&index=0`);
-      addAlert("Playlist published successfully", "Success");
+      addAlert("Success", "Playlist published successfully");
     } catch (error) {
       console.error("Error publishing playlist:", error);
-      addAlert("Error publishing playlist", "Error");
+      addAlert("Error", "Error publishing playlist");
     }
   };
 

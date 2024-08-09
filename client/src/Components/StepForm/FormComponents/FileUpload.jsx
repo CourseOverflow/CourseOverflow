@@ -43,16 +43,16 @@ const FileUpload = () => {
           topicList: topics.data,
           coursePDF: selectedFile,
         });
-        addAlert("Topics generated successfully", "Success");
+        addAlert("Success", "Topics generated successfully");
       } else {
-        addAlert("Failed to generate topics from course curriculum", "Error");
+        throw new Error("Failed to generate topics from course curriculum");
       }
 
       // Optionally, you can handle the response or perform other actions after a successful upload
       console.log("File uploaded successfully");
     } catch (error) {
       console.error("Error uploading file:", error);
-      addAlert("Failed to generate topics from course curriculum", "Error");
+      addAlert("Error", "Failed to generate topics from course curriculum");
     }
   };
 
@@ -61,7 +61,7 @@ const FileUpload = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }
-    addAlert("File removed", "Success");
+    addAlert("Success", "File removed");
   };
 
   const renderFilePreview = () => {
