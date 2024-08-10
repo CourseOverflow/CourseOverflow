@@ -14,6 +14,11 @@
   height: 35px;
   min-width: 35px;
   padding: 0 10px;
+  fill: var(--theme);
+}
+
+.logo > path {
+  stroke: var(--theme);
 }
 
 .text {
