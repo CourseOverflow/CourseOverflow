@@ -10,7 +10,7 @@
   background-color: var(--theme);
   border-radius: 5px;
   border: none;
-  color: var(--baseText);
+  color: var(--base-text);
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -24,17 +24,17 @@
 
 .NextBtn:hover,
 .BackBtn:hover {
-  border: 1px solid var(--themeHover);
+  border: 1px solid var(--theme-hover);
   background-color: transparent;
-  color: var(--baseText);
+  color: var(--base-text);
 }
 
 .disabledBtn {
-  color: var(--baseText);
+  color: var(--base-text);
   background-color: transparent;
   border: 1px solid var(--hover);
 }
 .disabledBtn:hover {
-  color: var(--baseText);
+  color: var(--base-text);
   border: 1px solid var(--hover);
 }

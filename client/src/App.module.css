@@ -2,13 +2,11 @@
 :root {
   --theme: #5db867;
   --theme-hover: #3e9048;
-  --themeHover: #3e9048;
   --box: #1f1f1f;
   --base: #121212;
   --base-text: #dddddd;
   --text: #878787;
   --hover: #3f3f3f;
-  --baseText: #dddddd;
   --success: #5db867;
   --error: tomato;
   --warning: #f39c12;
@@ -18,16 +16,22 @@
   --skeleton: #374151;
 }
 
-/* light theme colors */
-/* :root {
+[theme="light"] {
   --theme: #5db867;
-  --themeHover: #3e9048;
-  --box: #ffffff;
-  --base: #f5f5f5;
-  --text: #333333;
-  --hover: #e0e0e0;
-  --baseText: black;
-} */
+  --theme-hover: #3e9048;
+  --box: #daeaf1;
+  --base: #f1f1f1;
+  --base-text: #121212;
+  --text: #878787;
+  --hover: #f0f0f0;
+  --success: #5db867;
+  --error: tomato;
+  --warning: #f39c12;
+  --info: #3498db;
+  --border: #e0e0e0;
+  --selected: #f0f0f0;
+  --skeleton: #e0e0e0;
+}
 
 .app {
   overflow-x: hidden;

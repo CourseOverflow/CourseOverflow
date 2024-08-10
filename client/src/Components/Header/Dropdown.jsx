@@ -1,20 +1,15 @@
-import React, { useState } from "react";
 import styles from "./Dropdown.module.css";
 import { FaUser, FaSignOutAlt, FaMoon, FaSun } from "react-icons/fa";
 import { logoutUser } from "../../Config/apiConfig";
 import { useNavigate } from "react-router-dom";
 import useAlerts from "../../Hooks/useAlerts";
+import useTheme from "../../Hooks/useTheme";
 
 const Dropdown = ({ toggleDropdown }) => {
+  const { isDark, toggleTheme } = useTheme();
   const { addAlert } = useAlerts();
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-
-  const [isDark, setIsDark] = useState(false);
-  const toggleDarkMode = () => {
-    console.log("toggle dark mode");
-    setIsDark(!isDark);
-  };
 
   const logoutHandler = () => {
     if (logoutUser()) {
@@ -52,7 +47,7 @@ const Dropdown = ({ toggleDropdown }) => {
             <FaSignOutAlt />
           </button>
           <button
-            onClick={toggleDarkMode}
+            onClick={toggleTheme}
             className={styles.button}
             data-tooltip={
               isDark ? "Switch to light mode" : "Switch to dark mode"

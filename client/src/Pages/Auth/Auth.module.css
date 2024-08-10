@@ -50,7 +50,7 @@
 }
 
 .signUpButton:hover {
-  color: var(--themeHover);
+  color: var(--theme-hover);
 }
 
 .authButton {
@@ -65,7 +65,7 @@
 }
 
 .authButton:hover {
-  background-color: var(--themeHover);
+  background-color: var(--theme-hover);
   opacity: 0.8;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .googleButton:hover {
-  border: 1px solid var(--themeHover);
+  border: 1px solid var(--theme-hover);
 }
 
 .googleButtonWrapper {
@@ -123,7 +123,7 @@
   color: var(--theme);
 }
 .authPsw > button:hover {
-  color: var(--themeHover);
+  color: var(--theme-hover);
 }
 .formLine {
   border: 1px solid var(--hover);

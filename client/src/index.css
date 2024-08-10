@@ -4,7 +4,7 @@
 
 * {
   background-color: var(--base);
-  color: var(--baseText);
+  color: var(--base-text);
 }
 
 *::-webkit-scrollbar {

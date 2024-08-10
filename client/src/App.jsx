@@ -14,13 +14,14 @@ import ResetPassword from "./Pages/Auth/ResetPassword";
 import Activate from "./Pages/Auth/Activate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
-
 import useAlerts from "./Hooks/useAlerts";
+import useTheme from "./Hooks/useTheme";
 
 const App = () => {
+  const { isDark } = useTheme();
   useAlerts();
   return (
-    <BrowserRouter className={styles.app}>
+    <BrowserRouter className={styles.app} theme={isDark ? "dark" : "light"}>
       <Routes>
         <Route
           path="/"
