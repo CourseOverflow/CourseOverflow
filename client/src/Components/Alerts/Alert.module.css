@@ -1,5 +1,5 @@
 .alertList {
-  position: absolute;
+  position: fixed;
   max-width: 40%;
   z-index: 1000;
   top: 60px;

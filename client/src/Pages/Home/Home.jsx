@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
-import ImageSlider from "../../Components/ImageSlider/ImageSlider";
+import Gemini from "../../Components/Gemini/Gemini";
 import HomeSkeleton from "../../Components/Skeleton/HomeSkeleton";
 import api from "../../Config/apiConfig.js";
 import useAlerts from "../../Hooks/useAlerts";
 
 const Home = () => {
-  const images = [
-    "https://fastly.picsum.photos/id/918/1500/500.jpg?hmac=7Vk0wUBOW3B_8jUK2EkbZZyDmmeGiC-x7_gKxHwVrJ8",
-    "https://fastly.picsum.photos/id/678/1500/500.jpg?hmac=QW-aa6JuhmoUlr7Hoe9FF9f1P3mFCQj25Rr0Av2typk",
-    "https://fastly.picsum.photos/id/566/1500/500.jpg?hmac=4CmwtYPsDZaQ3jo0ZyH2Hw0-vLeR-wZOtaISlWSjXjg",
-  ];
-
   const { addAlert } = useAlerts();
   const [loading, setLoading] = useState(true);
   const [recommendedPlaylistData, setRecommendedPlaylistData] = useState([]);
   const [popularPlaylistData, setPopularPlaylistData] = useState([]);
   const [recentUploadsPlaylistData, setRecentUploadsPlaylistData] = useState(
-    []
+    [],
   );
 
   useEffect(() => {
@@ -71,7 +65,7 @@ const Home = () => {
   if (loading) {
     return (
       <div className={styles.container}>
-        <ImageSlider images={images} />
+        <Gemini />
         <HomeSkeleton />
       </div>
     );
@@ -97,7 +91,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <ImageSlider images={images} />
+      <Gemini />
       <HomeFeed feedList={feedList} />
     </div>
   );

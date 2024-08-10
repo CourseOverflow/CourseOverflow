@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  border: 1px solid var(--theme-hover);
+  border: 1px solid var(--theme);
   margin: 0 10px;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .signup {
-  background-color: var(--theme-hover);
+  background-color: var(--theme);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,7 +28,7 @@
   padding: 5px;
   margin-left: 5px;
   border-radius: 20px;
-  border: 1px solid var(--theme-hover);
+  border: 1px solid var(--theme);
   color: var(--box);
 }
 

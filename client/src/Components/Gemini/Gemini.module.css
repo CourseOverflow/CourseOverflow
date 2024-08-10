@@ -1,0 +1,89 @@
+.title,
+.subtitle {
+  position: absolute;
+  text-align: center;
+  background-color: transparent;
+}
+
+.title {
+  font-size: 5rem;
+  top: 20%;
+  left: calc(50% + 40px);
+  transform: translateX(-50%);
+  font-weight: 700;
+  color: var(--base-text);
+}
+
+.subtitle {
+  font-size: 2.5rem;
+  top: 50%;
+  left: calc(50% + 40px);
+  transform: translateX(-50%);
+  font-weight: 500;
+}
+
+.geminiEffectSmall {
+  width: 100%;
+  display: none;
+}
+
+.geminiEffectBig {
+  width: 100%;
+  display: block;
+}
+
+@media only screen and (max-width: 1600px) {
+  .title {
+    font-size: 3.5rem;
+    top: 15%;
+  }
+
+  .subtitle {
+    top: 40%;
+    font-size: 2rem;
+  }
+
+  .geminiEffectSmall {
+    display: block;
+  }
+
+  .geminiEffectBig {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .title {
+    font-size: 3rem;
+    top: 18%;
+  }
+
+  .subtitle {
+    top: 38%;
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .title {
+    top: 10%;
+    font-size: 4rem;
+  }
+
+  .subtitle {
+    font-size: 1.7rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .title {
+    left: 50%;
+    top: 10%;
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    left: 50%;
+    font-size: 1.5rem;
+  }
+}
