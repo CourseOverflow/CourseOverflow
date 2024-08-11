@@ -60,12 +60,26 @@ const Dashboard = () => {
       .finally(() => {
         setLoading(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   if (loading) {
     return <DashboardSkeleton />;
   }
+
+  console.log(createdPlaylists);
+  const analyticsData = createdPlaylists.slice(0, 5).map((playlist) => ({
+    name: playlist.title,
+    views: playlist.views,
+    likes: playlist.likes,
+    dislikes: playlist.dislikes,
+    date: playlist.created_at,
+  }));
+
+  const sortByDate = (data) => {
+    return data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  };
+
+  sortByDate(analyticsData);
 
   const feedList = [
     {
@@ -97,7 +111,7 @@ const Dashboard = () => {
           <ProfileHeader />
         </div>
         <div className={styles.analytics}>
-          <Analytics />
+          <Analytics analyticsData={analyticsData} />
         </div>
       </div>
       <ActivityCalendar />
