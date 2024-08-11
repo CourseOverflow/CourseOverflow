@@ -1,0 +1,77 @@
+.calendarWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  width: fit-content;
+  margin: 0 auto;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(53, 12px); /* 53 weeks (approx 365 days) */
+  gap: 4px;
+  padding: 8px;
+  background-color: var(--base);
+}
+
+.day {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background-color: var(--day-bg); /* Updated to use a variable */
+  transition: background-color 0.3s;
+  position: relative; /* Add relative positioning */
+}
+
+/* .day:hover::after { */
+/*   content: attr(title); /* Use the title attribute for the tooltip content */
+/*   position: absolute; */
+/*   top: -25px; */
+/*   left: 50%; */
+/*   transform: translateX(-50%); */
+/*   background-color: var(--tooltip-bg); */
+/*   color: var(--tooltip-text); */
+/*   padding: 4px 8px; */
+/*   border-radius: 4px; */
+/*   white-space: nowrap; */
+/*   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1); */
+/*   font-size: 10px; */
+/*   z-index: 10; */
+/*   opacity: 1; */
+/*   pointer-events: none; */
+/*   /* transition: opacity 0.3s; */
+/* } */
+/**/
+.day:hover {
+  opacity: 0.8;
+}
+
+.day::after {
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.level0 {
+  background-color: var(--box); /* No activity */
+}
+
+.level1 {
+  background-color: var(--level1-bg); /* Low activity */
+}
+
+.level2 {
+  background-color: var(--level2-bg); /* Medium activity */
+}
+
+.level3 {
+  background-color: var(--level3-bg); /* High activity */
+}
+
+.level4 {
+  background-color: var(--level4-bg); /* Very high activity */
+}

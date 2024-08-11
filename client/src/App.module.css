@@ -33,6 +33,28 @@
   --skeleton: #e0e0e0;
 }
 
+/* for activity calendar */
+
+:root {
+  --day-bg: #ebedf0;
+  --level0-bg: #ebedf0; /* No activity */
+  --level1-bg: #c6e48b; /* Low activity */
+  --level2-bg: #7bc96f; /* Medium activity */
+  --level3-bg: #239a3b; /* High activity */
+  --level4-bg: #196127; /* Very high activity */
+  --base: #121212;
+}
+
+[theme="light"] {
+  --day-bg: #ebedf0;
+  --level0-bg: #ebedf0; /* No activity */
+  --level1-bg: #c6e48b; /* Low activity */
+  --level2-bg: #7bc96f; /* Medium activity */
+  --level3-bg: #239a3b; /* High activity */
+  --level4-bg: #196127; /* Very high activity */
+  --base: #f1f1f1;
+}
+
 .app {
   overflow-x: hidden;
 }

@@ -4,6 +4,7 @@ import ProfileHeader from "../../Components/ProfileHeader/ProfileHeader";
 import Analytics from "../../Components/Analytics/Analytics";
 import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
+import ActivityCalendar from "../../Components/ActivityCalendar/ActivityCalendar.jsx";
 import api from "../../Config/apiConfig.js";
 import { useParams } from "react-router-dom";
 
@@ -99,6 +100,7 @@ const Dashboard = () => {
           <Analytics />
         </div>
       </div>
+      <ActivityCalendar />
       <HomeFeed feedList={feedList} />
     </>
   );
