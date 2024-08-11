@@ -67,19 +67,21 @@ const Dashboard = () => {
   }
 
   console.log(createdPlaylists);
-  const analyticsData = createdPlaylists.slice(0, 5).map((playlist) => ({
-    name: playlist.title,
-    views: playlist.views,
-    likes: playlist.likes,
-    dislikes: playlist.dislikes,
-    date: playlist.created_at,
-  }));
-
-  const sortByDate = (data) => {
-    return data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const analyticsData = {
+    views: 0,
+    likes: 0,
+    dislikes: 0,
   };
 
-  sortByDate(analyticsData);
+  const activityData = createdPlaylists.map((playlist) => {
+    analyticsData.views += playlist.views;
+    analyticsData.likes += playlist.likes;
+    analyticsData.dislikes += playlist.dislikes;
+
+    return {
+      date: playlist.created_at,
+    };
+  });
 
   const feedList = [
     {
@@ -114,7 +116,7 @@ const Dashboard = () => {
           <Analytics analyticsData={analyticsData} />
         </div>
       </div>
-      <ActivityCalendar analyticsData={analyticsData} />
+      <ActivityCalendar analyticsData={activityData} />
       <HomeFeed feedList={feedList} />
     </>
   );

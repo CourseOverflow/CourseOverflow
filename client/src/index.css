@@ -21,3 +21,7 @@
   background-color: var(--hover);
   border-radius: 5px;
 }
+
+.recharts-surface {
+  background: linear-gradient(to top, var(--box) 30%, var(--base) 90%);
+}
