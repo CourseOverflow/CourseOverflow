@@ -114,7 +114,7 @@ const Dashboard = () => {
           <Analytics analyticsData={analyticsData} />
         </div>
       </div>
-      <ActivityCalendar />
+      <ActivityCalendar analyticsData={analyticsData} />
       <HomeFeed feedList={feedList} />
     </>
   );
