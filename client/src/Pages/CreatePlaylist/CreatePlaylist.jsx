@@ -10,11 +10,13 @@ import { PlaylistContext, usePlaylist } from "../../Contexts/PlaylistContext";
 import { useSearchParams } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
 import { useNavigate } from "react-router-dom";
+import useAlerts from "../../Hooks/useAlerts";
 
 const CreatePlaylist = () => {
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
+  const { addAlert } = useAlerts();
 
   const {
     stepNumber,
@@ -35,9 +37,10 @@ const CreatePlaylist = () => {
   const draftId = searchParams.get("draftId");
 
   useEffect(() => {
+    console.log("CreatePlaylist.jsx: ", user);
     if (!user) {
-      console.log("Log in to access this page.");
-      navigate("/login");
+      addAlert("Error", "Log in to access this page.");
+      navigate("/");
     }
     const fetchData = async () => {
       if (draftId) {

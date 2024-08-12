@@ -2,7 +2,7 @@ import { createContext, useState, useContext } from "react";
 
 export const usePlaylist = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user.user_id;
+  const userId = user?.user_id;
   const [stepNumber, setStepNumber] = useState(1);
   const [backStatus, setBackStatus] = useState(false);
   const [nextStatus, setNextStatus] = useState(false);

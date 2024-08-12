@@ -90,7 +90,7 @@ const Sidebar = (props) => {
             </div>
           </NavLink>
         ))}
-        {!loading && (
+        {!loading && user && (
           <div>
             <div className={styles.link}>
               <div className={styles.icon}>
