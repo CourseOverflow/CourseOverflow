@@ -121,8 +121,14 @@
   cursor: pointer;
 }
 
-.overlay > span {
+.overlay > label > span {
   padding-top: 40px;
+  color: var(--base-text);
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.overlay > label {
   color: var(--base-text);
   background-color: transparent;
   font-size: 1rem;

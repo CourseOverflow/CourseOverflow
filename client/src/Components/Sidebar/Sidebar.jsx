@@ -4,7 +4,7 @@ import styles from "./Sidebar.module.css";
 import {
   FaHome,
   FaPlus,
-  FaPlay,
+  FaBookmark,
   FaUser,
   FaAngleDown,
   FaAngleRight,
@@ -92,7 +92,7 @@ const Sidebar = (props) => {
           <div>
             <div className={styles.link}>
               <div className={styles.icon}>
-                <FaPlay />
+                <FaBookmark />
               </div>
               <div
                 style={{ display: props.isOpen ? "block" : "none" }}

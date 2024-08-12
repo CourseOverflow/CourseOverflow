@@ -9,6 +9,7 @@ from rest_framework.response import Response
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def get_user(request, username):
     try:
         user = User.objects.get(username=username)

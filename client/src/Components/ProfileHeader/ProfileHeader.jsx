@@ -10,6 +10,7 @@ const ProfileHeader = () => {
   const { username } = useParams();
   const { addAlert } = useAlerts();
   const navigate = useNavigate();
+  console.log("username", username);
 
   const [currentUser, setCurrentUser] = useState({
     username: username,
@@ -24,7 +25,7 @@ const ProfileHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (user.username === username) {
+    if (user?.username === username) {
       setCurrentUser(user);
       return;
     }
@@ -52,16 +53,6 @@ const ProfileHeader = () => {
       inputRef.current.focus();
     }
   }, [isEditing]);
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    console.log("user info updated");
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("user info api called");
-  };
 
   const updateProfilePic = (e) => {
     const file = e.target.files[0];
@@ -99,6 +90,7 @@ const ProfileHeader = () => {
                   profilePicture: data.secure_url,
                 }),
               );
+              console.log(localStorage.getItem("user"));
             });
         })
         .catch((error) => {
@@ -111,16 +103,16 @@ const ProfileHeader = () => {
   };
   return (
     <div className={styles.profileHeader}>
-      {username === user.username ? (
+      {username === user?.username ? (
         <>
           <div className={styles.profilePicContainer}>
-            <div className={styles.imageContainer}>
+            <div className={styles.imageContainer} onChange={updateProfilePic}>
               <img
                 className={styles.profilePicEditable}
                 src={currentUser.profilePicture}
                 alt="Profile"
               />
-              <div className={styles.overlay}>
+              <div className={styles.overlay} onChange={updateProfilePic}>
                 <label htmlFor="fileInput">
                   <span>Edit</span>
                 </label>

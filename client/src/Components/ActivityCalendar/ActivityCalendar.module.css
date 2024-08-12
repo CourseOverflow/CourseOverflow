@@ -4,10 +4,10 @@
   align-items: center;
   margin-top: 16px;
   border: 1px solid var(--border);
-  width: fit-content;
   margin: 0 auto;
   border-radius: 16px;
   padding: 16px;
+  overflow-x: auto;
 }
 
 .calendar {
@@ -74,4 +74,12 @@
 
 .level4 {
   background-color: var(--level4-bg); /* Very high activity */
+}
+
+@media (max-width: 1000px) {
+  .calendarWrapper {
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    overflow: auto;
+  }
 }

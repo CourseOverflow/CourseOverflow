@@ -20,3 +20,8 @@
   background-color: transparent;
   position: relative;
 }
+
+.views {
+  color: var(--theme);
+  background-color: red;
+}
