@@ -1,0 +1,16 @@
+.container {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.container > img {
+  margin: auto;
+}
+
+.hero-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}

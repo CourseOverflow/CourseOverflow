@@ -1,13 +1,12 @@
 import asyncio
 from datetime import timedelta
 
+from api.models import Draft
+from api.serializers import DraftSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
-from api.models import Draft
-from api.serializers import DraftSerializer
 from utils.geminiAPI import uploadPDF
 from utils.youtubeAPI import generatePlaylist
 
@@ -48,6 +47,11 @@ def get_all_drafts(request):
         user = request.user
         drafts = Draft.objects.filter(authorId=user)
         serializer = DraftSerializer(drafts, many=True)
+        for draft in serializer.data:
+            draft["authorName"] = user.first_name + " " + user.last_name
+            draft["authorUsername"] = user.username
+            draft["authorProfile"] = user.profilePicture
+
         return Response(serializer.data)
     except Draft.DoesNotExist:
         return Response(
@@ -76,9 +80,7 @@ def update_draft(request):
 
     draft.title = request.data.get("title")
     draft.desc = request.data.get("desc", None)
-    draft.thumbnail = request.data.get(
-        "thumbnail", "https://picsum.photos/300/200"
-    )
+    draft.thumbnail = request.data.get("thumbnail", "https://picsum.photos/300/200")
     draft.cloudinaryPublicId = request.data.get("cloudinaryPublicId", None)
     draft.topicList = request.data.get("topicList", [])
     draft.videoList = request.data.get("videoList", [])

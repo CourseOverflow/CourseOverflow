@@ -14,6 +14,7 @@ import ResetPassword from "./Pages/Auth/ResetPassword";
 import Activate from "./Pages/Auth/Activate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import ForgotPassword from "./Pages/Auth/ForgotPassword";
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import useAlerts from "./Hooks/useAlerts";
 import useTheme from "./Hooks/useTheme";
 
@@ -72,7 +73,7 @@ const App = () => {
           element={<ResetPassword />}
         />
         <Route path="/activate/:uidb64/:token" element={<Activate />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );

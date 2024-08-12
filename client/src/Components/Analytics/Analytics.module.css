@@ -25,3 +25,15 @@
   color: var(--theme);
   background-color: red;
 }
+
+.noDataContainer {
+  background: linear-gradient(to top, var(--box) 30%, var(--base) 90%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.info {
+  background: none;
+}

@@ -89,15 +89,19 @@ export default class Analytics extends PureComponent {
   render() {
     const data = [];
     const { analyticsData } = this.props;
+    let sum = 0;
     for (const key in analyticsData) {
       data.push({ name: key, value: analyticsData[key] });
+      sum += analyticsData[key];
     }
-    return (
+
+    return sum > 0 ? (
       <ResponsiveContainer
         width="100%"
         height="100%"
         className={styles.analyticsContainer}
       >
+        <h1> seee </h1>
         <PieChart width={400} height={400}>
           <Pie
             activeIndex={this.state.activeIndex}
@@ -113,6 +117,10 @@ export default class Analytics extends PureComponent {
           />
         </PieChart>
       </ResponsiveContainer>
+    ) : (
+      <div className={styles.noDataContainer}>
+        <h3 className={styles.info}>No data for analytics </h3>
+      </div>
     );
   }
 }

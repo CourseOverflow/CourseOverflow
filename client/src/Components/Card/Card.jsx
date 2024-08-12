@@ -54,7 +54,12 @@ const Card = ({ data, isDraft }) => {
         </div>
         <div className={styles.textDetails}>
           <h1 className={styles.title}>{data.title}</h1>
-          <p className={styles.author}>{data.authorName}</p>
+          <p
+            className={styles.author}
+            onClick={() => navigate(`/u/${data.authorUsername}`)}
+          >
+            {data.authorName}
+          </p>
         </div>
       </div>
       <p className={styles.views}>
