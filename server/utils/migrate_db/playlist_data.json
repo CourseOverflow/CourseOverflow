@@ -1,0 +1,464 @@
+{
+  "playlists": [
+    {
+      "title": "Data Structures",
+      "thumbnail": "https://user-images.githubusercontent.com/49293816/188543586-c9282564-6ab4-45d6-a305-50694f3e616d.png",
+      "videos": [
+        "-D5u5HJbISc",
+        "c9iREsYpayk",
+        "9TlHvipP5yA",
+        "L36yb9Vrqm4",
+        "h4HpJMSxcF8",
+        "4NGthO9F1Bo",
+        "WUzNweEV8BQ",
+        "9HlbVEVt_Y0",
+        "Qm3Qf8kW4pA",
+        "ByLlEk7zmyw",
+        "uF5cW8n-LoA",
+        "pcKY4hjDrxk",
+        "soJgGe1CQHw",
+        "Ic7OO3Uw6J0",
+        "SnZ2SQARTVI"
+      ]
+    },
+    {
+      "title": "Algorithms",
+      "thumbnail": "https://cdn.mos.cms.futurecdn.net/WuBQoD9xpgf2wVwTVz4XzL.jpg",
+      "videos": [
+        "rL8X2mlNHPM",
+        "9TlHvipP5yA",
+        "aQsJSUXwFco",
+        "azXr6nTaD9M",
+        "aeO-UYsWW_0",
+        "DIX2p7vb9co",
+        "0BhhiQGDbEA",
+        "I8w2XN0w-fQ",
+        "MiJdgxTWaFs",
+        "utDu3Q7Flrw",
+        "xDrLSOxaFrA",
+        "RfXt_qHDEPw",
+        "goqe7OZrJt4",
+        "mbB3BYwM7zo",
+        "sPeKpctCL-c"
+      ]
+    },
+    {
+      "title": "Machine Learning",
+      "thumbnail": "https://cdn.analyticsvidhya.com/wp-content/uploads/2020/09/72142deep-learning-vs-machine-learning-t.jpg",
+      "videos": [
+        "ukzFI9rgwfU",
+        "zUQr6HAAKp4",
+        "yIYKR4sgzI8",
+        "O1nWXTXcCwI",
+        "5FpsGnkbEpM",
+        "xLkk6MUrvrw",
+        "GBMMtXRiQX0",
+        "mvveVcbHynE",
+        "DXqxXe3rep0",
+        "qQjOWmf8I_I",
+        "j9jGLwPa6_E",
+        "KIOeZ5cFZ50",
+        "83x5X66uWK0",
+        "HdlDYng8g9s"
+      ]
+    },
+    {
+      "title": "Web Development",
+      "thumbnail": "https://futureskillsprime.in//sites/default/files/2021-04/web-development.jpg",
+      "videos": [
+        "z0n1aQ3IxWI",
+        "8ppBHEiFgwA",
+        "8ppBHEiFgwA",
+        "Y6aYx_KKM7A",
+        "NoWRBo3Uf8E",
+        "9Om0FMBz1yU",
+        "UOJZTqA5Loc",
+        "yWzKJPw_VzM",
+        "J5By-Q4ZhZs",
+        "7Q17ubqLfaM",
+        "s04Vjlcgwco",
+        "f54I61Apmxs",
+        "rhi1eIjSbvk"
+      ]
+    },
+    {
+      "title": "Operating System",
+      "thumbnail": "https://miro.medium.com/v2/resize:fit:1400/1*g9Qz9CkkVQer-pjwU1YbqA.png",
+      "videos": [
+        "_NEJVgiGp8Q",
+        "OrM7nZcxXZU",
+        "TAk822Wz4x4",
+        "0LtuQhNFFe0",
+        "rWFH6PLOIEI",
+        "zFnrUVqtiOY",
+        "8rcUs5RutX0",
+        "sRUq_uaZ5f0",
+        "yiFBRQLgeZA",
+        "1tZhmTnk-vc",
+        "BHyJJUaLq1g",
+        "RCmhGeuj0GA",
+        "2-7JGoy52Qo",
+        "kOYTmxKpIms"
+      ]
+    },
+    {
+      "title": "Computer Networks",
+      "thumbnail": "https://www.tbtech.co/wp-content/uploads/2021/08/AdobeStock_223572692-1380x548.jpeg",
+      "videos": [
+        "PwFqQfyv0xM",
+        "vv4y_uOneC0",
+        "2QGgEk20RXM",
+        "zFyl_zaRYuQ",
+        "rA0p0ouD3aE",
+        "-HlJ4psu5aU",
+        "o_vyfo3Hw0Y",
+        "qQf3guS3Ehs",
+        "FWRBMeofRsM",
+        "vhfRArT11jc",
+        "_szgZM1sDiM",
+        "vyv5f57kGu8",
+        "SVTQQvIwgbM",
+        "SdnK9KVBSww",
+        "LEYV8YxPLHU"
+      ]
+    },
+    {
+      "title": "Database Management System",
+      "thumbnail": "https://www.atulhost.com/wp-content/uploads/2024/01/database.jpg",
+      "videos": [
+        "mqprM5YUdpk",
+        "UOJZTqA5Loc",
+        "5GDTIUVlHB8",
+        "-GS0OxFJsYQ",
+        "t5hsV9lC1rU",
+        "2Um-j_TTlZM",
+        "E--yzX05_k8",
+        "KcApkM5WYGw",
+        "KcApkM5WYGw",
+        "W5q0xgxmRd8",
+        "QIa_vv3UWgE",
+        "zYH-e6tUYbw",
+        "FttzCZICGpQ",
+        "QngqhdLd1SE"
+      ]
+    },
+    {
+      "title": "Software Engineering",
+      "thumbnail": "https://www.simplilearn.com/ice9/free_resources_article_thumb/cyber_security_vs_software_engineering.jpg",
+      "videos": [
+        "b7hmU72GRaE",
+        "kSU2MPeptpM",
+        "noE3pnRzQGI",
+        "Xs6E-MAJbfE",
+        "xef_bCjoRCk",
+        "zYxkG7a_F3k",
+        "algSKfQ03Sk",
+        "y2CnstDLhXM",
+        "nNzH2rlEH6A",
+        "yd6uxnBIIQg",
+        "MvyVR5soJjI",
+        "-_o4YFFD6is",
+        "bT8aGhCLpEc",
+        "mbMEmS-zmJQ",
+        "T0TynxN77oY",
+        "c2Gv47azQ2Q"
+      ]
+    },
+    {
+      "title": "Artificial Intelligence",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvkUFmp5jSF-DhrD5102bzHU7RbidetfqYfA&s",
+      "videos": [
+        "ad79nYk2keg",
+        "goqe7OZrJt4",
+        "0sUINr68-IM",
+        "9iN3O_oL2ac",
+        "4RixMPF4xis",
+        "6M5VXKLf4D4",
+        "EYeF2e2IKEo",
+        "96-u9s6D16k",
+        "bPpwZxasJo0",
+        "ttIOdAdQaUE",
+        "NMacrAxSYdM",
+        "3iGWMImiGjU"
+      ]
+    },
+    {
+      "title": "Compiler Design",
+      "thumbnail": "https://img.brainkart.com/subject/386.jpg",
+      "videos": [
+        "_Tx6TYnPat8",
+        "BgNdtk9h8Ok",
+        "hGuXUIefVkc",
+        "OZukm_xpH5M",
+        "O5YlRUYFDA8",
+        "Zz94_c-xFvA",
+        "hGuXUIefVkc",
+        "a4qdbCQJhyA",
+        "RGyzJUM4V0c",
+        "Ow7XXOmnNLo",
+        "LIYZ0qSn6-k",
+        "4NWgdNquqEo",
+        "VAystmsy2_E",
+        "Rs7N94GlqYQ",
+        "pGaEU79aLGg",
+        "QPs6Vkt8C5I"
+      ]
+    },
+    {
+      "title": "Computer Graphics",
+      "thumbnail": "https://image.slidesdocs.com/responsive-images/background/building-a-studio-website-with-3d-graphic-design-tools-powerpoint-background_e027f85bc1__960_540.jpg",
+      "videos": [
+        "uTBKa1PSyf8",
+        "eTScSdG9lMA",
+        "rS3j07fodhU",
+        "3FDusdODHI8",
+        "fL5WZgLvl88",
+        "MkMK8LvLOjs",
+        "MkMK8LvLOjs",
+        "VC_EokVZW-g",
+        "2Egy6PFehtU",
+        "n85QQy03_gI",
+        "eLmBR2HyLPo",
+        "fXyrffB69gI",
+        "ojteOGAqdmA",
+        "VnRtEtnruBw",
+        "hLdDLcue2nE",
+        "n85QQy03_gI"
+      ]
+    },
+    {
+      "title": "Cryptography",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnSCFCVVYwwZpPYNXFEzt8hfz0hUYyxk1K9vc0AetcyQkejvxCIClqXprNQ4XHSuXT_mw&usqp=CAU",
+      "videos": [
+        "1YyAzVmP9xQ",
+        "6-JjHa-qLPk",
+        "tXR1N_D-9UU",
+        "6AmmQiOWoXM",
+        "xw19eT5thIE",
+        "rlJTMUBXhKE",
+        "8B1rN1rnTiU",
+        "o-MZgVJP-rI",
+        "gTfNtop9vzM",
+        "yUeI4nqvNs8",
+        "GSIDS_lvRv4",
+        "vi4cPN_4VPc",
+        "rYnnr9ngzRs",
+        "0NGPhAPKYv4",
+        "aGxdQxO0nEo",
+        "dOKXCCwlwCk"
+      ]
+    },
+    {
+      "title": "Cloud Computing",
+      "thumbnail": "https://img.freepik.com/premium-photo/cloud-computing-technology-concept-digital-background-ai-generate_609002-994.jpg",
+      "videos": [
+        "M988_fsOSWo",
+        "20QUNgFIrK0",
+        "cj1C7A6pQTQ",
+        "lsvpvCU6Oxs",
+        "5G0L7XCt6XQ",
+        "5G0L7XCt6XQ",
+        "3kGFBBy3Lyg",
+        "MMxz56Ka2Dk",
+        "BSGcQi2WNPg",
+        "3Arj5zlUPG4",
+        "kzKFuHk8ovk",
+        "yvH1kGaYup0",
+        "Kw2FPLvpZKI",
+        "qN1CzLdCq5g",
+        "vmCuNJiNzfg",
+        "ifIOniYn5VI"
+      ]
+    },
+    {
+      "title": "Data Mining",
+      "thumbnail": "https://cdn.builtin.com/cdn-cgi/image/f=auto,fit=cover,w=1200,h=635,q=80/https://builtin.com/sites/www.builtin.com/files/data-mining-techniques.png",
+      "videos": [
+        "bL43rhEsU_g",
+        "jxq4-KSB_OA",
+        "lggqjmQzsGI",
+        "0l3tzQI_ApM",
+        "bb72oxHgOHw",
+        "UKUq7hZdZUw",
+        "xEmrFePGjEg",
+        "GMa69BgMWC4",
+        "erm7qdVCEgU",
+        "P4qUbT8Ppt4",
+        "aSwQjBS-Osg",
+        "tW4MMhkTzhs",
+        "vWuVbQ_NKcY",
+        "7oGz4PCp9jI",
+        "vWuVbQ_NKcY"
+      ]
+    },
+    {
+      "title": "Computer Organization",
+      "thumbnail": "https://static1.xdaimages.com/wordpress/wp-content/uploads/2023/01/13th-gen-hx-processors-themed-background-1.jpg",
+      "videos": [
+        "AJ0T9Y3aNEg",
+        "xJNkEzy3-O4",
+        "JsC9ZHi79jo",
+        "TgYAj7mlRT8",
+        "mBGbK8yfhAA",
+        "fn9Hn__x6dA",
+        "sWAsRA-9DgQ",
+        "8m8vXrxnEU0",
+        "sveZw_GG_cs",
+        "57dkyTmOCmE",
+        "kTLvERQMu1k",
+        "I9H9BflwRs8",
+        "qUwFr4_NzRI",
+        "Y4UBGVxwMt0",
+        "PCiQwly3bks",
+        "PM728r4oGcE"
+      ]
+    },
+    {
+      "title": "Software Testing",
+      "thumbnail": "https://www.keenesystems.com/hs-fs/hubfs/software-testing.jpg?width=900&name=software-testing.jpg",
+      "videos": [
+        "8UTq1eZrDkI",
+        "sbW4RThXNL8",
+        "oRa6pRHeaXI",
+        "T0TynxN77oY",
+        "p8vrpGMR3g4",
+        "AloUqnD7aPs",
+        "zXDKnMENrsU",
+        "89VOHd8F8Ao",
+        "IOrAlTY639U",
+        "0U3RPrkw9NY",
+        "5496sXljdnQ",
+        "5496sXljdnQ",
+        "MReZAdN-zrM",
+        "8SYFrCe4uAI",
+        "40kR8IJvSv4",
+        "8SYFrCe4uAI"
+      ]
+    },
+    {
+      "title": "Computer Architecture",
+      "thumbnail": "https://t3.ftcdn.net/jpg/06/69/40/52/360_F_669405248_bH5WPZiAFElWP06vqlPvj2qWcShUR4o8.jpg",
+      "videos": [
+        "xypLv-9watQ",
+        "j8NnE1YeSN0",
+        "p7iwXvBnbIE",
+        "ZW1gb3h-f9k",
+        "ZW1gb3h-f9k",
+        "txAyA_UozmM",
+        "NdTnVA6Eq9s",
+        "tp3GnjtxCIQ",
+        "fn9Hn__x6dA",
+        "53yzGMABHVc",
+        "LE_lyLCqy8I",
+        "wqZYDg_C-sE",
+        "1aG3aFEKxyA",
+        "iXSXIJn_Xwc",
+        "am3FG0M03Ho"
+      ]
+    },
+    {
+      "title": "Digital Electronics",
+      "thumbnail": "https://assets.skyfilabs.com/images/blog/best-digital-electronics-projects-for-engineering-student.webp",
+      "videos": [
+        "aNrE3q9bih8",
+        "0lwhoQ5aQe8",
+        "WW-NPtIzHwk",
+        "36LjWW-BSyU",
+        "sdQO4ryAovs",
+        "NjMX4hohyRI",
+        "zm71wFsj-fs",
+        "dBXGGWbtt6U",
+        "p6yPvw88BJk",
+        "Eb56gaw6JrQ",
+        "DqCDQH44y9w",
+        "DqCDQH44y9w",
+        "uduQEx3_5nA",
+        "v0pxOfTg18Y",
+        "zm71wFsj-fs"
+      ]
+    },
+    {
+      "title": "Computer Vision",
+      "thumbnail": "https://cdn-bbaid.nitrocdn.com/wYFmIWkSNKpdInpiRfVoEqTErZtkFjBo/assets/images/optimized/rev-53fc5f9/www.rishabhsoft.com/wp-content/uploads/2023/04/Blog-Banner-Computer-Vision.jpg",
+      "videos": [
+        "mMEESyzh0tA",
+        "A4IC92HVLLU",
+        "ag3DLKsl2vk",
+        "V62M9d8QkYM",
+        "YRCLmV4t9lI",
+        "uqomO_BZ44g",
+        "sHbu_9V4H60",
+        "1rA26HCHlTQ",
+        "SEj1imXHjqM",
+        "dcLcIa-qR8c",
+        "kP0M1_740Mc",
+        "ZSxHyp4OZx0",
+        "X0wW4KyLvJ4",
+        "mlcNObNkFcg"
+      ]
+    },
+    {
+      "title": "Natural Language Processing",
+      "thumbnail": "https://www.polymerhq.io/wp-content/uploads/2022/09/Using-Natural-Language-Processing-NLP-based-Sentiment-Analysis-for-Risk-Trading_Blog_Files.png",
+      "videos": [
+        "bPpwZxasJo0",
+        "iVeenkfa-0s",
+        "WipT5ZqhPKQ",
+        "6-U0c43eVJs",
+        "m5n7Gu1unsI",
+        "5263Xqr1YCc",
+        "D2V1okCEsiE",
+        "8aNjLpoAJHw",
+        "qi_gcdi19zs",
+        "9S0-OC4LFNo",
+        "xI0HHN5XKDo",
+        "bSvTVREwSNw",
+        "SZorAJ4I-sA",
+        "jCrgzJlxTKg"
+      ]
+    },
+    {
+      "title": "Computer Security",
+      "thumbnail": "https://media.istockphoto.com/id/1412282189/photo/lock-network-technology-concept.jpg?s=612x612&w=0&k=20&c=hripuxLs9pS_7Ln6YWQR-Ow2_-BU5RdQ4vOY8s1q1iQ=",
+      "videos": [
+        "NuyzuNBFWxQ",
+        "zd0U1zNBYNk",
+        "vK4Mno4QYqk",
+        "cNVwkLo1Snw",
+        "o_vyfo3Hw0Y",
+        "R1mF7Mxfynk",
+        "vl67rxqKvYk",
+        "JFXBjlT5cGU",
+        "FlI9MnX3QJo",
+        "lMnhRPaQagg",
+        "r6JjjAZMADs",
+        "HInia0_M8Cc",
+        "PPzn4K2ZjfY",
+        "wYazaHJ3l0E",
+        "dce9AC5mw6M"
+      ]
+    },
+    {
+      "title": "Computer Forensics",
+      "thumbnail": "https://sentreesystems.com/storage/2023/08/Computer-Forensics.jpg",
+      "videos": [
+        "f9KQJBYhpX8",
+        "2e0WoGRx7DM",
+        "qS4ViqnjkC8",
+        "Bn7U8PArUGA",
+        "32bLpIymzu4",
+        "K7YcWAjvEaQ",
+        "1Ti7eFz2pWQ",
+        "Zy8mrqYQTWk",
+        "0oeap0QDslY",
+        "riYpfCIuOUo",
+        "qJampmcmQ3w",
+        "UHG9N5jjXY4",
+        "c-oRsvFGmfc",
+        "dpzoOB7mINI",
+        "wDVyBjpfUUc",
+        "Zy8mrqYQTWk"
+      ]
+    }
+  ]
+}

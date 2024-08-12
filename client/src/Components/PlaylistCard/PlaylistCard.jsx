@@ -3,6 +3,7 @@ import styles from "./PlaylistCard.module.css";
 import { FaBars, FaPlay } from "react-icons/fa";
 import Checkbox from "./Checkbox";
 import Navigator from "./Navigator";
+import { formatDuration } from "../../Utils/format.js";
 
 const PlaylistCard = (props) => {
   return (
@@ -31,7 +32,7 @@ const PlaylistCard = (props) => {
             src={props.thumbnail}
             alt={props.topic}
           />
-          <p className={styles.duration}>{props.duration}</p>
+          <p className={styles.duration}>{formatDuration(props.duration)}</p>
         </div>
         <div className={styles.details}>
           <h5 className={styles.topic}>{props.topic}</h5>

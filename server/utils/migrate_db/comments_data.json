@@ -1,0 +1,22 @@
+{
+  "positive": [
+    "Very well organised and informative",
+    "This made my exam preparation so much easier",
+    "I wish I had found this earlier",
+    "This is the best creator on the platform",
+    "This is so convenient and easy to follow",
+    "Exam tomorrow, this is my last minute revision"
+  ],
+  "negative": [
+    "This is not what I was looking for",
+    "I don't understand this",
+    "Poor video selecton, could be better",
+    "I could've made a better playlist, heading to the create section rn"
+  ],
+  "replies_agree": ["Yeah, I agree", "Same", "Valid point"],
+  "replies_disagree": [
+    "I don't think so",
+    "I disagree",
+    "I don't see it that way"
+  ]
+}

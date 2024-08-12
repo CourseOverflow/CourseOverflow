@@ -19,6 +19,7 @@ urlpatterns = [
         views.user_bookmarked_playlists,
         name="user_bookmarked_playlists",
     ),
+    path("add-bookmark", views.add_bookmark, name="add_bookmark"),
     path("watch-count", views.watch_count, name="watch_count"),
     path("get-last-watched", views.getLastWatched, name="getLastWatched"),
     path("set-last-watched", views.setLastWatched, name="setLastWatched"),

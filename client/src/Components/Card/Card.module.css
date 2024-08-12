@@ -31,12 +31,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: var(--base-text);
 }
 
 .author {
   background-color: transparent;
   font-size: 0.8rem;
-  color: var(--text);
+  color: var(--base-text);
   text-wrap: wrap;
   max-width: 280px;
   text-overflow: ellipsis;

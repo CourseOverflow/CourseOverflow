@@ -14,12 +14,21 @@
   background-color: transparent;
   display: flex;
   align-items: space-between;
-  color: white;
+  color: #dddddd;
   font-size: 14px;
+}
+
+.likesDislikes path {
+  color: #dddddd;
 }
 
 .bookmarks {
   background-color: transparent;
   display: flex;
   margin-left: auto;
+  color: var(--base-text);
+}
+
+.bookmarks path {
+  color: #dddddd;
 }

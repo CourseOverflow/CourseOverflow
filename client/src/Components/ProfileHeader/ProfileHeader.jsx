@@ -80,7 +80,6 @@ const ProfileHeader = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Uploaded image data:", data);
           setCurrentUser((prevUser) => ({
             ...prevUser,
             profilePicture: data.secure_url,
@@ -135,20 +134,21 @@ const ProfileHeader = () => {
             </div>
           </div>
           <hr className={styles.horizontalLine} />
-          <form className={styles.usernameEditable} onSubmit={handleSubmit}>
-            <input
-              id="usernameInput"
-              className={styles.usernameInput}
-              type="text"
-              value={username}
-              onChange={(e) => handleUpdate(e)}
-              ref={inputRef}
-            />
-            <FaPen
-              className={styles.editPen}
-              onClick={() => setIsEditing(!isEditing)}
-            />
-          </form>
+          <div className={styles.username}>{username}</div>
+          {/* <form className={styles.usernameEditable} onSubmit={handleSubmit}> */}
+          {/*   <input */}
+          {/*     id="usernameInput" */}
+          {/*     className={styles.usernameInput} */}
+          {/*     type="text" */}
+          {/*     value={username} */}
+          {/*     onChange={(e) => handleUpdate(e)} */}
+          {/*     ref={inputRef} */}
+          {/*   /> */}
+          {/*   <FaPen */}
+          {/*     className={styles.editPen} */}
+          {/*     onClick={() => setIsEditing(!isEditing)} */}
+          {/*   /> */}
+          {/* </form> */}
         </>
       ) : (
         <>

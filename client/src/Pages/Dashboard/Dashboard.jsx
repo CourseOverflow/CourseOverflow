@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
   const [likedPlaylists, setLikedPlaylists] = useState([]);
   const [createdDrafts, setCreatedDrafts] = useState([]);
+  const [bookmarkedPlaylists, setBookmarkedPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,17 +29,20 @@ const Dashboard = () => {
     });
 
     let fetchCreatedDrafts;
+    let fetchBookmarkedPlaylists;
 
     if (user && username === user.username) {
       fetchCreatedDrafts = api.get(`draft/get-all-drafts`, {
         params: { username },
       });
+      fetchBookmarkedPlaylists = api.get(`playlist/user-bookmarked-playlists`);
     }
 
     const requests = [
       fetchCreatedPlaylists,
       fetchLikedPlaylists,
       fetchCreatedDrafts,
+      fetchBookmarkedPlaylists,
     ].filter(Boolean);
 
     Promise.all(requests)
@@ -47,11 +51,15 @@ const Dashboard = () => {
           createdPlaylistsResponse,
           likedPlaylistsResponse,
           createdDraftsResponse,
+          bookmarkedPlaylistsResponse,
         ] = responses;
         setCreatedPlaylists(createdPlaylistsResponse.data);
         setLikedPlaylists(likedPlaylistsResponse.data);
         if (createdDraftsResponse) {
           setCreatedDrafts(createdDraftsResponse.data);
+        }
+        if (bookmarkedPlaylistsResponse) {
+          setBookmarkedPlaylists(bookmarkedPlaylistsResponse.data);
         }
       })
       .catch((error) => {
@@ -66,7 +74,6 @@ const Dashboard = () => {
     return <DashboardSkeleton />;
   }
 
-  console.log(createdPlaylists);
   const analyticsData = {
     views: 0,
     likes: 0,
@@ -96,6 +103,11 @@ const Dashboard = () => {
     },
     {
       id: 3,
+      category: "Bookmarks",
+      data: bookmarkedPlaylists,
+    },
+    {
+      id: 4,
       category: "Drafts",
       data: createdDrafts,
       isDraft: true,
@@ -103,7 +115,7 @@ const Dashboard = () => {
   ];
 
   if (!user || username !== user.username) {
-    feedList.splice(2, 1);
+    feedList.splice(2, 2);
   }
 
   return (
@@ -116,7 +128,7 @@ const Dashboard = () => {
           <Analytics analyticsData={analyticsData} />
         </div>
       </div>
-      <ActivityCalendar analyticsData={activityData} />
+      {/* <ActivityCalendar analyticsData={activityData} /> */}
       <HomeFeed feedList={feedList} />
     </>
   );

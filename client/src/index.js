@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 await setTokens().catch((error) => {
   console.error("Error setting tokens: ", error);
-  localStorage.clear();
+  localStorage.removeItem("user");
 });
 
 root.render(<App />);

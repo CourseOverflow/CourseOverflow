@@ -39,7 +39,7 @@ const fetchAccessToken = async () => {
     setAccessToken(response.data.access);
   } catch (error) {
     console.error("Failed to fetch access token: ", error);
-    localStorage.clear();
+    localStorage.removeItem("user");
   }
 };
 
@@ -61,7 +61,7 @@ api.interceptors.response.use(
         api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (err) {
-        localStorage.clear();
+        localStorage.removeItem("user");
         return Promise.reject(err);
       }
     }
@@ -86,7 +86,7 @@ export const logoutUser = async () => {
     .then(() => {
       accessToken = null;
       delete api.defaults.headers["Authorization"];
-      localStorage.clear();
+      localStorage.removeItem("user");
       console.log("User logged out successfully");
       return true;
     })

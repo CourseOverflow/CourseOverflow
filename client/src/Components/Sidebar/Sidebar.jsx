@@ -1,13 +1,44 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { FaHome, FaPlus, FaPlay, FaUser } from "react-icons/fa";
+import {
+  FaHome,
+  FaPlus,
+  FaPlay,
+  FaUser,
+  FaAngleDown,
+  FaAngleRight,
+} from "react-icons/fa";
+import BookmarkList from "./BookmarkList";
 import { NavLink } from "react-router-dom";
+import api from "../../Config/apiConfig";
+import useAlerts from "../../Hooks/useAlerts";
 
 const Sidebar = (props) => {
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
+
+  const { addAlert } = useAlerts();
+  const [loading, setLoading] = useState(true);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [bookmarkOpen, setBookmarkOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      try {
+        const response = await api.get(
+          "playlist/user-bookmarked-playlists?light=true",
+        );
+        setBookmarks(response.data);
+      } catch (error) {
+        addAlert("Error", "Failed to fetch bookmarks");
+      }
+    };
+    fetchBookmarks();
+    setLoading(false);
+    // eslint-disable-next-line
+  }, []);
 
   const location = useLocation();
   const menuItem = [
@@ -20,11 +51,6 @@ const Sidebar = (props) => {
       name: "Create",
       to: "/create",
       icon: <FaPlus />,
-    },
-    {
-      name: "Play",
-      to: "/play?playlistId=1&index=0",
-      icon: <FaPlay />,
     },
     {
       name: "Dashboard",
@@ -62,6 +88,33 @@ const Sidebar = (props) => {
             </div>
           </NavLink>
         ))}
+        {!loading && (
+          <div>
+            <div className={styles.link}>
+              <div className={styles.icon}>
+                <FaPlay />
+              </div>
+              <div
+                style={{ display: props.isOpen ? "block" : "none" }}
+                className={styles["link-text"]}
+              >
+                Bookmarks
+              </div>
+              {props.isOpen && (
+                <button
+                  onClick={() => setBookmarkOpen(!bookmarkOpen)}
+                  className={styles.icon}
+                >
+                  {bookmarkOpen ? <FaAngleDown /> : <FaAngleRight />}
+                </button>
+              )}
+            </div>
+
+            {props.isOpen && bookmarkOpen && (
+              <BookmarkList bookmarks={bookmarks} setIsOpen={props.setIsOpen} />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import styles from "./Search.module.css";
 import CardImage from "../../Components/Card/CardImage";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
+import { formatDuration, formatViews } from "../../Utils/format.js";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -28,15 +29,6 @@ const Search = () => {
     };
     fetchData();
   }, [query]);
-
-  const formatViews = (views) => {
-    if (views >= 1000000) {
-      return (views / 1000000).toFixed(1) + "M";
-    } else if (views >= 1000) {
-      return (views / 1000).toFixed(1) + "K";
-    }
-    return views.toString();
-  };
 
   const getLastWatched = async (playlistId) => {
     try {
@@ -79,7 +71,7 @@ const Search = () => {
               isDisliked={item.isDisliked}
               isBookmarked={item.isBookmarked}
               watchPercentage={Math.floor(
-                (item.watchCount / item.videoCount) * 100
+                (item.watchCount / item.videoCount) * 100,
               )}
             />
           </div>
@@ -96,7 +88,7 @@ const Search = () => {
               </div>
             </div>
             <p className={styles.author}>
-              {item.duration} | {formatViews(item.views)} views
+              {formatDuration(item.duration)} | {formatViews(item.views)} views
             </p>
             <p className={styles.desc}>{item.desc}</p>
           </div>

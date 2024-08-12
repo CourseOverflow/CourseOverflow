@@ -23,6 +23,14 @@ async def generatePlaylist(topics):
 # -----------------------------------------------------------------------------
 
 
+async def generate_ythash_playlist(yt_hashs):
+    async with aiohttp.ClientSession() as session:
+        return await get_video_details(session, yt_hashs)
+
+
+# -----------------------------------------------------------------------------
+
+
 async def search_videos(session, query):
     if cache.get(query):
         return cache.get(query)

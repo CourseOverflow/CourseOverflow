@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./PlaylistHeader.module.css";
+import { formatDuration } from "../../Utils/format";
 
 const PlaylistHeader = (props) => {
   const watchPercentage = Math.floor(
-    (props.watchCount / props.bundleSize) * 100
+    (props.watchCount / props.bundleSize) * 100,
   );
   return (
     <>
@@ -14,7 +15,7 @@ const PlaylistHeader = (props) => {
           <p className={styles.duration}>
             {props.watchCount} / {props.bundleSize}
           </p>
-          <p className={styles.duration}>{props.duration}</p>
+          <p className={styles.duration}>{formatDuration(props.duration)}</p>
         </div>
       </div>
       <hr

@@ -300,19 +300,31 @@ def user_liked_playlists(request):
 @permission_classes([IsAuthenticated])
 def user_bookmarked_playlists(request):
     try:
-        requested_user_username = request.query_params["username"]
         user = request.user
-        if requested_user_username != user.username:
-            return Response(
-                {"message": "User unauthorized to view this data"},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-
         playlists = Playlist.objects.filter(
             playlistinteraction__userId=user,
             playlistinteraction__isBookmarked=True,
         )
         serializer = PlaylistSerializer(playlists, many=True)
+        if request.query_params.get("light", "false") == "true":
+            response_data = [
+                {
+                    "id": playlist["id"],
+                    "title": playlist["title"],
+                    "lastWatched": (
+                        PlaylistInteraction.objects.get(
+                            userId=user, playlistId=playlist["id"]
+                        ).lastWatched
+                        if PlaylistInteraction.objects.filter(
+                            userId=user, playlistId=playlist["id"]
+                        ).exists()
+                        else 0
+                    ),
+                }
+                for playlist in serializer.data
+            ]
+            return Response(response_data, status=status.HTTP_200_OK)
+
         for playlist_data in serializer.data:
             author = User.objects.get(id=playlist_data["authorId"])
             playlist_data["authorName"] = (
@@ -321,9 +333,43 @@ def user_bookmarked_playlists(request):
             playlist_data["authorProfile"] = author.profilePicture
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    except Exception as e:
+        return Response(
+            {"message": "User not found" + str(e)},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+
+# ----------------------------------------------------------------------------
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def add_bookmark(request):
+    try:
+        user = request.user
+        playlist_id = request.data["playlistId"]
+        playlist_interaction, created = (
+            PlaylistInteraction.objects.get_or_create(
+                userId=user,
+                playlistId=Playlist.objects.get(id=playlist_id),
+            )
+        )
+        playlist_interaction.isBookmarked = request.data["bookmarked"]
+        playlist_interaction.save()
+        if created:
+            playlist = Playlist.objects.get(id=playlist_id)
+            playlist.views += 1
+            playlist.save()
+        return Response(
+            {"message": "Bookmark updated successfully"},
+            status=status.HTTP_200_OK,
+        )
+
     except Exception:
         return Response(
-            {"message": "User not found"}, status=status.HTTP_404_NOT_FOUND
+            {"message": "Playlist interaction not found"},
+            status=status.HTTP_404_NOT_FOUND,
         )
 
 

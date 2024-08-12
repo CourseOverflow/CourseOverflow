@@ -34,6 +34,7 @@ from api.serializers import (
 # ----------------------------------------------------------------------------
 
 
+@permission_classes([AllowAny])
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 

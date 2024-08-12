@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: 20px;
+}
+
+.bookmarkItem {
+  border-radius: 5px;
+  background-color: var(--base);
+  color: var(--base-text);
+  text-align: left;
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s;
+}
+
+.bookmarkItem:hover {
+  background: var(--hover);
+  color: var(--base-text);
+  transition: all 0.3s;
+  border-radius: 10px;
+}

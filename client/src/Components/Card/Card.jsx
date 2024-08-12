@@ -3,6 +3,7 @@ import styles from "./Card.module.css";
 import CardImage from "./CardImage";
 import { useNavigate } from "react-router-dom";
 import api from "../../Config/apiConfig";
+import { formatDuration, formatViews } from "../../Utils/format";
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -57,7 +58,8 @@ const Card = (props) => {
         </div>
       </div>
       <p className={styles.views}>
-        {props.data.duration} | {props.data.views} views
+        {formatDuration(props.data.duration)} | {formatViews(props.data.views)}{" "}
+        views
       </p>
     </div>
   );
