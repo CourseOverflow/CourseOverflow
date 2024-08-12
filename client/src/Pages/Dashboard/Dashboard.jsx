@@ -6,14 +6,18 @@ import HomeFeed from "../../Components/HomeFeed/HomeFeed";
 import DashboardSkeleton from "../../Components/Skeleton/DashboardSkeleton";
 import ActivityCalendar from "../../Components/ActivityCalendar/ActivityCalendar.jsx";
 import api from "../../Config/apiConfig.js";
-import { useParams } from "react-router-dom";
+import useAlerts from "../../Hooks/useAlerts";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const { addAlert } = useAlerts();
   const { username } = useParams();
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
 
+  const [currentUser, setCurrentUser] = useState({});
   const [createdPlaylists, setCreatedPlaylists] = useState([]);
   const [likedPlaylists, setLikedPlaylists] = useState([]);
   const [createdDrafts, setCreatedDrafts] = useState([]);
@@ -21,6 +25,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchUser = api.get(`user/${username}`);
     const fetchCreatedPlaylists = api.get(`playlist/user-playlists`, {
       params: { username },
     });
@@ -31,7 +36,7 @@ const Dashboard = () => {
     let fetchCreatedDrafts;
     let fetchBookmarkedPlaylists;
 
-    if (user && username === user.username) {
+    if (user && username.toLowerCase() === user.username.toLowerCase()) {
       fetchCreatedDrafts = api.get(`draft/get-all-drafts`, {
         params: { username },
       });
@@ -39,35 +44,54 @@ const Dashboard = () => {
     }
 
     const requests = [
+      fetchUser,
       fetchCreatedPlaylists,
       fetchLikedPlaylists,
       fetchCreatedDrafts,
       fetchBookmarkedPlaylists,
     ].filter(Boolean);
 
-    Promise.all(requests)
-      .then((responses) => {
+    Promise.allSettled(requests)
+      .then((results) => {
         const [
-          createdPlaylistsResponse,
-          likedPlaylistsResponse,
-          createdDraftsResponse,
-          bookmarkedPlaylistsResponse,
-        ] = responses;
-        setCreatedPlaylists(createdPlaylistsResponse.data);
-        setLikedPlaylists(likedPlaylistsResponse.data);
-        if (createdDraftsResponse) {
-          setCreatedDrafts(createdDraftsResponse.data);
+          userResult,
+          createdPlaylistsResult,
+          likedPlaylistsResult,
+          createdDraftsResult,
+          bookmarkedPlaylistsResult,
+        ] = results;
+
+        if (userResult.status === "fulfilled" && userResult.value) {
+          setCurrentUser(userResult.value.data);
+        } else {
+          addAlert("Error", "User not found");
+          navigate("/");
+          return;
         }
-        if (bookmarkedPlaylistsResponse) {
-          setBookmarkedPlaylists(bookmarkedPlaylistsResponse.data);
+
+        if (createdPlaylistsResult.status === "fulfilled") {
+          setCreatedPlaylists(createdPlaylistsResult.value.data);
+        }
+
+        if (likedPlaylistsResult.status === "fulfilled") {
+          setLikedPlaylists(likedPlaylistsResult.value.data);
+        }
+
+        if (createdDraftsResult?.status === "fulfilled") {
+          setCreatedDrafts(createdDraftsResult.value.data);
+        }
+
+        if (bookmarkedPlaylistsResult?.status === "fulfilled") {
+          setBookmarkedPlaylists(bookmarkedPlaylistsResult.value.data);
         }
       })
-      .catch((error) => {
-        console.error("Error fetching playlist data: ", error);
+      .catch(() => {
+        addAlert("Error", "Failed to fetch user data");
       })
       .finally(() => {
         setLoading(false);
       });
+    // eslint-disable-next-line
   }, [username]);
 
   if (loading) {
@@ -122,7 +146,10 @@ const Dashboard = () => {
     <>
       <div className={styles.top}>
         <div className={styles.profileHeader}>
-          <ProfileHeader />
+          <ProfileHeader
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+          />
         </div>
         <div className={styles.analytics}>
           <Analytics analyticsData={analyticsData} />

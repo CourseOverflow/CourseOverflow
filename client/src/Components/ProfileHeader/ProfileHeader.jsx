@@ -4,18 +4,10 @@ import { FaPen } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
 import useAlerts from "../../Hooks/useAlerts";
-import { useNavigate } from "react-router-dom";
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ currentUser, setCurrentUser }) => {
   const { username } = useParams();
   const { addAlert } = useAlerts();
-  const navigate = useNavigate();
-  console.log("username", username);
-
-  const [currentUser, setCurrentUser] = useState({
-    username: username,
-    profilePicture: "",
-  });
 
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
@@ -23,30 +15,6 @@ const ProfileHeader = () => {
 
   const inputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    if (user?.username === username) {
-      setCurrentUser(user);
-      return;
-    }
-    const fetchUser = async () => {
-      try {
-        await api
-          .get(`user/${username}`)
-          .then((response) => {
-            setCurrentUser(response.data);
-          })
-          .catch((error) => {
-            addAlert("Error", "Error fetching user");
-            navigate("/");
-            console.error("Error fetching user: ", error);
-          });
-      } catch (error) {
-        console.error("Error fetching user: ", error);
-      }
-    };
-    fetchUser();
-  }, [username]);
 
   useEffect(() => {
     if (isEditing) {

@@ -35,7 +35,9 @@ const Sidebar = (props) => {
         addAlert("Error", "Failed to fetch bookmarks");
       }
     };
-    fetchBookmarks();
+    if (user) {
+      fetchBookmarks();
+    }
     setLoading(false);
     // eslint-disable-next-line
   }, []);

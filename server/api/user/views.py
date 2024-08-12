@@ -1,9 +1,10 @@
-from api.models import User
-from api.serializers import UserSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+
+from api.models import User
+from api.serializers import UserSerializer
 
 # ----------------------------------------------------------------------------
 
@@ -12,7 +13,7 @@ from rest_framework.response import Response
 @permission_classes([AllowAny])
 def get_user(request, username):
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(username__iexact=username)
         serializer = UserSerializer(user)
         response = dict(serializer.data)
         del response["password"]

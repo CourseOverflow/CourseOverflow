@@ -35,7 +35,7 @@
 .profile > h1,
 .profile > p {
   background-color: transparent;
-  columns: var(--base-text);
+  color: var(--base-text);
 }
 
 .profile > p {
