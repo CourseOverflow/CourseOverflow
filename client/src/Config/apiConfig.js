@@ -59,6 +59,7 @@ api.interceptors.response.use(
       try {
         await fetchAccessToken();
         api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
+        originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (err) {
         localStorage.removeItem("user");
