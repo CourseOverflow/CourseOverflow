@@ -102,6 +102,7 @@ const Video = ({
       </div>
       <VideoControls
         title={currVideo.title}
+        authorUsername={playlistData.authorUsername}
         authorName={playlistData.authorName}
         authorProfile={playlistData.authorProfile}
         likes={likes}

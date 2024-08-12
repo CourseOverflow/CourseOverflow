@@ -4,9 +4,11 @@ import CardImage from "../../Components/Card/CardImage";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
 import { formatDuration, formatViews } from "../../Utils/format.js";
+import useAlerts from "../../Hooks/useAlerts.js";
 
 const Search = () => {
   const navigate = useNavigate();
+  const { addAlert } = useAlerts();
   const [loading, setLoading] = useState(true);
   const [SearchData, setSearchData] = useState([]);
   const [searchParams] = useSearchParams();
@@ -19,15 +21,15 @@ const Search = () => {
           params: { query },
         });
         setSearchData(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-        throw error;
+      } catch {
+        addAlert("Error fetching search results", "error");
+        navigate("/");
       } finally {
         setLoading(false);
       }
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   const getLastWatched = async (playlistId) => {
@@ -36,8 +38,7 @@ const Search = () => {
         params: { playlistId },
       });
       return response.data.lastWatched;
-    } catch (error) {
-      console.error("Error getting last watched: ", error);
+    } catch {
       return 1;
     }
   };
@@ -78,16 +79,22 @@ const Search = () => {
           <div className={styles.details}>
             <div className={styles.headline}>
               <img
+                onClick={() => navigate(`/u/${item.authorUsername}`)}
                 className={styles.avatar}
                 src={item.authorProfile}
                 alt="avatar"
               />
               <div className={styles.titleAuthor}>
                 <h1 className={styles.title}>{item.title}</h1>
-                <p className={styles.author}>{item.authorName}</p>
+                <p
+                  onClick={() => navigate(`/u/${item.authorUsername}`)}
+                  className={styles.author}
+                >
+                  {item.authorName}
+                </p>
               </div>
             </div>
-            <p className={styles.author}>
+            <p className={styles.views}>
               {formatDuration(item.duration)} | {formatViews(item.views)} views
             </p>
             <p className={styles.desc}>{item.desc}</p>

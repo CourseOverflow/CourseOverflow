@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./ProfileHeader.module.css";
-import { FaPen } from "react-icons/fa";
+// import { FaPen } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import api from "../../Config/apiConfig.js";
 import useAlerts from "../../Hooks/useAlerts";
@@ -94,7 +94,9 @@ const ProfileHeader = ({ currentUser, setCurrentUser }) => {
             </div>
           </div>
           <hr className={styles.horizontalLine} />
-          <div className={styles.username}>{username}</div>
+          <div className={styles.username}>
+            {currentUser.first_name} {currentUser.last_name}
+          </div>
           {/* <form className={styles.usernameEditable} onSubmit={handleSubmit}> */}
           {/*   <input */}
           {/*     id="usernameInput" */}
@@ -120,7 +122,9 @@ const ProfileHeader = ({ currentUser, setCurrentUser }) => {
             />
           </div>
           <hr className={styles.horizontalLine} />
-          <div className={styles.username}>{username}</div>
+          <div className={styles.username}>
+            {currentUser.first_name} {currentUser.last_name}
+          </div>
         </>
       )}
     </div>

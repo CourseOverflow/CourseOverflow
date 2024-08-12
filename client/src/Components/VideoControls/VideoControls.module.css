@@ -20,6 +20,7 @@
 
 .flex {
   display: flex;
+  cursor: pointer;
 }
 
 .author {

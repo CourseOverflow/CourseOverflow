@@ -20,36 +20,50 @@ from api.serializers import (
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def getPlaylist(request):
-    playlistId = request.query_params.get("playlistId")
-    playlist = Playlist.objects.get(id=playlistId)
-    serializer = PlaylistSerializer(playlist, many=False)
-    playlist_data = serializer.data
-    author = User.objects.get(id=playlist.authorId.id)
-    author_data = UserSerializer(author).data
-    playlist_data["authorName"] = (
-        author_data["first_name"] + " " + author_data["last_name"]
-    )
-    playlist_data["authorProfile"] = author_data["profilePicture"]
-    playlist_data["isLiked"] = False
-    playlist_data["isDisliked"] = False
-    playlist_data["isBookmarked"] = False
-
-    if request.user.is_authenticated:
-        user = request.user
-        playlist_interaction, created = (
-            PlaylistInteraction.objects.get_or_create(
-                userId=user, playlistId=playlist
-            )
+    try:
+        playlistId = request.query_params.get("playlistId")
+        playlist = Playlist.objects.get(id=playlistId)
+        serializer = PlaylistSerializer(playlist, many=False)
+        playlist_data = serializer.data
+        author = User.objects.get(id=playlist.authorId.id)
+        author_data = UserSerializer(author).data
+        playlist_data["authorUsername"] = author.username
+        playlist_data["authorName"] = (
+            author_data["first_name"] + " " + author_data["last_name"]
         )
-        if created:
-            playlist.views += 1
-            playlist.save()
+        playlist_data["authorProfile"] = author_data["profilePicture"]
+        playlist_data["isLiked"] = False
+        playlist_data["isDisliked"] = False
+        playlist_data["isBookmarked"] = False
 
-        playlist_data["isLiked"] = playlist_interaction.isLiked
-        playlist_data["isDisliked"] = playlist_interaction.isDisliked
-        playlist_data["isBookmarked"] = playlist_interaction.isBookmarked
+        if request.user.is_authenticated:
+            user = request.user
+            playlist_interaction, created = (
+                PlaylistInteraction.objects.get_or_create(
+                    userId=user, playlistId=playlist
+                )
+            )
+            if created:
+                playlist.views += 1
+                playlist.save()
 
-    return Response(playlist_data, status=status.HTTP_200_OK)
+            playlist_data["isLiked"] = playlist_interaction.isLiked
+            playlist_data["isDisliked"] = playlist_interaction.isDisliked
+            playlist_data["isBookmarked"] = playlist_interaction.isBookmarked
+
+        return Response(playlist_data, status=status.HTTP_200_OK)
+
+    except Playlist.DoesNotExist:
+        return Response(
+            {"message": "Playlist not found"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    except Exception:
+        return Response(
+            {"message": "Error fetching playlist"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -58,49 +72,59 @@ def getPlaylist(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def search(request):
-    query = request.query_params.get("query")
-    playlists = Playlist.objects.filter(
-        Q(title__icontains=query)
-        | Q(authorId__first_name__icontains=query)
-        | Q(authorId__last_name__icontains=query)
-        | Q(desc__icontains=query)
-    )
-    serializer = PlaylistSerializer(playlists, many=True)
-
-    for playlist in serializer.data:
-        author = User.objects.get(id=playlist["authorId"])
-        author_data = UserSerializer(author).data
-        video_count = VideoOrder.objects.filter(
-            playlistId=playlist["id"]
-        ).count()
-
-        playlist["videoCount"] = video_count
-        playlist["authorProfile"] = author_data["profilePicture"]
-        playlist["authorName"] = (
-            author_data["first_name"] + " " + author_data["last_name"]
+    try:
+        query = request.query_params.get("query")
+        playlists = Playlist.objects.filter(
+            Q(title__icontains=query)
+            | Q(authorId__first_name__icontains=query)
+            | Q(authorId__last_name__icontains=query)
+            | Q(desc__icontains=query)
         )
+        serializer = PlaylistSerializer(playlists, many=True)
 
-        playlist["isLiked"] = False
-        playlist["isDisliked"] = False
-        playlist["isBookmarked"] = False
-        playlist["watchCount"] = 0
-
-    if request.user.is_authenticated:
-        user = request.user
         for playlist in serializer.data:
-            playlist_instance = Playlist.objects.get(id=playlist["id"])
-            if PlaylistInteraction.objects.filter(
-                userId=user, playlistId=playlist_instance
-            ).exists():
-                playlist_interaction = PlaylistInteraction.objects.get(
-                    userId=user, playlistId=playlist_instance
-                )
-                playlist["isLiked"] = playlist_interaction.isLiked
-                playlist["isDisliked"] = playlist_interaction.isDisliked
-                playlist["isBookmarked"] = playlist_interaction.isBookmarked
-                playlist["watchCount"] = len(playlist_interaction.watched)
+            author = User.objects.get(id=playlist["authorId"])
+            author_data = UserSerializer(author).data
+            video_count = VideoOrder.objects.filter(
+                playlistId=playlist["id"]
+            ).count()
 
-    return Response(serializer.data, status=status.HTTP_200_OK)
+            playlist["videoCount"] = video_count
+            playlist["authorUsername"] = author.username
+            playlist["authorProfile"] = author_data["profilePicture"]
+            playlist["authorName"] = (
+                author_data["first_name"] + " " + author_data["last_name"]
+            )
+
+            playlist["isLiked"] = False
+            playlist["isDisliked"] = False
+            playlist["isBookmarked"] = False
+            playlist["watchCount"] = 0
+
+        if request.user.is_authenticated:
+            user = request.user
+            for playlist in serializer.data:
+                playlist_instance = Playlist.objects.get(id=playlist["id"])
+                if PlaylistInteraction.objects.filter(
+                    userId=user, playlistId=playlist_instance
+                ).exists():
+                    playlist_interaction = PlaylistInteraction.objects.get(
+                        userId=user, playlistId=playlist_instance
+                    )
+                    playlist["isLiked"] = playlist_interaction.isLiked
+                    playlist["isDisliked"] = playlist_interaction.isDisliked
+                    playlist["isBookmarked"] = (
+                        playlist_interaction.isBookmarked
+                    )
+                    playlist["watchCount"] = len(playlist_interaction.watched)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception:
+        return Response(
+            {"message": "Error fetching playlists"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -109,69 +133,80 @@ def search(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def recommended(request):
-    recommended_playlists = []
-    if request.user.is_authenticated:
-        user = request.user
-        liked_playlists = PlaylistInteraction.objects.filter(
-            userId=user, isLiked=True
-        ).values_list("playlistId", flat=True)
-        similar_users = (
-            PlaylistInteraction.objects.filter(
-                playlistId__in=liked_playlists, isLiked=True
-            )
-            .values("userId")
-            .annotate(common_likes=Count("playlistId"))
-            .order_by("-common_likes")[:5]
-        )
-        recommended_playlists = (
-            PlaylistInteraction.objects.filter(
-                userId__in=[user["userId"] for user in similar_users],
-                isLiked=True,
-            )
-            .exclude(playlistId__in=liked_playlists)
-            .values("playlistId")
-            .annotate(likes=Count("userId"))
-            .order_by("-likes")[:10]
-        )
-
-    if not len(recommended_playlists):
-        popular_playlists = Playlist.objects.order_by("?")[:10]
-        serializer = PlaylistSerializer(popular_playlists, many=True)
-    else:
-        recommended_playlists = Playlist.objects.filter(
-            id__in=[
-                playlist["playlistId"] for playlist in recommended_playlists
-            ]
-        )
-        serializer = PlaylistSerializer(recommended_playlists, many=True)
-
-    for playlist in serializer.data:
-        video_count = VideoOrder.objects.filter(
-            playlistId=playlist["id"]
-        ).count()
-        playlist["videoCount"] = video_count
-        author = User.objects.get(id=playlist["authorId"])
-        playlist["authorName"] = author.first_name + " " + author.last_name
-        playlist["authorProfile"] = author.profilePicture
-        playlist["isLiked"] = False
-        playlist["isDisliked"] = False
-        playlist["isBookmarked"] = False
-        playlist["watchCount"] = 0
+    try:
+        recommended_playlists = []
         if request.user.is_authenticated:
-            playlist_id = playlist["id"]
-            playlist_instance = Playlist.objects.get(id=playlist_id)
-            if PlaylistInteraction.objects.filter(
-                userId=user, playlistId=playlist_instance
-            ).exists():
-                playlist_interaction = PlaylistInteraction.objects.get(
-                    userId=user, playlistId=playlist_instance
+            user = request.user
+            liked_playlists = PlaylistInteraction.objects.filter(
+                userId=user, isLiked=True
+            ).values_list("playlistId", flat=True)
+            similar_users = (
+                PlaylistInteraction.objects.filter(
+                    playlistId__in=liked_playlists, isLiked=True
                 )
-                playlist["isLiked"] = playlist_interaction.isLiked
-                playlist["isDisliked"] = playlist_interaction.isDisliked
-                playlist["isBookmarked"] = playlist_interaction.isBookmarked
-                playlist["watchCount"] = len(playlist_interaction.watched)
+                .values("userId")
+                .annotate(common_likes=Count("playlistId"))
+                .order_by("-common_likes")[:5]
+            )
+            recommended_playlists = (
+                PlaylistInteraction.objects.filter(
+                    userId__in=[user["userId"] for user in similar_users],
+                    isLiked=True,
+                )
+                .exclude(playlistId__in=liked_playlists)
+                .values("playlistId")
+                .annotate(likes=Count("userId"))
+                .order_by("-likes")[:10]
+            )
 
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        if not len(recommended_playlists):
+            popular_playlists = Playlist.objects.order_by("?")[:10]
+            serializer = PlaylistSerializer(popular_playlists, many=True)
+        else:
+            recommended_playlists = Playlist.objects.filter(
+                id__in=[
+                    playlist["playlistId"]
+                    for playlist in recommended_playlists
+                ]
+            )
+            serializer = PlaylistSerializer(recommended_playlists, many=True)
+
+        for playlist in serializer.data:
+            video_count = VideoOrder.objects.filter(
+                playlistId=playlist["id"]
+            ).count()
+            playlist["videoCount"] = video_count
+            author = User.objects.get(id=playlist["authorId"])
+            playlist["authorUsername"] = author.username
+            playlist["authorName"] = author.first_name + " " + author.last_name
+            playlist["authorProfile"] = author.profilePicture
+            playlist["isLiked"] = False
+            playlist["isDisliked"] = False
+            playlist["isBookmarked"] = False
+            playlist["watchCount"] = 0
+            if request.user.is_authenticated:
+                playlist_id = playlist["id"]
+                playlist_instance = Playlist.objects.get(id=playlist_id)
+                if PlaylistInteraction.objects.filter(
+                    userId=user, playlistId=playlist_instance
+                ).exists():
+                    playlist_interaction = PlaylistInteraction.objects.get(
+                        userId=user, playlistId=playlist_instance
+                    )
+                    playlist["isLiked"] = playlist_interaction.isLiked
+                    playlist["isDisliked"] = playlist_interaction.isDisliked
+                    playlist["isBookmarked"] = (
+                        playlist_interaction.isBookmarked
+                    )
+                    playlist["watchCount"] = len(playlist_interaction.watched)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception:
+        return Response(
+            {"message": "Error fetching playlists"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -180,38 +215,48 @@ def recommended(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def popular(request):
-    playlists = Playlist.objects.order_by("-likes")[:10]
-    serializer = PlaylistSerializer(playlists, many=True)
+    try:
+        playlists = Playlist.objects.order_by("-likes")[:10]
+        serializer = PlaylistSerializer(playlists, many=True)
 
-    for playlist in serializer.data:
-        video_count = VideoOrder.objects.filter(
-            playlistId=playlist["id"]
-        ).count()
-        playlist["videoCount"] = video_count
-        author = User.objects.get(id=playlist["authorId"])
-        playlist["authorName"] = author.first_name + " " + author.last_name
-        playlist["authorProfile"] = author.profilePicture
-        playlist["isLiked"] = False
-        playlist["isDisliked"] = False
-        playlist["isBookmarked"] = False
-        playlist["watchCount"] = 0
+        for playlist in serializer.data:
+            video_count = VideoOrder.objects.filter(
+                playlistId=playlist["id"]
+            ).count()
+            playlist["videoCount"] = video_count
+            author = User.objects.get(id=playlist["authorId"])
+            playlist["authorUsername"] = author.username
+            playlist["authorName"] = author.first_name + " " + author.last_name
+            playlist["authorProfile"] = author.profilePicture
+            playlist["isLiked"] = False
+            playlist["isDisliked"] = False
+            playlist["isBookmarked"] = False
+            playlist["watchCount"] = 0
 
-        if request.user.is_authenticated:
-            user = request.user
-            playlist_id = playlist["id"]
-            playlist_instance = Playlist.objects.get(id=playlist_id)
-            if PlaylistInteraction.objects.filter(
-                userId=user, playlistId=playlist_instance
-            ).exists():
-                playlist_interaction = PlaylistInteraction.objects.get(
+            if request.user.is_authenticated:
+                user = request.user
+                playlist_id = playlist["id"]
+                playlist_instance = Playlist.objects.get(id=playlist_id)
+                if PlaylistInteraction.objects.filter(
                     userId=user, playlistId=playlist_instance
-                )
-                playlist["isLiked"] = playlist_interaction.isLiked
-                playlist["isDisliked"] = playlist_interaction.isDisliked
-                playlist["isBookmarked"] = playlist_interaction.isBookmarked
-                playlist["watchCount"] = len(playlist_interaction.watched)
+                ).exists():
+                    playlist_interaction = PlaylistInteraction.objects.get(
+                        userId=user, playlistId=playlist_instance
+                    )
+                    playlist["isLiked"] = playlist_interaction.isLiked
+                    playlist["isDisliked"] = playlist_interaction.isDisliked
+                    playlist["isBookmarked"] = (
+                        playlist_interaction.isBookmarked
+                    )
+                    playlist["watchCount"] = len(playlist_interaction.watched)
 
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception:
+        return Response(
+            {"message": "Error fetching playlists"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -220,39 +265,49 @@ def popular(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def recent_uploads(request):
-    playlists = Playlist.objects.order_by("-created_at")[:10]
-    serializer = PlaylistSerializer(playlists, many=True)
+    try:
+        playlists = Playlist.objects.order_by("-created_at")[:10]
+        serializer = PlaylistSerializer(playlists, many=True)
 
-    for playlist in serializer.data:
-        video_count = VideoOrder.objects.filter(
-            playlistId=playlist["id"]
-        ).count()
-        playlist["videoCount"] = video_count
+        for playlist in serializer.data:
+            video_count = VideoOrder.objects.filter(
+                playlistId=playlist["id"]
+            ).count()
+            playlist["videoCount"] = video_count
 
-        author = User.objects.get(id=playlist["authorId"])
-        playlist["authorName"] = author.first_name + " " + author.last_name
-        playlist["authorProfile"] = author.profilePicture
-        playlist["isLiked"] = False
-        playlist["isDisliked"] = False
-        playlist["isBookmarked"] = False
-        playlist["watchCount"] = 0
+            author = User.objects.get(id=playlist["authorId"])
+            playlist["authorUsername"] = author.username
+            playlist["authorName"] = author.first_name + " " + author.last_name
+            playlist["authorProfile"] = author.profilePicture
+            playlist["isLiked"] = False
+            playlist["isDisliked"] = False
+            playlist["isBookmarked"] = False
+            playlist["watchCount"] = 0
 
-        if request.user.is_authenticated:
-            user = request.user
-            playlist_id = playlist["id"]
-            playlist_instance = Playlist.objects.get(id=playlist_id)
-            if PlaylistInteraction.objects.filter(
-                userId=user, playlistId=playlist_instance
-            ).exists():
-                playlist_interaction = PlaylistInteraction.objects.get(
+            if request.user.is_authenticated:
+                user = request.user
+                playlist_id = playlist["id"]
+                playlist_instance = Playlist.objects.get(id=playlist_id)
+                if PlaylistInteraction.objects.filter(
                     userId=user, playlistId=playlist_instance
-                )
-                playlist["isLiked"] = playlist_interaction.isLiked
-                playlist["isDisliked"] = playlist_interaction.isDisliked
-                playlist["isBookmarked"] = playlist_interaction.isBookmarked
-                playlist["watchCount"] = len(playlist_interaction.watched)
+                ).exists():
+                    playlist_interaction = PlaylistInteraction.objects.get(
+                        userId=user, playlistId=playlist_instance
+                    )
+                    playlist["isLiked"] = playlist_interaction.isLiked
+                    playlist["isDisliked"] = playlist_interaction.isDisliked
+                    playlist["isBookmarked"] = (
+                        playlist_interaction.isBookmarked
+                    )
+                    playlist["watchCount"] = len(playlist_interaction.watched)
 
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception:
+        return Response(
+            {"message": "Error fetching playlists"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -261,16 +316,25 @@ def recent_uploads(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def user_playlists(request):
-    user = User.objects.get(username=request.query_params["username"])
-    playlists = Playlist.objects.filter(authorId=user)
-    serializer = PlaylistSerializer(playlists, many=True)
-    for playlist_data in serializer.data:
-        author = User.objects.get(id=playlist_data["authorId"])
-        playlist_data["authorName"] = (
-            author.first_name + " " + author.last_name
+    try:
+        user = User.objects.get(
+            username__iexact=request.query_params["username"]
         )
-        playlist_data["authorProfile"] = author.profilePicture
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        playlists = Playlist.objects.filter(authorId=user)
+        serializer = PlaylistSerializer(playlists, many=True)
+        for playlist_data in serializer.data:
+            playlist_data["authorUsername"] = user.username
+            playlist_data["authorName"] = (
+                user.first_name + " " + user.last_name
+            )
+            playlist_data["authorProfile"] = user.profilePicture
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception:
+        return Response(
+            {"message": "User not found"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -279,18 +343,28 @@ def user_playlists(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def user_liked_playlists(request):
-    user = User.objects.get(username=request.query_params["username"])
-    playlists = Playlist.objects.filter(
-        playlistinteraction__userId=user, playlistinteraction__isLiked=True
-    )
-    serializer = PlaylistSerializer(playlists, many=True)
-    for playlist_data in serializer.data:
-        author = User.objects.get(id=playlist_data["authorId"])
-        playlist_data["authorName"] = (
-            author.first_name + " " + author.last_name
+    try:
+        user = User.objects.get(
+            username__iexact=request.query_params["username"]
         )
-        playlist_data["authorProfile"] = author.profilePicture
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        playlists = Playlist.objects.filter(
+            playlistinteraction__userId=user, playlistinteraction__isLiked=True
+        )
+        serializer = PlaylistSerializer(playlists, many=True)
+        for playlist_data in serializer.data:
+            author = User.objects.get(id=playlist_data["authorId"])
+            playlist_data["authorUsername"] = author.username
+            playlist_data["authorName"] = (
+                author.first_name + " " + author.last_name
+            )
+            playlist_data["authorProfile"] = author.profilePicture
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except Exception:
+        return Response(
+            {"message": "User not found"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
 
 
 # ----------------------------------------------------------------------------
@@ -327,15 +401,16 @@ def user_bookmarked_playlists(request):
 
         for playlist_data in serializer.data:
             author = User.objects.get(id=playlist_data["authorId"])
+            playlist_data["authorUsername"] = author.username
             playlist_data["authorName"] = (
                 author.first_name + " " + author.last_name
             )
             playlist_data["authorProfile"] = author.profilePicture
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    except Exception as e:
+    except Exception:
         return Response(
-            {"message": "User not found" + str(e)},
+            {"message": "User not found"},
             status=status.HTTP_404_NOT_FOUND,
         )
 

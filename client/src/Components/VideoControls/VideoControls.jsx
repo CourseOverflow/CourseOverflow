@@ -7,8 +7,11 @@ import {
   FaAngleRight,
   FaAngleLeft,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const VideoControls = (props) => {
+  const navigate = useNavigate();
+
   const handleNextClick = () => {
     const nextIndex = parseInt(props.currVideoIdx) + 1;
     if (nextIndex < props.bundleSize) {
@@ -26,9 +29,11 @@ const VideoControls = (props) => {
   return (
     <>
       <h1 className={styles["videoTopic"]}>{props.title}</h1>
-
       <div className={styles["video-controls"]}>
-        <div className={styles.flex}>
+        <div
+          onClick={() => navigate(`/u/${props.authorUsername}`)}
+          className={styles.flex}
+        >
           <div className={styles.author}>
             <img src={props.authorProfile} alt="Author Profile" />
             <h1>{props.authorName}</h1>

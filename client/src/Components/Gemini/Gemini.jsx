@@ -3,8 +3,6 @@ import GoogleGeminiEffect from "./GoogleGeminiEffect";
 import styles from "./Gemini.module.css";
 
 const Gemini = () => {
-  const geminSvg = process.env.PUBLIC_URL + "/gemini.svg";
-  console.log(geminSvg);
   return (
     <div>
       <h1 className={styles.title}>CourseOverflow</h1>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../Config/apiConfig";
 import { formatDuration, formatViews } from "../../Utils/format";
 
-const Card = (props) => {
+const Card = ({ data, isDraft }) => {
   const navigate = useNavigate();
 
   const getLastWatched = async (playlistId) => {
@@ -15,14 +15,13 @@ const Card = (props) => {
       );
       return response.data.lastWatched;
     } catch (error) {
-      console.error("Error getting last watched: ", error);
       return 1;
     }
   };
 
   const handleFeedClick = async () => {
-    const id = props.data.id;
-    if (props.isDraft) {
+    const id = data.id;
+    if (isDraft) {
       navigate(`/create?draftId=${id}`);
       return;
     }
@@ -31,35 +30,35 @@ const Card = (props) => {
     navigate(`/play?playlistId=${playlistId}&index=${lastWatched}`);
   };
 
-  const watchPercentage = Math.floor(
-    (props.data.watchCount / props.data.videoCount) * 100,
-  );
+  const watchPercentage = Math.floor((data.watchCount / data.videoCount) * 100);
 
   return (
-    <div key={props.data.id}>
+    <div key={data.id}>
       <CardImage
-        id={props.data.id}
-        image={props.data.thumbnail}
-        likes={props.data.likes}
-        dislikes={props.data.dislikes}
-        isLiked={props.data.isLiked}
-        isDisliked={props.data.isDisliked}
-        isBookmarked={props.data.isBookmarked}
+        id={data.id}
+        image={data.thumbnail}
+        likes={data.likes}
+        dislikes={data.dislikes}
+        isLiked={data.isLiked}
+        isDisliked={data.isDisliked}
+        isBookmarked={data.isBookmarked}
         watchPercentage={watchPercentage}
         handleFeedClick={handleFeedClick}
       />
       <div className={styles.cardDetails}>
-        <div className={styles.profilePic}>
-          <img src={props.data.authorProfile} alt="Author Profile" />
+        <div
+          className={styles.profilePic}
+          onClick={() => navigate(`/u/${data.authorUsername}`)}
+        >
+          <img src={data.authorProfile} alt="Author Profile" />
         </div>
         <div className={styles.textDetails}>
-          <h1 className={styles.title}>{props.data.title}</h1>
-          <p className={styles.author}>{props.data.authorName}</p>
+          <h1 className={styles.title}>{data.title}</h1>
+          <p className={styles.author}>{data.authorName}</p>
         </div>
       </div>
       <p className={styles.views}>
-        {formatDuration(props.data.duration)} | {formatViews(props.data.views)}{" "}
-        views
+        {formatDuration(data.duration)} | {formatViews(data.views)} views
       </p>
     </div>
   );
