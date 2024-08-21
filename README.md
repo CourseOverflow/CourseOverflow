@@ -1,5 +1,7 @@
 # CourseOverflow
+
 ## Project Demo
+
 <a href="https://www.youtube.com/watch?v=DEEWFjyib2o" target="_blank" style="text-decoration: none;">
    <div>
       <img src="https://github.com/user-attachments/assets/c3d7d276-99d1-4f50-9a7b-9d4e4fed9168" alt="image">
@@ -34,20 +36,22 @@ Visit our project page [CourseOverflow](https://courseoverflow.vercel.app) to ge
 1. **Clone the repository**
 2. **Install Docker and start the daemon**
 3. **Create .env files for client and server**
-   
+
    client/.env
+
    ```env
    REACT_APP_DEBUG="true"
    REACT_APP_API_URL="http://localhost:8000/api/"
-  
+
    REACT_APP_CLOUDINARY_CLOUD_NAME=""
    REACT_APP_CLOUDINARY_API_KEY=""
    REACT_APP_CLOUDINARY_API_SECRET=""
-  
+
    REACT_APP_GOOGLE_CLIENT_ID=""
    ```
 
    server/.env
+
    ```env
    DEBUG="true"
    SECRET_KEY=""
@@ -55,27 +59,27 @@ Visit our project page [CourseOverflow](https://courseoverflow.vercel.app) to ge
    ALLOWED_HOSTS="localhost"
    CORS_ALLOWED_ORIGINS="http://localhost:3000"
    CSRF_TRUSTED_ORIGINS="http://localhost:3000"
-   
+
    EMAIL_HOST="smtp.gmail.com"
    EMAIL_PORT=587
    EMAIL_HOST_USER=""
    EMAIL_HOST_PASSWORD=""
    EMAIL_USE_TLS="true"
-   
+
    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=""
    SOCIAL_AUTH_GOOGLE_OAUTH_SECRET=""
-   
+
    YOUTUBE_API_KEY=""
    GEMINI_API_KEY=""
    GEMINI_MODEL="gemini-1.5-flash"
-   
+
    POSTGRES_DB="courseoverflow"
    POSTGRES_USER="postgres"
    POSTGRES_PASSWORD="pass"
    POSTGRES_HOST="postgres"
    POSTGRES_PORT=5432
    POSTGRES_SSLMODE="disable"
-   
+
    REDIS_HOST="redis"
    REDIS_PORT=6379
    DB_NUMBER=0
@@ -83,10 +87,10 @@ Visit our project page [CourseOverflow](https://courseoverflow.vercel.app) to ge
    REDIS_KEY_PREFIX="courseoverflow"
    ```
 
-   
 4. **Run the server**
-   
+
    > From the root directory
+
    ```bash
    docker-compose build
    docker-compose up
@@ -95,6 +99,7 @@ Visit our project page [CourseOverflow](https://courseoverflow.vercel.app) to ge
 5. **Run the client side application**
 
    > From the clint directory
+
    ```bash
    cd client
    npm intall
@@ -105,3 +110,7 @@ Visit our project page [CourseOverflow](https://courseoverflow.vercel.app) to ge
 
 - [@Ansh Ujlayan](https://www.github.com/AnshUjlayan)
 - [@Pradyumna Singh](https://www.github.com/prady8339)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

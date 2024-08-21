@@ -1,3 +1,0 @@
-image upload line 113
-aspect ratio of the uploaded image should be 16 / 9. we may
-need to use a service for that.
